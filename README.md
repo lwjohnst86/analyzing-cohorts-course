@@ -1,27 +1,85 @@
-# Your Course Title Here
+# Analyzing Cohrt Data in R by Luke Johnston
 
 ## Course development resources
 
-* Course admin page: https://www.datacamp.com/teach/
-* Authoring documentation: https://authoring.datacamp.com/
+* Course admin page: https://www.datacamp.com/teach/repositories/2079
+* Authoring documentation: https://authoring.datacamp.com
 
-## Description
+*Please read the [example course specs][course-specs]
+and complete these steps in the `README.md` file in your course repository.
+If you need assistance,
+please speak with your Curriculum Lead.*
 
-*The course description is an opportunity for you to "sell" your course to students! Why is this an important topic? What are some interesting applications? What will they be able to do after taking your course? Here's an example from another course:*
+## Step 1: Brainstorming
 
-Once you've started learning tools for data manipulation and visualization like dplyr and ggplot2, this course gives you a chance to use them in action on a real dataset. You'll explore the historical voting of the United Nations General Assembly, including analyzing differences in voting between countries, across time, and among international issues. In the process you'll gain more practice with the dplyr and ggplot2 packages, learn about the broom package for tidying model output, and experience the kind of start-to-finish exploratory analysis common in data science.
+1. What problem(s) will students learn how to solve?
+2. What techniques or concepts will students learn?
+3. What technologies, packages, or functions will students use?
+4. What terms or jargon will you define?
+5. What analogies or heuristics will you use?
+6. What mistakes or misconceptions do you expect?
+7. What datasets will you use?
 
-## Learning objectives
+## Step 2: Who is this course for?
 
-*The learning objectives should be specific and action-oriented. What are the key takeaways from your course? Here are some examples:*
+Link to [student profiles][profile-site].
 
-* Learn principles of exploratory data analysis while using a combination of tools
-* Practice manipulating data with dplyr and visualizing data with ggplot2
-* Be introduced to the broom and tidyr packages for managing multiple tidy models
+* Student 1: discussion.
+* Student 2: discussion.
+* Student 3: discussion.
 
-## Prerequisites
+## Step 3: What will learners do along the way?
 
-*Which DataCamp courses cover topics that a student should be familiar with before attempting this course? Here are some examples:*
+Write full descriptions of a couple of significant exercises to show how far learners are likely to get.
 
-* [Introduction to R](https://www.datacamp.com/courses/free-introduction-to-r)
-* [Intermediate R](https://www.datacamp.com/courses/intermediate-r)
+### Title of Exercise
+
+> **Solution**
+>
+> Include sample code.
+
+### Other exercises
+
+- Exercise title 1
+  - Point-form description of exercise
+  - Two or three bullets is enough
+
+- Exercise title 2
+  - Another point-form description
+  - Again, two or three bullets is enough
+
+## Step 4: How are the concepts connected?
+
+- Chapter 1
+  - Lesson 1.1
+  - Lesson 1.2
+  - Lesson 1.3
+- Chapter 2
+  - Lesson 2.1
+  - Lesson 2.2
+  - Lesson 2.3
+
+The datasets are:
+
+- `path/to/dataset-1`: data set 1
+- `path/to/dataset-2`: data set 2
+
+## Step 5: Course overview
+
+**Course Description**
+
+One-paragraph description of the course.
+
+**Learning Objectives**
+
+- Objective 1
+- Objective 2
+- Objective 3
+
+**Prerequisites**
+
+- Prerequisite 1
+- Prerequisite 2
+
+[course-specs]: https://github.com/datacamp/example-course-specs
+[profile-site]: https://github.com/datacamp/learner-profiles
