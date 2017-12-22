@@ -1,4 +1,4 @@
-# Analyzing Cohrt Data in R by Luke Johnston
+# Analyzing Cohort Data in R by Luke Johnston
 
 ## Course development resources
 
