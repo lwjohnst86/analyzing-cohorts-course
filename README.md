@@ -96,9 +96,55 @@ very useful.
 
 ## Step 3: What will learners do along the way?
 
-Write full descriptions of a couple of significant exercises to show how far learners are likely to get.
+### Risk of developing a disease from exposures, over time 
 
-### Title of Exercise
+*(an "end" goal exercise)*
+
+(This could the final exercise. Q: How many lines of code is suitable for final
+exercise?)
+
+You are given a cohort dataset with information on disease and multiple
+exposures, measured multiple times over many years (need to find dataset
+suitable for this):
+
+```
+Participant,Time,DiseaseState,Exposure1,Exposure2,Exposure3,Covar1,Covar2
+1,1, ...
+1,2, ...
+1,3, ...
+2,1, ...
+2,2, ...
+....
+```
+
+What is the risk of disease of developing the disease for participants with 
+higher values of Exposure1-3? When adjusted for covar1 and 2? Plot the results
+of the models.
+
+(Comments: This can be spread over 2 exercises. Likely step by step build up of
+pieces.)
+
+> **Solution** (not tested)
+>
+> ```{r}
+> # Model
+model <- dataset %>% 
+gather(Exposure, ExpValue, Exp1:Exp3) %>% 
+nest(-Exposure) %>% 
+mutate(model = map_df(data, ~lmer(DiseaseState ~ ExpValue*Time + (1|Participant), data = .x)) %>% tidy()
+)
+> # plot
+model %>% 
+ggplot() +
+geom_pointrange(aes(x = estimate, xmin = conf.low, xmax = conf.high)) +
+facet_grid(~ Exposure)
+> ```
+
+### Time to event analysis
+
+*(an "end" goal exercise)*
+
+(Cox model, still need to fill this out)
 
 > **Solution**
 >
@@ -106,13 +152,45 @@ Write full descriptions of a couple of significant exercises to show how far lea
 
 ### Other exercises
 
-- Exercise title 1
-  - Point-form description of exercise
-  - Two or three bullets is enough
+- Running multiple models 
+    - Several possible routes here, either for several outcomes with several
+    exposures or for grouping variables ("stratified analysis", e.g. on
+    male/female).
+    - Could be several exercise types: Fill in the blanks, "faded" example (?)
+    - Potential example code:
+    ```
+    library(tidyverse)
+    library(broom)
+    dataset %>% 
+        select(variables_of_interest) %>% 
+        nest(-grouping_variable) %>% 
+        mutate(model = map_df(data, ~ glm(outcome ~ exposure + covariates, data = .,
+        family = binomial)))
+    ```
 
-- Exercise title 2
-  - Another point-form description
-  - Again, two or three bullets is enough
+- Transformations and interpretation
+    - A continuous exposure variable was log transformed before running a 
+    logistic regression. Here's the (toy) code:
+    ```
+    dataset %>% 
+    mutate(logExposure = log(Exposure)) %>% 
+    map_df(~glm(Disease ~ logExposure + covariate1, data = .x) %>% tidy(conf.int = TRUE))
+    ```
+    - An interpretation is given, but the interpretation of results assumes the
+    unit of the exposure is before log transform, which is inaccurate.
+    - Could be two exercises, one coded, another MCQ asking interpretation, and
+    another exercise with correct one. Or could be "This is the code and
+    interpretation. There is something wrong. Fix the code to get the correct
+    interpretation."
+
+- Manually calculate odds ratio, then through logistic regression
+    - Calculate OR, then do it in logistic regression that has been adjusted.
+    - Do two exercises. Code to get result, than MCQ to do interpretation, such as
+    "which description is the correct interpretation?"
+
+- Display the results of a regression analysis
+    - Will need to filter the model results first, select the relevant variables,
+    and graph the appropriate estimates.
 
 ## Step 4: How are the concepts connected?
 
