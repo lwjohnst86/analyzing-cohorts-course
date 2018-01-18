@@ -128,16 +128,16 @@ pieces.)
 >
 > ```{r}
 > # Model
-model <- dataset %>% 
-gather(Exposure, ExpValue, Exp1:Exp3) %>% 
-nest(-Exposure) %>% 
-mutate(model = map_df(data, ~lmer(DiseaseState ~ ExpValue*Time + (1|Participant), data = .x)) %>% tidy()
-)
+> model <- dataset %>% 
+> gather(Exposure, ExpValue, Exp1:Exp3) %>% 
+> nest(-Exposure) %>% 
+> mutate(model = map_df(data, ~lmer(DiseaseState ~ ExpValue*Time + (1|Participant), data = .x)) %>% tidy()
+> )
 > # plot
-model %>% 
-ggplot() +
-geom_pointrange(aes(x = estimate, xmin = conf.low, xmax = conf.high)) +
-facet_grid(~ Exposure)
+> model %>% 
+> ggplot() +
+> geom_pointrange(aes(x = estimate, xmin = conf.low, xmax = conf.high)) +
+> facet_grid(~ Exposure)
 > ```
 
 ### Time to event analysis
