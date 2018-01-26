@@ -1,0 +1,110 @@
+# Outline
+
+- Chapter 1: Introduction to analyzing cohorts
+    - Lessons: Workflow, types of cohorts, typical analyses
+    - Dataset:
+- Chapter 2: Cross-sectional analysis of cohort dataset (this could also be
+retrospective)
+    - Lessons: Typical feature (how to identify), typical analyses, OR vs RR,
+    interpretation (cautions, etc), strengths, weaknesses
+    - Dataset: PROMISE? IRAS?
+- Chapter 3: Retrospective cohort/case-control
+    - Lessons: Strengths, weaknesses, feature, exposed/non-exposed
+    - Dataset: Cervical cancer (STI vs cancer, etc)
+        - Link: https://archive.ics.uci.edu/ml/datasets/Cervical+cancer+%28Risk+Factors%29
+- Chapter 4: Prospective cohort (nested case-cohort?)
+    - Lessons: Time to event, panel study
+    - Dataset: "Panel" Framingham teaching dataset; 
+- Chapter 5: 
+    - Lessons:
+    - Dataset:
+
+# Chapter 1: Introduction to analyzing cohorts
+## Lesson 1:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 2:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 3:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 4:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+# Chapter 2:
+## Lesson 1:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 2:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 3:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 4:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+# Chapter 3: Retrospective cohort/case-control
+## Lesson 1: Features of retrospective cohorts, limitations and strengths 
+### Exercise 1: NE Occurence of disease (if applicable)
+### Exercise 2: MCQ Interpretations (with causation)
+### Exercise 3: MCQ Which (sim/fake) dataset is retrospective?
+## Lesson 2: Logistic regression, OR, and RR
+### Exercise 1: NE Calculate OR (simulated data) and RR. Compare.
+
+```{r}
+```
+
+### Exercise 2: MCQ Interpretation of OR vs RR vs probability.
+### Exercise 3: MCQ Multiple logistic regression interpretation
+## Lesson 3: Unadjusted vs adjusted
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 4: Interaction?
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+# Chapter 4:
+## Lesson 1:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 2:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 3:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 4:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+# Chapter 5:
+## Lesson 1:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 2:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 3:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
+## Lesson 4:
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:
