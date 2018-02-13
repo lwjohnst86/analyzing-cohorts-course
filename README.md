@@ -205,25 +205,36 @@ pieces.)
 
 The datasets are:
 
-- `path/to/dataset-1`: data set 1
-- `path/to/dataset-2`: data set 2
+- `framingham`: (need to generate the file) Framingham Heart Study.
+- `promise`: (need to confirm and add) PROMISE dataset.
 
 ## Step 5: Course overview
 
 **Course Description**
 
-One-paragraph description of the course.
+Cohorts are a powerful scientific study design that allows researchers to
+discover factors that can increase the risk of disease in a population.
+
+There are many ways to analyze cohort studies, with many different research
+questions that can be addressed. For this course, we will focus on the main
+purpose of using cohorts: to study how disease states occur in a population.
 
 **Learning Objectives**
 
-- Objective 1
-- Objective 2
-- Objective 3
+- identifying the type of analysis to use for the specific type of cohort data
+- how to appropriately and meaningfully interpret and present these results
+- how to check that data fits your assumptions about it (assertr maybe?
+exploratory data analysis?)
+- how to plot results from regression models (pointrange)
 
 **Prerequisites**
 
-- Prerequisite 1
-- Prerequisite 2
+- Correlation and Regression
+- Multiple and Logistic Regression
+- Statistical Modeling in R
+- dplyr?
+- purrr?
+- data visualization?
 
 [course-specs]: https://github.com/datacamp/example-course-specs
 [profile-site]: https://github.com/datacamp/learner-profiles
