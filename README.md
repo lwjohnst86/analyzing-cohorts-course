@@ -64,7 +64,9 @@ please speak with your Curriculum Lead.*
             - https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008
             - https://archive.ics.uci.edu/ml/datasets/Diabetes
             - https://archive.ics.uci.edu/ml/datasets/Cervical+cancer+%28Risk+Factors%29
-
+    - Likely use Cervical Cancer dataset
+        - https://archive.ics.uci.edu/ml/datasets/Cervical+cancer+%28Risk+Factors%29
+        
 <!--
 Resources or other courses from DataCamp to refer to:
     - Correlation and Regression
