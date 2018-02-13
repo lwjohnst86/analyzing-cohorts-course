@@ -1,6 +1,15 @@
 # Outline
 
-- Chapter 1: Introduction to analyzing cohorts
+(check if lme4 and rev dep packages have datasets I can use)
+- no lme4 does not have it. nor does geepack. Will check rev dep...
+
+- Datasets:
+    - Data in Epi package:
+        - `diet` subsample from cohort on incidence of CHD
+        - `nickel` cohort of nickel smelters with death (ICDs 162, 163 are lung
+        cancer and 160 is nasal cancer) (may need to use the `ewrates` data as a comparison group)
+
+- Chapter 1: Introduction to cohorts and analyzing
     - Lessons: Workflow, types of cohorts, typical analyses
     - Dataset:
 - Chapter 2: Cross-sectional analysis of cohort dataset (this could also be
