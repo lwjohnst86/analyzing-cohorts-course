@@ -69,3 +69,7 @@ hardest to easiest exercise:
         - time to event (survival)
         - panel study
         - nested case cohort studies
+
+# Resources:
+
+-  Clayton and Hills, Statistical Models in Epidemiology, Oxford University Press
