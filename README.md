@@ -209,6 +209,8 @@ The datasets are:
 
 - `framingham`: (need to generate the file) Framingham Heart Study.
 - `promise`: (need to confirm and add) PROMISE dataset.
+- `diet`: Diet and CHD (from Epi package)
+- `nickel` (with `ewrates`): From Epi (smelting workers, lung cancer) (not sure...)
 
 ## Step 5: Course overview
 
