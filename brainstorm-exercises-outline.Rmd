@@ -18,20 +18,64 @@ retrospective)
 - Chapter 5: 
     - Lessons:
     - Dataset:
+    
+Ideas:
+    - MCQ: here is a research question, here is the result of an analysis
+    (non-significant but wide CI that is protective). which is more appropriate
+    interpretation of the result:
+        - There is no association.
+        - while non-significant, this effect 
 
 # Chapter 1: Introduction to analyzing cohorts
-## Lesson 1:
-### Exercise 1:
+## Lesson 1: What is a cohort study?
+- Types of 
+- Prevalence vs incidence
+### Exercise 1: 
+MCQ: Scenarios to highlight which is prevalence, which is incidence.
+
 ### Exercise 2:
 ### Exercise 3:
-## Lesson 2:
-### Exercise 1:
-### Exercise 2:
+## Lesson 2: Typical analyses used
+- Statistics (more of a review, expect them to know what they are doing):
+    - Logistic regression
+    - Mixed effects modelling
+    - Cox hazards modelling
+
+### Exercise 1: 
+Text? or MCQ?: Show example data. Which statistics to use for this?
+Or maybe choose which stats belongs with which data type?
+
+### Exercise 2: 
+NE: Run logistic regression on data. Get relevant information from the model. 
+
 ### Exercise 3:
-## Lesson 3:
+NE: Run Mixed effects models on data. Get relevant information from the model. 
+
+### Exercise 4:
+NE: Run logistic regression on data. Get relevant information from the model. 
+
+## Lesson 3: Common workflow of analysis
+- Workflow steps:
+    1. Decide on specific research question and likely statistics to use.
+    2. Wrangle data into necessary form for use by statistics (choose variables,
+    filter, transform) (long vs wide, etc).
+    3. Apply stats/models to each research question.
+    4. Extract necessary information from the model output.
+    5. Backtransform/transform the results if necessary (for interpretation).
+    6. Show results preferably using figure, if appropriate, otherwise table.
+
 ### Exercise 1:
+Text? MCQ?: Which research question belongs with which dataset?
+
 ### Exercise 2:
+NE: 
+
 ### Exercise 3:
+
+### Exercise 4:
+
+### Exercise 5?:
+
 ## Lesson 4:
 ### Exercise 1:
 ### Exercise 2:
