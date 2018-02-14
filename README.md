@@ -1,4 +1,5 @@
 # Analyzing Cohort Data in R by Luke Johnston
+(Part 1? There is a lot to analyzing cohorts, this is the basic level...)
 
 ## Course development resources
 
@@ -64,7 +65,9 @@ please speak with your Curriculum Lead.*
             - https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008
             - https://archive.ics.uci.edu/ml/datasets/Diabetes
             - https://archive.ics.uci.edu/ml/datasets/Cervical+cancer+%28Risk+Factors%29
-
+    - Likely use Cervical Cancer dataset
+        - https://archive.ics.uci.edu/ml/datasets/Cervical+cancer+%28Risk+Factors%29
+        
 <!--
 Resources or other courses from DataCamp to refer to:
     - Correlation and Regression
@@ -205,25 +208,38 @@ pieces.)
 
 The datasets are:
 
-- `path/to/dataset-1`: data set 1
-- `path/to/dataset-2`: data set 2
+- `framingham`: (need to generate the file) Framingham Heart Study.
+- `promise`: (need to confirm and add) PROMISE dataset.
+- `diet`: Diet and CHD (from Epi package)
+- `nickel` (with `ewrates`): From Epi (smelting workers, lung cancer) (not sure...)
 
 ## Step 5: Course overview
 
 **Course Description**
 
-One-paragraph description of the course.
+Cohorts are a powerful scientific study design that allows researchers to
+discover factors that can increase the risk of disease in a population.
+
+There are many ways to analyze cohort studies, with many different research
+questions that can be addressed. For this course, we will focus on the main
+purpose of using cohorts: to study how disease states occur in a population.
 
 **Learning Objectives**
 
-- Objective 1
-- Objective 2
-- Objective 3
+- identifying the type of analysis to use for the specific type of cohort data
+- how to appropriately and meaningfully interpret and present these results
+- how to check that data fits your assumptions about it (assertr maybe?
+exploratory data analysis?)
+- how to plot results from regression models (pointrange)
 
 **Prerequisites**
 
-- Prerequisite 1
-- Prerequisite 2
+- Correlation and Regression
+- Multiple and Logistic Regression
+- Statistical Modeling in R
+- dplyr?
+- purrr?
+- data visualization?
 
 [course-specs]: https://github.com/datacamp/example-course-specs
 [profile-site]: https://github.com/datacamp/learner-profiles
