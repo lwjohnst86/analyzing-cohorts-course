@@ -36,34 +36,82 @@ Ideas:
         - while non-significant, this effect 
 
 # Chapter 1: Introduction to analyzing cohorts
+- State assumptions first about the data etc? (e.g. data already collected)
 ## Lesson 1: What is a cohort study?
-- Types of 
+- Types of cohort studies
 - Prevalence vs incidence
 ### Exercise 1: 
 MCQ: Scenarios to highlight which is prevalence, which is incidence.
+Or question about which data type/study type is retrospective (nickel data) vs
+prospective (framingham/diet).
 
-### Exercise 2:
+### Exercise 2: 
+NE: Calculate prevalent cases and incident cases?
+(Maybe a simple )
+First wrangle, then calculate.
 ### Exercise 3:
+
 ## Lesson 2: Typical analyses used
 - Statistics (more of a review, expect them to know what they are doing):
     - Logistic regression
     - Mixed effects modelling
-    - Cox hazards modelling
+- Choice of statistic is dependent on question asked.
+- In general, cohorts try to address questions such as:
+    - "what type of exposures increase the risk of disease?"
+    - "how much and how long do individuals need to be exposured to a risk factor
+    to develop the disease?"
+    - "For those that have a disease, how do they differ from those without?"
+    - "Those that have more exposure over time, are they more likely to develop a disease?"
+- These questions generally require some type of regression modelling in order to
+estimate magnitude of association and the uncertainty around that association.
 
 ### Exercise 1: 
 Text? or MCQ?: Show example data. Which statistics to use for this?
-Or maybe choose which stats belongs with which data type?
+Or maybe choose which stats belongs with which data type? Or which question
+belongs with which data and statistic?
 
 ### Exercise 2: 
-NE: Run logistic regression on data. Get relevant information from the model. 
+NE: Run summary statistics on those with the disease and those without.
+
+```{r}
+library(Epi)
+library(dplyr)
+library(broom)
+data("nickel")
+nickel %>% 
+    filter(icd %in% c(0, 160, 162, 163)) %>% 
+    group_by(icd) %>% 
+    summarize(mean = mean(exposure), sd = sd(exposure))
+
+load("datasets/framingham.rda")
+framingham %>% 
+    group_by(period, cvd) %>% 
+    # TODO: choose other variables.
+    summarize(meanChol = mean(totchol, na.rm = TRUE), meanBMI = mean(bmi, na.rm = TRUE))
+```
+
+We can already see that those who had a cancer were also exposed the most in the
+`nickel` dataset.
 
 ### Exercise 3:
-NE: Run Mixed effects models on data. Get relevant information from the model. 
-
-### Exercise 4:
 NE: Run logistic regression on data. Get relevant information from the model. 
 
+```{r}
+glm()
+```
+
+### Exercise 4:
+NE: Run Mixed effects models on data. Get relevant information from the model. 
+
 ## Lesson 3: Common workflow of analysis
+
+- Most analyses follow a common workflow:
+    - Ask the question and choose the statistical technique
+    - Wrangle the data into the appropriate format
+    - Carefully decide on potential confounders to adjust for in model (or stratified)
+    - Apply models to each question 
+    - Extract relevant information
+
 - Workflow steps:
     1. Decide on specific research question and likely statistics to use.
     2. Wrangle data into necessary form for use by statistics (choose variables,
