@@ -175,16 +175,16 @@ NE:
 ### Exercise 1:
 ### Exercise 2:
 ### Exercise 3:
-# Chapter 4:
-## Lesson 1:
+# Chapter 4: Prospective analysis
+## Lesson 1: Features
 ### Exercise 1:
 ### Exercise 2:
 ### Exercise 3:
-## Lesson 2:
+## Lesson 2: 
 ### Exercise 1:
 ### Exercise 2:
 ### Exercise 3:
-## Lesson 3:
+## Lesson 3: 
 ### Exercise 1:
 ### Exercise 2:
 ### Exercise 3:
