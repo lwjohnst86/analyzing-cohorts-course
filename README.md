@@ -1,4 +1,5 @@
 # Analyzing Cohort Data in R by Luke Johnston
+(Part 1? There is a lot to analyzing cohorts, this is the basic level...)
 
 ## Course development resources
 
