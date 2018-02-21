@@ -1,0 +1,79 @@
+
+# Chapter 1: Introduction to cohorts and types of research questions
+
+- general look of data, types of study designs
+- research questions able to be asked from data and impact on stats
+- Sources of bias
+- Incidence vs prevalence
+- Introduction to datasets we will use throughout
+
+# Chapter 1: Introduction to analyzing cohorts
+- State assumptions first about the data etc? (e.g. data already collected)
+## Lesson 1: What is a cohort study?
+- Types of cohort studies
+- Prevalence vs incidence
+
+### Exercise 1: 
+MCQ: Scenarios to highlight which is prevalence, which is incidence.
+Or question about which data type/study type is retrospective (nickel data) vs
+prospective (framingham/diet).
+
+### Exercise 2: Prevalence vs incidence
+NE: Calculate prevalent cases and incident cases?
+(Maybe a simple )
+First wrangle, then calculate.
+
+## Lesson 2: Typical analyses used
+- Statistics (more of a review, expect them to know what they are doing):
+    - Logistic regression
+    - Mixed effects modelling
+- Choice of statistic is dependent on question asked.
+- In general, cohorts try to address questions such as:
+    - "what type of exposures increase the risk of disease?"
+    - "how much and how long do individuals need to be exposured to a risk factor
+    to develop the disease?"
+    - "For those that have a disease, how do they differ from those without?"
+    - "Those that have more exposure over time, are they more likely to develop a disease?"
+- These questions generally require some type of regression modelling in order to
+estimate magnitude of association and the uncertainty around that association.
+
+### Exercise 1: Here's data and a question, which test to use?
+
+Text? or MCQ?: Show example data. Which statistics to use for this?
+Or maybe choose which stats belongs with which data type? Or which question
+belongs with which data and statistic?
+
+### Exercise 2: First steps, exploration
+NE: Run summary statistics on those with the disease and those without.
+
+```{r}
+library(dplyr)
+library(broom)
+load("datasets/nickel.rda")
+nickel %>% 
+    group_by(icd) %>% 
+    summarize(mean = mean(exposure), sd = sd(exposure))
+
+load("datasets/framingham.rda")
+framingham %>% 
+    group_by(period, cvd) %>% 
+    # TODO: choose other variables.
+    summarize(meanChol = mean(totchol, na.rm = TRUE), meanBMI = mean(bmi, na.rm = TRUE))
+```
+
+Note:
+We can already see that those who had a cancer were also exposed the most in the
+`nickel` dataset.
+
+## Lesson 3: Questions that can be asked of specific data
+
+- Workflow steps:
+    1. Decide on specific research question and likely statistics to use.
+
+### Exercise 1:
+Text? MCQ?: Which research question belongs with which dataset?
+
+## Lesson 4: Exploration continued, visually ...?
+### Exercise 1:
+### Exercise 2:
+### Exercise 3:

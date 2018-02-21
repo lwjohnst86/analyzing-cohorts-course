@@ -1,0 +1,22 @@
+
+# Chapter 4: Presentation your results
+
+- Backtransform based on what is most meaningful for presenting
+- Presenting the results in a plot or table
+
+## Lesson 2: Using statistics is easy, making *meaning* is hard
+
+- The importance of choosing the test most appropriate to the data, to the
+research design, and to the research questions.
+- Depending on the statistical test, how you transform your data can drastically
+change, for better or worse, how the results are interpreted and presented.
+- Most of the time, your target audience for your results/analysis of cohort
+studies is people in public health or government or clinicians... so you really
+need to make sure that your results are *understandable* to *them*, not to other
+data scientists or statisticians or epidemiologists (though you also need to 
+target them).
+
+### Exercise 1: Transforming, and then what?
+MCQ/text: 
+### Exercise 2: 
+NE: You have a 

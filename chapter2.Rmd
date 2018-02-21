@@ -1,0 +1,44 @@
+
+# Chapter 2: Data wrangling and formatting
+
+- Wrangling data to get into proper for statistics
+- Transforming for statistics if necessary
+
+## Lesson 1: Here's the data ... tidy it up!
+### Exercise 1: Which are untidy data?
+Identify tidy datasets given the statistical technique/study design
+(or which are wrong)
+
+- wrong ones (possibles):
+    - wide instead of long for longitudinal study
+    - wide instead of long for those with the disease and those without
+    - different character strings for same disease (rather than numbers), e.g.
+    "t2dm" and "dm" for diabetes status
+    - "excel" style of two datasets in one spreadsheet
+    - 
+
+### Exercise 2: So then, tidy it up!
+NE:
+
+... maybe two waves that need to be combined?
+
+```{r}
+
+```
+
+### Exercise 3: Long vs wide, or which side is which?
+NE: Sometimes analyses are more easily done with data all completely in a long
+form, either for plotting or for summarizing.
+
+```{r}
+
+```
+
+### Exercise 4: Data could be tidy, but not for analysis
+
+NE: We have a longitudinal cohort that has some variables 
+
+
+```{r}
+
+```
