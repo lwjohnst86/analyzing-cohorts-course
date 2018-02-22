@@ -1,0 +1,38 @@
+
+# Chapter 3: Running the statistical techniques
+
+- Run statistics on data
+    - Exercises using different techniques
+    - CI vs p-value... non-significant but still important
+- Extract results or numbers from model
+    - Using broom
+
+### Exercise 3: A simple logistic regression
+NE: Run logistic regression on data. Get relevant information from the model.
+Logistic regression is often used when studying how factors associate with disease
+(since disease state is usually binary: they have it or they don't)
+
+
+```{r}
+load("datasets/nickel.rda")
+glm()
+```
+
+### Exercise 4:
+NE: Run Mixed effects models on data. Get relevant information from the model. 
+
+### Exercise:
+- MCQ: here is a research question, here is the result of an analysis
+(non-significant but wide CI that is protective). which is more appropriate
+interpretation of the result:
+    - There is no association.
+    - while non-significant, this effect 
+
+## Lesson 2: Logistic regression, OR, and RR
+### Exercise 1: NE Calculate OR (simulated data) and RR. Compare.
+
+```{r}
+```
+
+### Exercise 2: MCQ Interpretation of OR vs RR vs probability.
+### Exercise 3: MCQ Multiple logistic regression interpretation
