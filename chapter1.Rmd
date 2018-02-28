@@ -21,6 +21,8 @@ or analytical techniques needed to analyze the data.
 **Lessons to achieve objectives:**
 
 - Purpose of cohort studies ... why have them and what do they provide.
+- Outline of course, focusing on workflow/process
+- Introduction to datasets we will use throughout
 - Intro to some jargon:
     - cohorts (all participants share a common characteristic), types, outcomes,
     predictors/exposure, risk factors (fill out as I go along)
