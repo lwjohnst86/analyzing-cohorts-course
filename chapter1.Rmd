@@ -49,13 +49,14 @@ or analytical techniques needed to analyze the data.
 - Incidence vs prevalence
 - odds ratio, relative risk, incidence rate ratio
     - risk estimate of some type, for instance of diseases that are not binary
-- Introduction to datasets we will use throughout
+    - which questions will need which statistic
 
-**Exercises outline:**
+**Exercises to reinforce learning:**
+
+{{needs more coding}}
 
 - MCQ/text: Series of examples of study designs and data collection protocols...
 identify which is prospective, retrospective, etc.
-- NE: (simple one) Extract the outcome and exposure from the {n} datasets
 - NE: Quickly look over data (simple, like head or something). Type out in order 
 which is prospective, which is retrospective, etc.
 - MCQ/text: List types of epidemiology studies... which are cohorts
@@ -63,11 +64,30 @@ which is prospective, which is retrospective, etc.
 interpretation point of view).
 - MCQ/text: General limitations of prospective cohorts (again from analytic or
 interpretation view)
-- 
+- MCQ/text: Given dataset, which questions can be asked based on data.
+- MCQ/text: Which question needs which statistic? (hmm maybe not)
+- Simpson's paradox? 
 
 ## Lesson 1: Cohort
 - Types of cohort studies
 - Prevalence vs incidence
+
+### Exercise: Extract outcome and expos
+NE: (simple one) Extract the outcome and exposure(s) from the {n} datasets
+
+```{r}
+# make the answer be slightly fluid since different exposures could be chosen.
+# But need to make sure that only specific exposures are chosen.
+framingham %>% 
+    select(cvd, totchol, bmi, hdlc)
+
+nickel %>% 
+    select(lungcancer, exposure) # need to confirm this
+
+dietchd %>% 
+    select(chd, y, energy, fat, fibre)
+```
+
 
 ### Exercise: 
 MCQ: Scenarios to highlight which is prevalence, which is incidence.
