@@ -6,6 +6,10 @@
     - CI vs p-value... non-significant but still important
 - Extract results or numbers from model
     - Using broom
+    
+- Simpson's paradox? need to consider subgroup analyses (interactions), especially
+for sex and ethnicity.
+- Danger of converting continuous to categorical
 
 ### Exercise 3: A simple logistic regression
 NE: Run logistic regression on data. Get relevant information from the model.
