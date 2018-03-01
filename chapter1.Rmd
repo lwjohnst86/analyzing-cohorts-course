@@ -8,17 +8,23 @@
 - Introduction to datasets we will use throughout
 
 # Chapter 1: Introduction to analyzing cohorts
+
 - State assumptions first about the data etc? (e.g. data already collected)
+
 ## Lesson 1: What is a cohort study?
+
 - Types of cohort studies
 - Prevalence vs incidence
+    - Refer to the course on descriptive statistics
 
 ### Exercise 1: 
+
 MCQ: Scenarios to highlight which is prevalence, which is incidence.
 Or question about which data type/study type is retrospective (nickel data) vs
 prospective (framingham/diet).
 
 ### Exercise 2: Prevalence vs incidence
+
 NE: Calculate prevalent cases and incident cases?
 (Maybe a simple )
 First wrangle, then calculate.
