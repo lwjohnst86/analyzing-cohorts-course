@@ -1,20 +1,82 @@
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+load("datasets/framingham.rda")
+load("datasets/nickel.rda")
+load("datasets/dietchd.rda")
+```
 
-# Chapter 2: Data wrangling and formatting
+# Chapter 2: Data exploring, wrangling and formatting
 
+- Look over data to find problems or fit to needs of research question
 - Wrangling data to get into proper for statistics
 - Transforming for statistics if necessary
 
 **Objectives**
 
--
+- How to get data into form for quick exploration
+- Know the various tools to transform the data and when is more appropriate to
+use them
+    - Know to be very careful of ever converting continuous into discrete
+- 
 
 **Lessons to achieve objectives:**
 
--
+- Exploring data (dot/boxplots, violinplots, correlation heatmap)
+    - Need to understand the data before doing any serious wrangling
+- Types of transformations and why to use them:
+    - Log: if data is highly skewed, if interested in output after
+    backtransforming of percent impact rather than on original unit impact
+    (often used)
+    - square: ... (rarely done)
+    - scaled: Put variables on same scale/unit (all become SD, fairly common)
+
 
 **Exercises to reinforce learning:**
 
-- 
+- NE: Here's a research question and a dataset. transform the data to be able to 
+get the results to be interpreted this specific way.
+
+### Exercise: Data exploration
+
+NE: Create a box and jitter plot of all the variables of interest, at the baseline visit:
+
+```{r ex_eda}
+fh_long <- framingham %>% 
+    filter(time == 0) %>% 
+    select(cvd, totchol, bmi, age) %>% 
+    gather(Variable, Value)
+    
+fh_long
+
+ggplot(fh_long, aes(x = Value)) +
+    geom_histogram() +
+    facet_grid(~ Variable, scales = "free")
+```
+
+### Exercise
+
+NE: Create a simple visual comparing the outcome with the exposures.
+
+```{r}
+framingham %>% 
+    select(time, cvd, totchol, age, bmi) %>% 
+    gather(Variable, Value, -time, -cvd) %>% 
+    mutate(cvd = as.factor(cvd)) %>% 
+    ggplot(aes(x = Value, group = cvd, fill = cvd)) +
+    geom_density(alpha = 0.6) +
+    facet_grid(~ Variable, scales = "free")
+```
+
+### Exercise
+
+NE: Create a line plot (or summary line plot if data too big) by individual.
+
+```{r}
+framing
+```
+
 
 ## Lesson 1: Here's the data ... tidy it up!
 
