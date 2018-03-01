@@ -4,7 +4,20 @@
 - Wrangling data to get into proper for statistics
 - Transforming for statistics if necessary
 
+**Objectives**
+
+-
+
+**Lessons to achieve objectives:**
+
+-
+
+**Exercises to reinforce learning:**
+
+- 
+
 ## Lesson 1: Here's the data ... tidy it up!
+
 ### Exercise 1: Which are untidy data?
 Identify tidy datasets given the statistical technique/study design
 (or which are wrong)

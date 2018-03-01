@@ -3,6 +3,8 @@
 
 - Backtransform based on what is most meaningful for presenting
 - Presenting the results in a plot or table
+- Danger of not showing all results or proper cautious interpretation, because
+lives are at risk.
 
 ## Lesson 2: Using statistics is easy, making *meaning* is hard
 
