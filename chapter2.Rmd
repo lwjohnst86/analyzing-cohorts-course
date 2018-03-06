@@ -7,7 +7,7 @@ load("datasets/nickel.rda")
 load("datasets/dietchd.rda")
 ```
 
-# Chapter 2: Data exploring, wrangling and formatting
+# Chapter 2: Data exploring, wrangling, and formatting
 
 - Look over data to find problems or fit to needs of research question
 - Wrangling data to get into proper for statistics
@@ -19,7 +19,9 @@ load("datasets/dietchd.rda")
 - Know the various tools to transform the data and when is more appropriate to
 use them
     - Know to be very careful of ever converting continuous into discrete
-- 
+    - Know when and why to transform variables (good reasons and bad)
+    - Reducing number of categories in categorical variable
+- Dealing with outliers (or not)
 
 **Lessons to achieve objectives:**
 
@@ -31,12 +33,56 @@ use them
     (often used)
     - square: ... (rarely done)
     - scaled: Put variables on same scale/unit (all become SD, fairly common)
+    - Transformation can be used to correct "violations in regression
+    assumptions", but this is not often important or necessary.
+    - Use transformations such as log if the variable is unitless, or there is
+    disagreement between studies on the specific unit, or if the unit value
+    varies between studies. That way the result is interpreted in a way that 
+    can be compared to previous and future studies.
+- Categorical variable modication:
+    - sometimes some categories are too small, so sometimes for model
+    interpretation and generalizability, grouping categories makes sense,
+    and to also balance the sample between groups.
 
 
 **Exercises to reinforce learning:**
 
 - NE: Here's a research question and a dataset. transform the data to be able to 
 get the results to be interpreted this specific way.
+- MCQ/text: Which transformation is best suited for the research question.
+
+### Exercise: Reduce number of categories in these datasets
+
+```{r}
+library(forcats)
+fh_educ <- framingham %>% 
+    mutate(educ_reduced = fct_recode(
+        educ, 
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+fct_count(fh_educ$educ_reduced)
+# TODO: Add another dataset to reduce categories e.g. PROMISE and ethnicity
+```
+
+
+### Exercise: Comparison between different log transformations
+
+```{r}
+# TODO: show a cohort with continuous outcome, and log that
+fh_transformed <- framingham %>% 
+    mutate(scale_bmi = scale(bmi),
+           log_bmi = log(bmi))
+
+fh_transformed %>% 
+    select(contains("bmi")) %>% 
+    gather(bmi_variable, bmi_value) %>% 
+    ggplot(aes(x = bmi_value)) +
+    geom_histogram() +
+    facet_grid( ~ bmi_variable, scale = "free")
+```
+
 
 ### Exercise: Data exploration
 
