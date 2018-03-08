@@ -16,6 +16,7 @@ load("datasets/dietchd.rda")
 **Objectives**
 
 - How to get data into form for quick exploration
+- How to wrangle the data to get into a form to use for the analysis/statistic
 - Know the various tools to transform the data and when is more appropriate to
 use them
     - Know to be very careful of ever converting continuous into discrete
@@ -27,6 +28,9 @@ use them
 
 - Exploring data (dot/boxplots, violinplots, correlation heatmap)
     - Need to understand the data before doing any serious wrangling
+- Longitudinal data in wide format
+    - converting into long for use by statistical techniques (e.g. mixed effects)
+    - talk about tidy data
 - Types of transformations and why to use them:
     - Log: if data is highly skewed, if interested in output after
     backtransforming of percent impact rather than on original unit impact
@@ -39,6 +43,7 @@ use them
     disagreement between studies on the specific unit, or if the unit value
     varies between studies. That way the result is interpreted in a way that 
     can be compared to previous and future studies.
+    - Don't convert continuous to discrete. There could be non-linear relationships
 - Categorical variable modication:
     - sometimes some categories are too small, so sometimes for model
     interpretation and generalizability, grouping categories makes sense,
@@ -50,6 +55,23 @@ use them
 - NE: Here's a research question and a dataset. transform the data to be able to 
 get the results to be interpreted this specific way.
 - MCQ/text: Which transformation is best suited for the research question.
+
+### Exercise: Wide to long for longitudinal data
+
+TODO: I'll need to wrangle one of the datasets to fit this form for this exercise.
+Some cohort studies do this, but many don't. Still important to know how to do.
+
+```{r}
+dataname %>% 
+    gather(Measure, Value, -SubjectID) %>%
+    print() %>% # to show what it looks like
+    separate("Measure", into = c("Measure", "Time"), sep = "_") %>%  
+    # _ is one of many separations.
+    print() %>% # show what it looks like
+    spread(Measure, Value)
+    
+```
+
 
 ### Exercise: Reduce number of categories in these datasets
 
