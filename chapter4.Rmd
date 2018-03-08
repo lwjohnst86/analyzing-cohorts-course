@@ -1,3 +1,11 @@
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+load("datasets/framingham.rda")
+load("datasets/nickel.rda")
+load("datasets/dietchd.rda")
+```
 
 # Chapter 4: Presentation your results
 
@@ -5,6 +13,37 @@
 - Presenting the results in a plot or table
 - Danger of not showing all results or proper cautious interpretation, because
 lives are at risk.
+
+**Objectives**
+
+- Give careful thought into how to best show results in a understandable and
+impactful way for public health professionals and clinicians.
+- Emphasize figures over tables, but know when to use either.
+- Be cautious in interpreting "non-significant" findings, since they could also
+have meaningful clinical implications.
+
+**Lessons to achieve objectives:**
+
+- Highlighting uncertainty and magnitude of results over "statistical significance"
+
+**Exercises to reinforce learning:**
+
+- MCQ/text: A finding shows that a exposure has a OR of 0.80 (0.59, 1.01 95% CI).
+The paper says the association was non-significant and don't further discuss it.
+Without knowing the specifics of the actual analysis, which choices would suggest
+the paper should have discussed the association more {{wording}}:
+    - effect of type of milk on premature infant mortality
+    - others, fill out...
+
+### Exercise: estimate and CI plot
+
+```{r}
+# TODO: Use previous results (or just provide the result dataframe so they can start plotting)
+results %>% 
+    ggplot(aes(y = models, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_errorbarh(aes(height = 0.2))
+```
+
 
 ## Lesson 2: Using statistics is easy, making *meaning* is hard
 
