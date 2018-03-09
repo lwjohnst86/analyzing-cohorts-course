@@ -21,19 +21,51 @@ impactful way for public health professionals and clinicians.
 - Emphasize figures over tables, but know when to use either.
 - Be cautious in interpreting "non-significant" findings, since they could also
 have meaningful clinical implications.
+    - Especially with "causal" language
 
 **Lessons to achieve objectives:**
 
 - Highlighting uncertainty and magnitude of results over "statistical significance"
+- What to show when using tables
+    - Disparate estimates from models or results (e.g. showing results from full 
+    model, that includes both discrete and continuous exposures)
+- Backtransforming for maximal interpretation and meaning
+- When to use stronger causal language
+    - Often argued that only Randomized Controlled Trials or animal/cell experiments 
+    can use causal language, but that isn't always true.
+    - Bradford Hill criteria (e.g. being smoking and lung cancer)
 
 **Exercises to reinforce learning:**
 
+- MCQ/text: Which of these choices is most appropriate for using causal language.
+    - ...
 - MCQ/text: A finding shows that a exposure has a OR of 0.80 (0.59, 1.01 95% CI).
 The paper says the association was non-significant and don't further discuss it.
 Without knowing the specifics of the actual analysis, which choices would suggest
 the paper should have discussed the association more {{wording}}:
     - effect of type of milk on premature infant mortality
     - others, fill out...
+    
+### Exercise: Backtransforming of results
+
+```{r}
+results %>% 
+    # If exposures were logged... interpreted as percent difference
+    mutate_at(vars(estimate, conf.low, conf.high), funs(exp(. - 1) * 100))
+# TODO: add others transformations.
+```
+
+
+### Exercise: Creating a markdown table of the results
+
+```{r}
+results %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), funs(round(., 2))) %>% 
+    mutate(EstCI = stringr::str_c(estimate, " (", conf.low, ", ", conf.high, ")")) %>% 
+    select(Exposures = terms, `Estimate (95% CI)` = EstCI) %>% 
+    knitr::kable(caption = "Regression results of exposures on the outcome. {{expand}}")
+```
+
 
 ### Exercise: estimate and CI plot
 
@@ -41,9 +73,9 @@ the paper should have discussed the association more {{wording}}:
 # TODO: Use previous results (or just provide the result dataframe so they can start plotting)
 results %>% 
     ggplot(aes(y = models, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_errorbarh(aes(height = 0.2))
+    geom_errorbarh(aes(height = 0.2)) +
+    facet_grid( ~ outcomes, scales = "free")
 ```
-
 
 ## Lesson 2: Using statistics is easy, making *meaning* is hard
 
