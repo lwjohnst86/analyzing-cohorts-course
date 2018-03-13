@@ -22,20 +22,27 @@ impactful way for public health professionals and clinicians.
 - Be cautious in interpreting "non-significant" findings, since they could also
 have meaningful clinical implications.
 - Use cautious language when presenting results
+    - Especially with "causal" language
 
 **Lessons to achieve objectives:**
 
 - Highlighting uncertainty and magnitude of results over "statistical significance"
 - Types of backtransformation and impact on interpretation. (Should this be in
 chapter 3?)
-    - 
-- Depending on magnitude of finding, can use stronger causal language.
-    - e.g. with smoking and lung cancer
-    - Bradford Hill criteria
 - Table or figure? When to use either
     - Above all, try to use a figure. They tend to show results the best,
     quickest, and are more intuitive/understandable then tables.
     - But not all results work in a figure.
+- What to show when using tables
+    - Disparate estimates from models or results (e.g. showing results from full 
+    model, that includes both discrete and continuous exposures)
+- Backtransforming for maximal interpretation and meaning
+- When to use stronger causal language
+    - Depending on magnitude of finding, can use stronger causal language.
+    - e.g. with smoking and lung cancer
+    - Often argued that only Randomized Controlled Trials or animal/cell experiments 
+    can use causal language, but that isn't always true.
+    - Bradford Hill criteria (e.g. being smoking and lung cancer)
 
 **Exercises to reinforce learning:**
 
@@ -67,6 +74,26 @@ that can have health impacts, its important to focus on the important parts ...
 the magnitude of association, not on some arbitrary p-value threshold. The
 magnitude is more informative, especially for clinicians and public health
 practitioners.
+    
+### Exercise: Backtransforming of results
+
+```{r}
+results %>% 
+    # If exposures were logged... interpreted as percent difference
+    mutate_at(vars(estimate, conf.low, conf.high), funs(exp(. - 1) * 100))
+# TODO: add others transformations.
+```
+
+
+### Exercise: Creating a markdown table of the results
+
+```{r}
+results %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), funs(round(., 2))) %>% 
+    mutate(EstCI = stringr::str_c(estimate, " (", conf.low, ", ", conf.high, ")")) %>% 
+    select(Exposures = terms, `Estimate (95% CI)` = EstCI) %>% 
+    knitr::kable(caption = "Regression results of exposures on the outcome. {{expand}}")
+```
 
 ### Exercise: estimate and CI plot
 
@@ -74,9 +101,9 @@ practitioners.
 # TODO: Use previous results (or just provide the result dataframe so they can start plotting)
 results %>% 
     ggplot(aes(y = models, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_errorbarh(aes(height = 0.2))
+    geom_errorbarh(aes(height = 0.2)) +
+    facet_grid( ~ outcomes, scales = "free")
 ```
-
 
 ## Lesson 2: Using statistics is easy, making *meaning* is hard
 
