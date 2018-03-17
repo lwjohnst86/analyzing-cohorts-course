@@ -1,0 +1,6 @@
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+load("datasets/framingham.rda")
+load("datasets/nickel.rda")
+load("datasets/dietchd.rda")
