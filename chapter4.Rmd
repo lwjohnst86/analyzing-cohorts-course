@@ -1,10 +1,5 @@
 ```{r}
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-load("datasets/framingham.rda")
-load("datasets/nickel.rda")
-load("datasets/dietchd.rda")
+source("preamble.R")
 ```
 
 # Chapter 4: Presentation your results
@@ -21,30 +16,59 @@ impactful way for public health professionals and clinicians.
 - Emphasize figures over tables, but know when to use either.
 - Be cautious in interpreting "non-significant" findings, since they could also
 have meaningful clinical implications.
+- Use cautious language when presenting results
     - Especially with "causal" language
 
 **Lessons to achieve objectives:**
 
 - Highlighting uncertainty and magnitude of results over "statistical significance"
+- Types of backtransformation and impact on interpretation. (Should this be in
+chapter 3?)
+- Table or figure? When to use either
+    - Above all, try to use a figure. They tend to show results the best,
+    quickest, and are more intuitive/understandable then tables.
+    - But not all results work in a figure.
 - What to show when using tables
     - Disparate estimates from models or results (e.g. showing results from full 
     model, that includes both discrete and continuous exposures)
 - Backtransforming for maximal interpretation and meaning
 - When to use stronger causal language
+    - Depending on magnitude of finding, can use stronger causal language.
+    - e.g. with smoking and lung cancer
     - Often argued that only Randomized Controlled Trials or animal/cell experiments 
     can use causal language, but that isn't always true.
     - Bradford Hill criteria (e.g. being smoking and lung cancer)
 
 **Exercises to reinforce learning:**
 
-- MCQ/text: Which of these choices is most appropriate for using causal language.
-    - ...
+- MCQ/text: Which is the most appropriate language to use when describing these
+results:
+    - {large effect size} {strong causal language}
+    - .. etc. fill out later.
 - MCQ/text: A finding shows that a exposure has a OR of 0.80 (0.59, 1.01 95% CI).
 The paper says the association was non-significant and don't further discuss it.
 Without knowing the specifics of the actual analysis, which choices would suggest
 the paper should have discussed the association more {{wording}}:
-    - effect of type of milk on premature infant mortality
+    - effect of type of milk (or feeding) on premature infant mortality
     - others, fill out...
+- MCQ/text: Which results/analyses would be best as a table or as a figure?
+    - ...
+    
+### Exercise: Create a table of the results
+
+```{r}
+results %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    mutate(EstCI = glue::glue("{estimate} ({conf.low}, {conf.high})")) %>% # or stringr::str_c or paste0
+    select(Model, Predictors = terms, `Estimate (95% CI)` = EstCI) %>% 
+    knitr::kable(caption = "Caption here") # or pander
+```
+
+Notice how the p-value is not included here. When trying to communicate results
+that can have health impacts, its important to focus on the important parts ... 
+the magnitude of association, not on some arbitrary p-value threshold. The
+magnitude is more informative, especially for clinicians and public health
+practitioners.
     
 ### Exercise: Backtransforming of results
 
@@ -65,7 +89,6 @@ results %>%
     select(Exposures = terms, `Estimate (95% CI)` = EstCI) %>% 
     knitr::kable(caption = "Regression results of exposures on the outcome. {{expand}}")
 ```
-
 
 ### Exercise: estimate and CI plot
 

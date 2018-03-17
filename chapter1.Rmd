@@ -1,8 +1,5 @@
 ```{r}
-library(dplyr)
-load("datasets/framingham.rda")
-load("datasets/nickel.rda")
-load("datasets/dietchd.rda")
+source("preamble.R")
 ```
 
 # Chapter 1: Introduction to cohorts and types of research questions
@@ -31,7 +28,8 @@ or analytical techniques needed to analyze the data.
     disease), cross-sectional analysis of cohort (based on type of data
     available), nested case-control (won't necessarily be teaching how to
     analyze all these, will teach about the process for working with this type
-    of data and what is important to present).
+    of data and what is important to present; note, these designs are very
+    economically efficient and also very powerful... high cost-benefit ratio).
 - General look of data:
     - Show how the data looks:
         - baseline visit with disease status followup (time to disease, or age
