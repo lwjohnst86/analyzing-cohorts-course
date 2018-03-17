@@ -1,3 +1,6 @@
+```{r}
+source("preamble.R")
+```
 
 # Chapter 3: Running the statistical techniques
 
