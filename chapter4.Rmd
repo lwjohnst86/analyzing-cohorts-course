@@ -18,6 +18,7 @@ impactful way for public health professionals and clinicians.
 have meaningful clinical implications.
 - Use cautious language when presenting results
     - Especially with "causal" language
+- Discuss STROBE guidelines in context of longitudinal study.
 
 **Lessons to achieve objectives:**
 

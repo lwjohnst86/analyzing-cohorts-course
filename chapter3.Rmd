@@ -1,4 +1,4 @@
-```{r}
+```{r setup}
 source("preamble.R")
 ```
 
@@ -12,7 +12,6 @@ source("preamble.R")
     
 - Simpson's paradox? need to consider subgroup analyses (interactions), especially
 for sex and ethnicity.
-- Danger of converting continuous to categorical
 
 **Objectives:**
 
@@ -44,13 +43,19 @@ inform clinical and public health policy (find examples?)
 in one of the other epi courses, so be brief here).
     - What does adjustment mean when time is included? Gets trickier. This is why
     cross-sectional analyses are simpler analytically.
+    - Danger of not controlling for variables: Simpson's Paradox. Can lead to actual
+    harm if analyses not thought through and properly analyzed.
+    - Techniques to determine what to adjust for (DAG, literature, IC)
+- Interaction testing, especially for sex and ethnicity (common requirement in order
+to publish)
 
 **Exercises to reinforce learning:**
 
-- NE: Compare using logistic regression vs mixed effects for prospective cohort...
-see how standard errors get inflated because of the impact that including time has.
-- NE: Run model without adjusting, with adjusting, and lastly with adjusting for an
-inappropriate variable (how that changes things)
+- MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
+follow (or write out which) are the important variables to consider/adjust for.
+- MCQ/text: Which are the most appropriate interpretations for OR, RR, IRR?
+- NE: Interaction testing for prospective study. Interpretation
+- NE: Coding example of Simpson's paradox in health setting (real world example?)
 - NE: Use model information criterion methods, identify which model is "best fit"
 - MCQ/text: Describe different impact of adjusting, etc. including collider variables.
 How does that change the interpretation? How can this influence the health impacts
@@ -59,6 +64,53 @@ if inappropriately published?
 what does that mean for interpretation?
 - NE: Maybe exercise where some observations are removed and show how that impacts
 the p-value...? to highlight how unreliable it is?
+- MCQ: here is a research question, here is the result of an analysis
+(non-significant but wide CI that is protective). which is more appropriate
+interpretation of the result:
+    - There is no association.
+    - while non-significant, this effect 
+
+### Exercise
+
+NE: Compare using logistic regression vs mixed effects for prospective cohort...
+see how standard errors get inflated because of the impact that including time has.
+
+```{r}
+# TODO: Check to confirm exponentiating of output.
+logistic_model <- glm(prevchd ~ totchol + period, data = framingham, family = binomial)
+tidy(logistic_model, conf.int = TRUE, exponentiate = TRUE) %>% 
+    select(term, estimate, conf.low, conf.high)
+
+mixed_model <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
+tidy(mixed_model, conf.int = TRUE) %>% 
+    select(term, estimate, conf.low, conf.high)
+
+```
+
+
+### Exercise
+
+NE: Run model without adjusting, with adjusting, and lastly with adjusting for an
+inappropriate variable (how that changes things)
+
+```{r}
+# TODO: Confirm that period and randid are sorted properly.
+# TODO: Confirm that cvd variable is the right one (from raw data).
+# TODO: Check that tidy exponentiation works for this method.
+unadjusted <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
+tidy(unadjusted, conf.int = TRUE)
+
+adjusted <- lmer(prevchd ~ totchol + sex + cursmoke + period + (1 | randid), data = framingham)
+tidy(adjusted, conf.int = TRUE)
+
+inappropriate <- lmer(prevchd ~ totchol + sex + cursmoke + age + period + (1 | randid), data = framingham)
+tidy(inappropriate, conf.int = TRUE)
+```
+
+### Exercise: Followup MCQ/text to above
+
+Given the results, what are some possible conclusions/interpretations?
+How might the adjustment for age AND period influence the results?
 
 ### Exercise 3: A simple logistic regression
 NE: Run logistic regression on data. Get relevant information from the model.
@@ -70,16 +122,3 @@ Logistic regression is often used when studying how factors associate with disea
 load("datasets/nickel.rda")
 glm()
 ```
-
-### Exercise 4:
-NE: Run Mixed effects models on data. Get relevant information from the model. 
-
-### Exercise:
-- MCQ: here is a research question, here is the result of an analysis
-(non-significant but wide CI that is protective). which is more appropriate
-interpretation of the result:
-    - There is no association.
-    - while non-significant, this effect 
-
-## Lesson 2: Logistic regression, OR, and RR
-### Exercise 3: MCQ Multiple logistic regression interpretation
