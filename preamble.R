@@ -1,6 +1,8 @@
 library(dplyr)
 library(ggplot2)
 library(tidyr)
+library(lme4)
+library(broom)
 load("datasets/framingham.rda")
 load("datasets/nickel.rda")
 load("datasets/dietchd.rda")
