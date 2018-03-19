@@ -1,4 +1,4 @@
-```{r}
+```{r setup}
 source("preamble.R")
 ```
 
