@@ -15,14 +15,14 @@ that the test will dictate how the data should look.
 - Know where to look and what resources to use if you can't find the statistical
 or analytical techniques needed to analyze the data.
 
-**Lessons to achieve objectives:**
+## Lesson 1: Introduction to cohort designs
 
+*Content*
 - Purpose of cohort studies ... why have them and what do they provide.
-- Outline of course, focusing on workflow/process
-- Introduction to datasets we will use throughout
 - Intro to some jargon:
     - cohorts (all participants share a common characteristic), types, outcomes,
     predictors/exposure, risk factors (fill out as I go along)
+- Outline of course, focusing on workflow/process
 - Types of cohort designs:
     - Prospective (no exposure, no disease), retrospective (exposure, but no
     disease), cross-sectional analysis of cohort (based on type of data
@@ -30,6 +30,30 @@ or analytical techniques needed to analyze the data.
     analyze all these, will teach about the process for working with this type
     of data and what is important to present; note, these designs are very
     economically efficient and also very powerful... high cost-benefit ratio).
+- Incidence vs prevalence
+
+### Exercise: Which is which study type?
+
+Usually 
+
+- MCQ/text: Series of examples of study designs and data collection protocols...
+identify which is prospective, retrospective, etc.
+
+### Exercise: (maybe)
+
+MCQ: Scenarios to highlight which is prevalence, which is incidence.
+Or question about which data type/study type is retrospective (nickel data) vs
+prospective (framingham/diet).
+
+### Exercise: What type of cohort design is this dataset?
+
+NE/MCQ with console: Here is a dataset. Which of the options is the design?
+{{maybe as a bullet exercise with multiple datasets and different MCQ responses.}}
+
+## Lesson 2: Typical analyses used
+
+*Content*
+- Introduction to datasets we will use throughout
 - General look of data:
     - Show how the data looks:
         - baseline visit with disease status followup (time to disease, or age
@@ -40,37 +64,23 @@ or analytical techniques needed to analyze the data.
         variables mean, so need to refer to the documentation.
     - State assumptions first about the data (e.g. data already collected), this
     is not a course on how to conduct and collect cohort data.
-- research questions able to be asked from data and impact on stats
-    - retrospective, can ask questions like:
-        - 
-- Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
-- Incidence vs prevalence
-- State assumptions first about the data etc? (e.g. data already collected)
-- odds ratio, relative risk, incidence rate ratio
-    - risk estimate of some type, for instance of diseases that are not binary
-    - which questions will need which statistic
 
-**Exercises to reinforce learning:**
-
-{{needs more coding}}
-
-- MCQ/text: Series of examples of study designs and data collection protocols...
-identify which is prospective, retrospective, etc.
+*Exercises*
 - NE: Quickly look over data (simple, like head or something). Type out in order 
 which is prospective, which is retrospective, etc.
-- MCQ/text: List types of epidemiology studies... which are cohorts
 - MCQ/text: Limitation of retrospective over prospective (from an analytic and
 interpretation point of view).
 - MCQ/text: General limitations of prospective cohorts (again from analytic or
 interpretation view)
-- MCQ/text: Given dataset, which questions can be asked based on data.
-- MCQ/text: Which question needs which statistic? (hmm maybe not)
-- Simpson's paradox? 
 
-## Lesson 1: What is a cohort study?
-- Types of cohort studies
-- Prevalence vs incidence
-    - Refer to the course on descriptive statistics
+### Exercise: Number of disease states
+
+NE: Calculate the number of cases of each disease (at each time point if needed).
+
+```{r}
+
+```
+
 
 ### Exercise: Extract outcome and expos
 NE: (simple one) Extract the outcome and exposure(s) from the {n} datasets
@@ -88,33 +98,6 @@ dietchd %>%
     select(chd, y, energy, fat, fibre)
 ```
 
-
-### Exercise: 
-
-MCQ: Scenarios to highlight which is prevalence, which is incidence.
-Or question about which data type/study type is retrospective (nickel data) vs
-prospective (framingham/diet).
-
-### Exercise: Prevalence vs incidence .. maybe not
-
-NE: Calculate prevalent cases and incident cases?
-(Maybe a simple )
-First wrangle, then calculate.
-
-## Lesson 2: Typical analyses used
-- Statistics (more of a review, expect them to know what they are doing):
-    - Logistic regression
-    - Mixed effects modelling
-- Choice of statistic is dependent on question asked.
-- In general, cohorts try to address questions such as:
-    - "what type of exposures increase the risk of disease?"
-    - "how much and how long do individuals need to be exposured to a risk factor
-    to develop the disease?"
-    - "For those that have a disease, how do they differ from those without?"
-    - "Those that have more exposure over time, are they more likely to develop a disease?"
-- These questions generally require some type of regression modelling in order to
-estimate magnitude of association and the uncertainty around that association.
-
 ### Exercise 1: Here's data and a question, which test to use?
 
 Text? or MCQ?: Show example data. Which statistics to use for this?
@@ -122,6 +105,7 @@ Or maybe choose which stats belongs with which data type? Or which question
 belongs with which data and statistic?
 
 ### Exercise 2: First steps, exploration
+
 NE: Run summary statistics on those with the disease and those without.
 
 ```{r}
@@ -143,15 +127,24 @@ Note:
 We can already see that those who had a cancer were also exposed the most in the
 `nickel` dataset.
 
-## Lesson 3: Questions that can be asked of specific data
+## Lesson 3: Scientific questions that can be asked of cohort data
 
-- Workflow steps:
-    1. Decide on specific research question and likely statistics to use.
+*Content*
+- research questions able to be asked from data and impact on stats
+    - retrospective, can ask questions like:
+- {{Add more here}}
+
+*Exercises*
+- MCQ/text: Given dataset, which questions can be asked based on data.
+- MCQ/text: Which question needs which statistic? (hmm maybe not)
+- Simpson's paradox? 
 
 ### Exercise 1:
 Text? MCQ?: Which research question belongs with which dataset?
 
-## Lesson 4: Exploration continued, visually ...?
-### Exercise 1:
-### Exercise 2:
-### Exercise 3:
+# Extra
+
+- Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
+- odds ratio, relative risk, incidence rate ratio
+    - risk estimate of some type, for instance of diseases that are not binary
+    - which questions will need which statistic
