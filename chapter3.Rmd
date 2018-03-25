@@ -46,17 +46,19 @@ in one of the other epi courses, so be brief here).
     - Danger of not controlling for variables: Simpson's Paradox. Can lead to actual
     harm if analyses not thought through and properly analyzed.
     - Techniques to determine what to adjust for (DAG, literature, IC)
+    - Model selection (AIC, BIC, Cross-validation; when to use each)
 - Interaction testing, especially for sex and ethnicity (common requirement in order
 to publish)
 
 **Exercises to reinforce learning:**
 
+- MCQ: Which options would be most appropriate for using various model selection techniques?
+    - list different conditions with possible methods.
+- NE: Cross-validation of a model.
 - MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
 follow (or write out which) are the important variables to consider/adjust for.
 - MCQ/text: Which are the most appropriate interpretations for OR, RR, IRR?
-- NE: Interaction testing for prospective study. Interpretation
 - NE: Coding example of Simpson's paradox in health setting (real world example?)
-- NE: Use model information criterion methods, identify which model is "best fit"
 - MCQ/text: Describe different impact of adjusting, etc. including collider variables.
 How does that change the interpretation? How can this influence the health impacts
 if inappropriately published?
@@ -69,6 +71,29 @@ the p-value...? to highlight how unreliable it is?
 interpretation of the result:
     - There is no association.
     - while non-significant, this effect 
+
+### Exercise
+
+- NE: Interaction testing for prospective study. Interpretation
+
+### Exercise
+
+- NE: When you are unsure of which variables may provide a better fit and maybe
+explain the model and results more, using model information criterion methods can
+help narrow the possible models down. For instance, when deciding on appropriate
+covariates to adjust for. Run this command to identify which model is the "best"
+of those compared.
+
+```{r}
+# TODO: Make more appropriate models (more typically seen in real analyses).
+# TODO: Confirm that MuMIn is the best package for learners to use.
+library(MuMIn)
+m1 <- glm(cvd ~ totchol, data = framingham, family = binomial)
+m2 <- glm(cvd ~ totchol + sex, data = framingham, family = binomial)
+m3 <- glm(cvd ~ totchol + sex + bmi, data = framingham, family = binomial)
+
+model.sel(m1, m2, m3)
+```
 
 ### Exercise
 
