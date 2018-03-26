@@ -30,27 +30,38 @@ or analytical techniques needed to analyze the data.
     analyze all these, will teach about the process for working with this type
     of data and what is important to present; note, these designs are very
     economically efficient and also very powerful... high cost-benefit ratio).
+    - Briefly why it is important to know study type (can change which stats you
+    use and what interpretation you have).
 - Incidence vs prevalence
+- Variables: outcomes vs exposures/predictors
 
 ### Exercise: Which is which study type?
 
-Usually 
+{{BulletExercise?}}
 
-- MCQ/text: Series of examples of study designs and data collection protocols...
-identify which is prospective, retrospective, etc.
+Usually the study design is explicitly stated in the study protocols, however,
+it can be sometimes tricky to differentiate between the different cohort types.
+Here are a couple examples of study collection protocols. Which protocols are
+which study design?
 
-### Exercise: (maybe)
+### Exercise: What type of cohort design is this dataset? (maybe)
 
-MCQ: Scenarios to highlight which is prevalence, which is incidence.
-Or question about which data type/study type is retrospective (nickel data) vs
-prospective (framingham/diet).
+{{MCQ with console}}
 
-### Exercise: What type of cohort design is this dataset?
+Take a look at these datasets. {{very simply describe these datasets}}. What 
+cohort designs are each of these datasets?
 
-NE/MCQ with console: Here is a dataset. Which of the options is the design?
-{{maybe as a bullet exercise with multiple datasets and different MCQ responses.}}
+### Exercise: When can prevalence or incidence be calculated? (maybe... or stick with below..?)
 
-## Lesson 2: Typical analyses used
+{{MCQ with console or NE?}}
+
+The type of cohort design restricts what you can calculate. Using simple measures
+such as `table` or `group_by` with `count`, which of the below responses are accurate?
+
+{{Provide responses with possible numbers of prev/incid? Or just straight NE
+to calculate incidence/prevalence?}}
+
+## Lesson 2: Introduction to the datasets and exploring them
 
 *Content*
 - Introduction to datasets we will use throughout
@@ -68,19 +79,16 @@ NE/MCQ with console: Here is a dataset. Which of the options is the design?
 *Exercises*
 - NE: Quickly look over data (simple, like head or something). Type out in order 
 which is prospective, which is retrospective, etc.
+
+### Exercise: Analytic and interpretation limitations of each study design
+
+{{BulletExercise or TabExercise?}}
+
+1. There are some analytic limitations to each study design. 
 - MCQ/text: Limitation of retrospective over prospective (from an analytic and
 interpretation point of view).
 - MCQ/text: General limitations of prospective cohorts (again from analytic or
 interpretation view)
-
-### Exercise: Number of disease states
-
-NE: Calculate the number of cases of each disease (at each time point if needed).
-
-```{r}
-
-```
-
 
 ### Exercise: Extract outcome and expos
 NE: (simple one) Extract the outcome and exposure(s) from the {n} datasets
@@ -91,6 +99,7 @@ NE: (simple one) Extract the outcome and exposure(s) from the {n} datasets
 framingham %>% 
     select(cvd, totchol, bmi, hdlc)
 
+# TODO: Maybe not use nickel.
 nickel %>% 
     select(lungcancer, exposure) # need to confirm this
 
@@ -98,11 +107,13 @@ dietchd %>%
     select(chd, y, energy, fat, fibre)
 ```
 
-### Exercise 1: Here's data and a question, which test to use?
+### Exercise: Number of disease states
 
-Text? or MCQ?: Show example data. Which statistics to use for this?
-Or maybe choose which stats belongs with which data type? Or which question
-belongs with which data and statistic?
+NE: Calculate the number of cases of each disease (at each time point if needed).
+
+```{r}
+
+```
 
 ### Exercise 2: First steps, exploration
 
@@ -112,6 +123,7 @@ NE: Run summary statistics on those with the disease and those without.
 library(dplyr)
 library(broom)
 load("datasets/nickel.rda")
+# TODO: Use another dataset?
 nickel %>% 
     group_by(icd) %>% 
     summarize(mean = mean(exposure), sd = sd(exposure))
@@ -126,6 +138,13 @@ framingham %>%
 Note:
 We can already see that those who had a cancer were also exposed the most in the
 `nickel` dataset.
+
+
+### Exercise: Here's data and a question, which test to use?
+
+Text? or MCQ?: Show example data. Which statistics to use for this?
+Or maybe choose which stats belongs with which data type? Or which question
+belongs with which data and statistic?
 
 ## Lesson 3: Scientific questions that can be asked of cohort data
 
