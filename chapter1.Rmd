@@ -1,4 +1,4 @@
-```{r}
+```{r setup}
 source("preamble.R")
 ```
 
@@ -15,14 +15,14 @@ that the test will dictate how the data should look.
 - Know where to look and what resources to use if you can't find the statistical
 or analytical techniques needed to analyze the data.
 
-**Lessons to achieve objectives:**
+## Lesson 1: Introduction to cohort designs
 
+*Content*
 - Purpose of cohort studies ... why have them and what do they provide.
-- Outline of course, focusing on workflow/process
-- Introduction to datasets we will use throughout
 - Intro to some jargon:
     - cohorts (all participants share a common characteristic), types, outcomes,
     predictors/exposure, risk factors (fill out as I go along)
+- Outline of course, focusing on workflow/process
 - Types of cohort designs:
     - Prospective (no exposure, no disease), retrospective (exposure, but no
     disease), cross-sectional analysis of cohort (based on type of data
@@ -30,6 +30,41 @@ or analytical techniques needed to analyze the data.
     analyze all these, will teach about the process for working with this type
     of data and what is important to present; note, these designs are very
     economically efficient and also very powerful... high cost-benefit ratio).
+    - Briefly why it is important to know study type (can change which stats you
+    use and what interpretation you have).
+- Incidence vs prevalence
+- Variables: outcomes vs exposures/predictors
+
+### Exercise: Which is which study type?
+
+{{BulletExercise?}}
+
+Usually the study design is explicitly stated in the study protocols, however,
+it can be sometimes tricky to differentiate between the different cohort types.
+Here are a couple examples of study collection protocols. Which protocols are
+which study design?
+
+### Exercise: What type of cohort design is this dataset? (maybe)
+
+{{MCQ with console}}
+
+Take a look at these datasets. {{very simply describe these datasets}}. What 
+cohort designs are each of these datasets?
+
+### Exercise: When can prevalence or incidence be calculated? (maybe... or stick with below..?)
+
+{{MCQ with console or NE?}}
+
+The type of cohort design restricts what you can calculate. Using simple measures
+such as `table` or `group_by` with `count`, which of the below responses are accurate?
+
+{{Provide responses with possible numbers of prev/incid? Or just straight NE
+to calculate incidence/prevalence?}}
+
+## Lesson 2: Introduction to the datasets and exploring them
+
+*Content*
+- Introduction to datasets we will use throughout
 - General look of data:
     - Show how the data looks:
         - baseline visit with disease status followup (time to disease, or age
@@ -40,47 +75,36 @@ or analytical techniques needed to analyze the data.
         variables mean, so need to refer to the documentation.
     - State assumptions first about the data (e.g. data already collected), this
     is not a course on how to conduct and collect cohort data.
-- research questions able to be asked from data and impact on stats
-    - retrospective, can ask questions like:
-        - 
-- Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
-- Incidence vs prevalence
-- State assumptions first about the data etc? (e.g. data already collected)
-- odds ratio, relative risk, incidence rate ratio
-    - risk estimate of some type, for instance of diseases that are not binary
-    - which questions will need which statistic
 
-**Exercises to reinforce learning:**
-
-{{needs more coding}}
-
-- MCQ/text: Series of examples of study designs and data collection protocols...
-identify which is prospective, retrospective, etc.
+*Exercises*
 - NE: Quickly look over data (simple, like head or something). Type out in order 
 which is prospective, which is retrospective, etc.
-- MCQ/text: List types of epidemiology studies... which are cohorts
+
+### Exercise: Analytic and interpretation limitations of each study design
+
+{{BulletExercise or TabExercise?}}
+
+1. There are some analytic limitations to each study design. 
 - MCQ/text: Limitation of retrospective over prospective (from an analytic and
 interpretation point of view).
 - MCQ/text: General limitations of prospective cohorts (again from analytic or
 interpretation view)
-- MCQ/text: Given dataset, which questions can be asked based on data.
-- MCQ/text: Which question needs which statistic? (hmm maybe not)
-- Simpson's paradox? 
 
-## Lesson 1: What is a cohort study?
-- Types of cohort studies
-- Prevalence vs incidence
-    - Refer to the course on descriptive statistics
+### Exercise: Extract outcome and exposures of interest from the datasets
 
-### Exercise: Extract outcome and expos
-NE: (simple one) Extract the outcome and exposure(s) from the {n} datasets
+It's important to recognize which are outcome variables and which are the
+predictors/exposures of interest. Often cohort studies have massive numbers of
+variables that have been measured, so to make it easier to explore and analyze
+the data, need to subset out the variables of interest.
 
 ```{r}
-# make the answer be slightly fluid since different exposures could be chosen.
-# But need to make sure that only specific exposures are chosen.
+# NOTE: Need to make the answer be slightly fluid since different exposures
+# could be chosen. But need to make sure that only specific exposures are
+# chosen.
 framingham %>% 
     select(cvd, totchol, bmi, hdlc)
 
+# TODO: Maybe not use nickel.
 nickel %>% 
     select(lungcancer, exposure) # need to confirm this
 
@@ -88,70 +112,67 @@ dietchd %>%
     select(chd, y, energy, fat, fibre)
 ```
 
+### Exercise: Calculate number of cases.
 
-### Exercise: 
+One of the first things to explore is the number of cases, as this will help inform
+what you can ask of the data and how to analyze it. Remember, for longitudinal data,
+you need to count by the time period, as each participant could have several rows per
+collection wave.
 
-MCQ: Scenarios to highlight which is prevalence, which is incidence.
-Or question about which data type/study type is retrospective (nickel data) vs
-prospective (framingham/diet).
+```{r}
+framingham %>% 
+    count(period, cvd)
 
-### Exercise: Prevalence vs incidence .. maybe not
+dietchd %>% 
+    count(chd)
+```
 
-NE: Calculate prevalent cases and incident cases?
-(Maybe a simple )
-First wrangle, then calculate.
+### Exercise: Exploring simple summaries of the exposures by outcome
 
-## Lesson 2: Typical analyses used
-- Statistics (more of a review, expect them to know what they are doing):
-    - Logistic regression
-    - Mixed effects modelling
-- Choice of statistic is dependent on question asked.
-- In general, cohorts try to address questions such as:
-    - "what type of exposures increase the risk of disease?"
-    - "how much and how long do individuals need to be exposured to a risk factor
-    to develop the disease?"
-    - "For those that have a disease, how do they differ from those without?"
-    - "Those that have more exposure over time, are they more likely to develop a disease?"
-- These questions generally require some type of regression modelling in order to
-estimate magnitude of association and the uncertainty around that association.
+Often a good sense of what is going on in the data can be seen with simple
+summary statistics, especially between the outcome and the exposure.
 
-### Exercise 1: Here's data and a question, which test to use?
+```{r}
+# TODO: Use another dataset?
+nickel %>% 
+    group_by(icd) %>% 
+    summarize(mean = mean(exposure), sd = sd(exposure))
+
+framingham %>% 
+    # TODO: choose other variables.
+    gather(Measure, Value, totchol, hdlc, bmi, age) %>% 
+    group_by(period, cvd, Measure) %>% 
+    summarize(MeanSD = stringr::str_c(
+        round(mean(Value, na.rm = TRUE), 2),
+        " (", round(sd(Value, na.rm = TRUE), 2), ")")
+    ) %>% 
+    spread(cvd, MeanSD)
+```
+
+### Exercise: Here's data and a question, which test to use? (maybe)
 
 Text? or MCQ?: Show example data. Which statistics to use for this?
 Or maybe choose which stats belongs with which data type? Or which question
 belongs with which data and statistic?
 
-### Exercise 2: First steps, exploration
-NE: Run summary statistics on those with the disease and those without.
+## Lesson 3: Scientific questions that can be asked of cohort data
 
-```{r}
-library(dplyr)
-library(broom)
-load("datasets/nickel.rda")
-nickel %>% 
-    group_by(icd) %>% 
-    summarize(mean = mean(exposure), sd = sd(exposure))
+*Content*
+- research questions able to be asked from data and impact on stats
+    - retrospective, can ask questions like:
+- {{Add more here}}
 
-load("datasets/framingham.rda")
-framingham %>% 
-    group_by(period, cvd) %>% 
-    # TODO: choose other variables.
-    summarize(meanChol = mean(totchol, na.rm = TRUE), meanBMI = mean(bmi, na.rm = TRUE))
-```
-
-Note:
-We can already see that those who had a cancer were also exposed the most in the
-`nickel` dataset.
-
-## Lesson 3: Questions that can be asked of specific data
-
-- Workflow steps:
-    1. Decide on specific research question and likely statistics to use.
+*Exercises*
+- MCQ/text: Given dataset, which questions can be asked based on data.
+- MCQ/text: Which question needs which statistic? (hmm maybe not)
+- Simpson's paradox? 
 
 ### Exercise 1:
 Text? MCQ?: Which research question belongs with which dataset?
 
-## Lesson 4: Exploration continued, visually ...?
-### Exercise 1:
-### Exercise 2:
-### Exercise 3:
+# Extra
+
+- Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
+- odds ratio, relative risk, incidence rate ratio
+    - risk estimate of some type, for instance of diseases that are not binary
+    - which questions will need which statistic

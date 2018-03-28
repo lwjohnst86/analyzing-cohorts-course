@@ -4,10 +4,6 @@ source("preamble.R")
 
 # Chapter 2: Data exploring, wrangling, and formatting
 
-- Look over data to find problems or fit to needs of research question
-- Wrangling data to get into proper for statistics
-- Transforming for statistics if necessary
-
 **Objectives**
 
 - How to get data into form for quick exploration
@@ -19,13 +15,97 @@ use them
     - Reducing number of categories in categorical variable
 - Dealing with outliers (or not)
 
-**Lessons to achieve objectives:**
+## Lesson 1: Pre-wrangling exploration
 
+*Content*
 - Exploring data (dot/boxplots, violinplots, correlation heatmap)
     - Need to understand the data before doing any serious wrangling
+TODO: Add more content, focus it on cohorts.
+
+### Exercise: Plot individual (or summary) change over time in longitudinal datasets
+
+Create a line plot (or summary line plot if data too big) by individual.
+
+```{r}
+framing
+```
+
+### Exercise: Visually examine the outcomes with the exposures
+
+Create a simple visual comparing the outcome with the exposures.
+
+```{r}
+framingham %>% 
+    select(time, cvd, totchol, age, bmi) %>% 
+    gather(Variable, Value, -time, -cvd) %>% 
+    mutate(cvd = as.factor(cvd)) %>% 
+    ggplot(aes(x = Value, group = cvd, fill = cvd)) +
+    geom_density(alpha = 0.6) +
+    facet_grid(~ Variable, scales = "free")
+```
+
+### Exercise: Inspect graphically all variables of interest individually
+
+Create a box and jitter plot of all the variables of interest, at the baseline visit:
+
+```{r ex_eda}
+fh_long <- framingham %>% 
+    filter(time == 0) %>% 
+    select(cvd, totchol, bmi, age) %>% 
+    gather(Variable, Value)
+    
+fh_long
+
+ggplot(fh_long, aes(x = Value)) +
+    geom_histogram() +
+    facet_grid(~ Variable, scales = "free")
+```
+
+## Lesson 2: Tidy cohort data and wrangling into analyzable form.
+
+*Content*
+- Tidy data, types of structure for type of analysis
 - Longitudinal data in wide format
     - converting into long for use by statistical techniques (e.g. mixed effects)
     - talk about tidy data
+TODO: More content, specific to cohorts.
+
+*Exercises*
+... maybe two waves that need to be combined?
+
+### Exercise: Which are untidy data?
+
+Identify tidy datasets given the statistical technique/study design
+(or which are wrong)
+
+- wrong ones (possibles):
+    - wide instead of long for longitudinal study
+    - wide instead of long for those with the disease and those without
+    - different character strings for same disease (rather than numbers), e.g.
+    "t2dm" and "dm" for diabetes status
+    - "excel" style of two datasets in one spreadsheet
+
+### Exercise: Long vs wide, or which side is which?
+
+Sometimes analyses are more easily done with data all completely in a long
+form, either for plotting or for summarizing.
+
+```{r}
+# TODO: Write up code for this.
+```
+
+### Exercise: Data could be tidy, but not for analysis
+
+We have a longitudinal cohort that has some variables {{finish}}
+
+```{r}
+
+```
+
+
+## Lesson 3: Transforming and modifying variables (maybe into two lessons?)
+
+*Content*
 - Types of transformations and why to use them:
     - Log: if data is highly skewed, if interested in output after
     backtransforming of percent impact rather than on original unit impact
@@ -44,9 +124,7 @@ use them
     interpretation and generalizability, grouping categories makes sense,
     and to also balance the sample between groups.
 
-
-**Exercises to reinforce learning:**
-
+*Exercise*
 - NE: Here's a research question and a dataset. transform the data to be able to 
 get the results to be interpreted this specific way.
 - MCQ/text: Which transformation is best suited for the research question.
@@ -101,82 +179,8 @@ fh_transformed %>%
 ```
 
 
-### Exercise: Data exploration
+# Notes:
 
-NE: Create a box and jitter plot of all the variables of interest, at the baseline visit:
-
-```{r ex_eda}
-fh_long <- framingham %>% 
-    filter(time == 0) %>% 
-    select(cvd, totchol, bmi, age) %>% 
-    gather(Variable, Value)
-    
-fh_long
-
-ggplot(fh_long, aes(x = Value)) +
-    geom_histogram() +
-    facet_grid(~ Variable, scales = "free")
-```
-
-### Exercise
-
-NE: Create a simple visual comparing the outcome with the exposures.
-
-```{r}
-framingham %>% 
-    select(time, cvd, totchol, age, bmi) %>% 
-    gather(Variable, Value, -time, -cvd) %>% 
-    mutate(cvd = as.factor(cvd)) %>% 
-    ggplot(aes(x = Value, group = cvd, fill = cvd)) +
-    geom_density(alpha = 0.6) +
-    facet_grid(~ Variable, scales = "free")
-```
-
-### Exercise
-
-NE: Create a line plot (or summary line plot if data too big) by individual.
-
-```{r}
-framing
-```
-
-
-## Lesson 1: Here's the data ... tidy it up!
-
-### Exercise 1: Which are untidy data?
-Identify tidy datasets given the statistical technique/study design
-(or which are wrong)
-
-- wrong ones (possibles):
-    - wide instead of long for longitudinal study
-    - wide instead of long for those with the disease and those without
-    - different character strings for same disease (rather than numbers), e.g.
-    "t2dm" and "dm" for diabetes status
-    - "excel" style of two datasets in one spreadsheet
-    - 
-
-### Exercise 2: So then, tidy it up!
-NE:
-
-... maybe two waves that need to be combined?
-
-```{r}
-
-```
-
-### Exercise 3: Long vs wide, or which side is which?
-NE: Sometimes analyses are more easily done with data all completely in a long
-form, either for plotting or for summarizing.
-
-```{r}
-
-```
-
-### Exercise 4: Data could be tidy, but not for analysis
-
-NE: We have a longitudinal cohort that has some variables 
-
-
-```{r}
-
-```
+- Look over data to find problems or fit to needs of research question
+- Wrangling data to get into proper for statistics
+- Transforming for statistics if necessary
