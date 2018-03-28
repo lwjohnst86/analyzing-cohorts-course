@@ -1,4 +1,4 @@
-```{r}
+```{r setup}
 source("preamble.R")
 ```
 
@@ -90,12 +90,17 @@ interpretation point of view).
 - MCQ/text: General limitations of prospective cohorts (again from analytic or
 interpretation view)
 
-### Exercise: Extract outcome and expos
-NE: (simple one) Extract the outcome and exposure(s) from the {n} datasets
+### Exercise: Extract outcome and exposures of interest from the datasets
+
+It's important to recognize which are outcome variables and which are the
+predictors/exposures of interest. Often cohort studies have massive numbers of
+variables that have been measured, so to make it easier to explore and analyze
+the data, need to subset out the variables of interest.
 
 ```{r}
-# make the answer be slightly fluid since different exposures could be chosen.
-# But need to make sure that only specific exposures are chosen.
+# NOTE: Need to make the answer be slightly fluid since different exposures
+# could be chosen. But need to make sure that only specific exposures are
+# chosen.
 framingham %>% 
     select(cvd, totchol, bmi, hdlc)
 
@@ -107,40 +112,44 @@ dietchd %>%
     select(chd, y, energy, fat, fibre)
 ```
 
-### Exercise: Number of disease states
+### Exercise: Calculate number of cases.
 
-NE: Calculate the number of cases of each disease (at each time point if needed).
+One of the first things to explore is the number of cases, as this will help inform
+what you can ask of the data and how to analyze it. Remember, for longitudinal data,
+you need to count by the time period, as each participant could have several rows per
+collection wave.
 
 ```{r}
+framingham %>% 
+    count(period, cvd)
 
+dietchd %>% 
+    count(chd)
 ```
 
-### Exercise 2: First steps, exploration
+### Exercise: Exploring simple summaries of the exposures by outcome
 
-NE: Run summary statistics on those with the disease and those without.
+Often a good sense of what is going on in the data can be seen with simple
+summary statistics, especially between the outcome and the exposure.
 
 ```{r}
-library(dplyr)
-library(broom)
-load("datasets/nickel.rda")
 # TODO: Use another dataset?
 nickel %>% 
     group_by(icd) %>% 
     summarize(mean = mean(exposure), sd = sd(exposure))
 
-load("datasets/framingham.rda")
 framingham %>% 
-    group_by(period, cvd) %>% 
     # TODO: choose other variables.
-    summarize(meanChol = mean(totchol, na.rm = TRUE), meanBMI = mean(bmi, na.rm = TRUE))
+    gather(Measure, Value, totchol, hdlc, bmi, age) %>% 
+    group_by(period, cvd, Measure) %>% 
+    summarize(MeanSD = stringr::str_c(
+        round(mean(Value, na.rm = TRUE), 2),
+        " (", round(sd(Value, na.rm = TRUE), 2), ")")
+    ) %>% 
+    spread(cvd, MeanSD)
 ```
 
-Note:
-We can already see that those who had a cancer were also exposed the most in the
-`nickel` dataset.
-
-
-### Exercise: Here's data and a question, which test to use?
+### Exercise: Here's data and a question, which test to use? (maybe)
 
 Text? or MCQ?: Show example data. Which statistics to use for this?
 Or maybe choose which stats belongs with which data type? Or which question
