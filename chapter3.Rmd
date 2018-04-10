@@ -4,15 +4,6 @@ source("preamble.R")
 
 # Chapter 3: Running the statistical techniques
 
-- Run statistics on data
-    - Exercises using different techniques
-    - CI vs p-value... non-significant but still important
-- Extract results or numbers from model
-    - Using broom
-    
-- Simpson's paradox? need to consider subgroup analyses (interactions), especially
-for sex and ethnicity.
-
 **Objectives:**
 
 - Learn to run some common statistic techniques on different datasets and research
@@ -25,20 +16,56 @@ exactly is most useful to present and show for higher impact)
 fully), and how this can inform what is going on in the relationship.
 - Knowing how to choose/decide on what variables to adjust for
 
-**Lessons to achieve objectives:**
+## Lesson 1: Common statistical techniques used for analyzing cohorts
 
-- Split chapter up by analysis of cohort type?
+*Content*:
+
 - Common statistical techniques:
-    - mixed effect modeling
+    - mixed effects modeling
+    - GEE (?)
     - cox proportional hazard models
     - linear regression
     - logistic regression
     - Poisson regression
     - Conditional logistic regression (for nested case-cohort designs)
-- Using broom, what to take from broom, conf.int
-- Quick overview of the unreliability of p-values, the danger of using them to
-inform clinical and public health policy (find examples?)
-- Interpreting OR, RR, IRR (incidence risk ratio), and other forms of estimates
+
+*Exercises*:
+
+- NE: Change variables scaling or transform them to see how the estimates change...
+what does that mean for interpretation? (or lesson 4)
+
+### Exercise: Type of statistical method is important, especially for longitudinal studies
+
+Before the development of mixed effects modeling, analyzing longitudinal data
+was fairly difficult. This was because the early methods, which typically were 
+some type of ANOVA or simple regression, had an assumption of independence in the
+data. But longitudinal data is not independent... A single individual can have 
+multiple measures done over time and are thus dependent.
+
+Take a look at the difference between using a logistic regression model compared
+to a mixed effect model.
+
+```{r}
+# TODO: Check to confirm exponentiating of output.
+logistic_model <- glm(prevchd ~ totchol + period, data = framingham, family = binomial)
+summary(logistic_model)$coef
+
+# show this in lesson 4?
+# tidy(logistic_model, conf.int = TRUE, exponentiate = TRUE) %>% 
+#     select(term, estimate, conf.low, conf.high)
+
+mixed_model <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
+summary(mixed_model)$coef
+
+# show this in lesson 4?
+# tidy(mixed_model, conf.int = TRUE) %>% 
+#     select(term, estimate, conf.low, conf.high)
+```
+
+## Lesson 2: Adjustment, confounding, and modelling.
+
+*Content*:
+
 - What it means to "adjust" for confounders? What is a confounder? (probably explained 
 in one of the other epi courses, so be brief here).
     - What does adjustment mean when time is included? Gets trickier. This is why
@@ -47,34 +74,17 @@ in one of the other epi courses, so be brief here).
     harm if analyses not thought through and properly analyzed.
     - Techniques to determine what to adjust for (DAG, literature, IC)
     - Model selection (AIC, BIC, Cross-validation; when to use each)
-- Interaction testing, especially for sex and ethnicity (common requirement in order
-to publish)
 
-**Exercises to reinforce learning:**
+*Exercises*:
 
 - MCQ: Which options would be most appropriate for using various model selection techniques?
     - list different conditions with possible methods.
 - NE: Cross-validation of a model.
 - MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
 follow (or write out which) are the important variables to consider/adjust for.
-- MCQ/text: Which are the most appropriate interpretations for OR, RR, IRR?
-- NE: Coding example of Simpson's paradox in health setting (real world example?)
 - MCQ/text: Describe different impact of adjusting, etc. including collider variables.
 How does that change the interpretation? How can this influence the health impacts
-if inappropriately published?
-- NE: Change variables scaling or transform them to see how the estimates change...
-what does that mean for interpretation?
-- NE: Maybe exercise where some observations are removed and show how that impacts
-the p-value...? to highlight how unreliable it is?
-- MCQ: here is a research question, here is the result of an analysis
-(non-significant but wide CI that is protective). which is more appropriate
-interpretation of the result:
-    - There is no association.
-    - while non-significant, this effect 
-
-### Exercise
-
-- NE: Interaction testing for prospective study. Interpretation
+if inappropriately published? (or in lesson 4)
 
 ### Exercise
 
@@ -94,24 +104,6 @@ m3 <- glm(cvd ~ totchol + sex + bmi, data = framingham, family = binomial)
 
 model.sel(m1, m2, m3)
 ```
-
-### Exercise
-
-NE: Compare using logistic regression vs mixed effects for prospective cohort...
-see how standard errors get inflated because of the impact that including time has.
-
-```{r}
-# TODO: Check to confirm exponentiating of output.
-logistic_model <- glm(prevchd ~ totchol + period, data = framingham, family = binomial)
-tidy(logistic_model, conf.int = TRUE, exponentiate = TRUE) %>% 
-    select(term, estimate, conf.low, conf.high)
-
-mixed_model <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
-tidy(mixed_model, conf.int = TRUE) %>% 
-    select(term, estimate, conf.low, conf.high)
-
-```
-
 
 ### Exercise
 
@@ -137,16 +129,48 @@ tidy(inappropriate, conf.int = TRUE)
 Given the results, what are some possible conclusions/interpretations?
 How might the adjustment for age AND period influence the results?
 
-### Exercise 3: A simple logistic regression
-NE: Run logistic regression on data. Get relevant information from the model.
-Logistic regression is often used when studying how factors associate with disease
-(since disease state is usually binary: they have it or they don't)
+## Lesson 3: Interaction testing and sensitivity analyses
+
+*Content*:
+
+- Sensitivity analyses
+    - exploring potential sub-hypotheses to test assumptions of models
+    - e.g. stratified analysis, models with and without covars to id which is
+    impacting results, etc
+- Simpson's paradox? need to consider subgroup analyses (interactions), especially
+for sex and ethnicity. (Expand more here, tho mentioned in lesson 2)
+- Interaction testing, especially for sex and ethnicity (common requirement in order
+to publish)
+
+*Exercises*:
+
+- NE: Coding example of Simpson's paradox in health setting (real world example?) (or in lesson 2)
+- NE: Maybe exercise where some observations are removed and show how that impacts
+the p-value...? to highlight how unreliable it is?
+
+### Exercise
+
+- NE: Interaction testing for prospective study. Interpretation
 
 
-```{r}
-load("datasets/nickel.rda")
-glm()
-```
+## Lesson 4: Extracting relevant data from results and post-modelling-wrangling {{wording needs changes}}
+
+*Content*:
+
+- Using broom, what to take from broom, conf.int
+- Interpreting OR, RR, IRR (incidence risk ratio), and other forms of estimates
+- Quick overview of the unreliability of p-values, the danger of using them to
+inform clinical and public health policy (find examples?)
+
+*Exercises*:
+
+- NE: Example of how small changes to data can influence p-value.
+- MCQ/text: Which are the most appropriate interpretations for OR, RR, IRR?
+- MCQ: here is a research question, here is the result of an analysis
+(non-significant but wide CI that is protective). which is more appropriate
+interpretation of the result:
+    - There is no association.
+    - while non-significant, this effect 
 
 # Notes:
 - Statistics (more of a review, expect them to know what they are doing):
