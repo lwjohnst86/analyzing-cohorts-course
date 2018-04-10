@@ -80,11 +80,67 @@ in one of the other epi courses, so be brief here).
 - MCQ: Which options would be most appropriate for using various model selection techniques?
     - list different conditions with possible methods.
 - NE: Cross-validation of a model.
-- MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
-follow (or write out which) are the important variables to consider/adjust for.
 - MCQ/text: Describe different impact of adjusting, etc. including collider variables.
 How does that change the interpretation? How can this influence the health impacts
 if inappropriately published? (or in lesson 4)
+
+### Exercise: Understanding confounding pathways
+
+{{Probably as a Bullet/TabExercise}}
+
+- MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
+follow (or write out which) are the important variables to consider/adjust for.
+
+```{r simple_confounding}
+grViz("
+digraph {
+    node [style = filled fillcolor = none]
+    Exposure [fillcolor = 'LightBlue'] 
+    Outcome [fillcolor = 'OrangeRed']
+    Exposure -> Outcome
+    Confounder -> {Exposure Outcome}
+}")
+```
+
+This simple confounding example shows how each variable relates to each other in
+hypothesized pathways. Understanding how variables confounded the relationship
+between the exposure and the outcome is essential to drawing more accurate
+inferences about the associations. Creating these DAGs of the hypothesized
+pathways is a powerful tool to understanding what could be confounders, what
+could be colliders, and what needs to be adjusted for. Which are more
+appropriate choices:
+
+```{r confouding_example}
+grViz("
+digraph {
+    node [style = filled fillcolor = none]
+    BodyFat [fillcolor = 'LightBlue'] 
+    CVD [fillcolor = 'OrangeRed']
+    BodyFat -> CVD
+    Sex -> {BodyFat CVD Testosterone}
+    Testosterone -> {BodyFat CVD}
+}")
+```
+
+- Options: {{likely all answers will be correct.. or maybe rank them ...}}
+    - Since sex influences testosterone and since both sex and testosterone
+    are confounders, only need to adjust for either of these variables to control
+    for the confounding pathway.
+    - Adjust for both
+
+```{r collider_bias}
+grViz("
+digraph {
+    node [style = filled fillcolor = none]
+    BodyFat [fillcolor = 'LightBlue'] 
+    CVD [fillcolor = 'OrangeRed']
+    BodyFat -> CVD
+    Sex -> {BodyFat CVD Testosterone ExerciseType}
+    Testosterone -> {BodyFat CVD}
+    ExerciseType -> {BodyFat CVD}
+}")
+```
+
 
 ### Exercise
 
