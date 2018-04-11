@@ -4,15 +4,6 @@ source("preamble.R")
 
 # Chapter 3: Running the statistical techniques
 
-- Run statistics on data
-    - Exercises using different techniques
-    - CI vs p-value... non-significant but still important
-- Extract results or numbers from model
-    - Using broom
-    
-- Simpson's paradox? need to consider subgroup analyses (interactions), especially
-for sex and ethnicity.
-
 **Objectives:**
 
 - Learn to run some common statistic techniques on different datasets and research
@@ -25,20 +16,56 @@ exactly is most useful to present and show for higher impact)
 fully), and how this can inform what is going on in the relationship.
 - Knowing how to choose/decide on what variables to adjust for
 
-**Lessons to achieve objectives:**
+## Lesson 1: Common statistical techniques used for analyzing cohorts
 
-- Split chapter up by analysis of cohort type?
+*Content*:
+
 - Common statistical techniques:
-    - mixed effect modeling
+    - mixed effects modeling
+    - GEE (?)
     - cox proportional hazard models
     - linear regression
     - logistic regression
     - Poisson regression
     - Conditional logistic regression (for nested case-cohort designs)
-- Using broom, what to take from broom, conf.int
-- Quick overview of the unreliability of p-values, the danger of using them to
-inform clinical and public health policy (find examples?)
-- Interpreting OR, RR, IRR (incidence risk ratio), and other forms of estimates
+
+*Exercises*:
+
+- NE: Change variables scaling or transform them to see how the estimates change...
+what does that mean for interpretation? (or lesson 4)
+
+### Exercise: Type of statistical method is important, especially for longitudinal studies
+
+Before the development of mixed effects modeling, analyzing longitudinal data
+was fairly difficult. This was because the early methods, which typically were 
+some type of ANOVA or simple regression, had an assumption of independence in the
+data. But longitudinal data is not independent... A single individual can have 
+multiple measures done over time and are thus dependent.
+
+Take a look at the difference between using a logistic regression model compared
+to a mixed effect model.
+
+```{r logreg_mixed}
+# TODO: Check to confirm exponentiating of output.
+logistic_model <- glm(prevchd ~ totchol + period, data = framingham, family = binomial)
+summary(logistic_model)$coef
+
+# show this in lesson 4?
+# tidy(logistic_model, conf.int = TRUE, exponentiate = TRUE) %>% 
+#     select(term, estimate, conf.low, conf.high)
+
+mixed_model <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
+summary(mixed_model)$coef
+
+# show this in lesson 4?
+# tidy(mixed_model, conf.int = TRUE) %>% 
+#     select(term, estimate, conf.low, conf.high)
+```
+
+## Lesson 2: Adjustment, confounding, and modelling.
+
+*Content*:
+
 - What it means to "adjust" for confounders? What is a confounder? (probably explained 
 in one of the other epi courses, so be brief here).
     - What does adjustment mean when time is included? Gets trickier. This is why
@@ -46,45 +73,95 @@ in one of the other epi courses, so be brief here).
     - Danger of not controlling for variables: Simpson's Paradox. Can lead to actual
     harm if analyses not thought through and properly analyzed.
     - Techniques to determine what to adjust for (DAG, literature, IC)
-    - Model selection (AIC, BIC, Cross-validation; when to use each)
-- Interaction testing, especially for sex and ethnicity (common requirement in order
-to publish)
+    - Model selection (AIC, BIC, Cross-validation{{ya?}}; when to use each)
 
-**Exercises to reinforce learning:**
+*Exercises*:
 
 - MCQ: Which options would be most appropriate for using various model selection techniques?
-    - list different conditions with possible methods.
+    - list different conditions with possible methods. {{I can't remember what I meant here..}}
 - NE: Cross-validation of a model.
-- MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
-follow (or write out which) are the important variables to consider/adjust for.
-- MCQ/text: Which are the most appropriate interpretations for OR, RR, IRR?
-- NE: Coding example of Simpson's paradox in health setting (real world example?)
 - MCQ/text: Describe different impact of adjusting, etc. including collider variables.
 How does that change the interpretation? How can this influence the health impacts
-if inappropriately published?
-- NE: Change variables scaling or transform them to see how the estimates change...
-what does that mean for interpretation?
-- NE: Maybe exercise where some observations are removed and show how that impacts
-the p-value...? to highlight how unreliable it is?
-- MCQ: here is a research question, here is the result of an analysis
-(non-significant but wide CI that is protective). which is more appropriate
-interpretation of the result:
-    - There is no association.
-    - while non-significant, this effect 
+if inappropriately published? (or in lesson 4)
+- MCQ/text: What does it mean to adjust? (how does it change interpretation)
 
-### Exercise
+### Exercise: Understanding confounding pathways
 
-- NE: Interaction testing for prospective study. Interpretation
+{{Probably as a Bullet/TabExercise}}
 
-### Exercise
+- MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
+follow (or write out which) are the important variables to consider/adjust for.
 
-- NE: When you are unsure of which variables may provide a better fit and maybe
-explain the model and results more, using model information criterion methods can
-help narrow the possible models down. For instance, when deciding on appropriate
-covariates to adjust for. Run this command to identify which model is the "best"
-of those compared.
+```{r simple_confounding}
+grViz("
+digraph {
+    node [style = filled fillcolor = none]
+    Exposure [fillcolor = 'LightBlue'] 
+    Outcome [fillcolor = 'OrangeRed']
+    Exposure -> Outcome
+    Confounder -> {Exposure Outcome}
+}")
+```
 
-```{r}
+This simple confounding example shows how each variable relates to each other in
+hypothesized pathways. Understanding how variables confounded the relationship
+between the exposure and the outcome is essential to drawing more accurate
+inferences about the associations. Creating these DAGs of the hypothesized
+pathways is a powerful tool to understanding what could be confounders, what
+could be colliders, and what needs to be adjusted for. Which are more
+appropriate choices:
+
+```{r confouding_example}
+grViz("
+digraph {
+    node [style = filled fillcolor = none]
+    BodyFat [fillcolor = 'LightBlue'] 
+    CVD [fillcolor = 'OrangeRed']
+    BodyFat -> CVD
+    Sex -> {BodyFat CVD Testosterone}
+    Testosterone -> {BodyFat CVD}
+}")
+```
+
+- Options: {{likely all answers will be correct.. or maybe rank them ...}}
+    - Since sex influences testosterone and since both sex and testosterone
+    are confounders, only need to adjust for either of these variables to control
+    for the confounding pathway.
+    - Adjust for both {{finish}}
+    
+Using the pathway below, which variables should you adjust for in the model?
+
+```{r collider_bias}
+grViz("
+digraph {
+    node [style = filled fillcolor = none]
+    BodyFat [fillcolor = 'LightBlue'] 
+    CVD [fillcolor = 'OrangeRed']
+    BodyFat -> CVD
+    Sex -> {BodyFat CVD Testosterone ExerciseType}
+    Testosterone -> {BodyFat CVD}
+    ExerciseType -> {BodyFat CVD}
+}")
+```
+
+- Options:
+    - All of them
+    - Only sex
+    - Only testosterone
+    - Only exercise type
+    - Either sex and testosterone or sex and exercise type
+
+### Video explaining exercise above?
+
+### Exercise: Model selection using Information Criterion
+
+When you are unsure of which variables may provide a better fit and maybe
+explain the model and results more, using model information criterion methods
+can help narrow the possible models down. For instance, when deciding on
+appropriate covariates to adjust for. Run this command to identify which model
+is the "best" of those compared.
+
+```{r aic_select}
 # TODO: Make more appropriate models (more typically seen in real analyses).
 # TODO: Confirm that MuMIn is the best package for learners to use.
 library(MuMIn)
@@ -93,60 +170,104 @@ m2 <- glm(cvd ~ totchol + sex, data = framingham, family = binomial)
 m3 <- glm(cvd ~ totchol + sex + bmi, data = framingham, family = binomial)
 
 model.sel(m1, m2, m3)
+
+# Which is the "best" model from these three?
 ```
 
-### Exercise
+### Exercise: Models and inappropriate adjustment
 
-NE: Compare using logistic regression vs mixed effects for prospective cohort...
-see how standard errors get inflated because of the impact that including time has.
+Run model without adjusting, with adjusting, and lastly with adjusting for an
+inappropriate variable (how that changes things). Notice how that may change the
+results. (Don't worry about what the numbers mean just yet, focus on the differences
+of the estimates between models.)
 
-```{r}
-# TODO: Check to confirm exponentiating of output.
-logistic_model <- glm(prevchd ~ totchol + period, data = framingham, family = binomial)
-tidy(logistic_model, conf.int = TRUE, exponentiate = TRUE) %>% 
-    select(term, estimate, conf.low, conf.high)
-
-mixed_model <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
-tidy(mixed_model, conf.int = TRUE) %>% 
-    select(term, estimate, conf.low, conf.high)
-
-```
-
-
-### Exercise
-
-NE: Run model without adjusting, with adjusting, and lastly with adjusting for an
-inappropriate variable (how that changes things)
-
-```{r}
+```{r time_adjustment}
 # TODO: Confirm that period and randid are sorted properly.
 # TODO: Confirm that cvd variable is the right one (from raw data).
-# TODO: Check that tidy exponentiation works for this method.
 unadjusted <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
-tidy(unadjusted, conf.int = TRUE)
+summary(unadjusted)$coef
 
-adjusted <- lmer(prevchd ~ totchol + sex + cursmoke + period + (1 | randid), data = framingham)
-tidy(adjusted, conf.int = TRUE)
+adjusted <- lmer(prevchd ~ totchol + sex + period + (1 | randid), data = framingham)
+summary(adjusted)$coef
 
-inappropriate <- lmer(prevchd ~ totchol + sex + cursmoke + age + period + (1 | randid), data = framingham)
-tidy(inappropriate, conf.int = TRUE)
+inappropriate <- lmer(prevchd ~ totchol + sex + age + period + (1 | randid), data = framingham)
+summary(inappropriate)$coef
 ```
 
-### Exercise: Followup MCQ/text to above
+### Exercise: Interpretation and explanation of previous exercise
+
+{{Maybe a Tab/BulletExercise}}
 
 Given the results, what are some possible conclusions/interpretations?
+
+- Options:
+    - ...
+
 How might the adjustment for age AND period influence the results?
 
-### Exercise 3: A simple logistic regression
-NE: Run logistic regression on data. Get relevant information from the model.
-Logistic regression is often used when studying how factors associate with disease
-(since disease state is usually binary: they have it or they don't)
+- Options:
+    - ...
 
+## Lesson 3: Interaction testing and sensitivity analyses
 
-```{r}
-load("datasets/nickel.rda")
-glm()
+*Content*:
+
+- Sensitivity analyses
+    - exploring potential sub-hypotheses to test assumptions of models
+    - e.g. stratified analysis, models with and without covars to id which is
+    impacting results, etc
+- Simpson's paradox? need to consider subgroup analyses (interactions), especially
+for sex and ethnicity. (Expand more here, tho mentioned in lesson 2)
+- Interaction testing, especially for sex and ethnicity (common requirement in order
+to publish)
+
+*Exercises*:
+
+- NE: Coding example of Simpson's paradox in health setting (real world example?) (or in lesson 2)
+- NE: Maybe exercise where some observations are removed and show how that impacts
+the p-value...? to highlight how unreliable it is?
+
+### Exercise: Testing for interactions of important variables
+
+In the past (and still fairly common now), most research was done on males only.
+Clinical trials, experimental animal models, and observational studies tended 
+to either explicitly only study males, or to disregard the role that biological
+sex had on the object of study. This had disasterous results, especially when it
+came to drugs. In clinical trials, a drug appeared to work amazingly and was
+passed for public use {{wording}}. Afterward, with observational studies tracking
+the impact of drugs in the population, often times the drug would not work at all
+or have harmful side effects in women. As a results, most journals and funding 
+agencies *require* that sex and ethnicity be tested or studied.
+
+```{r sex_ethn_interaction}
+sex_interaction <- lmer(prevchd ~ totchol * sex + period + (1 | randid), data = framingham)
+summary(sex_interaction)
+
+sex_time_interaction <- lmer(prevchd ~ totchol * sex * period + (1 | randid), data = framingham)
+summary(sex_time_interaction)
+
+# TODO: confirm if ethnicity is in framingham
 ```
+
+
+## Lesson 4: Extracting relevant data from results and post-modelling-wrangling {{wording needs changes}}
+
+*Content*:
+
+- Using broom, what to take from broom, conf.int
+- Interpreting OR, RR, IRR (incidence risk ratio), and other forms of estimates
+- Quick overview of the unreliability of p-values, the danger of using them to
+inform clinical and public health policy (find examples?)
+
+*Exercises*:
+
+- NE: Example of how small changes to data can influence p-value.
+- MCQ/text: Which are the most appropriate interpretations for OR, RR, IRR?
+- MCQ: here is a research question, here is the result of an analysis
+(non-significant but wide CI that is protective). which is more appropriate
+interpretation of the result:
+    - There is no association.
+    - while non-significant, this effect 
 
 # Notes:
 - Statistics (more of a review, expect them to know what they are doing):
