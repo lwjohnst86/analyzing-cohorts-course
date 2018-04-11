@@ -45,7 +45,7 @@ multiple measures done over time and are thus dependent.
 Take a look at the difference between using a logistic regression model compared
 to a mixed effect model.
 
-```{r}
+```{r logreg_mixed}
 # TODO: Check to confirm exponentiating of output.
 logistic_model <- glm(prevchd ~ totchol + period, data = framingham, family = binomial)
 summary(logistic_model)$coef
@@ -73,16 +73,17 @@ in one of the other epi courses, so be brief here).
     - Danger of not controlling for variables: Simpson's Paradox. Can lead to actual
     harm if analyses not thought through and properly analyzed.
     - Techniques to determine what to adjust for (DAG, literature, IC)
-    - Model selection (AIC, BIC, Cross-validation; when to use each)
+    - Model selection (AIC, BIC, Cross-validation{{ya?}}; when to use each)
 
 *Exercises*:
 
 - MCQ: Which options would be most appropriate for using various model selection techniques?
-    - list different conditions with possible methods.
+    - list different conditions with possible methods. {{I can't remember what I meant here..}}
 - NE: Cross-validation of a model.
 - MCQ/text: Describe different impact of adjusting, etc. including collider variables.
 How does that change the interpretation? How can this influence the health impacts
 if inappropriately published? (or in lesson 4)
+- MCQ/text: What does it mean to adjust? (how does it change interpretation)
 
 ### Exercise: Understanding confounding pathways
 
@@ -126,7 +127,9 @@ digraph {
     - Since sex influences testosterone and since both sex and testosterone
     are confounders, only need to adjust for either of these variables to control
     for the confounding pathway.
-    - Adjust for both
+    - Adjust for both {{finish}}
+    
+Using the pathway below, which variables should you adjust for in the model?
 
 ```{r collider_bias}
 grViz("
@@ -141,16 +144,24 @@ digraph {
 }")
 ```
 
+- Options:
+    - All of them
+    - Only sex
+    - Only testosterone
+    - Only exercise type
+    - Either sex and testosterone or sex and exercise type
 
-### Exercise
+### Video explaining exercise above?
 
-- NE: When you are unsure of which variables may provide a better fit and maybe
-explain the model and results more, using model information criterion methods can
-help narrow the possible models down. For instance, when deciding on appropriate
-covariates to adjust for. Run this command to identify which model is the "best"
-of those compared.
+### Exercise: Model selection using Information Criterion
 
-```{r}
+When you are unsure of which variables may provide a better fit and maybe
+explain the model and results more, using model information criterion methods
+can help narrow the possible models down. For instance, when deciding on
+appropriate covariates to adjust for. Run this command to identify which model
+is the "best" of those compared.
+
+```{r aic_select}
 # TODO: Make more appropriate models (more typically seen in real analyses).
 # TODO: Confirm that MuMIn is the best package for learners to use.
 library(MuMIn)
@@ -159,31 +170,43 @@ m2 <- glm(cvd ~ totchol + sex, data = framingham, family = binomial)
 m3 <- glm(cvd ~ totchol + sex + bmi, data = framingham, family = binomial)
 
 model.sel(m1, m2, m3)
+
+# Which is the "best" model from these three?
 ```
 
-### Exercise
+### Exercise: Models and inappropriate adjustment
 
-NE: Run model without adjusting, with adjusting, and lastly with adjusting for an
-inappropriate variable (how that changes things)
+Run model without adjusting, with adjusting, and lastly with adjusting for an
+inappropriate variable (how that changes things). Notice how that may change the
+results. (Don't worry about what the numbers mean just yet, focus on the differences
+of the estimates between models.)
 
-```{r}
+```{r time_adjustment}
 # TODO: Confirm that period and randid are sorted properly.
 # TODO: Confirm that cvd variable is the right one (from raw data).
-# TODO: Check that tidy exponentiation works for this method.
 unadjusted <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
-tidy(unadjusted, conf.int = TRUE)
+summary(unadjusted)$coef
 
-adjusted <- lmer(prevchd ~ totchol + sex + cursmoke + period + (1 | randid), data = framingham)
-tidy(adjusted, conf.int = TRUE)
+adjusted <- lmer(prevchd ~ totchol + sex + period + (1 | randid), data = framingham)
+summary(adjusted)$coef
 
-inappropriate <- lmer(prevchd ~ totchol + sex + cursmoke + age + period + (1 | randid), data = framingham)
-tidy(inappropriate, conf.int = TRUE)
+inappropriate <- lmer(prevchd ~ totchol + sex + age + period + (1 | randid), data = framingham)
+summary(inappropriate)$coef
 ```
 
-### Exercise: Followup MCQ/text to above
+### Exercise: Interpretation and explanation of previous exercise
+
+{{Maybe a Tab/BulletExercise}}
 
 Given the results, what are some possible conclusions/interpretations?
+
+- Options:
+    - ...
+
 How might the adjustment for age AND period influence the results?
+
+- Options:
+    - ...
 
 ## Lesson 3: Interaction testing and sensitivity analyses
 
@@ -204,9 +227,27 @@ to publish)
 - NE: Maybe exercise where some observations are removed and show how that impacts
 the p-value...? to highlight how unreliable it is?
 
-### Exercise
+### Exercise: Testing for interactions of important variables
 
-- NE: Interaction testing for prospective study. Interpretation
+In the past (and still fairly common now), most research was done on males only.
+Clinical trials, experimental animal models, and observational studies tended 
+to either explicitly only study males, or to disregard the role that biological
+sex had on the object of study. This had disasterous results, especially when it
+came to drugs. In clinical trials, a drug appeared to work amazingly and was
+passed for public use {{wording}}. Afterward, with observational studies tracking
+the impact of drugs in the population, often times the drug would not work at all
+or have harmful side effects in women. As a results, most journals and funding 
+agencies *require* that sex and ethnicity be tested or studied.
+
+```{r sex_ethn_interaction}
+sex_interaction <- lmer(prevchd ~ totchol * sex + period + (1 | randid), data = framingham)
+summary(sex_interaction)
+
+sex_time_interaction <- lmer(prevchd ~ totchol * sex * period + (1 | randid), data = framingham)
+summary(sex_time_interaction)
+
+# TODO: confirm if ethnicity is in framingham
+```
 
 
 ## Lesson 4: Extracting relevant data from results and post-modelling-wrangling {{wording needs changes}}
