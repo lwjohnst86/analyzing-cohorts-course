@@ -1,4 +1,4 @@
-```{r}
+```{r setup}
 source("preamble.R")
 ```
 
@@ -102,7 +102,6 @@ We have a longitudinal cohort that has some variables {{finish}}
 
 ```
 
-
 ## Lesson 3: Transforming and modifying variables (maybe into two lessons?)
 
 *Content*
@@ -128,8 +127,12 @@ We have a longitudinal cohort that has some variables {{finish}}
 - NE: Here's a research question and a dataset. transform the data to be able to 
 get the results to be interpreted this specific way.
 - MCQ/text: Which transformation is best suited for the research question.
+- NE: Here is the output. Get the data to be in this form.
 
 ### Exercise: Wide to long for longitudinal data
+
+Depending on the specific data and how a research team decided to enter the data
+into the database, ... {{complete}}
 
 TODO: I'll need to wrangle one of the datasets to fit this form for this exercise.
 Some cohort studies do this, but many don't. Still important to know how to do.
@@ -145,8 +148,16 @@ dataname %>%
     
 ```
 
-
 ### Exercise: Reduce number of categories in these datasets
+
+Sometimes, categorical (factor or character) variables have many levels, but only
+a few observations in each level. For analyses, this is less than ideal, so it
+is often useful to reduce the total number of categories by merging levels together.
+This can be especially useful if interpretation of only one level is desired
+compared to other levels.
+
+Reduce the levels of education by using the `fct_recode` function from the 
+`forcats` package.
 
 ```{r}
 library(forcats)
@@ -157,18 +168,29 @@ fh_educ <- framingham %>%
         "Post-Secondary" = "Vocational"
         ))
 
+# Compare the original education variable with the reduced one
+fct_count(fh_educ$educ)
 fct_count(fh_educ$educ_reduced)
 # TODO: Add another dataset to reduce categories e.g. PROMISE and ethnicity
 ```
 
+### Exercise: Comparison between different transformations
 
-### Exercise: Comparison between different log transformations
+{{Multiple part question?}}
+
+Using different types of transformations is dependent on the specific research
+question and how the data looks. It's useful to understand what each types of 
+transformations do to the available data.
+
+Explore the transforms visually.
 
 ```{r}
 # TODO: show a cohort with continuous outcome, and log that
 fh_transformed <- framingham %>% 
-    mutate(scale_bmi = scale(bmi),
-           log_bmi = log(bmi))
+    mutate(scale_bmi = as.numeric(scale(bmi)),
+           log_bmi = log(bmi),
+           log10_bmi = log10(bmi),
+           exp_bmi = bmi^2)
 
 fh_transformed %>% 
     select(contains("bmi")) %>% 
@@ -178,6 +200,10 @@ fh_transformed %>%
     facet_grid( ~ bmi_variable, scale = "free")
 ```
 
+Part 2:
+
+- Compare the distributions between the normal bmi and scaled bmi. What is different? WHy might scaling be useful?
+- Compare the distributions between the normal bmi and the log bmi. What does logging do and why might it be useful?
 
 # Notes:
 
