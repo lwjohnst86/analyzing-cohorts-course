@@ -276,7 +276,8 @@ How might the adjustment for age AND period influence the results?
 *Content*:
 
 - Sensitivity analyses
-    - exploring potential sub-hypotheses to test assumptions of models
+    - exploring potential sub-hypotheses to test assumptions of models and to
+    get better understanding
     - e.g. stratified analysis, models with and without covars to id which is
     impacting results, etc
 - Simpson's paradox? need to consider subgroup analyses (interactions), especially
@@ -291,7 +292,37 @@ the p-value...? to highlight how unreliable it is?
 
 ### Exercise: Identifying variables that strongly influence model
 
+{{NE}}
+
+Often when creating statistical models to analyze a cohort dataset, there are some
+confounders that strongly change the estimate of the primary exposure with the outcome.
+But building models is often done in larger steps (i.e. adding multiple covariates
+at a time). For understanding the underlying relationships between variables, 
+it can be useful to identify which exact variable (or variables) most strongly 
+change the estimate. This is one example of a sensitivity analysis.
+
+So identify which variable is influencing the estimates the most:
+
+```{r influential_covars}
+
+```
+
+
 ### Exercise: Removing observations that strongly influence model
+
+{{NE}}
+
+While some variables can strongly influence the results, there are often specific
+observations that can do the same. This is much more tricky to identify, since 
+generally you need to visualize the results to see what observations could 
+change the results and why that may be.
+
+So, visualize the relationship with these variables and remove those observations
+from the model. How do the two model results compare?
+
+```{r influential_obs}
+
+```
 
 ### Exercise: Testing for interactions of important variables
 
