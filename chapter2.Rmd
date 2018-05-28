@@ -21,6 +21,7 @@ use them
 - Exploring data (dot/boxplots, violinplots, correlation heatmap)
     - Need to understand the data before doing any serious wrangling
 TODO: Add more content, focus it on cohorts.
+- NE: Coding example of Simpson's paradox in health setting (real world example?) (or in lesson 2)
 
 ### Exercise: Plot individual (or summary) change over time in longitudinal datasets
 
