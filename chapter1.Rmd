@@ -33,7 +33,6 @@ or analytical techniques needed to analyze the data.
     - Briefly why it is important to know study type (can change which stats you
     use and what interpretation you have).
 - Incidence vs prevalence
-- Variables: outcomes vs exposures/predictors
 
 ### Exercise: Which is which study type?
 
@@ -75,6 +74,7 @@ to calculate incidence/prevalence?}}
         variables mean, so need to refer to the documentation.
     - State assumptions first about the data (e.g. data already collected), this
     is not a course on how to conduct and collect cohort data.
+- Variables: outcomes vs exposures/predictors
 
 *Exercises*
 - NE: Quickly look over data (simple, like head or something). Type out in order 
