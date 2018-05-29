@@ -2,7 +2,7 @@
 source("preamble.R")
 ```
 
-# Chapter 4: Presentation your results
+# Chapter 4: Presentation of your results
 
 - Backtransform based on what is most meaningful for presenting
 - Presenting the results in a plot or table
@@ -22,16 +22,11 @@ have meaningful clinical implications.
 
 **Lessons to achieve objectives:**
 
+## Lesson 1: Language and information to use when communicating the findings
+
 - Highlighting uncertainty and magnitude of results over "statistical significance"
 - Types of backtransformation and impact on interpretation. (Should this be in
 chapter 3?)
-- Table or figure? When to use either
-    - Above all, try to use a figure. They tend to show results the best,
-    quickest, and are more intuitive/understandable then tables.
-    - But not all results work in a figure.
-- What to show when using tables
-    - Disparate estimates from models or results (e.g. showing results from full 
-    model, that includes both discrete and continuous exposures)
 - Backtransforming for maximal interpretation and meaning
 - When to use stronger causal language
     - Depending on magnitude of finding, can use stronger causal language.
@@ -39,6 +34,24 @@ chapter 3?)
     - Often argued that only Randomized Controlled Trials or animal/cell experiments 
     can use causal language, but that isn't always true.
     - Bradford Hill criteria (e.g. being smoking and lung cancer)
+- Most of the time, your target audience for your results/analysis of cohort
+studies is people in public health or government or clinicians... so you really
+need to make sure that your results are *understandable* to *them*, not to other
+data scientists or statisticians or epidemiologists (though you also need to 
+target them).
+
+## Lesson 2: Communicating your results through graphs
+
+- Table or figure? When to use either
+    - Above all, try to use a figure. They tend to show results the best,
+    quickest, and are more intuitive/understandable then tables.
+    - But not all results work in a figure.
+    
+## Lesson 3: Using tables to convey your findings
+
+- What to show when using tables
+    - Disparate estimates from models or results (e.g. showing results from full 
+    model, that includes both discrete and continuous exposures)
 
 **Exercises to reinforce learning:**
 
@@ -100,20 +113,3 @@ results %>%
     geom_errorbarh(aes(height = 0.2)) +
     facet_grid( ~ outcomes, scales = "free")
 ```
-
-## Lesson 2: Using statistics is easy, making *meaning* is hard
-
-- The importance of choosing the test most appropriate to the data, to the
-research design, and to the research questions.
-- Depending on the statistical test, how you transform your data can drastically
-change, for better or worse, how the results are interpreted and presented.
-- Most of the time, your target audience for your results/analysis of cohort
-studies is people in public health or government or clinicians... so you really
-need to make sure that your results are *understandable* to *them*, not to other
-data scientists or statisticians or epidemiologists (though you also need to 
-target them).
-
-### Exercise 1: Transforming, and then what?
-MCQ/text: 
-### Exercise 2: 
-NE: You have a 
