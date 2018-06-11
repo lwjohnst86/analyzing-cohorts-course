@@ -197,21 +197,29 @@ pieces.)
 
 ## Step 4: How are the concepts connected?
 
-- Chapter 1
-  - Lesson 1.1
-  - Lesson 1.2
-  - Lesson 1.3
-- Chapter 2
-  - Lesson 2.1
-  - Lesson 2.2
-  - Lesson 2.3
+- Chapter 1: Introduction to cohorts and types of research questions
+    - Lesson 1: Introduction to cohort designs
+    - Lesson 2: Introduction to the datasets and exploring them
+    - Lesson 3: Scientific questions that can be asked of cohort data
+- Chapter 2: Data exploring, wrangling, and formatting
+    - Lesson 1: Pre-wrangling exploration
+    - Lesson 2: Tidy cohort data and wrangling into analyzable form.
+    - Lesson 3: Transforming and modifying variables (maybe into two lessons?)
+- Chapter 3: Running the statistical techniques
+    - Lesson 1: Common statistical techniques used for analyzing cohorts
+    - Lesson 2: Adjustment, confounding, and modelling.
+    - Lesson 3: Interaction testing and sensitivity analyses
+    - Lesson 4: Extracting relevant data from results and post-modelling-wrangling {{wording needs changes}}
+- Chapter 4: Presentation of results from cohort studies
+    - Lesson 1: Language and information to use when communicating the findings
+    - Lesson 2: Back transforming results for easier interpretation
+    - Lesson 3: Communicating your results through graphs
+    - Lesson 4: Using tables to convey your findings
 
 The datasets are:
 
 - `framingham`: (need to generate the file) Framingham Heart Study.
-- `promise`: (need to confirm and add) PROMISE dataset.
-- `diet`: Diet and CHD (from Epi package)
-- `nickel` (with `ewrates`): From Epi (smelting workers, lung cancer) (not sure...)
+- `diet`: Diet and CHD (from Epi package) (maybe only for a few exercises)
 
 ## Step 5: Course overview
 
