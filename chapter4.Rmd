@@ -109,30 +109,47 @@ results %>%
     - "Report other analyses done—eg analyses of subgroups and interactions, and
     sensitivity analyses"
 
-### Exercise: Line plots for description... Maybe?
-
-```{r}
-
-```
-
 ### Exercise: estimate and CI plot
+
+{{NE}}
+
+Most frequently, cohort analyses end up having an estimate of some type along with
+some measure of uncertainty about that estimate (e.g. 95% confidence interval).
+Sometimes it might be fine to present these results as a table, however this
+is rarely recommended (even though many researchers still do this). The best way
+to communicate your results, to communicate the magnitude of association and
+how much uncertainty there is, is through a plot. Create a plot of the model results.
 
 ```{r}
 # TODO: Include a title that gives a quick summary of results... using appropriate language
 # TODO: Use previous results (or just provide the result dataframe so they can start plotting)
 results %>% 
-    ggplot(aes(y = models, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = terms, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_errorbarh(aes(height = 0.2)) +
     facet_grid( ~ outcomes, scales = "free")
 ```
 
 ### Exercise: Plotting unadjusted and adjusted models of your results
 
-```{r}
+{{NE}}
 
+Most journals and reviewers will request showing both unadjusted and adjusted results
+as the results between these can be informative and insightful into the underlying
+research question. In fact, STROBE has a guideline for including and discussing
+these results, and any potential differences between. Create a plot of your results
+showing different levels of adjustment.
+
+```{r}
+bind_rows(
+    unadj_model %>% mutate(Model = "Unadjusted"),
+    adj_model %>% mutate(Model = "Adjusted")
+) %>% 
+    ggplot(aes(y = terms, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_errorbarh(aes(height = 0.2)) +
+    facet_grid(Models ~ outcomes, scales = "free")
 ```
 
-### Exercise: By group plot ...?
+### Exercise: Subgroup plot
 
 {{TabExercise with MCE and NE?}}
 
@@ -148,18 +165,12 @@ show findings that you've done even if they are null or don't have any differenc
     - STROBE: "Report other analyses done—eg analyses of subgroups and interactions, and
     sensitivity analyses"
 
-### Exercise: Plotting interaction associations
+### Exercise: Plotting and interpreting interaction associations
 
-E.g. a sex by predictor interaction
-
-```{r}
-
-```
-
-### Exercise: Plotting and interpreting a time interaction
+E.g. a sex or time by predictor interaction
 
 ```{r}
-
+# TODO: Will need to confirm a time interaction (or just show it regardless...)
 ```
 
 ## Lesson 4: Using tables to convey your findings
@@ -187,7 +198,12 @@ single format is challenging for figure, which is usually the case with descript
 tables. In fact, including this descriptive information is part of the STROBE
 guidelines.
 
-{{use carpenter or other for this exercise}}
+```{r}
+framingham %>% 
+    outline_table(header = "period") %>% 
+    add_rows(..., stat = stat_meanSD) %>% 
+    build_table()
+```
 
 ### Exercise: Table alongside figure of events over time
 
@@ -205,10 +221,14 @@ framingham %>%
     count(period, cvd, Total) %>% 
     rename(Events = n) %>% 
     knitr::kable()
-
 ```
 
 ### Exercise: Create a table of the results
+
+Sometimes it is useful for researchers doing meta-analyses to have the numbers
+available from the cohort analysis results to use in their own research. In this
+way, the figure is not enough. So including a table of the results can be useful
+as a supplement to the figure.
 
 ```{r}
 results %>% 
