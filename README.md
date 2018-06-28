@@ -242,12 +242,10 @@ exploratory data analysis?)
 
 **Prerequisites**
 
-- Correlation and Regression
-- Multiple and Logistic Regression
-- Statistical Modeling in R
-- dplyr?
-- purrr?
-- data visualization?
+- [Intro to tidyverse](https://github.com/datacamp/courses-intro-to-tidyverse)
+- [Descriptive Epidemiology in R](https://github.com/datacamp/courses-descriptive-epidemiology-in-r)
+- [Correlation and Regression](https://github.com/datacamp/courses-intro-stats-correlation-regression)
+
 
 [course-specs]: https://github.com/datacamp/example-course-specs
 [profile-site]: https://github.com/datacamp/learner-profiles
