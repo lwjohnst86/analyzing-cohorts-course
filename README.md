@@ -1,5 +1,4 @@
 # (Introduction to?) Analyzing Cohort Data in R by Luke Johnston
-(Part 1? There is a lot to analyzing cohorts, this is the basic level...)
 
 ## Course development resources
 
@@ -21,9 +20,7 @@ please speak with your Curriculum Lead.*
         exploratory data analysis?)
         - how to plot results from regression models (pointrange)
 2. What techniques or concepts will students learn?
-    - regression to specific data (logistic for disease states, mixed effects?,
-    cox models, survival)
-    - how to plot cox models (kaplan-meier)
+    - regression to specific data (logistic for disease states, mixed effects?)
     - how to display results in tabular format (use rmarkdown? other packages to
     convert to table)
     - how to transform data and backtransform to calculate meaningful and
@@ -36,8 +33,6 @@ please speak with your Curriculum Lead.*
     significance testing
     - prospective vs retrospective (and the types of analyses you can do)
     - cohort study designs
-    - understanding difference between incidence and prevalence of disease, and
-    their calculation
 3. What technologies, packages, or functions will students use?
     - regression (linear, logistic, cox, mixed effect?)
     - packages: ggplot, lme4?
@@ -57,23 +52,8 @@ please speak with your Curriculum Lead.*
     - too much emphasis on p-values rather than estimation and uncertainty
     - not understanding probability/p-values
 7. What datasets will you use?
-    - this I need to look into (since cohort datasets are not commonly openly published).
-        - possibles:
-            - https://cancergenome.nih.gov/
-            - https://cran.r-project.org/web/packages/survminer/vignettes/Informative_Survival_Plots.html
-            - https://archive.ics.uci.edu/ml/datasets/Heart+Disease
-            - https://archive.ics.uci.edu/ml/datasets/Diabetes+130-US+hospitals+for+years+1999-2008
-            - https://archive.ics.uci.edu/ml/datasets/Diabetes
-            - https://archive.ics.uci.edu/ml/datasets/Cervical+cancer+%28Risk+Factors%29
-    - Likely use Cervical Cancer dataset
-        - https://archive.ics.uci.edu/ml/datasets/Cervical+cancer+%28Risk+Factors%29
-        
-<!--
-Resources or other courses from DataCamp to refer to:
-    - Correlation and Regression
-    - Multiple and Logistic Regression
-    - Statistical Modeling in R
--->
+    - Framingham Heart Study
+    - CHD Diet from Epi package
 
 ## Step 2: Who is this course for?
 
@@ -99,101 +79,8 @@ very useful.
 
 ## Step 3: What will learners do along the way?
 
-### Risk of developing a disease from exposures, over time 
-
-*(an "end" goal exercise)*
-
-(This could the final exercise. Q: How many lines of code is suitable for final
-exercise?)
-
-You are given a cohort dataset with information on disease and multiple
-exposures, measured multiple times over many years (need to find dataset
-suitable for this):
-
-```
-Participant,Time,DiseaseState,Exposure1,Exposure2,Exposure3,Covar1,Covar2
-1,1, ...
-1,2, ...
-1,3, ...
-2,1, ...
-2,2, ...
-....
-```
-
-What is the risk of disease of developing the disease for participants with 
-higher values of Exposure1-3? When adjusted for covar1 and 2? Plot the results
-of the models.
-
-(Comments: This can be spread over 2 exercises. Likely step by step build up of
-pieces.)
-
-> **Solution** (not tested)
->
-> ```{r}
-> # Model
-> model <- dataset %>% 
-> gather(Exposure, ExpValue, Exp1:Exp3) %>% 
-> nest(-Exposure) %>% 
-> mutate(model = map_df(data, ~lmer(DiseaseState ~ ExpValue*Time + (1|Participant), data = .x)) %>% tidy()
-> )
-> # plot
-> model %>% 
-> ggplot() +
-> geom_pointrange(aes(x = estimate, xmin = conf.low, xmax = conf.high)) +
-> facet_grid(~ Exposure)
-> ```
-
-### Time to event analysis
-
-*(an "end" goal exercise)*
-
-(Cox model, still need to fill this out)
-
-> **Solution**
->
-> Include sample code.
-
-### Other exercises
-
-- Running multiple models 
-    - Several possible routes here, either for several outcomes with several
-    exposures or for grouping variables ("stratified analysis", e.g. on
-    male/female).
-    - Could be several exercise types: Fill in the blanks, "faded" example (?)
-    - Potential example code:
-    ```
-    library(tidyverse)
-    library(broom)
-    dataset %>% 
-        select(variables_of_interest) %>% 
-        nest(-grouping_variable) %>% 
-        mutate(model = map_df(data, ~ glm(outcome ~ exposure + covariates, data = .,
-        family = binomial)))
-    ```
-
-- Transformations and interpretation
-    - A continuous exposure variable was log transformed before running a 
-    logistic regression. Here's the (toy) code:
-    ```
-    dataset %>% 
-    mutate(logExposure = log(Exposure)) %>% 
-    map_df(~glm(Disease ~ logExposure + covariate1, data = .x) %>% tidy(conf.int = TRUE))
-    ```
-    - An interpretation is given, but the interpretation of results assumes the
-    unit of the exposure is before log transform, which is inaccurate.
-    - Could be two exercises, one coded, another MCQ asking interpretation, and
-    another exercise with correct one. Or could be "This is the code and
-    interpretation. There is something wrong. Fix the code to get the correct
-    interpretation."
-
-- Manually calculate odds ratio, then through logistic regression
-    - Calculate OR, then do it in logistic regression that has been adjusted.
-    - Do two exercises. Code to get result, than MCQ to do interpretation, such as
-    "which description is the correct interpretation?"
-
-- Display the results of a regression analysis
-    - Will need to filter the model results first, select the relevant variables,
-    and graph the appropriate estimates.
+- See exercises found in chapters [1](chapter1.Rmd), [2](chapter2.Rmd),
+[3](chapter3.Rmd), and [4](chapter4.Rmd).
 
 ## Step 4: How are the concepts connected?
 
@@ -218,29 +105,70 @@ pieces.)
 
 The datasets are:
 
-- `framingham`: (need to generate the file) Framingham Heart Study.
-- `diet`: Diet and CHD (from Epi package) (maybe only for a few exercises)
+- `framingham`: Framingham Heart Study.
+- `diet`: Diet and CHD (from Epi package) (only for a few exercises)
 
 ## Step 5: Course overview
 
-**Course Description**
+### Course Description
 
 Cohorts are a powerful scientific study design that allows researchers to
-discover factors that can increase the risk of disease in a population.
+better understand how to reduce, manage, or prevent disease in a population.
+Results from cohort studies are critical when creating effective public health
+initiatives. However, because peoples' lives and health are directly impacted
+by the cohorts' findings, there is a greater pressure to make sure that the
+analysis is correct and appropriate, and that the results are presented as
+meaningfully and as simply as possible. The difficulty in analysis also comes in
+the wide variety of types of cohort designs, datasets, and research questions.
+In this course, we'll be covering how and what to analytically ask of cohort
+data, special considerations for data wrangling and processing, choosing the
+statistical technique, and lastly presenting the results in ways that are
+meaningful and simple enough to understand.
 
-There are many ways to analyze cohort studies, with many different research
-questions that can be addressed. For this course, we will focus on the main
-purpose of using cohorts: to study how disease states occur in a population.
+### Learning Objectives
 
-**Learning Objectives**
+#### Chapter 1
+
+- Know that analyzing cohorts is just as much about the process/workflow as it
+is about the specific tools/statistics to use.
+- Recognize the type of cohort design from the data
+- Know which research questions can and cannot be asked of the given data
+- Have a general understand of which statistical tests to use for which data and
+that the test will dictate how the data should look.
+- Know where to look and what resources to use if you can't find the statistical
+or analytical techniques needed to analyze the data.
+
+#### Chapter 2
 
 - identifying the type of analysis to use for the specific type of cohort data
 - how to appropriately and meaningfully interpret and present these results
-- how to check that data fits your assumptions about it (assertr maybe?
-exploratory data analysis?)
+- how to check that data fits your assumptions about it 
 - how to plot results from regression models (pointrange)
 
-**Prerequisites**
+#### Chapter 3
+
+- Learn to run some common statistic techniques on different datasets and research
+questions
+- Learn how to extract the relevant results from these stats methods
+- Understand why its important to not use or even look at p-values in the output
+- Know how to understand and interpret the results (we'll get to knowing what
+exactly is most useful to present and show for higher impact)
+- Importance of examining multiple levels of adjustment (unadjusted, minimally,
+fully), and how this can inform what is going on in the relationship.
+- Knowing how to choose/decide on what variables to adjust for
+
+#### Chapter 4
+
+- Give careful thought into how to best show results in a understandable and
+impactful way for public health professionals and clinicians.
+- Emphasize figures over tables, but know when to use either.
+- Be cautious in interpreting "non-significant" findings, since they could also
+have meaningful clinical implications.
+- Use cautious language when presenting results
+    - Especially with "causal" language
+- Discuss STROBE guidelines in context of longitudinal study.
+
+### Prerequisites
 
 - Correlation and Regression
 - Multiple and Logistic Regression
