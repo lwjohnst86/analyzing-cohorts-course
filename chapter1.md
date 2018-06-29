@@ -32,6 +32,8 @@ The instructions that follow should be in bullet point form with clear guidance 
 
 ```{r}
 # Load datasets and packages here.
+download.file("https://assets.datacamp.com/production/repositories/2079/datasets/b0b1f5c64a8ae3de0913eff20c0ec55749b5f9f5/framingham.rda", "framingham.rda")
+load("framingham.rda")
 ```
 
 `@sample_code`
@@ -55,6 +57,7 @@ The instructions that follow should be in bullet point form with clear guidance 
 # Make sure to match the comments with your sample code
 # to help students see the differences from solution
 # to given.
+# Paste here first
 ```
 
 `@sct`
