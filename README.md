@@ -112,18 +112,18 @@ The datasets are:
 
 ### Course Description
 
-Cohorts are a powerful scientific study design that allows researchers to
+Cohort studies are a powerful study design that allows researchers to
 better understand how to reduce, manage, or prevent disease in a population.
-Results from cohort studies are critical when creating effective public health
-initiatives. However, because peoples' lives and health are directly impacted
-by the cohorts' findings, there is a greater pressure to make sure that the
-analysis is correct and appropriate, and that the results are presented as
-meaningfully and as simply as possible. The difficulty in analysis also comes in
-the wide variety of types of cohort designs, datasets, and research questions.
-In this course, we'll be covering how and what to analytically ask of cohort
-data, special considerations for data wrangling and processing, choosing the
-statistical technique, and lastly presenting the results in ways that are
-meaningful and simple enough to understand.
+The findings from cohorts are critical to creating effective public health
+interventions. Because peoples' lives and health are directly impacted
+by the findings from cohort studies, there is immense pressure to ensure that the
+analysis done correctly and appropriately and that the presentation of results is as
+meaningful and as simple as possible. The difficulty in the analysis also comes 
+from the wide range in study designs, data collection and type, and research
+questions. In this course, we'll be covering how and what to analytically ask of
+cohort data, what are special considerations for data processing, which
+statistical techniques to choose, and how to present the results for effective
+communication to public health professionals.
 
 ### Learning Objectives
 
