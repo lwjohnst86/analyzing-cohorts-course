@@ -1,6 +1,21 @@
 ---
 title: Template Chapter 1
 description: This is a template chapter.
+
+---
+## Introduction to Cohort Designs
+
+```yaml
+type: VideoExercise
+key: b2111dc061
+lang: r
+xp: 50
+skills: 1
+```
+
+`@projector_key`
+fd067459a73b16863b609297f96ac32c
+
 ---
 
 ## An exercise title written in sentence case
@@ -65,4 +80,104 @@ load("framingham.rda")
 ```{r}
 # Update this to something more informative.
 success_msg("Some praise! Then reinforce a learning objective from the exercise.")
+```
+
+---
+## Introduction to the datasets and exploring them
+
+```yaml
+type: VideoExercise
+key: a537fbe14a
+lang: r
+xp: 50
+skills: 1
+```
+
+`@projector_key`
+9e3d8b35b89128ebb91908d3aa815cf1
+
+---
+## Another Exercise
+
+```yaml
+type: NormalExercise
+key: 98e9f6d5d6
+lang: r
+xp: 100
+skills: 1
+```
+
+
+`@instructions`
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+## Scientific questions that can be asked of cohort data
+
+```yaml
+type: VideoExercise
+key: 382b3edde1
+lang: r
+xp: 50
+skills: 1
+```
+
+`@projector_key`
+d8b40a3d5d81b2b050f65eb79581aa42
+
+---
+## Another Exercise
+
+```yaml
+type: NormalExercise
+key: 3fe61c079b
+lang: r
+xp: 100
+skills: 1
+```
+
+
+`@instructions`
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
 ```
