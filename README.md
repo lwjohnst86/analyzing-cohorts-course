@@ -127,6 +127,15 @@ communication to public health professionals.
 
 ### Learning Objectives
 
+#### Overall
+
+- Learn how cohort data looks like and what questions to ask of it
+- Learn what to look for when exploring and pre-processing the data before the
+main analysis that may be more specific to cohort datasets
+- Learn how to think about and approach processing, analyzing, and presenting
+results from cohort studies in a way that is meaningful and interpretable to end
+users, the clinicians and the public health professionals
+
 #### Chapter 1
 
 - Know that analyzing cohorts is just as much about the process/workflow as it
@@ -140,10 +149,14 @@ or analytical techniques needed to analyze the data.
 
 #### Chapter 2
 
-- identifying the type of analysis to use for the specific type of cohort data
-- how to appropriately and meaningfully interpret and present these results
-- how to check that data fits your assumptions about it 
-- how to plot results from regression models (pointrange)
+- How to get data into form for quick exploration
+- How to wrangle the data to get into a form to use for the analysis/statistic
+- Know the various tools to transform the data and when is more appropriate to
+use them
+    - Know to be very careful of ever converting continuous into discrete
+    - Know when and why to transform variables (good reasons and bad)
+    - Reducing number of categories in categorical variable
+- Dealing with outliers (or not)
 
 #### Chapter 3
 
