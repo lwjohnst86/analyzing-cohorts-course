@@ -16,70 +16,54 @@ skills: 1
 `@projector_key`
 fd067459a73b16863b609297f96ac32c
 
----
 
-## An exercise title written in sentence case
+
+
+
+
+
+---
+## Which is which study type?
 
 ```yaml
-type: NormalExercise
-lang: r
-xp: 100
+type: PureMultipleChoiceExercise
+key: 6a414dfc25
+xp: 50
 skills: 1
-key: 6b81b446b5
 ```
 
-This is the assignment text. It should help provide students with the background information needed.
-The instructions that follow should be in bullet point form with clear guidance for what is expected.
 
-`@instructions`
-- Instruction 1
-- Instruction 2
-- Instruction 3
-- Instruction 4
+`@possible_answers`
 
 `@hint`
-- Here is the hint for this setup problem. 
-- It should get students 50% of the way to the correct answer.
-- So don't provide the answer, but don't just reiterate the instructions.
-- Typically one hint per instruction is a sensible amount.
+
+`@feedback`
+
+
+---
+## When can prevalence or incidence be calculated?
+
+```yaml
+type: MultipleChoiceExercise
+key: 79c8ccd360
+lang: r
+xp: 50
+skills: 1
+```
+
+
+`@instructions`
+
+`@hint`
 
 `@pre_exercise_code`
-
 ```{r}
-# Load datasets and packages here.
-download.file("https://assets.datacamp.com/production/repositories/2079/datasets/b0b1f5c64a8ae3de0913eff20c0ec55749b5f9f5/framingham.rda", "framingham.rda")
-load("framingham.rda")
-```
 
-`@sample_code`
-
-```{r}
-# Your
-# sample
-# code
-# should
-# be
-# ideally
-# 10 lines or less,
-# with a max
-# of 16 lines.
-```
-
-`@solution`
-
-```{r}
-# Answer goes here
-# Make sure to match the comments with your sample code
-# to help students see the differences from solution
-# to given.
-# Paste here first
 ```
 
 `@sct`
-
 ```{r}
-# Update this to something more informative.
-success_msg("Some praise! Then reinforce a learning objective from the exercise.")
+
 ```
 
 ---
@@ -95,6 +79,32 @@ skills: 1
 
 `@projector_key`
 9e3d8b35b89128ebb91908d3aa815cf1
+
+---
+## Analytic and interpretation limitations of each study design
+
+```yaml
+type: MultipleChoiceExercise
+key: d7e39ba425
+lang: r
+xp: 50
+skills: 1
+```
+
+
+`@instructions`
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
 
 ---
 ## Extract outcome and exposures of interest from the datasets
@@ -155,25 +165,11 @@ dietchd %>%
 ```
 
 ---
-## Scientific questions that can be asked of cohort data
-
-```yaml
-type: VideoExercise
-key: 382b3edde1
-lang: r
-xp: 50
-skills: 1
-```
-
-`@projector_key`
-d8b40a3d5d81b2b050f65eb79581aa42
-
----
-## Another Exercise
+## Calculate number of cases.
 
 ```yaml
 type: NormalExercise
-key: 3fe61c079b
+key: d3caf4d108
 lang: r
 xp: 100
 skills: 1
@@ -203,3 +199,56 @@ skills: 1
 ```{r}
 
 ```
+
+
+
+
+---
+## Exploring simple summaries of the exposures by outcome
+
+```yaml
+type: NormalExercise
+key: 8aea115604
+lang: r
+xp: 100
+skills: 1
+```
+
+
+`@instructions`
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+---
+## Scientific questions that can be asked of cohort data
+
+```yaml
+type: VideoExercise
+key: 382b3edde1
+lang: r
+xp: 50
+skills: 1
+```
+
+`@projector_key`
+d8b40a3d5d81b2b050f65eb79581aa42
+
