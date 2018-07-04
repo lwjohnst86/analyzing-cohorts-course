@@ -1,5 +1,5 @@
 ---
-title: Template Chapter 1
+title: "Introduction to cohorts and types of research questions"
 description: This is a template chapter.
 
 ---
@@ -97,7 +97,7 @@ skills: 1
 9e3d8b35b89128ebb91908d3aa815cf1
 
 ---
-## Another Exercise
+## Extract outcome and exposures of interest from the datasets
 
 ```yaml
 type: NormalExercise
@@ -107,24 +107,46 @@ xp: 100
 skills: 1
 ```
 
+It's important to recognize which are outcome variables and which are the
+predictors/exposures of interest. Often cohort studies have massive numbers of
+variables that have been measured, so to make it easier to explore and analyze
+the data, need to subset out the variables of interest.
 
 `@instructions`
+
+
 
 `@hint`
 
 `@pre_exercise_code`
 ```{r}
-
+library(dplyr)
+load("datasets/framingham.rda")
+load("datasets/dietchd.rda")
 ```
 
 `@sample_code`
 ```{r}
+# Select several potential exposures and the main outcome for both datasets
+framingham %>% 
+    select(cvd, totchol, bmi, hdlc)
 
+dietchd %>% 
+    select(chd, y, energy, fat, fibre)
 ```
 
 `@solution`
 ```{r}
+# NOTE: Need to make the answer be slightly fluid since different exposures
+# could be chosen. But need to make sure that only specific exposures are
+# chosen.
 
+# Select several potential exposures and the main outcome for both datasets
+framingham %>% 
+    select(cvd, totchol, bmi, hdlc)
+
+dietchd %>% 
+    select(chd, y, energy, fat, fibre)
 ```
 
 `@sct`
