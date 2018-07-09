@@ -1,7 +1,9 @@
 
 # Run this when in the project.
 library(tidyverse)
-framingham <- read_csv(unz("datasets/raw/framingham.zip", "FRAMINGHAM_csv/frmgham2.csv")) %>%
+framingham <- read_csv(unz("datasets/raw/framingham.zip", "FRAMINGHAM_csv/frmgham2.csv"))
+
+framingham <- framingham %>%
     rename_all(str_to_lower) %>%
     select(randid, time, period, sex, totchol, age, cursmoke, cigpday, bmi, educ,
            prevchd, prevmi, prevstrk, hdlc, cvd, timecvd) %>%
@@ -17,7 +19,7 @@ framingham <- read_csv(unz("datasets/raw/framingham.zip", "FRAMINGHAM_csv/frmgha
 
 save(framingham, file = "datasets/framingham.rda")
 
-library(Epi)
-data("diet")
-dietchd <- diet
-save(dietchd, file = "datasets/dietchd.rda")
+# library(Epi)
+# data("diet")
+# dietchd <- diet
+# save(dietchd, file = "datasets/dietchd.rda")
