@@ -17,17 +17,7 @@ framingham <- read_csv(unz("datasets/raw/framingham.zip", "FRAMINGHAM_csv/frmgha
 
 save(framingham, file = "datasets/framingham.rda")
 
-
 library(Epi)
-data("nickel")
-nickel <- nickel %>%
-    filter(icd %in% c(0, 162, 163)) %>%
-    mutate(lungcancer = as.integer(icd > 0))
-
-# Maybe need to also include ewrates, for comparison to general population
-save(nickel, file = "datasets/nickel.rda")
-
 data("diet")
 dietchd <- diet
-
 save(dietchd, file = "datasets/dietchd.rda")
