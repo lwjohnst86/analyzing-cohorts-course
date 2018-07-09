@@ -87,6 +87,8 @@ this cohort? What are the outcomes? And the exposures?
 *Exercises*
 - NE: Quickly look over data (simple, like head or something). Type out in order 
 which is prospective, which is retrospective, etc.
+- MCQ: here is a list of variable names from the dataset, which do you think are
+the outcomes and possible predictors?
 
 ### Exercise: Analytic and interpretation limitations of each study design
 
