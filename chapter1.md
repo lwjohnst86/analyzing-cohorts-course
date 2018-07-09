@@ -117,10 +117,14 @@ xp: 100
 skills: 1
 ```
 
+{{TabExercise? with NE}}
 It's important to recognize which are outcome variables and which are the
 predictors/exposures of interest. Often cohort studies have massive numbers of
 variables that have been measured, so to make it easier to explore and analyze
-the data, need to subset out the variables of interest.
+the data, let's subset out the variables of interest. For now, let's select many
+variables and restrict later when we've decided on potential research questions.
+At the same time, let's rename the variables to names that are more explicit and
+descriptive.
 
 `@instructions`
 
@@ -175,6 +179,10 @@ xp: 100
 skills: 1
 ```
 
+One of the first things to explore is the number of cases, as this will help inform
+what you can ask of the data and how to analyze it. Remember, for longitudinal data,
+you need to count by the time period, as each participant could have several rows per
+collection wave.
 
 `@instructions`
 
@@ -182,7 +190,9 @@ skills: 1
 
 `@pre_exercise_code`
 ```{r}
-
+library(dplyr)
+load("datasets/framingham.rda")
+load("datasets/dietchd.rda")
 ```
 
 `@sample_code`
@@ -192,16 +202,17 @@ skills: 1
 
 `@solution`
 ```{r}
+framingham %>% 
+    count(period, cvd)
 
+dietchd %>% 
+    count(chd)
 ```
 
 `@sct`
 ```{r}
 
 ```
-
-
-
 
 ---
 ## Exploring simple summaries of the exposures by outcome
@@ -214,6 +225,8 @@ xp: 100
 skills: 1
 ```
 
+Often a good sense of what is going on in the data can be seen with simple
+summary statistics, especially between the outcome and the exposure.
 
 `@instructions`
 
@@ -231,13 +244,21 @@ skills: 1
 
 `@solution`
 ```{r}
-
+framingham %>% 
+    # TODO: choose other variables.
+    gather(Measure, Value, totchol, hdlc, bmi, age) %>% 
+    group_by(period, cvd, Measure) %>% 
+    summarize(Mean = round(mean(Value, na.rm = TRUE), 2),
+              SD = round(sd(Value, na.rm = TRUE), 2)
+    ) %>% 
+    spread(cvd, MeanS)
 ```
 
 `@sct`
 ```{r}
 
 ```
+
 ---
 ## Scientific questions that can be asked of cohort data
 
