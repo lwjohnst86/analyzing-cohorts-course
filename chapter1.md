@@ -1,6 +1,6 @@
 ---
 title: "Introduction to cohorts and types of research questions"
-description: This is a template chapter.
+description: "In this chapter we will introduce what a cohort is"
 
 ---
 ## Introduction to Cohort Designs
@@ -126,9 +126,13 @@ variables and restrict later when we've decided on potential research questions.
 At the same time, let's rename the variables to names that are more explicit and
 descriptive.
 
+We've loaded the dataset as well as the dplyr package.
+
 `@instructions`
 
-
+- Using `names()`, identify which variables are the appropriate {{...}}
+- First, choose the correct outcome variable for CVD and rename it to `has_cvd`.
+- Next, select four predictor variables and rename them to be clearer {{make clear here?}}
 
 `@hint`
 
@@ -143,7 +147,7 @@ load("datasets/dietchd.rda")
 ```{r}
 # Select several potential exposures and the main outcome for both datasets
 framingham %>% 
-    select(cvd, totchol, bmi, hdlc)
+    select(____ = ____, ____ = total_cholesterol, ____ = body_mass_index, {{...}} )
 
 dietchd %>% 
     select(chd, y, energy, fat, fibre)
