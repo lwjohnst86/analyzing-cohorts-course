@@ -17,22 +17,21 @@ or analytical techniques needed to analyze the data.
 
 ## Lesson 1: Introduction to cohort designs
 
-*Content*
+*Content:*
+
 - Purpose of cohort studies ... why have them and what do they provide.
 - Intro to some jargon:
-    - cohorts (all participants share a common characteristic), types, outcomes,
-    predictors/exposure, risk factors (fill out as I go along)
+    - cohorts
+    - outcome
+    - exposures
 - Outline of course, focusing on workflow/process
-- Types of cohort designs:
-    - Prospective (no exposure, no disease), retrospective (exposure, but no
-    disease), cross-sectional analysis of cohort (based on type of data
-    available), nested case-control (won't necessarily be teaching how to
-    analyze all these, will teach about the process for working with this type
-    of data and what is important to present; note, these designs are very
-    economically efficient and also very powerful... high cost-benefit ratio).
-    - Briefly why it is important to know study type (can change which stats you
-    use and what interpretation you have).
-- Incidence vs prevalence
+- Types of cohort designs (mention that there are other types of these are most
+common):
+    - prospective (no exposure, no disease)
+    - retrospective (exposure, but no disease)
+- Type of design restricts type of analysis, so need to know the research
+question and design
+- Cohorts allow determining incidence, compared to prevalence
 
 ### Exercise: Which is which study type?
 
@@ -42,13 +41,6 @@ Usually the study design is explicitly stated in the study protocols, however,
 it can be sometimes tricky to differentiate between the different cohort types.
 Here are a couple examples of study collection protocols. Which protocols are
 which study design?
-
-### Exercise: What type of cohort design is this dataset? (maybe)
-
-{{MCQ with console}}
-
-Take a look at these datasets. {{very simply describe these datasets}}. What 
-cohort designs are each of these datasets?
 
 ### Exercise: When can prevalence or incidence be calculated? (maybe... or stick with below..?)
 
@@ -60,10 +52,26 @@ such as `table` or `group_by` with `count`, which of the below responses are acc
 {{Provide responses with possible numbers of prev/incid? Or just straight NE
 to calculate incidence/prevalence?}}
 
+### Exercise: What type of cohort design is this dataset? (maybe)
+
+{{MCQ with console}}
+
+Take a look at these datasets. {{very simply describe these datasets}}. What 
+cohort designs are each of these datasets?
+
+### Exercise: What study design is the Framingham Heart Study?
+
+{{BulletExercise MCQ}}
+
+Take a quick look at the dataset and research questions. Which study design is 
+this cohort? What are the outcomes? And the exposures?
+
+{{Include primary research question of original study}}
+
 ## Lesson 2: Introduction to the datasets and exploring them
 
 *Content*
-- Introduction to datasets we will use throughout
+- Introduction to datasets we will use
 - General look of data:
     - Show how the data looks:
         - baseline visit with disease status followup (time to disease, or age
@@ -92,21 +100,22 @@ interpretation view)
 
 ### Exercise: Extract outcome and exposures of interest from the datasets
 
+{{TabExercise with NE}}
+
 It's important to recognize which are outcome variables and which are the
 predictors/exposures of interest. Often cohort studies have massive numbers of
 variables that have been measured, so to make it easier to explore and analyze
-the data, need to subset out the variables of interest.
+the data, let's subset out the variables of interest. For now, let's select many
+variables and restrict later when we've decided on potential research questions.
+At the same time, let's rename the variables to names that are more explicit and
+descriptive.
 
 ```{r}
 # NOTE: Need to make the answer be slightly fluid since different exposures
-# could be chosen. But need to make sure that only specific exposures are
+# could be chosen. But need to make sure that only specific outcomes are
 # chosen.
 framingham %>% 
     select(cvd, totchol, bmi, hdlc)
-
-# TODO: Maybe not use nickel.
-nickel %>% 
-    select(lungcancer, exposure) # need to confirm this
 
 dietchd %>% 
     select(chd, y, energy, fat, fibre)
@@ -133,20 +142,14 @@ Often a good sense of what is going on in the data can be seen with simple
 summary statistics, especially between the outcome and the exposure.
 
 ```{r}
-# TODO: Use another dataset?
-nickel %>% 
-    group_by(icd) %>% 
-    summarize(mean = mean(exposure), sd = sd(exposure))
-
 framingham %>% 
     # TODO: choose other variables.
     gather(Measure, Value, totchol, hdlc, bmi, age) %>% 
     group_by(period, cvd, Measure) %>% 
-    summarize(MeanSD = stringr::str_c(
-        round(mean(Value, na.rm = TRUE), 2),
-        " (", round(sd(Value, na.rm = TRUE), 2), ")")
+    summarize(Mean = round(mean(Value, na.rm = TRUE), 2),
+              SD = round(sd(Value, na.rm = TRUE), 2)
     ) %>% 
-    spread(cvd, MeanSD)
+    spread(cvd, MeanS)
 ```
 
 ### Exercise: Here's data and a question, which test to use? (maybe)
@@ -161,6 +164,7 @@ belongs with which data and statistic?
 - research questions able to be asked from data and impact on stats
     - retrospective, can ask questions like:
 - {{Add more here}}
+- types of questions we could ask of Framingham
 
 *Exercises*
 - MCQ/text: Given dataset, which questions can be asked based on data.
@@ -176,3 +180,5 @@ Text? MCQ?: Which research question belongs with which dataset?
 - odds ratio, relative risk, incidence rate ratio
     - risk estimate of some type, for instance of diseases that are not binary
     - which questions will need which statistic
+
+{{Need some type of cliff hanger here...}}
