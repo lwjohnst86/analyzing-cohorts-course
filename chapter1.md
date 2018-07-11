@@ -222,29 +222,80 @@ dietchd %>%
 ## Exploring simple summaries of the exposures by outcome
 
 ```yaml
-type: NormalExercise
-key: 8aea115604
+type: TabExercise
+key: 45b64907b1
 lang: r
 xp: 100
-skills: 1
 ```
 
-Often a good sense of what is going on in the data can be seen with simple
-summary statistics, especially between the outcome and the exposure.
+Like the majority of data analyses, a large part of the work involves wrangling
+the data into the appropriate form to then analyze. One common technique involved
+in data processing and in data exploration and checking is the "split-apply-combine"
+method. For exploration, particularly of cohort datasets with multiple time points,
+it's useful see how multiple variables change over time using simple summary statistics. 
 
-`@instructions`
+In this case, since we have no only time as a column, but also multiple variables to 
+summarize, we'll need to convert the data into a very long format 
 
-`@hint`
 
 `@pre_exercise_code`
 ```{r}
-
+library(dplyr)
+library(tidyr)
+load("datasets/framingham.rda")
+load("datasets/dietchd.rda")
 ```
 
 `@sample_code`
 ```{r}
+framingham  %>% 
 
 ```
+
+***
+
+### Convert to very long format
+
+```yaml
+type: NormalExercise
+xp: 100
+```
+
+Convert to the very long data format, so that only four columns are kept in the data frame.
+
+`@instructions`
+
+- Using the tidyr `gather` function, make two new columns `variables` and `values`, but exclude
+`time` and `cvd`.
+- Make sure to only have four columns at the end.
+
+`@solution`
+```{r}
+framingham %>% 
+    gather(Measure, Value, -time, -cvd)
+```
+
+`@hint`
+
+- Did you use the `-` to exclude `time` and `cvd`?
+
+`@sct`
+```{r}
+
+```
+
+***
+
+### Calculate summary statistics by time and cvd
+
+```yaml
+type: NormalExercise
+xp: 100
+```
+
+Calculate the mean and the standard deviation 
+
+`@instructions`
 
 `@solution`
 ```{r}
@@ -257,6 +308,41 @@ framingham %>%
     ) %>% 
     spread(cvd, MeanS)
 ```
+
+`@hint`
+
+- Did you use `group_by` with `time`, `cvd`, and `variables`?
+- Don't forget to use `na.rm = TRUE` with `mean` and `sd`.
+
+`@sct`
+```{r}
+
+```
+
+***
+
+### Sub Heading 2
+
+```yaml
+type: NormalExercise
+xp: 100
+```
+
+`@instructions`
+
+`@solution`
+```{r}
+framingham %>% 
+    # TODO: choose other variables.
+    gather(Measure, Value, totchol, hdlc, bmi, age) %>% 
+    group_by(period, cvd, Measure) %>% 
+    summarize(Mean = round(mean(Value, na.rm = TRUE), 2),
+              SD = round(sd(Value, na.rm = TRUE), 2)
+    ) %>% 
+    spread(cvd, MeanS)
+```
+
+`@hint`
 
 `@sct`
 ```{r}
