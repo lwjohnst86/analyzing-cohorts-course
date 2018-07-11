@@ -259,6 +259,7 @@ framingham  %>%
 ```yaml
 type: NormalExercise
 xp: 100
+key: 8ea022c873
 ```
 
 Convert to the very long data format, so that only four columns are kept in the data frame.
@@ -291,6 +292,7 @@ framingham %>%
 ```yaml
 type: NormalExercise
 xp: 100
+key: 9c56893d94
 ```
 
 Calculate the mean and the standard deviation 
@@ -326,6 +328,7 @@ framingham %>%
 ```yaml
 type: NormalExercise
 xp: 100
+key: 340cf4806e
 ```
 
 `@instructions`
