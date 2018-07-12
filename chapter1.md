@@ -1,6 +1,6 @@
 ---
-title: "Introduction to cohorts and types of research questions"
-description: "In this chapter we will introduce what a cohort is"
+title: "Introduction to cohorts and the approach to analyzing them"
+description: "In this chapter we will introduce what a cohort is, how to approach analyzing it, and some first steps in exploring cohort datasets."
 
 ---
 ## Introduction to Cohort Designs
@@ -259,7 +259,6 @@ framingham  %>%
 ```yaml
 type: NormalExercise
 xp: 100
-key: 8ea022c873
 ```
 
 Convert to the very long data format, so that only four columns are kept in the data frame.
@@ -292,7 +291,6 @@ framingham %>%
 ```yaml
 type: NormalExercise
 xp: 100
-key: 9c56893d94
 ```
 
 Calculate the mean and the standard deviation 
@@ -328,7 +326,6 @@ framingham %>%
 ```yaml
 type: NormalExercise
 xp: 100
-key: 340cf4806e
 ```
 
 `@instructions`
