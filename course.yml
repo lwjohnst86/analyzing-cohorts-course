@@ -1,5 +1,5 @@
 title: Cohort Analysis in R
 description: >-
-   Cohorts are a powerful scientific study design that allows researchers to discover factors that can increase the risk of disease in a population. There are many ways to analyze cohort studies, with many different research questions that can be addressed. For this course, we will focus on the main purpose of using cohorts: to study how disease states occur in a population.
+    "Cohorts are a powerful scientific study design that allows researchers to discover factors that can increase the risk of disease in a population. There are many ways to analyze cohort studies, with many different research questions that can be addressed. For this course, we will focus on the main purpose of using cohorts: to study how disease states occur in a population."
 programming_language: r
 from: 'r-base-prod:v1.0.0'
