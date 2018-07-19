@@ -39,7 +39,7 @@ Outline to video:
 - Participants are chosen for a reason... they are a specific "group"
 
 ---
-## What is a cohort study? The basics
+## The main focus of cohorts for data collection
 
 ```yaml
 type: FullSlide
@@ -48,14 +48,16 @@ key: db497d56cf
 
 `@part1`
 
-- A study over time that involves assessing one or more "exposures" (or called a "predictor") to one or more "outcomes".
-    - Outcome: The disease or health state (e.g. cancer) that is the focus of the cohort study
-    - Exposure/predictor: A variable that is thought to relate to a disease (e.g. tobacco smoking)
-
+- Outcome: 
+    - The disease or health state (e.g. cancer)
+    - Commonly shown as the $y$ in regression analysis
+- Exposure/predictor: 
+    - Variable thought to relate to a disease (e.g. tobacco smoking)
+    - Commonly shown as the $x$ in regression analysis
 
 `@script`
 
-{{Trim down on text... too much on slide}}
+- Like most data analyses, there is the variable you are interested in "predicting" or identifying risk for, and there is the variables that you think are what "predict" or influence in some way... the exposure to a condition that is thought to cause or to relate to the disease.
 
 
 ---
