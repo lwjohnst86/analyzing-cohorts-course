@@ -39,6 +39,24 @@ Outline to video:
 - Participants are chosen for a reason... they are a specific "group"
 
 ---
+## Main goal of this course
+
+```yaml
+type: FullSlide
+key: 5c430ef5dd
+```
+
+`@part1`
+
+> **Learn the thought process, general analytic workflow, and main focus of doing and analyzing a cohort study... not to learn a specific statistical method.**
+
+`@script`
+
+{{Not sure if I need this here or if at the course home page will be enough}}
+
+Before getting into what cohorts are, I want to reinforce the goal of this course... Because cohorts and the data analyses for them are varied and diverse, the statistical techniques used ranges from simple to fairly complicated. Because of this, it is difficult to focus a course on analysing cohorts that is specific to a statistical technique, because this would only apply to specific research questions and specific cohorts. So instead, the main learning goal is on the general workflow of cohort data analyses.
+
+---
 ## The main focus of cohorts for data collection
 
 ```yaml
@@ -131,6 +149,7 @@ question and design
 `@script`
 
 The main reason 
+
 
 ---
 ## Let's practice!
