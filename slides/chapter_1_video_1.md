@@ -31,10 +31,6 @@ or analytical techniques needed to analyze the data.
 Outline to video:
 
 - What are they, why use them, what do they give.
-
-- Outline of course, focusing on workflow/process
-
-- 
 - Cohorts allow determining incidence, compared to prevalence
 - Participants are chosen for a reason... they are a specific "group"
 
@@ -55,27 +51,6 @@ key: 5c430ef5dd
 {{Not sure if I need this here or if at the course home page will be enough}}
 
 Before getting into what cohorts are, I want to reinforce the goal of this course... Because cohorts and the data analyses for them are varied and diverse, the statistical techniques used ranges from simple to fairly complicated. Because of this, it is difficult to focus a course on analysing cohorts that is specific to a statistical technique, because this would only apply to specific research questions and specific cohorts. So instead, the main learning goal is on the general workflow of cohort data analyses.
-
----
-## The main focus of cohorts for data collection
-
-```yaml
-type: FullSlide
-key: db497d56cf
-```
-
-`@part1`
-
-- Outcome: 
-    - The disease or health state (e.g. cancer)
-    - Commonly shown as the $y$ in regression analysis
-- Exposure/predictor: 
-    - Variable thought to relate to a disease (e.g. tobacco smoking)
-    - Commonly shown as the $x$ in regression analysis
-
-`@script`
-
-- Like most data analyses, there is the variable you are interested in "predicting" or identifying risk for, and there is the variables that you think are what "predict" or influence in some way... the exposure to a condition that is thought to cause or to relate to the disease.
 
 
 ---
@@ -115,6 +90,29 @@ Study participants:
 {{Include images here?}}
 
 ---
+## Terms of main variables of interest
+
+```yaml
+type: FullSlide
+key: db497d56cf
+```
+
+`@part1`
+
+- *Outcome*: 
+    - The disease or health state (e.g. cancer)
+    - Commonly shown as the $y$ in regression analysis
+- *Exposure/predictor*: 
+    - Variable thought to relate to a disease (e.g. tobacco smoking)
+    - Commonly shown as the $x$ in regression analysis
+
+`@script`
+
+- Like most data analyses, there is the variable you are interested in "predicting" or identifying risk for, and there is the variables that you think are what "predict" or influence in some way... the exposure to a condition that is thought to cause or to relate to the disease.
+
+
+
+---
 ## Purpose and usefulness of cohorts
 
 ```yaml
@@ -150,6 +148,20 @@ question and design
 
 The main reason 
 
+
+
+
+---
+## Summary of lesson
+
+```yaml
+type: FullSlide
+key: bff39736de
+```
+
+`@part1`
+
+`@script`
 
 ---
 ## Let's practice!
