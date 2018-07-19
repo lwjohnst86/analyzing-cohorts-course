@@ -28,7 +28,7 @@ that the test will dictate how the data should look.
 - Know where to look and what resources to use if you can't find the statistical
 or analytical techniques needed to analyze the data.
 
-Outline to video:
+Outline to lesson:
 
 - What are they, why use them, what do they give.
 - Cohorts allow determining incidence, compared to prevalence
@@ -51,7 +51,6 @@ key: 5c430ef5dd
 {{Not sure if I need this here or if at the course home page will be enough}}
 
 Before getting into what cohorts are, I want to reinforce the goal of this course... Because cohorts and the data analyses for them are varied and diverse, the statistical techniques used ranges from simple to fairly complicated. Because of this, it is difficult to focus a course on analysing cohorts that is specific to a statistical technique, because this would only apply to specific research questions and specific cohorts. So instead, the main learning goal is on the general workflow of cohort data analyses.
-
 
 ---
 ## The two main cohort study designs
@@ -88,6 +87,25 @@ Study participants:
 `@script`
 
 {{Include images here?}}
+
+- Most often, cohorts are used to study a disease state (have or don't have), but sometimes, cohorts are used to study intermediate states before disease occurs, especially if the disease is rare or has a long development history.
+- Prospective cohorts are by far the most common and most powerful forms for studying disease states, especially for diseases that are common (e.g. diabetes). Retrospective cohorts are useful with rarer diseases or where health records are easy to access, but they are less common. For this reason, we will focus on prospective cohorts.
+
+---
+## Visual of a prospective cohort over time
+
+```yaml
+type: FullImageSlide
+key: a3b3b0e4f2
+```
+
+`@part1`
+
+![Prospective cohort example visual]()
+
+`@script`
+
+{{image of what a prospective study looks like}}
 
 ---
 ## Terms of main variables of interest
