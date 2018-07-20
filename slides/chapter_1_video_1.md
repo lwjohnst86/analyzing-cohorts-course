@@ -179,10 +179,21 @@ key: bff39736de
 
 `@part1`
 
+- Cohorts are:
+    - Group of people who share a common characteristic or feature 
+    - Has a time component to the study
+    - Measures some health or disease condition
+- Two main cohort designs: prospective and retrospective
+- Name of variables of interest: outcome and exposure/predictor
+- Cohort data analysis is highly diverse
+    - Focus on the workflow and process
+
 `@script`
 
+Let's review what we've covered so far. We talked about what a cohort is, the two types of cohorts, what the variables are called, and that data analysis of cohorts is highly dependent on the research question and specific setting so we need to focus on the workflow rather than any specific statistic.
+
 ---
-## Let's practice!
+## Let's practice what we've learned!
 
 ```yaml
 type: FinalSlide
