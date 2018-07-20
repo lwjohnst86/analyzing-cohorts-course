@@ -108,7 +108,7 @@ key: a3b3b0e4f2
 {{image of what a prospective study looks like}}
 
 ---
-## Terms of main variables of interest
+## What are the main variables of interest called?
 
 ```yaml
 type: FullSlide
