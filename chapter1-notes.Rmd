@@ -31,7 +31,9 @@ common):
     - retrospective (exposure, but no disease)
 - Type of design restricts type of analysis, so need to know the research
 question and design
-- Cohorts allow determining incidence, compared to prevalence
+
+- What type of study design is Framingham?
+- What would make it a retrospective cohort?
 
 ### Exercise: Which is which study type?
 
@@ -83,6 +85,7 @@ this cohort? What are the outcomes? And the exposures?
     - State assumptions first about the data (e.g. data already collected), this
     is not a course on how to conduct and collect cohort data.
 - Variables: outcomes vs exposures/predictors
+- Cohorts allow determining incidence, compared to prevalence
 
 *Exercises*
 - NE: Quickly look over data (simple, like head or something). Type out in order 
