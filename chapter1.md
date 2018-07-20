@@ -39,6 +39,43 @@ skills: 1
 
 `@feedback`
 
+---
+## What makes it a cohort?
+
+```yaml
+type: MultipleChoiceExercise
+lang: r
+xp: 25
+skills: 1
+```
+
+For this course we will be using the Framingham Heart Study to learn about the process of analysing cohort datasets. These next few exercises are meant to quickly get you familiar with the dataset and thinking about it in terms of the "cohort" setting. After the next video exercise, we will get into exploring the dataset using R.
+
+First, a bit of background. The Framingham study was set up to study what might contribute to the risk for cardiovascular disease. Participants were recruited from the town of Framingham and followed over time.
+
+What feature makes Framingham a cohort?
+
+`@instructions`
+- It studies a disease (cardiovascular disease)
+- Participants all came from the town of Framingham
+- Participants were followed over time
+
+`@hint`
+Cohorts are people who have *something in common*.
+
+`@pre_exercise_code`
+```{r}
+load("data/framingham.rda")
+```
+
+`@sct`
+```{r}
+msg1 <- "Incorrect. While cohorts often are used to study a disease, this doesn't make it a cohort."
+msg2 <- "Correct! Cohorts are people who share a common characteristic. In this case, the participants share a town and so have a similar environment."
+msg3 <- "Incorrect. Cohorts always include a time component, but this doesn't make it a cohort."
+test_mc(2, feedback_msgs = c(msg1, msg2, msg3))
+```
+
 
 ---
 ## When can prevalence or incidence be calculated?
