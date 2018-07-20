@@ -121,13 +121,13 @@ key: db497d56cf
     - The disease or health state (e.g. cancer)
     - Commonly shown as the $y$ in regression analysis
 - *Exposure/predictor*: 
-    - Variable thought to relate to a disease (e.g. tobacco smoking)
+    - Variable hypothesized to relate to a disease (e.g. tobacco smoking)
     - Commonly shown as the $x$ in regression analysis
 
 `@script`
 
+- Every field has their own naming convention for the variables of interest. In the case of cohorts, they are called "outcomes" for the y variable that is commonly seen in statistical notation, and "exposures" or "predictors" for the x variable in statistics.
 - Like most data analyses, there is the variable you are interested in "predicting" or identifying risk for, and there is the variables that you think are what "predict" or influence in some way... the exposure to a condition that is thought to cause or to relate to the disease.
-
 
 
 ---
