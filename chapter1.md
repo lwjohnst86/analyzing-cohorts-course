@@ -16,12 +16,6 @@ skills: 1
 `@projector_key`
 fd067459a73b16863b609297f96ac32c
 
-
-
-
-
-
-
 ---
 ## Which is which study type?
 
@@ -31,6 +25,8 @@ key: 6a414dfc25
 xp: 50
 skills: 1
 ```
+{{Convert to BulletExercise?}}
+
 
 
 `@possible_answers`
@@ -87,7 +83,7 @@ lang: r
 xp: 50
 skills: 1
 ```
-
+{{Convert to BulletExercise?}}
 
 `@instructions`
 
