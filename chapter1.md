@@ -72,6 +72,36 @@ msg3 <- "Incorrect. Cohorts always include a time component, but this doesn't ma
 test_mc(2, feedback_msgs = c(msg1, msg2, msg3))
 ```
 
+---
+## What cohort type is the Framingham Heart Study?
+
+```yaml
+type: MultipleChoiceExercise
+lang: r
+xp: 25
+skills: 1
+```
+
+For this course we will be using the Framingham Heart Study to learn about the process of analysing cohort datasets. 
+
+What cohort study design is the Framingam study?
+
+`@instructions`
+- Prospective
+- Retrospective
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+load("data/framingham.rda")
+```
+
+`@sct`
+```{r}
+
+```
+
 
 ---
 ## When can prevalence or incidence be calculated?
