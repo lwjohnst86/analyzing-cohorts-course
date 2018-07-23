@@ -43,6 +43,7 @@ type: MultipleChoiceExercise
 lang: r
 xp: 25
 skills: 1
+key: ed0789164c
 ```
 
 For this course we will be using the Framingham Heart Study to learn about the process of analysing cohort datasets. These next few exercises are meant to quickly get you familiar with the dataset and thinking about it in terms of the "cohort" setting. After the next video exercise, we will get into exploring the dataset using R.
@@ -80,6 +81,7 @@ type: MultipleChoiceExercise
 lang: r
 xp: 25
 skills: 1
+key: bb64056fa8
 ```
 
 What cohort study design is the Framingam study?
