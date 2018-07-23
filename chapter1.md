@@ -82,8 +82,6 @@ xp: 25
 skills: 1
 ```
 
-For this course we will be using the Framingham Heart Study to learn about the process of analysing cohort datasets. 
-
 What cohort study design is the Framingam study?
 
 `@instructions`
@@ -99,7 +97,9 @@ load("data/framingham.rda")
 
 `@sct`
 ```{r}
-
+msg1 <- "Correct! "
+msg2 <- "Incorrect. "
+test_mc(2, feedback_msgs = c(msg1, msg2))
 ```
 
 
