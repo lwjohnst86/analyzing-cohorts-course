@@ -64,9 +64,11 @@ key: ed0789164c
 
 For this course we will be using the Framingham Heart Study to learn about the process of analysing cohort datasets. These next few exercises are meant to quickly get you familiar with the dataset and thinking about it in terms of the "cohort" setting. After the next video exercise, we will get into exploring the dataset using R.
 
-First, a bit of background. The Framingham study was set up to study what might contribute to the risk for cardiovascular disease. Participants were recruited from the town of Framingham and followed over time.
+First, a bit of background. The Framingham study was set up to study what might contribute to the risk for cardiovascular disease. Participants were recruited from the town of Framingham in the United States and followed over time.
 
 What feature makes Framingham a cohort?
+
+If it helps, you can explore the `framingham` dataset in the console. The dataset has not yet been fully tidied, which we will get to in Chapter 2.
 
 `@instructions`
 - It studies a disease (cardiovascular disease)
