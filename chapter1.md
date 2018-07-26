@@ -413,6 +413,109 @@ xp: 50
 skills: 1
 ```
 
+{{Change title?}}
+
 `@projector_key`
 d8b40a3d5d81b2b050f65eb79581aa42
+
+---
+## When can prevalence or incidence be calculated?
+
+```yaml
+type: MultipleChoiceExercise
+key: 79c8ccd360
+lang: r
+xp: 50
+skills: 1
+```
+{{Convert to BulletExercise?}}
+
+`@instructions`
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+## Calculate number of cases.
+
+```yaml
+type: NormalExercise
+key: d3caf4d108
+lang: r
+xp: 100
+skills: 1
+```
+
+One of the first things to explore is the number of cases, as this will help inform
+what you can ask of the data and how to analyze it. Remember, for longitudinal data,
+you need to count by the time period, as each participant could have several rows per
+collection wave.
+
+`@instructions`
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+library(dplyr)
+load("datasets/framingham.rda")
+load("datasets/dietchd.rda")
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+framingham %>% 
+    count(period, cvd)
+
+dietchd %>% 
+    count(chd)
+```
+
+`@sct`
+```{r}
+
+```
+
+----
+## Analytic and interpretation limitations of each study design
+
+```yaml
+type: MultipleChoiceExercise
+key: d7e39ba425
+lang: r
+xp: 50
+skills: 1
+```
+
+1. There are some analytic limitations to each study design. 
+- MCQ/text: Limitation of retrospective over prospective (from an analytic and
+interpretation point of view).
+- MCQ/text: General limitations of prospective cohorts (again from analytic or
+interpretation view)
+
+`@instructions`
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sct`
+```{r}
 
