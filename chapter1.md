@@ -282,7 +282,10 @@ method. For exploration, particularly of cohort datasets with multiple time poin
 it's useful see how multiple variables change over time using simple summary statistics. 
 
 In this case, since we have no only time as a column, but also multiple variables to 
-summarize, we'll need to convert the data into a very long format 
+summarize, we'll need to convert the data into a very long format
+
+It is expected that you are familiar with data wrangling in the tidyverse, since
+you will need to use the functions from the dplyr and tidyr packages.
 
 
 `@pre_exercise_code`
