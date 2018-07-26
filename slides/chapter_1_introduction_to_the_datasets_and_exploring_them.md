@@ -19,8 +19,24 @@ title: Instructor
 
 Before getting more into the dataset we will be using, we're going to quickly cover some more differences between prospective and retrospective cohorts. Since the dataset we are using is a prospective cohort, it's a good idea to highlight why a prospective cohort was chosen compared to a retrospective cohort.
 
+{{Change lesson title? "Cohort types and introducing the dataset"}}
+
+- General look of data:
+    - Show how the data looks:
+        - baseline visit with disease status followup (time to disease, or age
+        at diagnosis, or age at death, etc)
+        - multiple data collection waves (ID and Wave columns)
+        - Data will look very similar between prospective vs retrospective, the
+        difference being how the data was collected... need to check what the
+        variables mean, so need to refer to the documentation.
+    - State assumptions first about the data (e.g. data already collected), this
+    is not a course on how to conduct and collect cohort data.
+    
+
+- Cohorts allow determining incidence, compared to prevalence
+
 ---
-## Similarity of prospective and retrospective cohort, but very different interpretations
+## Visual of the two cohort types
 
 ```yaml
 type: FullSlide
@@ -31,32 +47,24 @@ type: FullSlide
 
 `@script`
 
+{{Visual of two types?}}
+
 ---
-## Limitations of prospective vs retrospective cohorts
+## Visual of a prospective cohort over time
 
 ```yaml
-type: FullSlide
+type: FullImageSlide
 ```
 
 `@part1`
 
+![Prospective cohort example visual]()
 
 `@script`
 
----
-## Strengths of prospective vs retrospective cohorts
-
-```yaml
-type: FullSlide
-```
-
-`@part1`
-
-- Main advantage of prospective cohorts: Incidence of disease
+{{image of what a prospective study looks like}}
 
 
-
-`@script`
 
 ---
 ## Framingham Heart Study
@@ -75,9 +83,36 @@ head(framingham)
 
 {{Include image from first paper on this? Or design paper?}}
 
+`@citations`
+
+- cite Framingham study
 
 ---
-## Exploring dataset first let's you know about its limitations
+## What are the main variables of interest called?
+
+```yaml
+type: FullSlide
+```
+
+`@part1`
+
+- *Outcome*: 
+    - The disease or health state (e.g. cancer)
+    - Commonly shown as the $y$ in regression analysis
+
+- *Exposure/predictor*: 
+    - Variable hypothesized to relate to a disease (e.g. tobacco smoking)
+    - Commonly shown as the $x$ in regression analysis
+
+`@script`
+
+- Every field has their own naming convention for the variables of interest. In the case of cohorts, they are called "outcomes" for the y variable that is commonly seen in statistical notation, and "exposures" or "predictors" for the x variable in statistics.
+- Like most data analyses, there is the variable you are interested in "predicting" or identifying risk for, and there is the variables that you think are what "predict" or influence in some way... the exposure to a condition that is thought to cause or to relate to the disease.
+
+
+
+---
+## Exploring dataset first 
 
 ```yaml
 type: FullSlide
@@ -100,17 +135,18 @@ type: FullSlide
 
 `@part1`
 
-- General overview of the Framingham Heart Study dataset
-- Identified key feature of a cohort (aka a time component!)
 - Need to be aware of difference between prospective and retrospective cohort
     - The actual data will often look very similar
     - Need to refer to documentation extensively
-- Cohorts allow determining incidence, compared to prevalence
 - Need to recognize assumptions and limitations of dataset
+- General overview of the Framingham Heart Study dataset
+- Identified key feature of a cohort (aka a time component!)
+- Name of variables of interest: outcome and exposure/predictor
 
 `@script`
 
 Let's review what we've covered so far. We talked about ...
+
 
 ---
 ## Let's practice!
