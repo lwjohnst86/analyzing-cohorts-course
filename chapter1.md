@@ -236,21 +236,33 @@ load("datasets/dietchd.rda")
 
 `@sample_code`
 ```{r}
-
+# Select the potential exposures from the previous exercise as well as the 
+# main outcome for the framingham dataset.
+framingham %>%
+    select(
+        ____ =  ____,
+        ____ = total_cholesterol,
+        ____ = body_mass_index,
+        cursmoke =  _____
+    )
 ```
 
 `@solution`
 ```{r}
-framingham %>% 
-    count(period, cvd)
-
-dietchd %>% 
-    count(chd)
+# Select the potential exposures from the previous exercise as well as the 
+# main outcome for the framingham dataset.
+framingham %>%
+    select(
+        cvd = has_cvd,
+        totchol = total_cholesterol,
+        bmi  = body_mass_index,
+        cursmoke =  currently_smokes
+    )
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great job! You've selected and renamed the variables correctly.")
 ```
 
 ---
