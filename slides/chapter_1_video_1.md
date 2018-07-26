@@ -1,10 +1,10 @@
 ---
-title: Introduction to Cohort Designs
+title: Introduction to Cohort Studies
 key: fd067459a73b16863b609297f96ac32c
 
 
 ---
-## Introduction to Cohort Designs
+## Introduction to Cohort Studies
 
 ```yaml
 type: TitleSlide
