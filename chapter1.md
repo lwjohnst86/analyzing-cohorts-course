@@ -21,7 +21,6 @@ fd067459a73b16863b609297f96ac32c
 
 ```yaml
 type: PureMultipleChoiceExercise
-key: 6a414dfc25
 xp: 50
 skills: 1
 ```
@@ -131,7 +130,6 @@ test_mc(1, feedback_msgs = c(msg1, msg2))
 
 ```yaml
 type: PureMultipleChoiceExercise
-key: 6a414dfc25
 xp: 50
 skills: 1
 ```
@@ -165,7 +163,6 @@ skills: 1
 
 ```yaml
 type: PureMultipleChoiceExercise
-key: 6a414dfc25
 xp: 50
 skills: 1
 ```
