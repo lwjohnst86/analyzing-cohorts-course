@@ -47,8 +47,8 @@ Usually the study design is explicitly stated in the study protocols, however, i
 - Incorrect. While this may seem like it could be a "retrospective" cohort, the key feature is the "matched controls", which indicates that this is case-control study.
 - Correct! This study is a prospective cohort because the newborns were all born around the same time in the same hospital and did not have any diseases when included in the study.
 - Incorrect. But the key feature here is the single time point. Cohorts include multiple time points. This is considered a cross-sectional study.
-- All of the above
-- None of the above
+- Incorrect. 
+- Incorrect.
 
 ---
 ## What makes it a cohort?
@@ -75,6 +75,7 @@ If it helps, you can explore the `framingham` dataset in the console. The datase
 - Participants were followed over time
 
 `@hint`
+
 Cohorts are people who have *something in common*.
 
 `@pre_exercise_code`
@@ -134,14 +135,19 @@ xp: 50
 skills: 1
 ```
 
-
+{{placeholder}}
 
 `@possible_answers`
 
+{{placeholder}}
+
 `@hint`
+
+{{placeholder}}
 
 `@feedback`
 
+{{placeholder}}
 
 ---
 ## Introduction to the datasets and exploring them
@@ -377,8 +383,11 @@ type: NormalExercise
 xp: 100
 key: 61e6dcd04b
 ```
+{{placeholder}}
 
 `@instructions`
+
+{{placeholder}}
 
 `@solution`
 ```{r}
@@ -393,6 +402,8 @@ framingham %>%
 ```
 
 `@hint`
+
+{{placeholder}}
 
 `@sct`
 ```{r}
@@ -429,7 +440,11 @@ skills: 1
 
 `@instructions`
 
+{{placeholder}}
+
 `@hint`
+
+{{placeholder}}
 
 `@pre_exercise_code`
 ```{r}
@@ -459,7 +474,11 @@ collection wave.
 
 `@instructions`
 
+{{placeholder}}
+
 `@hint`
+
+{{placeholder}}
 
 `@pre_exercise_code`
 ```{r}
@@ -506,7 +525,11 @@ interpretation view)
 
 `@instructions`
 
+{{placeholder}}
+
 `@hint`
+
+{{placeholder}}
 
 `@pre_exercise_code`
 ```{r}
