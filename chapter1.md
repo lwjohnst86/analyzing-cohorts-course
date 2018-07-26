@@ -102,13 +102,17 @@ skills: 1
 key: bb64056fa8
 ```
 
-What cohort study design is the Framingam study?
+What cohort study design is the Framingam study? You should be able to determine the type based on the variables and the data in the `framingham` dataset.
 
 `@instructions`
+
 - Prospective
 - Retrospective
 
 `@hint`
+
+- Is there a time column in the dataset?
+- Did the participants have the disease when the study started?
 
 `@pre_exercise_code`
 ```{r}
@@ -117,37 +121,29 @@ load("data/framingham.rda")
 
 `@sct`
 ```{r}
-msg1 <- "Correct! "
-msg2 <- "Incorrect. "
-test_mc(2, feedback_msgs = c(msg1, msg2))
+msg1 <- "Correct! That's because there is a time component and the participants don't have the disease yet."
+msg2 <- "Incorrect. Only if the participants already had the disease would it be a retrospective cohort."
+test_mc(1, feedback_msgs = c(msg1, msg2))
 ```
 
-
----
-## When can prevalence or incidence be calculated?
+----
+## What would make it a retrospective cohort?
 
 ```yaml
-type: MultipleChoiceExercise
-key: 79c8ccd360
-lang: r
+type: PureMultipleChoiceExercise
+key: 6a414dfc25
 xp: 50
 skills: 1
 ```
-{{Convert to BulletExercise?}}
 
-`@instructions`
+
+
+`@possible_answers`
 
 `@hint`
 
-`@pre_exercise_code`
-```{r}
+`@feedback`
 
-```
-
-`@sct`
-```{r}
-
-```
 
 ---
 ## Introduction to the datasets and exploring them
