@@ -159,34 +159,37 @@ skills: 1
 `@projector_key`
 9e3d8b35b89128ebb91908d3aa815cf1
 
+
 ---
-## Analytic and interpretation limitations of each study design
+## Which variables are outcomes and exposures?
 
 ```yaml
-type: MultipleChoiceExercise
-key: d7e39ba425
-lang: r
+type: PureMultipleChoiceExercise
+key: 6a414dfc25
 xp: 50
 skills: 1
 ```
 
+Which of these answers has the correct variables as the outcome and some potential exposures/predictors?
 
-`@instructions`
+`@possible_answers`
+
+- Outcome = Body Mass (`bmi`); Exposure = Cholesterol (`totchol`), cardiovascular disease (`cvd`), smoking (`cursmoke`)
+- [Outcome = Cardiovascular disease (`cvd`); Exposure = Cholesterol (`totchol`), smoking (`cursmoke`), body mass (`bmi`)]
+- Outcome = Cardiovascular disease (`cvd`); Exposure = Time (`time`), cholesterol (`totchol`), sex (`sex`)
+- Outcome = Smoking (`cursmoke`); Exposure = Cholesterol (`totchol`), educational attainment (`educ`), age of participant (`age`)
 
 `@hint`
 
-`@pre_exercise_code`
-```{r}
+`@feedback`
 
-```
-
-`@sct`
-```{r}
-
-```
+- Incorrect. The outcome should not be a disease and the disease should not be an exposure (in this case)
+- Correct! The outcome is a disease, and the exposures are possible exposures/predictors.
+- Incorrect. This is almost the right answer, except for time. Technically, time is not an exposure, it is just a variable that tells us the visit time.
+- Incorrect. Smoking is not the outcome, as it is not a disease.
 
 ---
-## Extract outcome and exposures of interest from the datasets
+## Extract the outcome and exposures of interest from the Framingham dataset
 
 ```yaml
 type: NormalExercise
@@ -196,11 +199,18 @@ xp: 100
 skills: 1
 ```
 
-{{TabExercise? with NE}}
 It's important to recognize which are outcome variables and which are the
-predictors/exposures of interest. Often cohort studies have massive numbers of
-variables that have been measured, so to make it easier to explore and analyze
-the data, let's subset out the variables of interest. For now, let's select many
+predictors/exposures of interest. 
+
+It's usually pretty easy to identify which variable is the outcome. However,
+determining which variables are the potential exposures/predictors can be a bit
+more tricky, as modern cohort studies have massive amounts of data collected on
+each participant... meaning there are easily hundreds of variables in a dataset.
+Many of these variables are collected to be used as "confounders" (which we will
+discuss more in later chapters) when analyzing the data.
+
+Usually, at least when exploring the data, it's a good idea to just keep only the
+variables of interest in the dataset. So, for now, let's select some of the many
 variables and restrict later when we've decided on potential research questions.
 At the same time, let's rename the variables to names that are more explicit and
 descriptive.
@@ -209,65 +219,11 @@ We've loaded the dataset as well as the dplyr package.
 
 `@instructions`
 
-- Using `names()`, identify which variables are the appropriate {{...}}
+- Use `names()` to identify the exact names of the variables of interest.
 - First, choose the correct outcome variable for CVD and rename it to `has_cvd`.
-- Next, select four predictor variables and rename them to be clearer {{make clear here?}}
-
-`@hint`
-
-`@pre_exercise_code`
-```{r}
-library(dplyr)
-load("datasets/framingham.rda")
-load("datasets/dietchd.rda")
-```
-
-`@sample_code`
-```{r}
-# Select several potential exposures and the main outcome for both datasets
-framingham %>% 
-    select(____ = ____, ____ = total_cholesterol, ____ = body_mass_index, {{...}} )
-
-dietchd %>% 
-    select(chd, y, energy, fat, fibre)
-```
-
-`@solution`
-```{r}
-# NOTE: Need to make the answer be slightly fluid since different exposures
-# could be chosen. But need to make sure that only specific exposures are
-# chosen.
-
-# Select several potential exposures and the main outcome for both datasets
-framingham %>% 
-    select(cvd, totchol, bmi, hdlc)
-
-dietchd %>% 
-    select(chd, y, energy, fat, fibre)
-```
-
-`@sct`
-```{r}
-
-```
-
----
-## Calculate number of cases.
-
-```yaml
-type: NormalExercise
-key: d3caf4d108
-lang: r
-xp: 100
-skills: 1
-```
-
-One of the first things to explore is the number of cases, as this will help inform
-what you can ask of the data and how to analyze it. Remember, for longitudinal data,
-you need to count by the time period, as each participant could have several rows per
-collection wave.
-
-`@instructions`
+- Next, select four exposure/predictor variables from the previous exercise
+(total cholesterol, body mass index, and currently smokes) and rename them to be
+clearer.
 
 `@hint`
 
