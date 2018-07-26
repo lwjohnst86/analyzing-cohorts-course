@@ -17,7 +17,7 @@ skills: 1
 fd067459a73b16863b609297f96ac32c
 
 ---
-## Which is which study type?
+## Identify if the study is a cohort and what type it is
 
 ```yaml
 type: PureMultipleChoiceExercise
@@ -25,15 +25,31 @@ key: 6a414dfc25
 xp: 50
 skills: 1
 ```
-{{Convert to BulletExercise?}}
 
-
+Usually the study design is explicitly stated in the study protocols, however, it can be sometimes tricky to determine if a study is a cohort and what type it is. Here are a couple examples of studies. Which study is a cohort study?
 
 `@possible_answers`
 
+- Researchers use data from insurance companies with medication use, diagnoses, and hospital visits to find out possible side effects of drugs.
+- All persons from a clinic who were diagnosed with a disease were recruited into a study. From the general public, another group was recruited as a matching control.
+- [Over a one month period, all newborns in a hospital are recruited into a study and followed over time for health complications.]
+- In a city, researchers advertised for a study for individuals who have symptoms of a disease. Individuals come in for a single visit to have data collected.
+- All of the above
+- None of the above
+
 `@hint`
 
+- Do the participants in all the studies share a "common" feature?
+- A cohort study should have a time component to it.
+
 `@feedback`
+
+- Incorrect. This could almost be viewed as a cohort because of the common use of an insurance company, except that individuals weren't followed over time, not all had a disease, and all data analysis was done retrospectively data that was already collected. This is an example of "registry-based" type study.
+- Incorrect. While this may seem like it could be a "retrospective" cohort, the key feature is the "matched controls", which indicates that this is case-control study.
+- Correct! This study is a prospective cohort because the newborns were all born around the same time in the same hospital and did not have any diseases when included in the study.
+- Incorrect. But the key feature here is the single time point. Cohorts include multiple time points. This is considered a cross-sectional study.
+- All of the above
+- None of the above
 
 ---
 ## What makes it a cohort?
