@@ -53,7 +53,6 @@ please speak with your Curriculum Lead.*
     - not understanding probability/p-values
 7. What datasets will you use?
     - Framingham Heart Study
-    - CHD Diet from Epi package
 
 ## Step 2: Who is this course for?
 
@@ -103,10 +102,9 @@ very useful.
     - Lesson 3: Communicating your results through graphs
     - Lesson 4: Using tables to convey your findings
 
-The datasets are:
+The dataset is:
 
 - `framingham`: Framingham Heart Study.
-- `diet`: Diet and CHD (from Epi package) (only for a few exercises)
 
 ## Step 5: Course overview
 
