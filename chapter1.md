@@ -23,6 +23,7 @@ fd067459a73b16863b609297f96ac32c
 type: PureMultipleChoiceExercise
 xp: 50
 skills: 1
+key: 6a414dfc25
 ```
 
 Usually the study design is explicitly stated in the study protocols, however, it can be sometimes tricky to determine if a study is a cohort and what type it is. Here are a couple examples of studies. Which study is a cohort study?
@@ -136,6 +137,7 @@ test_mc(1, feedback_msgs = c(msg1, msg2))
 type: PureMultipleChoiceExercise
 xp: 50
 skills: 1
+key: 990cfedfbe
 ```
 
 As you learned in the video lesson, there are some key differences between retrospective and prospective cohort study designs. How could the Framingham study have been designed to be retrospective?
@@ -177,6 +179,7 @@ skills: 1
 type: PureMultipleChoiceExercise
 xp: 50
 skills: 1
+key: 38894646ce
 ```
 
 Which of these answers has the correct variables as the outcome and some potential exposures/predictors?
