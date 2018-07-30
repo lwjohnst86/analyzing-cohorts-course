@@ -105,12 +105,12 @@ skills: 1
 key: bb64056fa8
 ```
 
-What cohort study design is the Framingam study? You should be able to determine the type based on the variables and the data in the `framingham` dataset.
+What cohort study design is the Framingam study? You should be able to determine the type based on the variables and the data structure in the `framingham` dataset.
 
 `@instructions`
 
-- Prospective
-- Retrospective
+- Prospective.
+- Retrospective.
 
 `@hint`
 
