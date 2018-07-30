@@ -82,7 +82,7 @@ Cohorts are people who have *something in common*.
 
 `@pre_exercise_code`
 ```{r}
-load("data/framingham.rda")
+load("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda")
 ```
 
 `@sct`
@@ -119,7 +119,7 @@ What cohort study design is the Framingam study? You should be able to determine
 
 `@pre_exercise_code`
 ```{r}
-load("data/framingham.rda")
+load("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda")
 ```
 
 `@sct`
@@ -249,7 +249,7 @@ later analyses, but for now `period` is easier for exploratory analyses.)
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
-load("datasets/framingham.rda")
+load("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda")
 ```
 
 `@sample_code`
@@ -318,7 +318,7 @@ you will need to use the functions from the dplyr and tidyr packages.
 ```{r}
 library(dplyr)
 library(tidyr)
-load("datasets/framingham.rda")
+load("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda")
 explore_framingham <- framingham %>%
     select(
         got_cvd = cvd, 
@@ -514,7 +514,7 @@ collection wave.
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
-load("datasets/framingham.rda")
+load("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda")
 ```
 
 `@sample_code`
