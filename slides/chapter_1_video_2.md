@@ -58,7 +58,7 @@ type: FullImageSlide
 
 `@part1`
 
-![Prospective cohort example visual]()
+![Prospective cohort example visual](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/ff01e663a23c9cd65df9b4ddc46d5bc46b1647a6/prospective-cohort-visual-example.pdf)
 
 `@script`
 
