@@ -157,7 +157,7 @@ A key difference between prospective and retrospective is *when* the study and a
 - Incorrect. The data are collected and analyzed at only one time point, therefore there is no time component.
 
 ---
-## Introduction to the datasets and exploring them
+## Cohort types and introducing the dataset
 
 ```yaml
 type: VideoExercise
