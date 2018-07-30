@@ -1,5 +1,20 @@
 # Analyzing Cohort Data in R by Luke Johnston
 
+## Course Development timeline (as of July 20, 2018)
+
+As agreed with your [Content Developer](https://github.com/datacamp/courses-analyzing-cohort-data-in-r/issues/28), the schedule of intermediate deadlines to be respected is included in this delivery schedule:
+
+- Chapter 1: July 31 - 3 weeks
+- Chapter 2: September 13 - 2 weeks
+- Chapter 3: September 27 - 2 weeks
+- Chapter 4: October 11 - 2 weeks
+- Screencasts + Pre-recording review: October 25 - 2 weeks
+- Recording + soft launch: November 15 - 2 weeks
+
+While the specific dates may differ compared to your Content License Agreement with DataCamp, the expected time from course specs completion to course content completion remains the same, if not more conservative.
+
+With you having agreed to this delivery schedule, your Content Developer - and by extension, the entire DataCamp team - will fully commit to helping you achieve it. If you anticipate any delay in meeting the delivery schedule, you should contact your Content Developer as soon as possible. Failing to make your Content available to us according to the delivery schedule will constitute a material breach in your Content License Agreement with DataCamp, and DataCamp will terminate the Agreement without any further payment obligations.
+
 ## Course development resources
 
 * Course admin page: https://www.datacamp.com/teach/repositories/2079
