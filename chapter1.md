@@ -172,7 +172,7 @@ skills: 1
 
 
 ---
-## Which variables are outcomes and exposures?
+## Which variables are outcomes and which are exposures?
 
 ```yaml
 type: PureMultipleChoiceExercise
@@ -193,7 +193,7 @@ Which of these answers has the correct variables as the outcome and some potenti
 
 `@feedback`
 
-- Incorrect. The outcome should not be a disease and the disease should not be an exposure (in this case)
+- Incorrect. The outcome should not be a predictor and the disease should not be an exposure (in this case).
 - Correct! The outcome is a disease, and the exposures are possible exposures/predictors.
 - Incorrect. This is almost the right answer, except for time. Technically, time is not an exposure, it is just a variable that tells us the visit time.
 - Incorrect. Smoking is not the outcome, as it is not a disease.
@@ -216,8 +216,8 @@ It's usually pretty easy to identify which variable is the outcome. However,
 determining which variables are the potential exposures/predictors can be a bit
 more tricky, as modern cohort studies have massive amounts of data collected on
 each participant... meaning there are easily hundreds of variables in a dataset.
-Many of these variables are collected to be used as "confounders" (which we will
-discuss more in later chapters) when analyzing the data.
+Many of these variables are collected to be used as "confounders" when analyzing
+the data. We will discuss confounders more in later chapters.
 
 Usually, at least when exploring the data, it's a good idea to just keep only the
 variables of interest in the dataset. So, for now, let's select some of the many
