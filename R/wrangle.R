@@ -16,8 +16,3 @@ framingham <- read_csv(unz("datasets/raw/framingham.zip", "FRAMINGHAM_csv/frmgha
            )
 
 save(framingham, file = "datasets/framingham.rda")
-
-library(Epi)
-data("diet")
-dietchd <- diet
-save(dietchd, file = "datasets/dietchd.rda")
