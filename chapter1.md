@@ -230,44 +230,60 @@ We've loaded the dataset as well as the dplyr package.
 `@instructions`
 
 - Use `names()` to identify the exact names of the variables of interest.
-- First, choose the correct outcome variable for CVD and rename it to `has_cvd`.
+- Use the dplyr way of `select`ing and renaming in one function.
+- First, choose the correct outcome variable for cardiovascular disease (CVD)
+and rename it to `got_cvd`.
 - Next, select four exposure/predictor variables from the previous exercise
-(total cholesterol, body mass index, and currently smokes) and rename them to be
-clearer.
+(total cholesterol, body mass index, participant age, and currently smokes) and
+rename the variables to be clearer and more explicit about what they represent.
+- Lastly, since this dataset has multiple time points, we will need to include
+time in the new dataset. Select `period` and rename to `followup_visit_number`. 
+(Note: the `time` variable is days since first visit and is more important in 
+later analyses, but for now `period` is easier for exploratory analyses.)
 
 `@hint`
+
+- Try using `cvd` as the outcome. Try using `totchol` and `bmi` as the original names in the dataset.
+- For renaming, replace all spaces with `_` of the variables stated in the instructions.
 
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
 load("datasets/framingham.rda")
-load("datasets/dietchd.rda")
 ```
 
 `@sample_code`
 ```{r}
 # Select the potential exposures from the previous exercise as well as the 
 # main outcome for the framingham dataset.
-framingham %>%
+explore_framingham <- framingham %>%
     select(
-        ____ =  ____,
-        ____ = total_cholesterol,
-        ____ = body_mass_index,
-        cursmoke =  _____
+        # old_variable_name = new_variable_name
+        _____ = _____, # outcome variable
+        total_cholesterol = _____,
+        body_mass_index = _____,
+        _____ = age,
+        _____ = cursmoke,
+        _____ = _____ # visit number
     )
+explore_framingham
 ```
 
 `@solution`
 ```{r}
 # Select the potential exposures from the previous exercise as well as the 
 # main outcome for the framingham dataset.
-framingham %>%
+explore_framingham <- framingham %>%
     select(
-        cvd = has_cvd,
-        totchol = total_cholesterol,
-        bmi  = body_mass_index,
-        cursmoke =  currently_smokes
+        # old_variable_name = new_variable_name
+        got_cvd = cvd, # outcome variable
+        total_cholesterol = totchol,
+        body_mass_index = bmi,
+        participant_age = age,
+        currently_smokes = cursmoke,
+        followup_visit_number = period
     )
+explore_framingham
 ```
 
 `@sct`
@@ -286,29 +302,37 @@ xp: 100
 ```
 
 Like the majority of data analyses, a large part of the work involves wrangling
-the data into the appropriate form to then analyze. One common technique involved
-in data processing and in data exploration and checking is the "split-apply-combine"
-method. For exploration, particularly of cohort datasets with multiple time points,
-it's useful see how multiple variables change over time using simple summary statistics. 
+the data into the appropriate form to then analyze. One common technique
+involved in data processing and in data exploration and checking is the
+"split-apply-combine" method. For exploration, particularly of cohort datasets
+with multiple time points, it's useful see how multiple variables change over
+time using simple summary statistics.
 
-In this case, since we have no only time as a column, but also multiple variables to 
-summarize, we'll need to convert the data into a very long format
+In this case, since we not only have time as a column, but also multiple
+variables to summarize, we'll need to convert the data into a very long format
 
 It is expected that you are familiar with data wrangling in the tidyverse, since
 you will need to use the functions from the dplyr and tidyr packages.
-
 
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
 library(tidyr)
 load("datasets/framingham.rda")
-load("datasets/dietchd.rda")
+explore_framingham <- framingham %>%
+    select(
+        got_cvd = cvd, 
+        total_cholesterol = totchol,
+        body_mass_index = bmi,
+        participant_age = age,
+        currently_smokes = cursmoke,
+        followup_visit_number = period
+    )
 ```
 
 `@sample_code`
 ```{r}
-framingham  %>% 
+explore_framingham  %>% 
 
 ```
 
@@ -327,27 +351,27 @@ Convert to the very long data format, so that only four columns are kept in the 
 `@instructions`
 
 - Using the tidyr `gather` function, make two new columns `variables` and `values`, but exclude
-`time` and `cvd`.
+`followup_visit_number` and `got_cvd`.
 - Make sure to only have four columns at the end.
 
 `@solution`
 ```{r}
-framingham %>% 
-    gather(Measure, Value, -time, -cvd)
+explore_framingham %>% 
+    gather(variables, values, -followup_visit_number, -got_cvd)
 ```
 
 `@hint`
 
-- Did you use the `-` to exclude `time` and `cvd`?
+- Did you use the `-` to exclude `followup_visit_number` and `got_cvd`?
 
 `@sct`
 ```{r}
-
+success_msg("Great job! `gather` is a very powerful function to converting to long form.")
 ```
 
 ***
 
-### Calculate summary statistics by time and cvd
+### Calculate summary statistics by followup and CVD status
 
 ```yaml
 type: NormalExercise
@@ -355,66 +379,68 @@ xp: 100
 key: 9ca4b15cf5
 ```
 
-Calculate the mean and the standard deviation 
+Calculate the mean of each variable by followup number and CVD status.
 
 `@instructions`
 
+- `group_by` on followup number, CVD status, and the variables.
+- Use the dplyr `summarize` function to calculate the `mean` and call the new
+variable `mean_values`).
+- Make sure to use the `na.rm = TRUE` option when calculating the mean.
+
 `@solution`
 ```{r}
-framingham %>% 
-    # TODO: choose other variables.
-    gather(Measure, Value, totchol, hdlc, bmi, age) %>% 
-    group_by(period, cvd, Measure) %>% 
-    summarize(Mean = round(mean(Value, na.rm = TRUE), 2),
-              SD = round(sd(Value, na.rm = TRUE), 2)
-    ) %>% 
-    spread(cvd, MeanS)
+explore_framingham %>% 
+    gather(variables, values, -followup_visit_number, -got_cvd) %>% 
+    group_by(followup_visit_number, got_cvd, variables) %>% 
+    summarize(mean_values = mean(Value, na.rm = TRUE))
 ```
 
 `@hint`
 
-- Did you use `group_by` with `time`, `cvd`, and `variables`?
-- Don't forget to use `na.rm = TRUE` with `mean` and `sd`.
+- Did you use `group_by` with `followup_visit_number`, `got_cvd`, and `variables`?
+- Don't forget to use `na.rm = TRUE` with `mean`.
+- Did you name the new summarized variables `mean_values`?
 
 `@sct`
 ```{r}
-
+success_msg("Great job! Combining `gather`, `group_by`, and another function such as `summarize` is a powerful approach to 'split-apply-combine' analyses.")
 ```
 
 ***
 
-### Sub Heading 2
+### Spread values across to compare those with and without CVD
 
 ```yaml
 type: NormalExercise
 xp: 100
 key: 61e6dcd04b
 ```
-{{placeholder}}
+
+Lastly, let's convert back to wide form so we can more easily compare the mean
+values of variables for those with and without CVD.
 
 `@instructions`
 
-{{placeholder}}
+- Use the tidyr `spread` function to have CVD status (the key) as the new column
+headers, and the the mean values (the value) as the values in the new columns.
 
 `@solution`
 ```{r}
-framingham %>% 
-    # TODO: choose other variables.
-    gather(Measure, Value, totchol, hdlc, bmi, age) %>% 
-    group_by(period, cvd, Measure) %>% 
-    summarize(Mean = round(mean(Value, na.rm = TRUE), 2),
-              SD = round(sd(Value, na.rm = TRUE), 2)
-    ) %>% 
-    spread(cvd, MeanS)
+explore_framingham %>% 
+    gather(variables, values, -followup_visit_number, -got_cvd) %>% 
+    group_by(followup_visit_number, got_cvd, variables) %>% 
+    summarize(mean_values = mean(values, na.rm = TRUE)) %>% 
+    spread(got_cvd, mean_values)
 ```
 
 `@hint`
 
-{{placeholder}}
+- Use `got_cvd` as the key argument and `mean_values` as the values argument.
 
 `@sct`
 ```{r}
-
+success_msg("Awesome! You did it. You now have can compare between those who didn't and those who did get CVD.")
 ```
 
 ---
