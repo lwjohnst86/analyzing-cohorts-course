@@ -89,8 +89,9 @@ load("data/framingham.rda")
 ```{r}
 msg1 <- "Incorrect. While cohorts often are used to study a disease, this doesn't make it a cohort."
 msg2 <- "Correct! Cohorts are people who share a common characteristic. In this case, the participants share a town and so have a similar environment."
-msg3 <- "Incorrect. Cohorts always include a time component, but this doesn't make it a cohort."
-test_mc(2, feedback_msgs = c(msg1, msg2, msg3))
+msg3 <- "Incorrect. While cohorts always include a time component, this alone doesn't make it a cohort."
+msg4 <- "Incorrect. While all cohorts have risk factors measured, this alone doesn't make it a cohort."
+test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
 
 ---
