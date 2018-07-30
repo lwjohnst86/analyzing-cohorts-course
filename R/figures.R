@@ -1,7 +1,10 @@
 
-# Chapter 1, slide 1, figure for prospective cohort
-
 library(tidyverse)
+library(emojifont)
+library(ghibli)
+color_theme <- ghibli_palette("MononokeMedium")
+
+# Chapter 1, prospective cohort outcomes ----------------------------------
 
 disease_occurrence <- tibble(
     Participant = fct_inorder(as.character(1:20)),
@@ -12,7 +15,7 @@ disease_occurrence <- tibble(
     Time = if_else(Status == "Healthy", 16L, DiseaseTime)
 )
 
-pro_cohort_visual <- disease_occurrence %>%
+pro_cohort_visual_plot <- disease_occurrence %>%
     ggplot(aes(y = Participant, xmax = Time, xmin = 0, colour = Status)) +
     geom_errorbarh(height = 0, size = 1) +
     geom_point(aes(x = Time)) +
@@ -24,6 +27,7 @@ pro_cohort_visual <- disease_occurrence %>%
         expand = FALSE
     ) +
     scale_x_continuous(breaks = c(0, 15), labels = c("Start", "End")) +
+    scale_colour_manual(values = color_theme[c(6, 3)]) +
     labs(x = "Follow-up time", title = "Participants in prospective cohort") +
     theme(
         panel.background = element_blank(),
@@ -35,6 +39,41 @@ pro_cohort_visual <- disease_occurrence %>%
         legend.title = element_blank(),
         legend.key = element_blank()
     )
+ggsave("datasets/plot-prospective-outcome.pdf", pro_cohort_visual_plot)
 
-ggsave("datasets/prospective-cohort-visual-example.pdf", pro_cohort_visual)
+# Chapter 1, cohort sample plot -------------------------------------------
+
+fa <- fontawesome(c('fa-user-md', 'fa-user'))
+fa_data <-
+    tibble(
+        x = rnorm(20, sd = 2),
+        y = rnorm(20, sd = 2),
+        label = sample(fa, 20, replace = TRUE)
+    )
+
+cohort_sample_plot <- ggplot(fa_data, aes(x, y, color = label, label = label)) +
+    geom_text(family = 'fontawesome-webfont', size = 8, show.legend = FALSE) +
+    labs(x = NULL, y = NULL) +
+    theme(legend.text = element_text(family = 'fontawesome-webfont'),
+          legend.position = "none") +
+    scale_color_manual(values = color_theme[c(3, 6)]) +
+    theme_void()
+ggsave("datasets/plot-cohort-sample.pdf", cohort_sample_plot)
+
+# Chapter 1, purpose of cohorts plots -------------------------------------
+
+base_background <- ggplot() +
+    theme_void()
+
+heart_plot <- base_background +
+    geom_fontawesome('fa-heartbeat', color = color_theme[3], size = 90)
+ggsave("datasets/plot-purpose-risk-factors.pdf", heart_plot)
+
+doctor_plot <- base_background +
+    geom_fontawesome('fa-stethoscope', color = color_theme[3], size = 90)
+ggsave("datasets/plot-purpose-diagnosis.pdf", doctor_plot)
+
+side_effects_plot <- base_background +
+    geom_fontawesome('fa-hospital-o', color = color_theme[3], size = 80)
+ggsave("datasets/plot-purpose-side-effects.pdf", side_effects_plot)
 
