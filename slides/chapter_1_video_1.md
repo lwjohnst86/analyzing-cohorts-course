@@ -24,7 +24,7 @@ cohort is, thoughts about the process of and typical steps involved in analyzing
 cohort datasets, and some first steps in looking over the data.
 
 ---
-## What is a cohort?
+## What is a cohort study?
 
 ```yaml
 type: FullSlide
@@ -32,27 +32,63 @@ type: FullSlide
 
 `@part1`
 
-{{image?}}
+Features:
+
+- Studies associations with (usually) disease
+- Includes some time component to the data
+- *Participants share common characteristic(s)*
+
+![Example cohort recruitment and sample](datasets/plots-cohort-sample.pdf)
+
+`@citations`
+
+- Font Awesome Icons, created using R package emojifonts.
 
 `@script`
+
+Let's begin with the very basic. What does it mean that a study is a cohort
+study? The cohort study design in general has a very specific features. For one,
+cohorts usually are scientific studies to investigate how factors influence the 
+risk for a disease. In cohorts, there is always a time component, as in there is
+a temporal aspect to the data. And lastly, but most importantly, is that participants
+in a cohort always share a common characteristic. For instance, in the Nurses'
+Health Study from the United States, all participants are married female nurses.
 
 ---
 ## Purpose and usefulness of cohorts
 
 ```yaml
-type: FullSlide
+type: TwoRowsTwoColumns
 key: 3020a2875a
 ```
 
 `@part1`
 
-{{im}}
+![Risk factors and health management](datasets/plot-purpose-risk-factors.pdf)
+
+`@part2`
+
+![Informing diagnosis decisions](datasets/plot-purpose-diagnosis.pdf)
+
+`@part3`
+
+![Tracking side effects and safety from drugs](datasets/plot-purpose-side-effects.pdf)
+
+`@part4`
+
+`@citations`
+
+- Font Awesome Icons, created using R package emojifonts.
 
 `@script`
 
-Cohort studies are fundamental to epidemiological research and a key design for answering research questions about human health and behaviour. Cohort studies are especially common in studies on health and disease, as they can be used to identify risk factors for disease that can be targeted in prevention and disease management strategies. They are also incredibly powerful when watching for side effects from new, or old, drugs.
-
-{{images? Of public health, diagnosis, prevention, etc}}
+Cohort studies are fundamental to epidemiological research and a key design for
+answering research questions about human health and behaviour. Cohort studies
+are especially common in studies on health and disease, as they can be used to
+identify risk factors for disease that can be targeted in prevention and disease
+management strategies. They are also incredibly powerful for helping inform
+evidence-based clinical decisions and for when watching for side effects from
+new, or old, drugs.
 
 ---
 ## Two cohort study designs
@@ -72,7 +108,7 @@ Study participants:
 - Looks forward in time:
     - Multiple visits over time
     - Health and other conditions measured at time visit
-- Comparison group is determined after disease develops
+- Comparison group is those without the disease
 
 `@part2`
 
@@ -88,15 +124,19 @@ Study participants:
 
 `@script`
 
-There are two cohort study designs: prospective and retrospective. These two designs are very similar except for some key differences.
-- Most often, cohorts are used to study a disease state (have or don't have), but sometimes, cohorts are used to study intermediate states before disease occurs, especially if the disease is rare or has a long development history.
-- Prospective cohorts are by far the most common and most powerful forms for studying disease states, especially for diseases that are common (e.g. diabetes). Retrospective cohorts are useful with rarer diseases or where health records are easy to access, but they are less common. 
+We will briefly go over the basics of cohort study designs in this lesson, but
+will cover each design in more detail in later lessons. There are two cohort
+study designs: prospective and retrospective. These two designs have many
+similarities, but it is their differences that really sets them apart.
 
-{{In the next video lesson, we will go over more about retrospective vs prospective}}
-
+Prospective cohorts are by far the most common and most powerful form of cohort
+for studying disease states, especially for diseases that are common (e.g.
+diabetes). Retrospective cohorts are useful with rarer diseases, where health
+records are easy to access, or when it is impractical or impossible to conduct a
+prospective cohort.
 
 ---
-## Why do you need to know the basics of a what a cohort is?
+## Why the basics are important to know
 
 ```yaml
 type: FullSlide
@@ -105,18 +145,29 @@ key: d2a6af7c52
 
 `@part1`
 
-Why learn about what a cohort is? Why not just analyze the data?
-- Type of cohort study restricts analysis and interpretation
-- Variables measured limits 
-- Type of design restricts type of analysis, so need to know the research
-question and design
+Why not just analyze the data? Why need to know the basics of cohorts?
+
+- Type of cohort design restricts type of analysis and interpretation
+    - Example: Retrospective cohorts often already have measured collected that
+    are less detailed, so need to be very general and cautious in interpretation
+- How and what variables were measured limit analysis and interpretation
+    - Example: Some exposures/predictors are abstractions of underlying
+    physiology, so need to transform variables so results are meaningful
 
 `@script`
 
-The main reason 
-
-There some important differences in how you analyse, interpret, and present
-cohort data.
+Given the rise in data science and machine learning, sometimes there is a pressure
+or urge to just "throw variables into the model and let the data tell the story".
+This is dangerous in many ways, especially when it comes to studies on health.
+Because cohort studies often involve some disease, the results can have real world
+impact on people's lives. So as the researcher, you need to know what data you are
+dealing with and how it was collected in order to appropriately analyse and 
+interpret the results. In the case of cohorts, the study design and types of 
+variables measured influence how you do your data analysis. For instance, 
+retrospective cohorts tend to have imprecise measures, so you have to be very
+cautious about interpretation. Or there are some measures that abstractions of a
+physiological process, so by transforming the variable you can have meaningful
+results. This also means there are many many ways of analysing cohort datasets.
 
 ---
 ## Main goal of this course
@@ -132,44 +183,13 @@ key: 5c430ef5dd
 
 `@script`
 
-{{Not sure if I need this here or if at the course home page will be enough}}
-
-The main goal of this course isn't about specific techniques... Because cohorts
-and the data analyses for them are varied and diverse, the statistical
-techniques used ranges from simple to fairly complicated. Because of this, it is
-difficult to focus a course on analysing cohorts that is specific to a
-statistical technique, because this would only apply to specific research
-questions and specific cohorts. So instead, the main learning goal is on the
-general workflow of cohort data analyses.
+... which brings me to the main goal of this course... we aren't going to cover
+specific statistical techniques because cohorts and their analyses are so diverse.
+So instead, we are going to focus on the overall workflow and process to looking
+at, analysing, interpreting, and presenting results from cohorts.
 
 ---
-## Summary of lesson
-
-```yaml
-type: FullSlide
-key: bff39736de
-```
-
-`@part1`
-
-- Cohorts:
-    - Are a group of people who share a common characteristic or feature 
-    - Have a time component to the study
-    - Measure some health or disease condition
-- Two main cohort designs: prospective and retrospective
-- Cohort data analysis is highly diverse
-    - Focus on the workflow and process
-
-`@script`
-
-So, let's just quickly review what we've covered so far. We talked about what a
-cohort is, the two types of cohorts, what the variables are called, and that
-data analysis of cohorts is highly dependent on the research question and
-specific setting so we need to focus on the workflow rather than any specific
-statistic.
-
----
-## Let's practice what we've learned!
+## Let's try what we've learned!
 
 ```yaml
 type: FinalSlide
@@ -178,5 +198,5 @@ key: 97f61fb6b7
 
 `@script`
 
-Now it's your turn.
-
+Alright, let's now do a few exercises to review and test your knowledge of
+cohorts!
