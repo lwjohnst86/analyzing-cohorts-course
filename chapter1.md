@@ -454,8 +454,6 @@ xp: 50
 skills: 1
 ```
 
-{{Change title?}}
-
 `@projector_key`
 d8b40a3d5d81b2b050f65eb79581aa42
 
@@ -517,7 +515,6 @@ collection wave.
 ```{r}
 library(dplyr)
 load("datasets/framingham.rda")
-load("datasets/dietchd.rda")
 ```
 
 `@sample_code`
@@ -529,9 +526,6 @@ load("datasets/dietchd.rda")
 ```{r}
 framingham %>% 
     count(period, cvd)
-
-dietchd %>% 
-    count(chd)
 ```
 
 `@sct`
