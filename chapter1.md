@@ -129,7 +129,7 @@ msg2 <- "Incorrect. Only if the participants already had the disease would it be
 test_mc(1, feedback_msgs = c(msg1, msg2))
 ```
 
-----
+---
 ## What would make it a retrospective cohort?
 
 ```yaml
@@ -169,7 +169,6 @@ skills: 1
 
 `@projector_key`
 9e3d8b35b89128ebb91908d3aa815cf1
-
 
 ---
 ## Which variables are outcomes and which are exposures?
@@ -533,7 +532,7 @@ framingham %>%
 
 ```
 
-----
+---
 ## Analytic and interpretation limitations of each study design
 
 ```yaml
