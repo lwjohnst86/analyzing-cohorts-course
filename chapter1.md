@@ -3,7 +3,7 @@ title: "Introduction to cohorts and to analyzing them"
 description: "In this chapter we will introduce what a cohort is, how to approach analyzing it, and some first steps in exploring cohort datasets."
 
 ---
-## Introduction to Cohort Studies
+## Introduction to cohort studies
 
 ```yaml
 type: VideoExercise
