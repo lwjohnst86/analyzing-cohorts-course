@@ -47,8 +47,8 @@ Usually the study design is explicitly stated in the study protocols, however, i
 - Incorrect. While this may seem like it could be a "retrospective" cohort, the key feature is the "matched controls", which indicates that this is case-control study.
 - Correct! This study is a prospective cohort because the newborns were all born around the same time in the same hospital and did not have any diseases when included in the study.
 - Incorrect. But the key feature here is the single time point. Cohorts include multiple time points. This is considered a cross-sectional study.
-- Incorrect. 
-- Incorrect.
+- Incorrect. One of them is a cohort study design.
+- Incorrect. One of them is a cohort study design.
 
 ---
 ## What makes it a cohort?
