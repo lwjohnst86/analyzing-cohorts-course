@@ -78,8 +78,8 @@ very useful.
 
 ## Step 3: What will learners do along the way?
 
-- See exercises found in chapters [1](chapter1.Rmd), [2](chapter2.Rmd),
-[3](chapter3.Rmd), and [4](chapter4.Rmd).
+- See exercises found in chapters [1](chapter1-notes.Rmd), [2](chapter2-notes.Rmd),
+[3](chapter3-notes.Rmd), and [4](chapter4-notes.Rmd).
 
 ## Step 4: How are the concepts connected?
 
