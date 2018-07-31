@@ -376,7 +376,7 @@ success_msg("Great job! `gather` is a very powerful function to converting to lo
 
 ***
 
-### Calculate summary statistics by followup and CVD status
+### Calculate the mean by followup and CVD status
 
 ```yaml
 type: NormalExercise
@@ -449,7 +449,7 @@ success_msg("Awesome! You did it. You now have can compare between those who did
 ```
 
 ---
-## Scientific questions that can be asked of cohort data
+## Questions and answers we can get from cohorts
 
 ```yaml
 type: VideoExercise
@@ -463,37 +463,56 @@ skills: 1
 d8b40a3d5d81b2b050f65eb79581aa42
 
 ---
-## When can prevalence or incidence be calculated?
+## What questions can be asked from Framingham?
 
 ```yaml
 type: MultipleChoiceExercise
-key: 79c8ccd360
+key: d7e39ba425
 lang: r
 xp: 50
 skills: 1
 ```
-{{Convert to BulletExercise?}}
+
+Because the Framingham study is a prospective cohort, with certain limits to the
+data, and with three data collection visits, there are limits to the questions we
+can ask and answer. Choose the most valid and most appropriate question that we
+could ask from Framingham.
+
+The unchanged `framingham` dataset has been loaded in case you want to look 
+through it.
 
 `@instructions`
 
-{{placeholder}}
+- Does higher total cholesterol cause cardiovascular disease?
+- Will a lower body mass index during young adulthood increase the risk of
+disease later in life?
+- Do people that smoke have a higher risk for cardiovascular disease than those
+who don't?
+- Do people with many close friends have a lower risk for cardiovascular disease?
+- All of the above.
+- None of the above.
 
 `@hint`
 
-{{placeholder}}
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
 
 `@sct`
 ```{r}
-
+msg1 <- "Incorrect. The cohort study was not designed to answer 'causes'."
+msg2 <- "Incorrect. While cohorts could answer this questions, Framingham participants are all in middle age so we can't answer questions outside of that timeframe."
+msg3 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
+msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
+msg5 <- "Incorrect. One of the above is a valid question."
+msg6 <- "Incorrect. One of the above is a valid question."
+test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5, msg6))
 ```
 
 ---
-## Calculate number of cases.
+## Count number of participants and cases per visit
 
 ```yaml
 type: NormalExercise
@@ -503,38 +522,86 @@ xp: 100
 skills: 1
 ```
 
-One of the first things to explore is the number of cases, as this will help inform
-what you can ask of the data and how to analyze it. Remember, for longitudinal data,
-you need to count by the time period, as each participant could have several rows per
-collection wave.
+One of the first things to explore is the number of cases, as this will help
+inform what you can ask of the data and how to analyze it. Remember, for
+longitudinal data, you need to count by the time period, as each participant
+could have several rows per collection wave.
+
+Next, count the number of cases and non-cases for prevalent myocardial infarction
+(MI, aka heart attack) and coronary heart disease (CHD) at each visit.
 
 `@instructions`
 
-{{placeholder}}
+- Count the number of participants (i.e. rows) for each `followup_visit_number`.
+- Then, count the number of cases of `prevmi` and `prevchd` for each
+`followup_visit_number`.
+- You will need to use a similar `gather`-`spread` strategy as in a previous
+exercise.
+- For the `gather`, name key "Disease". In `gather` you will also need to
+specify the columns to gather by (`prevmi` and `prevchd`).
 
 `@hint`
 
-{{placeholder}}
+- Did you name the new gather key column "Disease"?
+- Are you using `spread` and `gather` properly and in the right order?
 
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
+library(tidyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+explore_framingham <- framingham %>%
+    rename(
+        got_cvd = cvd, 
+        total_cholesterol = totchol,
+        body_mass_index = bmi,
+        participant_age = age,
+        currently_smokes = cursmoke,
+        followup_visit_number = period
+    )
 ```
 
 `@sample_code`
 ```{r}
+# All the variables have been added back to the `explore_framingham` dataset,
+# but the variables have been kept renamed. Both dplyr and tidyr have been
+# loaded.
 
+# Count the number of participants per visit.
+explore_framingham %>% 
+    count(_____)
+
+# Count the number of prevalent cases of MI and CHD per visit. You will need to
+# similar steps as in the previous exercise with gather and spread in order to
+# have cases as the columns.
+explore_framingham %>% 
+    _____(_____, Cases, _____, _____) %>% 
+    count(followup_visit_number, _____, Cases) %>% 
+    _____(Cases, n)
 ```
 
 `@solution`
 ```{r}
-framingham %>% 
-    count(period, cvd)
+# All the variables have been added back to the `explore_framingham` dataset,
+# but the variables have been kept renamed. Both dplyr and tidyr have been
+# loaded.
+
+# Count the number of participants per visit.
+explore_framingham %>% 
+    count(followup_visit_number)
+
+# Count the number of prevalent cases of MI and CHD per visit. You will need to
+# similar steps as in the previous exercise with gather and spread in order to
+# have cases as the columns.
+explore_framingham %>% 
+    gather(Disease, Cases, prevmi, prevchd) %>% 
+    count(followup_visit_number, Disease, Cases) %>% 
+    spread(Cases, n)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Woohoo! Nice job. You now know how to count the number of cases by visit.")
 ```
+
 
