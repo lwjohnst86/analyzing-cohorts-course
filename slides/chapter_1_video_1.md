@@ -38,7 +38,7 @@ Features:
 - Includes some time component to the data
 - *Participants share common characteristic(s)*
 
-![Example cohort recruitment and sample](datasets/plots-cohort-sample.pdf)
+![Example cohort recruitment and sample](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/2af7f4b6a9311b4d69f5c40c9c0593792899cdf4/plot-cohort-sample.pdf)
 
 `@citations`
 
@@ -64,15 +64,15 @@ key: 3020a2875a
 
 `@part1`
 
-![Risk factors and health management](datasets/plot-purpose-risk-factors.pdf)
+![Risk factors and health management](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/112038a94a2a5a33d191d79c4bb4c5d45225b55a/plot-purpose-risk-factors.pdf)
 
 `@part2`
 
-![Informing diagnosis decisions](datasets/plot-purpose-diagnosis.pdf)
+![Informing diagnosis decisions](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/bb46a5d5d8005ed3d2b752a0df59538139c006d5/plot-purpose-diagnosis.pdf)
 
 `@part3`
 
-![Tracking side effects and safety from drugs](datasets/plot-purpose-side-effects.pdf)
+![Tracking side effects and safety from drugs](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/df1ef31786d60be76e33741917d46eb1f0b5efd9/plot-purpose-side-effects.pdf)
 
 `@part4`
 
