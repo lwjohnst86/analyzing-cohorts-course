@@ -77,3 +77,38 @@ side_effects_plot <- base_background +
     geom_fontawesome('fa-hospital-o', color = color_theme[3], size = 80)
 ggsave("datasets/plot-purpose-side-effects.pdf", side_effects_plot)
 
+
+# Chapter 1, incidence vs prevalence --------------------------------------
+
+prev_incid <- tibble(
+    Person_1 = c(1, 1, 1),
+    Person_2 = c(0, 1, 1),
+    Person_3 = c(0, 0, 1),
+    Person_4 = c(0, 0, 0),
+    Visit = as.character(c(0, 1, 2))
+) %>%
+    gather(Person, Disease, -Visit) %>%
+    mutate(Person = str_remove(Person, "Person_"),
+           Disease = if_else(Disease == 0, "Healthy", "Disease"),
+           Disease = fct_rev(Disease))
+
+prev_incid_plot <- ggplot(prev_incid,
+       aes(
+           x = Visit,
+           y = Disease,
+           group = Person,
+           colour = Person
+       )) +
+    geom_line() +
+    scale_color_manual(values = rev(color_theme)) +
+    coord_cartesian(ylim = c(0.75, 2.25), expand = FALSE) +
+    theme(
+        panel.background = element_blank(),
+        panel.grid.major.x = element_line(colour = "grey85"),
+        axis.ticks = element_blank(),
+        legend.key = element_blank()
+    ) +
+    labs(y = NULL, x = "Followup visit number",
+         title = "Incident vs prevalent cases",
+         subtitle = "- Prevalent cases only at given visit\n- Incidence is total new cases")
+ggsave("datasets/plot-prevalence-incidence.pdf", prev_incid_plot)
