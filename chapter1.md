@@ -17,7 +17,7 @@ skills: 1
 fd067459a73b16863b609297f96ac32c
 
 ---
-## Identify if the study is a cohort and what type it is
+## Identify the cohort study
 
 ```yaml
 type: PureMultipleChoiceExercise
@@ -62,18 +62,23 @@ skills: 1
 key: ed0789164c
 ```
 
-For this course we will be using the Framingham Heart Study to learn about the process of analysing cohort datasets. These next few exercises are meant to quickly get you familiar with the dataset and thinking about it in terms of the "cohort" setting. After the next video exercise, we will get into exploring the dataset using R.
+We will be using the Framingham Heart Study dataset for this course. The next
+few exercises will get you more familiar with the dataset and thinking
+more about cohorts.
 
-First, a bit of background. The Framingham study was set up to study what factors or measures might contribute to the risk for cardiovascular disease. Participants were recruited from the town of Framingham in the United States and followed over time, with data collected on "risk factors" occurring every few years.
+First, some background. The Framingham study was set up to study what might
+might influence the risk of cardiovascular disease (CVD). People from
+Framingham, USA were recruited and followed over time. Data was collected on
+"risk factors" and CVD every few years.
 
-What feature makes Framingham a cohort?
-
-If it helps, you can explore the `framingham` dataset in the console. The dataset has not yet been fully tidied, which we will get to more in Chapter 2.
+What makes Framingham a cohort? The `framingham` dataset is loaded for you to
+explore. The dataset has yet to be fully tidied, which we will do more in
+Chapter 2.
 
 `@instructions`
 
-- It studies a disease (cardiovascular disease).
-- Participants all came from the town of Framingham.
+- It studies a disease (CVD).
+- Participants all came from the town of Framingham, USA.
 - Participants were followed over time.
 - Participants had "risk factors" measured.
 
@@ -112,6 +117,7 @@ What cohort study design is the Framingam study? You should be able to determine
 
 - Prospective.
 - Retrospective.
+- Neither.
 
 `@hint`
 
@@ -127,7 +133,8 @@ load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd
 ```{r}
 msg1 <- "Correct! That's because there is a time component and the participants don't have the disease yet."
 msg2 <- "Incorrect. Only if the participants already had the disease would it be a retrospective cohort."
-test_mc(1, feedback_msgs = c(msg1, msg2))
+msg3 <- "Incorrect. It has to be one of the designs."
+test_mc(1, feedback_msgs = c(msg1, msg2, msg3))
 ```
 
 ---
@@ -173,7 +180,7 @@ skills: 1
 9e3d8b35b89128ebb91908d3aa815cf1
 
 ---
-## Which variables are outcomes and which are exposures?
+## Which variables are the outcomes and exposures?
 
 ```yaml
 type: PureMultipleChoiceExercise
@@ -201,7 +208,7 @@ Which of these answers has the correct variables as the outcome and some potenti
 - Incorrect. Smoking is not the outcome, as it is not a disease.
 
 ---
-## Extract the outcome and exposures of interest from the Framingham dataset
+## Select the outcome and exposures
 
 ```yaml
 type: NormalExercise
@@ -211,37 +218,27 @@ xp: 100
 skills: 1
 ```
 
-It's important to recognize which are outcome variables and which are the
-predictors/exposures of interest. 
+You need to know which variables are which for the analysis. Usually, it's
+fairly easy to identify the outcome. However, knowing which are potential
+predictors can be tricky, as modern cohorts often have massive amounts of data
+on each participant. Many variables are collected for checking the data, to
+aggregate or summarize, or to use as "confounders" (discussed more in later
+chapters).
 
-It's usually pretty easy to identify which variable is the outcome. However,
-determining which variables are the potential exposures/predictors can be a bit
-more tricky, as modern cohort studies have massive amounts of data collected on
-each participant... meaning there are easily hundreds of variables in a dataset.
-Many of these variables are collected to be used as "confounders" when analyzing
-the data. We will discuss confounders more in later chapters.
-
-Usually, at least when exploring the data, it's a good idea to just keep only the
-variables of interest in the dataset. So, for now, let's select some of the many
-variables and restrict later when we've decided on potential research questions.
-At the same time, let's rename the variables to names that are more explicit and
-descriptive.
-
-We've loaded the dataset as well as the dplyr package.
+Initially, it can be helpful to keep only variables of interest. For now, let's
+select interesting variables to explore them more. At the same time, let's
+rename the variables so they are more descriptive.
 
 `@instructions`
 
-- Use `names()` to identify the exact names of the variables of interest.
-- Use the dplyr way of `select`ing and renaming in one function.
-- First, choose the correct outcome variable for cardiovascular disease (CVD)
-and rename it to `got_cvd`.
-- Next, select four exposure/predictor variables from the previous exercise
-(total cholesterol, body mass index, participant age, and currently smokes) and
-rename the variables to be clearer and more explicit about what they represent.
-- Lastly, since this dataset has multiple time points, we will need to include
-time in the new dataset. Select `period` and rename to `followup_visit_number`. 
-(Note: the `time` variable is days since first visit and is more important in 
-later analyses, but for now `period` is easier for exploratory analyses.)
+- Use `names()` to find the exact name of the variables, then `select` and
+renaming them all to be more descriptive.
+- Choose the correct outcome for cardiovascular disease (CVD). Rename it to
+`got_cvd`.
+- Select four predictors: total cholesterol, body mass index, participant age,
+and currently smokes.
+- There are also several time points, so we need to also select time (`period`).
+Rename it to `followup_visit_number`.
 
 `@hint`
 
@@ -256,8 +253,11 @@ load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd
 
 `@sample_code`
 ```{r}
-# Select the potential exposures from the previous exercise as well as the 
-# main outcome for the framingham dataset.
+# dplyr has been loaded for you to use.
+
+# Select the potential exposures as well as the main outcome for the framingham
+# dataset. Note: there are two time variables. The other, `time`, is days since
+# the first visit. We will use that one more later. For now, choose only `period`
 explore_framingham <- framingham %>%
     select(
         # old_variable_name = new_variable_name
@@ -273,11 +273,14 @@ explore_framingham
 
 `@solution`
 ```{r}
-# Select the potential exposures from the previous exercise as well as the 
-# main outcome for the framingham dataset.
+# dplyr has been loaded for you to use.
+
+# Select the potential exposures as well as the main outcome for the framingham
+# dataset. Note: there are two time variables. The other, `time`, is days since
+# the first visit. We will use that one more later. For now, choose only `period`
 explore_framingham <- framingham %>%
     select(
-        # old_variable_name = new_variable_name
+        # Format: old_variable_name = new_variable_name
         got_cvd = cvd, # outcome variable
         total_cholesterol = totchol,
         body_mass_index = bmi,
@@ -294,7 +297,7 @@ success_msg("Great job! You've selected and renamed the variables correctly.")
 ```
 
 ---
-## Exploring simple summaries of the exposures by outcome
+## Simple summary of the exposures by outcome
 
 ```yaml
 type: TabExercise
@@ -535,37 +538,3 @@ framingham %>%
 
 ```
 
----
-## Analytic and interpretation limitations of each study design
-
-```yaml
-type: MultipleChoiceExercise
-key: d7e39ba425
-lang: r
-xp: 50
-skills: 1
-```
-
-1. There are some analytic limitations to each study design. 
-- MCQ/text: Limitation of retrospective over prospective (from an analytic and
-interpretation point of view).
-- MCQ/text: General limitations of prospective cohorts (again from analytic or
-interpretation view)
-
-`@instructions`
-
-{{placeholder}}
-
-`@hint`
-
-{{placeholder}}
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
