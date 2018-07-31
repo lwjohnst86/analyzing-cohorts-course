@@ -1,10 +1,10 @@
 ---
-title: Introduction to the datasets and exploring them
+title: Cohort types and introducing the dataset
 key: 9e3d8b35b89128ebb91908d3aa815cf1
 
 
 ---
-## Introduction to the datasets and exploring them
+## Cohort types and introducing the dataset
 
 ```yaml
 type: TitleSlide
@@ -17,26 +17,14 @@ title: Instructor
 
 `@script`
 
-Before getting more into the dataset we will be using, we're going to quickly cover some more differences between prospective and retrospective cohorts. Since the dataset we are using is a prospective cohort, it's a good idea to highlight why a prospective cohort was chosen compared to a retrospective cohort.
-
-{{Change lesson title? "Cohort types and introducing the dataset"}}
-
-- General look of data:
-    - Show how the data looks:
-        - baseline visit with disease status followup (time to disease, or age
-        at diagnosis, or age at death, etc)
-        - multiple data collection waves (ID and Wave columns)
-        - Data will look very similar between prospective vs retrospective, the
-        difference being how the data was collected... need to check what the
-        variables mean, so need to refer to the documentation.
-    - State assumptions first about the data (e.g. data already collected), this
-    is not a course on how to conduct and collect cohort data.
-    
-
-- Cohorts allow determining incidence, compared to prevalence
+Before getting more into the Framingham dataset we will be using, we're going to
+quickly cover some more differences between prospective and retrospective
+cohorts. Since the dataset we are using is a prospective cohort, it's a good
+idea to highlight why a prospective cohort was chosen compared to a
+retrospective cohort.
 
 ---
-## Visual of the two cohort types
+## Comparisons between the two designs
 
 ```yaml
 type: FullSlide
@@ -44,13 +32,33 @@ type: FullSlide
 
 `@part1`
 
+![Retrospective vs prospective cohorts](datasets/pro-vs-retro.png)
 
 `@script`
 
-{{Visual of two types?}}
+As we previously covered, there are some important differences between
+retrospective compared to prospective cohorts. The main difference is what point
+the study starts relative to outcome occurance. In a retrospective cohort,
+people are recruited based having the disease, then their data is collected from
+past records. This is particularly common where data is collected in a frequent
+or consistent context, such as in a hospital, so there is a data already
+available. Prospective cohorts on the other hand have people who are recruited
+because they don't have the disease and are followup either until they have the
+disease or until the study ends. Data is collected as the time passes. Both
+designs have their strengths and weaknesses. For instance, if you have easy
+access to data that has already been collected by for example a hospital or a
+by the government, or if the disease is really rare, retrospective cohorts are
+very powerful scientific tools. However, there are many strengths to prospective
+cohorts. They tend to be pretty common and to provide stronger evidence for
+their results, simply because people are recruited without the disease. It is for
+this reason that the Framingham prospective study was chosen.
+
+`@citations`
+
+- Euser et al, doi:10.1159/000235241
 
 ---
-## Visual of a prospective cohort over time
+## How a prospective cohort looks like over time
 
 ```yaml
 type: FullImageSlide
@@ -58,34 +66,18 @@ type: FullImageSlide
 
 `@part1`
 
-![Prospective cohort example visual](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/ff01e663a23c9cd65df9b4ddc46d5bc46b1647a6/prospective-cohort-visual-example.pdf)
+![Visual example of a prospective cohort](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/ff01e663a23c9cd65df9b4ddc46d5bc46b1647a6/prospective-cohort-visual-example.pdf)
 
 `@script`
 
-{{image of what a prospective study looks like}}
-
-
-
----
-## Framingham Heart Study
-
-```yaml
-type: FullSlide
-```
-
-`@part1`
-
-```{r}
-head(framingham)
-```
-
-`@script`
-
-{{Include image from first paper on this? Or design paper?}}
-
-`@citations`
-
-- cite Framingham study
+This is what a typical prospective cohort looks like. At study start, no one has
+a disease. Each line is a hypothetical participant. As time passes, some people
+get the disease and others don't. When the study ends or at the time of analysis,
+there are a bunch of people who have gotten the disease and usually a lot more 
+that didn't. We also have a bunch of data collected at several time points. So
+now, you can compare how these two groups of people are different. What factors
+distinguish those with compared to those without the disease? That is what we
+try to answer when we analyze the data.
 
 ---
 ## What are the main variables of interest called?
@@ -106,25 +98,65 @@ type: FullSlide
 
 `@script`
 
-- Every field has their own naming convention for the variables of interest. In the case of cohorts, they are called "outcomes" for the y variable that is commonly seen in statistical notation, and "exposures" or "predictors" for the x variable in statistics.
-- Like most data analyses, there is the variable you are interested in "predicting" or identifying risk for, and there is the variables that you think are what "predict" or influence in some way... the exposure to a condition that is thought to cause or to relate to the disease.
-
-
+In every field of research, they have their own naming convention for the
+variables of interest. In the case of cohorts, the term outcomes is used to 
+mean the disease and is the y variable that is commonly seen in statistical
+notation. The terms exposures or predictors represent the variables that relate
+to or potentially influence the outcome in some way. We think of these as variables
+that predict getting the disease or that if someone is exposed to that variable
+(for instance, cigarette smoke), the risk for the disease increases or sometimes
+may decrease.
 
 ---
-## Exploring dataset first 
+## Framingham Heart Study
 
 ```yaml
-type: FullSlide
+type: TwoRows
 ```
 
 `@part1`
 
-{{image here?}}
+![Original Framingham Heart Study publication](datasets/framingham-study.png)
+
+`@part2`
+
+```{r}
+head(framingham)
+```
+
+```
+# A tibble: 11,627 x 39
+  randid   sex totchol   age sysbp diabp cursmoke cigpday   bmi diabetes
+   <int> <int>   <int> <int> <dbl> <dbl>    <int>   <int> <dbl>    <int>
+1   2448     1     195    39  106   70          0       0  27.0        0
+2   2448     1     209    52  121   66          0       0  NA          0
+3   6238     2     250    46  121   81          0       0  28.7        0
+4   6238     2     260    52  105   69.5        0       0  29.4        0
+5   6238     2     237    58  108   66          0       0  28.5        0
+# ... with 29 more variables...
+```
 
 `@script`
 
-Before doing any substantial tidying of the dataset, it's a very wise idea to quickly explore the data to get a sense of its structure, limitations, and strengths.
+Now we get to the Framingham study! This study was originally started in the 1950
+and was first of its kind to investigate the role of lifestyle on cardiovascular
+disease. Many health prevention tips, such as getting enough physical activity,
+eating healthy foods, and not smoking, were first shown from the results of this
+study. The study recruited more than about 5000 people, though in this teaching
+dataset there are only about 4400 participants. Several variables as you can see
+here were measured from the participants, many of whom came for 3 data
+collection visits over around 15 years of followup. 
+
+If you'll notice, there are some things in the dataset that aren't very clean...
+for instance, the variable names aren't entirely clear and some values don't tell
+us what they actually mean. Take the values in sex. What does 1 and 2 mean? So
+we will need to do some tidying beforehand. However, before that, it's a very
+smart idea to explore the data a bit to get a better sense of it.
+
+`@citations`
+
+- [Original paper on Framingham Study](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1525365/)
+- [Framingham Heart Study Website](https://www.framinghamheartstudy.org/fhs-about/history/epidemiological-background/)
 
 ---
 ## Summary of lesson
@@ -135,21 +167,29 @@ type: FullSlide
 
 `@part1`
 
-- Need to be aware of difference between prospective and retrospective cohort
-    - The actual data will often look very similar
-    - Need to refer to documentation extensively
-- Need to recognize assumptions and limitations of dataset
-- General overview of the Framingham Heart Study dataset
-- Identified key feature of a cohort (aka a time component!)
-- Name of variables of interest: outcome and exposure/predictor
+- Design types
+    - Prospective: No disease, data collected as time passes
+    - Retrospective: Disease at start, data obtained from past records
+- Variables of interest
+    - Outcome: Is the disease 
+    - Exposure/predictor: Factor that is thought to influence the outcome
+- Framingham cohort
+    - ~3 time points, ~15 years
+    - >4000 participants
+    - Many possible predictors
 
 `@script`
 
-Let's review what we've covered so far. We talked about ...
-
+Before moving on, let's quickly review what we covered. We compared retrospective 
+and prospective cohorts. The difference comes down to whether people have or don't 
+have the disease at the start of the study. The terms for the variables are outcome
+for the disease and exposure or predictor for the variables that might relate to
+the outcome. Lastly, we briefly looked at the Framingham study, that has a large
+number of participants, many years of followup, and many variables possible
+predictors measured.
 
 ---
-## Let's practice!
+## Let's practice and explore the dataset!
 
 ```yaml
 type: FinalSlide
@@ -158,5 +198,4 @@ key: ddbf9a5e1a
 
 `@script`
 
-Now it's your turn.
-
+Now, let's get to exploring the data!
