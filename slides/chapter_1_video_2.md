@@ -120,10 +120,6 @@ type: TwoRows
 
 `@part2`
 
-```{r}
-head(framingham)
-```
-
 ```
 # A tibble: 11,627 x 39
   randid   sex totchol   age sysbp diabp cursmoke cigpday   bmi diabetes
@@ -131,8 +127,6 @@ head(framingham)
 1   2448     1     195    39  106   70          0       0  27.0        0
 2   2448     1     209    52  121   66          0       0  NA          0
 3   6238     2     250    46  121   81          0       0  28.7        0
-4   6238     2     260    52  105   69.5        0       0  29.4        0
-5   6238     2     237    58  108   66          0       0  28.5        0
 # ... with 29 more variables...
 ```
 
@@ -155,7 +149,7 @@ smart idea to explore the data a bit to get a better sense of it.
 
 `@citations`
 
-- Original paper on Framingham Study. PubMed ID: PMC1525365
+- Original paper on Framingham Study. PubMed ID PMC1525365
 - Framingham Heart Study website "About" page
 
 ---
@@ -175,7 +169,7 @@ type: FullSlide
     - Exposure/predictor: Factor that is thought to influence the outcome
 - Framingham cohort
     - ~3 time points, ~15 years
-    - >4000 participants
+    - ~4400 participants
     - Many possible predictors
 
 `@script`

@@ -34,7 +34,6 @@ Usually the study design is explicitly stated in the study protocols, however, i
 - All persons from a clinic who were diagnosed with a disease were recruited into a study. From the general public, another group was recruited as a matching control.
 - [Over a one month period, all newborns in a hospital are recruited into a study and followed over time for health complications.]
 - In a city, researchers advertised for a study for individuals who have symptoms of a disease. Individuals come in for a single visit to have data collected.
-- All of the above
 - None of the above
 
 `@hint`
@@ -48,7 +47,6 @@ Usually the study design is explicitly stated in the study protocols, however, i
 - Incorrect. While this may seem like it could be a "retrospective" cohort, the key feature is the "matched controls", which indicates that this is case-control study.
 - Correct! This study is a prospective cohort because the newborns were all born around the same time in the same hospital and did not have any diseases when included in the study.
 - Incorrect. But the key feature here is the single time point. Cohorts include multiple time points. This is considered a cross-sectional study.
-- Incorrect. One of them is a cohort study design.
 - Incorrect. One of them is a cohort study design.
 
 ---
