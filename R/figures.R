@@ -17,7 +17,7 @@ disease_occurrence <- tibble(
 
 pro_cohort_visual_plot <- disease_occurrence %>%
     ggplot(aes(y = Participant, xmax = Time, xmin = 0, colour = Status)) +
-    geom_errorbarh(height = 0, size = 1) +
+    geom_errorbarh(height = 0, size = 0.8) +
     geom_point(aes(x = Time)) +
     geom_vline(xintercept = 15, linetype = "dotted") +
     geom_vline(xintercept = 0, linetype = "solid") +
@@ -34,20 +34,20 @@ pro_cohort_visual_plot <- disease_occurrence %>%
         axis.text.y = element_blank(),
         axis.ticks = element_blank(),
         axis.title.y = element_blank(),
-        plot.title = element_text(size = 10),
-        axis.title.x = element_text(size = 10),
+        # plot.title = element_text(),
+        # axis.title.x = element_text(),
         legend.title = element_blank(),
         legend.key = element_blank()
     )
-ggsave("datasets/plot-prospective-outcome.png", pro_cohort_visual_plot)
+ggsave("datasets/plot-prospective-outcome.png", dpi = 90)
 
 # Chapter 1, cohort sample plot -------------------------------------------
 
 fa <- fontawesome(c('fa-user-md', 'fa-user'))
 fa_data <-
     tibble(
-        x = rnorm(20, sd = 2),
-        y = rnorm(20, sd = 2),
+        x = rnorm(20, sd = 1.5),
+        y = rnorm(20, sd = 1.5),
         label = sample(fa, 20, replace = TRUE)
     )
 
@@ -58,7 +58,7 @@ cohort_sample_plot <- ggplot(fa_data, aes(x, y, color = label, label = label)) +
           legend.position = "none") +
     scale_color_manual(values = color_theme[c(3, 6)]) +
     theme_void()
-ggsave("datasets/plot-cohort-sample.png", cohort_sample_plot)
+ggsave("datasets/plot-cohort-sample.png", dpi = 90)
 
 # Chapter 1, purpose of cohorts plots -------------------------------------
 
@@ -67,15 +67,15 @@ base_background <- ggplot() +
 
 heart_plot <- base_background +
     geom_fontawesome('fa-heartbeat', color = color_theme[3], size = 90)
-ggsave("datasets/plot-purpose-risk-factors.png", heart_plot)
+ggsave("datasets/plot-purpose-risk-factors.png", dpi = 90)
 
 doctor_plot <- base_background +
     geom_fontawesome('fa-stethoscope', color = color_theme[3], size = 90)
-ggsave("datasets/plot-purpose-diagnosis.png", doctor_plot)
+ggsave("datasets/plot-purpose-diagnosis.png", dpi = 90)
 
 side_effects_plot <- base_background +
     geom_fontawesome('fa-hospital-o', color = color_theme[3], size = 80)
-ggsave("datasets/plot-purpose-side-effects.png", side_effects_plot)
+ggsave("datasets/plot-purpose-side-effects.png", dpi = 90)
 
 
 # Chapter 1, incidence vs prevalence --------------------------------------
@@ -111,4 +111,4 @@ prev_incid_plot <- ggplot(prev_incid,
     labs(y = NULL, x = "Followup visit number",
          title = "Incident vs prevalent cases",
          subtitle = "- Prevalent cases only at given visit\n- Incidence is total new cases")
-ggsave("datasets/plot-prevalence-incidence.png", prev_incid_plot)
+ggsave("datasets/plot-prevalence-incidence.png", dpi = 90)
