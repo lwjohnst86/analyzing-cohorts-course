@@ -155,8 +155,8 @@ smart idea to explore the data a bit to get a better sense of it.
 
 `@citations`
 
-- [Original paper on Framingham Study](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1525365/)
-- [Framingham Heart Study Website](https://www.framinghamheartstudy.org/fhs-about/history/epidemiological-background/)
+- Original paper on Framingham Study. PubMed ID: PMC1525365
+- Framingham Heart Study website "About" page
 
 ---
 ## Summary of lesson
