@@ -32,7 +32,7 @@ type: FullSlide
 
 `@part1`
 
-![Retrospective vs prospective cohorts](datasets/pro-vs-retro.png)
+![Retrospective vs prospective cohorts. Euser et al, doi:10.1159/000235241](datasets/pro-vs-retro.png)
 
 `@script`
 
@@ -53,10 +53,6 @@ cohorts. They tend to be pretty common and to provide stronger evidence for
 their results, simply because people are recruited without the disease. It is for
 this reason that the Framingham prospective study was chosen.
 
-`@citations`
-
-- Euser et al, doi:10.1159/000235241
-
 ---
 ## How a prospective cohort looks like over time
 
@@ -66,7 +62,7 @@ type: FullImageSlide
 
 `@part1`
 
-![Visual example of a prospective cohort](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/ff01e663a23c9cd65df9b4ddc46d5bc46b1647a6/prospective-cohort-visual-example.pdf)
+![Visual example of a prospective cohort](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/5008b35c45932322dbbdc87458ff4456ecaafedc/plot-prospective-outcome.png)
 
 `@script`
 
@@ -116,7 +112,7 @@ type: TwoRows
 
 `@part1`
 
-![Original Framingham Heart Study publication](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/fb4a5797d1d3f1ea761ce274b23248e606775bf0/framingham-study.png)
+![Original Framingham Heart Study publication. PubMedID: PMC1525365.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/fb4a5797d1d3f1ea761ce274b23248e606775bf0/framingham-study.png)
 
 `@part2`
 
@@ -146,11 +142,6 @@ for instance, the variable names aren't entirely clear and some values don't tel
 us what they actually mean. Take the values in sex. What does 1 and 2 mean? So
 we will need to do some tidying beforehand. However, before that, it's a very
 smart idea to explore the data a bit to get a better sense of it.
-
-`@citations`
-
-- Original paper on Framingham Study. PubMed ID PMC1525365
-- Framingham Heart Study website "About" page
 
 ---
 ## Summary of lesson

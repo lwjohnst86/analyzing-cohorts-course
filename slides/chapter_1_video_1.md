@@ -40,11 +40,7 @@ Features:
 
 `@part2`
 
-![Example cohort recruitment and sample](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/2af7f4b6a9311b4d69f5c40c9c0593792899cdf4/plot-cohort-sample.pdf)
-
-`@citations`
-
-- Font Awesome Icons, created using R package emojifonts.
+![Example cohort recruitment and sample. Font Awesome Icons, using emojifonts package.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/4f1ae5179ba09672f8f19c1a005b71d883467a2c/plot-cohort-sample.png)
 
 `@script`
 
@@ -66,21 +62,17 @@ key: 3020a2875a
 
 `@part1`
 
-![Risk factors and health management](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/112038a94a2a5a33d191d79c4bb4c5d45225b55a/plot-purpose-risk-factors.pdf)
+![Risk factors and health management. Font Awesome Icons, using emojifonts package.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/c3805372fcdf0f8d07a371a2a3167578bed0a36f/plot-purpose-risk-factors.png)
 
 `@part2`
 
-![Informing diagnosis decisions](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/bb46a5d5d8005ed3d2b752a0df59538139c006d5/plot-purpose-diagnosis.pdf)
+![Informing diagnosis decisions](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/e820bcda71d9330dfe338754432df5fd316a2b7a/plot-purpose-diagnosis.png)
 
 `@part3`
 
-![Tracking side effects and safety from drugs](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/df1ef31786d60be76e33741917d46eb1f0b5efd9/plot-purpose-side-effects.pdf)
+![Tracking side effects and safety from drugs](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/62af4f9f6bf1799107925f3a937b84ab945ba2f9/plot-purpose-side-effects.png)
 
 `@part4`
-
-`@citations`
-
-- Font Awesome Icons, created using R package emojifonts.
 
 `@script`
 
