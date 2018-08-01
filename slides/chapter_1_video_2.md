@@ -32,7 +32,7 @@ type: FullSlide
 
 `@part1`
 
-![Retrospective vs prospective cohorts. Euser et al, doi:10.1159/000235241](datasets/pro-vs-retro.png)
+![Retrospective vs prospective cohorts. Euser et al, doi:10.1159/000235241](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/a183894d11c7317da3f4831b9e6b75cb4929942d/pro-vs-retro.png)
 
 `@script`
 
