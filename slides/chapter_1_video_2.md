@@ -116,7 +116,7 @@ type: TwoRows
 
 `@part1`
 
-![Original Framingham Heart Study publication](datasets/framingham-study.png)
+![Original Framingham Heart Study publication](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/fb4a5797d1d3f1ea761ce274b23248e606775bf0/framingham-study.png)
 
 `@part2`
 

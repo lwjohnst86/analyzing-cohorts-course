@@ -33,7 +33,7 @@ type: FullImageSlide
 
 `@part1`
 
-![Prevalent vs incident cases](datasets/plot-prevalence-incidence.pdf)
+![Prevalent vs incident cases](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/fe126eb806e6d583992fe4fc31fba638e416518f/plot-prevalence-incidence.pdf)
 
 `@script`
 
