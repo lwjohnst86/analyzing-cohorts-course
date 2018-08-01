@@ -39,7 +39,7 @@ pro_cohort_visual_plot <- disease_occurrence %>%
         legend.title = element_blank(),
         legend.key = element_blank()
     )
-ggsave("datasets/plot-prospective-outcome.pdf", pro_cohort_visual_plot)
+ggsave("datasets/plot-prospective-outcome.png", pro_cohort_visual_plot)
 
 # Chapter 1, cohort sample plot -------------------------------------------
 
@@ -58,7 +58,7 @@ cohort_sample_plot <- ggplot(fa_data, aes(x, y, color = label, label = label)) +
           legend.position = "none") +
     scale_color_manual(values = color_theme[c(3, 6)]) +
     theme_void()
-ggsave("datasets/plot-cohort-sample.pdf", cohort_sample_plot)
+ggsave("datasets/plot-cohort-sample.png", cohort_sample_plot)
 
 # Chapter 1, purpose of cohorts plots -------------------------------------
 
@@ -67,15 +67,15 @@ base_background <- ggplot() +
 
 heart_plot <- base_background +
     geom_fontawesome('fa-heartbeat', color = color_theme[3], size = 90)
-ggsave("datasets/plot-purpose-risk-factors.pdf", heart_plot)
+ggsave("datasets/plot-purpose-risk-factors.png", heart_plot)
 
 doctor_plot <- base_background +
     geom_fontawesome('fa-stethoscope', color = color_theme[3], size = 90)
-ggsave("datasets/plot-purpose-diagnosis.pdf", doctor_plot)
+ggsave("datasets/plot-purpose-diagnosis.png", doctor_plot)
 
 side_effects_plot <- base_background +
     geom_fontawesome('fa-hospital-o', color = color_theme[3], size = 80)
-ggsave("datasets/plot-purpose-side-effects.pdf", side_effects_plot)
+ggsave("datasets/plot-purpose-side-effects.png", side_effects_plot)
 
 
 # Chapter 1, incidence vs prevalence --------------------------------------
@@ -111,4 +111,4 @@ prev_incid_plot <- ggplot(prev_incid,
     labs(y = NULL, x = "Followup visit number",
          title = "Incident vs prevalent cases",
          subtitle = "- Prevalent cases only at given visit\n- Incidence is total new cases")
-ggsave("datasets/plot-prevalence-incidence.pdf", prev_incid_plot)
+ggsave("datasets/plot-prevalence-incidence.png", prev_incid_plot)
