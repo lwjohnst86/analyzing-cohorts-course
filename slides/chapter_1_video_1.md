@@ -27,7 +27,7 @@ cohort datasets, and some first steps in looking over the data.
 ## What is a cohort study?
 
 ```yaml
-type: FullSlide
+type: TwoColumns
 ```
 
 `@part1`
@@ -37,6 +37,8 @@ Features:
 - Studies associations with (usually) disease
 - Includes some time component to the data
 - *Participants share common characteristic(s)*
+
+`@part2`
 
 ![Example cohort recruitment and sample](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/2af7f4b6a9311b4d69f5c40c9c0593792899cdf4/plot-cohort-sample.pdf)
 

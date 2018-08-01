@@ -88,9 +88,7 @@ cohort can't be answered. For instance, if the cohort is only older adults, you
 can't ask questions about young children using this data. More realistically,
 and also very common, if the cohort is made up of mostly people of European
 ancestry, you can't apply the answers to your questions to other ethnic groups or
-ancestries.
-
-When it comes to the prospective cohorts specifically, because of the time
+ancestries. When it comes to the prospective cohorts specifically, because of the time
 component, we can answer questions that include some temporal aspect as well as
 answer questions about risk in unexposed vs exposed.
 

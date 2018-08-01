@@ -231,14 +231,10 @@ rename the variables so they are more descriptive.
 
 `@instructions`
 
-- Use `names()` to find the exact name of the variables, then `select` and
-renaming them all to be more descriptive.
-- Choose the correct outcome for cardiovascular disease (CVD). Rename it to
-`got_cvd`.
-- Select four predictors: total cholesterol, body mass index, participant age,
-and currently smokes.
-- There are also several time points, so we need to also select time (`period`).
-Rename it to `followup_visit_number`.
+- Use `names()` to find the exact name of the variables, then `select` and renaming them all to be more descriptive.
+- Choose the correct outcome for cardiovascular disease (CVD). Rename it to `got_cvd`.
+- Select four predictors: total cholesterol, body mass index, participant age, and currently smokes.
+- There are also several time points, so we need to also select time (`period`). Rename it to `followup_visit_number`.
 
 `@hint`
 
@@ -253,11 +249,8 @@ load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd
 
 `@sample_code`
 ```{r}
-# dplyr has been loaded for you to use.
-
 # Select the potential exposures as well as the main outcome for the framingham
-# dataset. Note: there are two time variables. The other, `time`, is days since
-# the first visit. We will use that one more later. For now, choose only `period`
+# dataset. Note: while there are two time variables, for now choose `period`
 explore_framingham <- framingham %>%
     select(
         # old_variable_name = new_variable_name
@@ -273,11 +266,8 @@ explore_framingham
 
 `@solution`
 ```{r}
-# dplyr has been loaded for you to use.
-
 # Select the potential exposures as well as the main outcome for the framingham
-# dataset. Note: there are two time variables. The other, `time`, is days since
-# the first visit. We will use that one more later. For now, choose only `period`
+# dataset. Note: while there are two time variables, for now choose `period`
 explore_framingham <- framingham %>%
     select(
         # Format: old_variable_name = new_variable_name
@@ -483,14 +473,11 @@ through it.
 
 `@instructions`
 
-- Does higher total cholesterol cause cardiovascular disease?
-- Will a lower body mass index during young adulthood increase the risk of
-disease later in life?
-- Do people that smoke have a higher risk for cardiovascular disease than those
-who don't?
-- Do people with many close friends have a lower risk for cardiovascular disease?
+- Does higher cholesterol cause cardiovascular disease (CVD)?
+- Will lower body mass during adolescence increase the risk for CVD?
+- Does smoking increase the risk for CVD?
+- Does having many close friends lower the risk for CVD?
 - All of the above.
-- None of the above.
 
 `@hint`
 
@@ -507,8 +494,7 @@ msg2 <- "Incorrect. While cohorts could answer this questions, Framingham partic
 msg3 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
 msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
 msg5 <- "Incorrect. One of the above is a valid question."
-msg6 <- "Incorrect. One of the above is a valid question."
-test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5, msg6))
+test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
 
 ---
@@ -528,17 +514,15 @@ longitudinal data, you need to count by the time period, as each participant
 could have several rows per collection wave.
 
 Next, count the number of cases and non-cases for prevalent myocardial infarction
-(MI, aka heart attack) and coronary heart disease (CHD) at each visit.
+(MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both
+dplyr and tidyr have been loaded.
 
 `@instructions`
 
 - Count the number of participants (i.e. rows) for each `followup_visit_number`.
-- Then, count the number of cases of `prevmi` and `prevchd` for each
-`followup_visit_number`.
-- You will need to use a similar `gather`-`spread` strategy as in a previous
-exercise.
-- For the `gather`, name key "Disease". In `gather` you will also need to
-specify the columns to gather by (`prevmi` and `prevchd`).
+- Then, count the number of cases of `prevmi` and `prevchd` for each `followup_visit_number`.
+- You will need to use a similar `gather`-`spread` strategy as in a previous exercise.
+- For the `gather`, name key "Disease". In `gather` you will also need to specify the columns to gather by (`prevmi` and `prevchd`).
 
 `@hint`
 
@@ -563,17 +547,14 @@ explore_framingham <- framingham %>%
 
 `@sample_code`
 ```{r}
-# All the variables have been added back to the `explore_framingham` dataset,
-# but the variables have been kept renamed. Both dplyr and tidyr have been
-# loaded.
+# All the variables are back in `explore_framingham`, but the renamed are kept.
 
 # Count the number of participants per visit.
 explore_framingham %>% 
     count(_____)
 
-# Count the number of prevalent cases of MI and CHD per visit. You will need to
-# similar steps as in the previous exercise with gather and spread in order to
-# have cases as the columns.
+# Count the number of prevalent cases of MI and CHD per visit. Use the steps
+# like in the previous exercise with gather-spread so cases are columns
 explore_framingham %>% 
     _____(_____, Cases, _____, _____) %>% 
     count(followup_visit_number, _____, Cases) %>% 
@@ -582,17 +563,14 @@ explore_framingham %>%
 
 `@solution`
 ```{r}
-# All the variables have been added back to the `explore_framingham` dataset,
-# but the variables have been kept renamed. Both dplyr and tidyr have been
-# loaded.
+# All the variables are back in `explore_framingham`, but the renamed are kept.
 
 # Count the number of participants per visit.
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count the number of prevalent cases of MI and CHD per visit. You will need to
-# similar steps as in the previous exercise with gather and spread in order to
-# have cases as the columns.
+# Count the number of prevalent cases of MI and CHD per visit. Use the steps
+# like in the previous exercise with gather-spread so cases are columns
 explore_framingham %>% 
     gather(Disease, Cases, prevmi, prevchd) %>% 
     count(followup_visit_number, Disease, Cases) %>% 
@@ -603,5 +581,3 @@ explore_framingham %>%
 ```{r}
 success_msg("Woohoo! Nice job. You now know how to count the number of cases by visit.")
 ```
-
-
