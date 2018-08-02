@@ -60,18 +60,11 @@ skills: 1
 key: ed0789164c
 ```
 
-We will be using the Framingham Heart Study dataset for this course. The next
-few exercises will get you more familiar with the dataset and thinking
-more about cohorts.
+We will be using the Framingham Heart Study dataset for this course. The next few exercises will get you more familiar with the dataset and thinking more about cohorts.
 
-First, some background. The Framingham study was set up to study what might
-might influence the risk of cardiovascular disease (CVD). People from
-Framingham, USA were recruited and followed over time. Data was collected on
-"risk factors" and CVD every few years.
+First, some background. The Framingham study was set up to study what might might influence the risk of cardiovascular disease (CVD). People from Framingham, USA were recruited and followed over time. Data was collected on "risk factors" and CVD every few years.
 
-What makes Framingham a cohort? The `framingham` dataset is loaded for you to
-explore. The dataset has yet to be fully tidied, which we will do more in
-Chapter 2.
+What makes Framingham a cohort? The `framingham` dataset is loaded for you to explore. The dataset has yet to be fully tidied, which we will do more in Chapter 2.
 
 `@instructions`
 
@@ -198,6 +191,9 @@ Which of these answers has the correct variables as the outcome and some potenti
 
 `@hint`
 
+- The outcome should be a disease.
+- Is time really an exposure/predictor?
+
 `@feedback`
 
 - Incorrect. The outcome should not be a predictor and the disease should not be an exposure (in this case).
@@ -216,16 +212,9 @@ xp: 100
 skills: 1
 ```
 
-You need to know which variables are which for the analysis. Usually, it's
-fairly easy to identify the outcome. However, knowing which are potential
-predictors can be tricky, as modern cohorts often have massive amounts of data
-on each participant. Many variables are collected for checking the data, to
-aggregate or summarize, or to use as "confounders" (discussed more in later
-chapters).
+You need to know which variables are which for the analysis. Usually, it's fairly easy to identify the outcome. However, knowing which are potential predictors can be tricky, as modern cohorts often have massive amounts of data on each participant. Many variables are collected for checking the data, to aggregate or summarize, or to use as "confounders" (discussed more in later chapters).
 
-Initially, it can be helpful to keep only variables of interest. For now, let's
-select interesting variables to explore them more. At the same time, let's
-rename the variables so they are more descriptive.
+Initially, it can be helpful to keep only variables of interest. For now, let's select interesting variables to explore them more. At the same time, let's rename the variables so they are more descriptive.
 
 `@instructions`
 
@@ -294,18 +283,11 @@ lang: r
 xp: 100
 ```
 
-Like the majority of data analyses, a large part of the work involves wrangling
-the data into the appropriate form to then analyze. One common technique
-involved in data processing and in data exploration and checking is the
-"split-apply-combine" method. For exploration, particularly of cohort datasets
-with multiple time points, it's useful see how multiple variables change over
-time using simple summary statistics.
+Like the majority of data analyses, a large part of the work involves wrangling the data into the appropriate form to then analyze. One common technique involved in data processing and in data exploration and checking is the "split-apply-combine" method. For exploration, particularly of cohort datasets with multiple time points, it's useful see how multiple variables change over time using simple summary statistics.
 
-In this case, since we not only have time as a column, but also multiple
-variables to summarize, we'll need to convert the data into a very long format
+In this case, since we not only have time as a column, but also multiple variables to summarize, we'll need to convert the data into a very long format
 
-It is expected that you are familiar with data wrangling in the tidyverse, since
-you will need to use the functions from the dplyr and tidyr packages.
+It is expected that you are familiar with data wrangling in the tidyverse, since you will need to use the functions from the dplyr and tidyr packages.
 
 `@pre_exercise_code`
 ```{r}
@@ -377,8 +359,7 @@ Calculate the mean of each variable by followup number and CVD status.
 `@instructions`
 
 - `group_by` on followup number, CVD status, and the variables.
-- Use the dplyr `summarize` function to calculate the `mean` and call the new
-variable `mean_values`).
+- Use the dplyr `summarize` function to calculate the `mean` and call the new variable `mean_values`).
 - Make sure to use the `na.rm = TRUE` option when calculating the mean.
 
 `@solution`
@@ -410,13 +391,11 @@ xp: 100
 key: 61e6dcd04b
 ```
 
-Lastly, let's convert back to wide form so we can more easily compare the mean
-values of variables for those with and without CVD.
+Lastly, let's convert back to wide form so we can more easily compare the mean values of variables for those with and without CVD.
 
 `@instructions`
 
-- Use the tidyr `spread` function to have CVD status (the key) as the new column
-headers, and the the mean values (the value) as the values in the new columns.
+- Use the tidyr `spread` function to have CVD status (the key) as the new column headers, and the the mean values (the value) as the values in the new columns.
 
 `@solution`
 ```{r}
@@ -461,13 +440,9 @@ xp: 50
 skills: 1
 ```
 
-Because the Framingham study is a prospective cohort, with certain limits to the
-data, and with three data collection visits, there are limits to the questions we
-can ask and answer. Choose the most valid and most appropriate question that we
-could ask from Framingham.
+Because the Framingham study is a prospective cohort, with certain limits to the data, and with three data collection visits, there are limits to the questions we can ask and answer. Choose the most valid and most appropriate question that we could ask from Framingham.
 
-The unchanged `framingham` dataset has been loaded in case you want to look 
-through it.
+The unchanged `framingham` dataset has been loaded in case you want to look  through it.
 
 `@instructions`
 
@@ -479,6 +454,8 @@ through it.
 
 `@hint`
 
+- Can we directly determine "causes" from cohort studies?
+- Remember, these are questions to ask *of the Framingham study*... do the variables in the question exist in the dataset?
 
 `@pre_exercise_code`
 ```{r}
@@ -506,14 +483,9 @@ xp: 100
 skills: 1
 ```
 
-One of the first things to explore is the number of cases, as this will help
-inform what you can ask of the data and how to analyze it. Remember, for
-longitudinal data, you need to count by the time period, as each participant
-could have several rows per collection wave.
+One of the first things to explore is the number of cases, as this will help inform what you can ask of the data and how to analyze it. Remember, for longitudinal data, you need to count by the time period, as each participant could have several rows per collection wave.
 
-Next, count the number of cases and non-cases for prevalent myocardial infarction
-(MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both
-dplyr and tidyr have been loaded.
+Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr have been loaded.
 
 `@instructions`
 
