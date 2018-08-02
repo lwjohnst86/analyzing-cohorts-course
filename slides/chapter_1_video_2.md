@@ -17,11 +17,7 @@ title: Instructor
 
 `@script`
 
-Before getting more into the Framingham dataset we will be using, we're going to
-quickly cover some more differences between prospective and retrospective
-cohorts. Since the dataset we are using is a prospective cohort, it's a good
-idea to highlight why a prospective cohort was chosen compared to a
-retrospective cohort.
+Before getting more into the Framingham dataset, we're going to quickly cover more differences between the two cohort types. Since Framingham is a prospective cohort, we'll highlight why a prospective cohort was chosen over a retrospective one.
 
 ---
 ## Comparisons between the two designs
@@ -36,22 +32,7 @@ type: FullSlide
 
 `@script`
 
-As we previously covered, there are some important differences between
-retrospective compared to prospective cohorts. The main difference is what point
-the study starts relative to outcome occurance. In a retrospective cohort,
-people are recruited based having the disease, then their data is collected from
-past records. This is particularly common where data is collected in a frequent
-or consistent context, such as in a hospital, so there is a data already
-available. Prospective cohorts on the other hand have people who are recruited
-because they don't have the disease and are followup either until they have the
-disease or until the study ends. Data is collected as the time passes. Both
-designs have their strengths and weaknesses. For instance, if you have easy
-access to data that has already been collected by for example a hospital or a
-by the government, or if the disease is really rare, retrospective cohorts are
-very powerful scientific tools. However, there are many strengths to prospective
-cohorts. They tend to be pretty common and to provide stronger evidence for
-their results, simply because people are recruited without the disease. It is for
-this reason that the Framingham prospective study was chosen.
+There are some important differences between the two cohort types. The main difference is when the study starts relative to outcome occurrence. In a retrospective cohort, the study starts when people have the disease and their data is collected from past records. This is very common when data is collected in a frequent or typical way, such as in a hospital, so data are already available. In prospective cohorts, people don't have a disease at the start of the study and they are followup either until the end of the study or until they get the disease. Data is collected as the time passes. Both designs have their strengths and weaknesses. If you have easy access to data already collected by for example a hospital or the government, retrospective cohorts are very powerful scientific tools. But, there are many strengths to prospective cohorts, which is why they tend to be pretty common. They give stronger scientific evidence to research questions, because people are recruited without the disease. This is why the Framingham study was chosen.
 
 ---
 ## How a prospective cohort looks like over time
@@ -66,14 +47,7 @@ type: FullImageSlide
 
 `@script`
 
-This is what a typical prospective cohort looks like. At study start, no one has
-a disease. Each line is a hypothetical participant. As time passes, some people
-get the disease and others don't. When the study ends or at the time of analysis,
-there are a bunch of people who have gotten the disease and usually a lot more 
-that didn't. We also have a bunch of data collected at several time points. So
-now, you can compare how these two groups of people are different. What factors
-distinguish those with compared to those without the disease? That is what we
-try to answer when we analyze the data.
+Here is a typical prospective cohort. Each line is a hypothetical participant. At the study start, no one has a disease. As time passes, some people get the disease and others don't. When the study ends or at the time of analysis, there are a group of people who have the disease and usually a lot more who don't. There is also data collected at several time points over the study period. So now, you can compare how these two groups of people are different. What factors distinguish those with and without the disease? That is what we try to answer when we analyze the data.
 
 ---
 ## What are the main variables of interest called?
@@ -94,14 +68,7 @@ type: FullSlide
 
 `@script`
 
-In every field of research, they have their own naming convention for the
-variables of interest. In the case of cohorts, the term outcomes is used to 
-mean the disease and is the y variable that is commonly seen in statistical
-notation. The terms exposures or predictors represent the variables that relate
-to or potentially influence the outcome in some way. We think of these as variables
-that predict getting the disease or that if someone is exposed to that variable
-(for instance, cigarette smoke), the risk for the disease increases or sometimes
-may decrease.
+In cohort studys, there are commonly two-ish terms used: outcomes and exposure or predictor. The term outcomes is used to mean the disease and is the y variable commonly seen in statistical notation. The terms exposures or predictors represent the variables that relate to or potentially influence the outcome in some way. These are the variables that we think predict getting the disease (for instance, cigarette smoke and lung cancer).
 
 ---
 ## Framingham Heart Study
@@ -128,20 +95,7 @@ type: TwoRows
 
 `@script`
 
-Now we get to the Framingham study! This study was originally started in the 1950
-and was first of its kind to investigate the role of lifestyle on cardiovascular
-disease. Many health prevention tips, such as getting enough physical activity,
-eating healthy foods, and not smoking, were first shown from the results of this
-study. The study recruited more than about 5000 people, though in this teaching
-dataset there are only about 4400 participants. Several variables as you can see
-here were measured from the participants, many of whom came for 3 data
-collection visits over around 15 years of followup. 
-
-If you'll notice, there are some things in the dataset that aren't very clean...
-for instance, the variable names aren't entirely clear and some values don't tell
-us what they actually mean. Take the values in sex. What does 1 and 2 mean? So
-we will need to do some tidying beforehand. However, before that, it's a very
-smart idea to explore the data a bit to get a better sense of it.
+Now we get to the Framingham study! This study started in the 1950s and was first to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, who had data collected on them about 3 times over around 15 years of followup.  If you'll notice, there are things that aren't very clean in the dataset... for instance, the variable names aren't clear and some values don't tell us their meaning, such as the values in sex. What does 2 mean? We'll need to do some tidying beforehand. Before that, it's a good idea to explore the data a bit to get a better sense of it.
 
 ---
 ## Summary of lesson
@@ -165,14 +119,7 @@ type: FullSlide
 
 `@script`
 
-Before moving on, let's quickly review what we covered. We compared retrospective 
-and prospective cohorts. The difference comes down to whether people have or don't 
-have the disease at the start of the study. The terms for the variables are outcome
-for the disease and exposure or predictor for the variables that might relate to
-the outcome. Lastly, we briefly looked at the Framingham study, that has a large
-number of participants, many years of followup, and many variables possible
-predictors measured.
-
+Let's quickly review what we covered. We compared the cohort types, and differences being mostly in when the disease occurs. The terms for the variables are outcome for the disease and exposure or predictor for the variables that might relate to the outcome. Lastly, we briefly looked at the Framingham study. 
 ---
 ## Let's practice and explore the dataset!
 
@@ -183,4 +130,4 @@ key: ddbf9a5e1a
 
 `@script`
 
-Now, let's get to exploring the data!
+Ok, now, let's get to exploring the data!
