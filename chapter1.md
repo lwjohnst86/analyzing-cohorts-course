@@ -125,33 +125,6 @@ msg2 <- "Incorrect. Only if the participants already had the disease would it be
 msg3 <- "Incorrect. It has to be one of the designs."
 test_mc(1, feedback_msgs = c(msg1, msg2, msg3))
 ```
----
-
-## What would make it a retrospective cohort?
-
-```yaml
-type: PureMultipleChoiceExercise 
-xp: 50 
-skills: 1
-key: 990cfedfbe   
-```
-
-
-As you learned in the video lesson, there are some key differences between retrospective and prospective cohort study designs. How could the Framingham study have been designed to be retrospective?
-
-
-`@hint`
-A key difference between prospective and retrospective is *when* the study and analysis starts relative to disease status.
-
-`@possible_answers`
-- [At the start of the study, data are obtained from surveys of their past habits, previously stored blood samples/results, and past hospital records, and those who got heart disease are compared to those who didn't.]
-- After a number of years in the study, Framingham participants who didn't get heart disease were excluded from the study. Analysis was done on the data that was collected over time and on those with the disease.
-- At the start of the study, blood samples are taken and surveys are completed. Those who have the disease are compared to those without by analyzing this data.
-
-`@feedbacks`
-- Correct! The key here is that at the start of the study, those with the disease and those without are compared using data *from the past*.
-- Incorrect. In this case, the participants have already been followed for some years, which still means it is a prospective cohort. Dropping those without the disease from the analysis is actually very bad practice.
-- Incorrect. The data are collected and analyzed at only one time point, therefore there is no time component.
 
 ---
 
