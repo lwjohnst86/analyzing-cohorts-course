@@ -222,16 +222,16 @@ load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd
 
 ```{r}
 # Select the potential exposures as well as the main outcome for the framingham
-# dataset. Note: while there are two time variables, for now choose `period`
+# dataset.
 explore_framingham <- framingham %>%
     select(
-        # old_variable_name = new_variable_name
+        # Format: old_variable_name = new_variable_name
         _____ = _____, # outcome variable
         total_cholesterol = _____,
         body_mass_index = _____,
         _____ = age,
         _____ = cursmoke,
-        _____ = _____ # visit number
+        _____ = period # visit number
     )
 explore_framingham
 ```
@@ -241,7 +241,7 @@ explore_framingham
 
 ```{r}
 # Select the potential exposures as well as the main outcome for the framingham
-# dataset. Note: while there are two time variables, for now choose `period`
+# dataset.
 explore_framingham <- framingham %>%
     select(
         # Format: old_variable_name = new_variable_name
@@ -250,7 +250,7 @@ explore_framingham <- framingham %>%
         body_mass_index = bmi,
         participant_age = age,
         currently_smokes = cursmoke,
-        followup_visit_number = period
+        followup_visit_number = period # visit number
     )
 explore_framingham
 ```
