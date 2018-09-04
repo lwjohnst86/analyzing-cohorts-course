@@ -15,7 +15,6 @@ key: b2111dc061
 
 `@projector_key`
 fd067459a73b16863b609297f96ac32c
-
 ---
 
 ## Identify the cohort study
@@ -42,7 +41,7 @@ Usually the study design is explicitly stated in the study protocols, however, i
 - In a city, researchers advertised for a study for individuals who have symptoms of a disease. Individuals come in for a single visit to have data collected.
 - None of the above
 
-`@feedbacks`
+`@feedback`
 - Incorrect. This could almost be viewed as a cohort because of the common use of an insurance company, except that individuals weren't followed over time, not all had a disease, and all data analysis was done retrospectively data that was already collected. This is an example of "registry-based" type study.
 - Incorrect. While this may seem like it could be a "retrospective" cohort, the key feature is the "matched controls", which indicates that this is case-control study.
 - Correct! This study is a prospective cohort because the newborns were all born around the same time in the same hospital and did not have any diseases when included in the study.
@@ -79,10 +78,14 @@ What makes Framingham a cohort? The `framingham` dataset is loaded for you to ex
 Cohorts are people who have *something in common*.
 
 `@pre_exercise_code`
+
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
+
+
 `@sct`
+
 ```{r}
 msg1 <- "Incorrect. While cohorts often are used to study a disease, this doesn't make it a cohort."
 msg2 <- "Correct! Cohorts are people who share a common characteristic. In this case, the participants share a town and so have a similar environment."
@@ -90,6 +93,7 @@ msg3 <- "Incorrect. While cohorts always include a time component, this alone do
 msg4 <- "Incorrect. While all cohorts have risk factors measured, this alone doesn't make it a cohort."
 test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
+
 
 ---
 
@@ -117,16 +121,21 @@ What cohort study design is the Framingam study? You should be able to determine
 - Did the participants have the disease when the study started?
 
 `@pre_exercise_code`
+
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
+
+
 `@sct`
+
 ```{r}
 msg1 <- "Correct! That's because there is a time component and the participants don't have the disease yet."
 msg2 <- "Incorrect. Only if the participants already had the disease would it be a retrospective cohort."
 msg3 <- "Incorrect. It has to be one of the designs."
 test_mc(1, feedback_msgs = c(msg1, msg2, msg3))
 ```
+
 
 ---
 
@@ -142,7 +151,6 @@ key: a537fbe14a
 
 `@projector_key`
 9e3d8b35b89128ebb91908d3aa815cf1
-
 ---
 
 ## Which variables are the outcomes and exposures?
@@ -168,7 +176,7 @@ Which of these answers has the correct variables as the outcome and some potenti
 - Outcome = Cardiovascular disease (`cvd`); Exposure = Time (`time`), cholesterol (`totchol`), sex (`sex`)
 - Outcome = Smoking (`cursmoke`); Exposure = Cholesterol (`totchol`), educational attainment (`educ`), age of participant (`age`)
 
-`@feedbacks`
+`@feedback`
 - Incorrect. The outcome should not be a predictor and the disease should not be an exposure (in this case).
 - Correct! The outcome is a disease, and the exposures are possible exposures/predictors.
 - Incorrect. This is almost the right answer, except for time. Technically, time is not an exposure, it is just a variable that tells us the visit time.
@@ -203,11 +211,15 @@ Initially, it can be helpful to keep only variables of interest. For now, let's 
 - For renaming, replace all spaces with `_` of the variables stated in the instructions.
 
 `@pre_exercise_code`
+
 ```{r}
 library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
+
+
 `@sample_code`
+
 ```{r}
 # Select the potential exposures as well as the main outcome for the framingham
 # dataset. Note: while there are two time variables, for now choose `period`
@@ -223,7 +235,10 @@ explore_framingham <- framingham %>%
     )
 explore_framingham
 ```
+
+
 `@solution`
+
 ```{r}
 # Select the potential exposures as well as the main outcome for the framingham
 # dataset. Note: while there are two time variables, for now choose `period`
@@ -239,10 +254,14 @@ explore_framingham <- framingham %>%
     )
 explore_framingham
 ```
+
+
 `@sct`
+
 ```{r}
 success_msg("Great job! You've selected and renamed the variables correctly.")
 ```
+
 
 ---
 
@@ -264,6 +283,7 @@ It is expected that you are familiar with data wrangling in the tidyverse, since
 
 
 `@pre_exercise_code`
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -278,10 +298,14 @@ explore_framingham <- framingham %>%
         followup_visit_number = period
     )
 ```
+
+
 `@sample_code`
+
 ```{r}
 explore_framingham  %>%
 ```
+
 
 ***
 
@@ -306,14 +330,20 @@ key: 85e4b0de64
 - Did you use the `-` to exclude `followup_visit_number` and `got_cvd`?
 
 `@solution`
+
 ```{r}
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd)
 ```
+
+
 `@sct`
+
 ```{r}
 success_msg("Great job! `gather` is a very powerful function to converting to long form.")
 ```
+
+
 
 ***
 
@@ -340,16 +370,22 @@ key: 9ca4b15cf5
 - Did you name the new summarized variables `mean_values`?
 
 `@solution`
+
 ```{r}
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
     group_by(followup_visit_number, got_cvd, variables) %>% 
     summarize(mean_values = mean(Value, na.rm = TRUE))
 ```
+
+
 `@sct`
+
 ```{r}
 success_msg("Great job! Combining `gather`, `group_by`, and another function such as `summarize` is a powerful approach to 'split-apply-combine' analyses.")
 ```
+
+
 
 ***
 
@@ -372,6 +408,7 @@ key: 61e6dcd04b
 - Use `got_cvd` as the key argument and `mean_values` as the values argument.
 
 `@solution`
+
 ```{r}
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
@@ -379,10 +416,15 @@ explore_framingham %>%
     summarize(mean_values = mean(values, na.rm = TRUE)) %>% 
     spread(got_cvd, mean_values)
 ```
+
+
 `@sct`
+
 ```{r}
 success_msg("Awesome! You did it. You now have can compare between those who didn't and those who did get CVD.")
 ```
+
+
 
 ---
 
@@ -398,7 +440,6 @@ key: 382b3edde1
 
 `@projector_key`
 d8b40a3d5d81b2b050f65eb79581aa42
-
 ---
 
 ## What questions can be asked from Framingham?
@@ -429,10 +470,14 @@ The unchanged `framingham` dataset has been loaded in case you want to look  thr
 - Remember, these are questions to ask *of the Framingham study*... do the variables in the question exist in the dataset?
 
 `@pre_exercise_code`
+
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
+
+
 `@sct`
+
 ```{r}
 msg1 <- "Incorrect. The cohort study was not designed to answer 'causes'."
 msg2 <- "Incorrect. While cohorts could answer this questions, Framingham participants are all in middle age so we can't answer questions outside of that timeframe."
@@ -441,6 +486,7 @@ msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Stu
 msg5 <- "Incorrect. One of the above is a valid question."
 test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
+
 
 ---
 
@@ -471,6 +517,7 @@ Next, count the number of cases and non-cases for prevalent myocardial infarctio
 - Are you using `spread` and `gather` properly and in the right order?
 
 `@pre_exercise_code`
+
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -485,7 +532,10 @@ explore_framingham <- framingham %>%
         followup_visit_number = period
     )
 ```
+
+
 `@sample_code`
+
 ```{r}
 # All the variables are back in `explore_framingham`, but the renamed are kept.
 
@@ -500,7 +550,10 @@ explore_framingham %>%
     count(followup_visit_number, _____, Cases) %>% 
     _____(Cases, n)
 ```
+
+
 `@solution`
+
 ```{r}
 # All the variables are back in `explore_framingham`, but the renamed are kept.
 
@@ -515,7 +568,12 @@ explore_framingham %>%
     count(followup_visit_number, Disease, Cases) %>% 
     spread(Cases, n)
 ```
+
+
 `@sct`
+
 ```{r}
 success_msg("Woohoo! Nice job. You now know how to count the number of cases by visit.")
 ```
+
+
