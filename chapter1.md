@@ -31,7 +31,7 @@ Usually the study design is explicitly stated in the study protocols, however, i
 
 
 `@hint`
-- Do the participants in all the studies share a "common" feature?
+- Participants need to share a "common" feature.
 - A cohort study should have a time component to it.
 
 `@possible_answers`
@@ -117,8 +117,7 @@ What cohort study design is the Framingam study? You should be able to determine
 - Neither.
 
 `@hint`
-- Is there a time column in the dataset?
-- Did the participants have the disease when the study started?
+- There is a time column and participants don't have the disease at the start of the study.
 
 `@pre_exercise_code`
 
@@ -168,7 +167,7 @@ Which of these answers has the correct variables as the outcome and some potenti
 
 `@hint`
 - The outcome should be a disease.
-- Is time really an exposure/predictor?
+- Time should not be an exposure/predictor.
 
 `@possible_answers`
 - Outcome = Body Mass (`bmi`); Exposure = Cholesterol (`totchol`), cardiovascular disease (`cvd`), smoking (`cursmoke`)
@@ -327,7 +326,7 @@ key: 85e4b0de64
 - Make sure to only have four columns at the end.
 
 `@hint`
-- Did you use the `-` to exclude `followup_visit_number` and `got_cvd`?
+- Use the `-` to exclude `followup_visit_number` and `got_cvd`.
 
 `@solution`
 
@@ -365,9 +364,9 @@ key: 9ca4b15cf5
 - Make sure to use the `na.rm = TRUE` option when calculating the mean.
 
 `@hint`
-- Did you use `group_by` with `followup_visit_number`, `got_cvd`, and `variables`?
-- Don't forget to use `na.rm = TRUE` with `mean`.
-- Did you name the new summarized variables `mean_values`?
+- Use `group_by` with `followup_visit_number`, `got_cvd`, and `variables`.
+- Use `na.rm = TRUE` with `mean`.
+- Name the new summarized variable `mean_values`.
 
 `@solution`
 
@@ -466,8 +465,8 @@ The unchanged `framingham` dataset has been loaded in case you want to look  thr
 - All of the above.
 
 `@hint`
-- Can we directly determine "causes" from cohort studies?
-- Remember, these are questions to ask *of the Framingham study*... do the variables in the question exist in the dataset?
+- We cannot directly determine "causes" from cohort studies.
+- Remember, these are questions to ask *of the Framingham study*... the variables in the question must exist in the dataset.
 
 `@pre_exercise_code`
 
@@ -514,8 +513,8 @@ Next, count the number of cases and non-cases for prevalent myocardial infarctio
 
 `@hint`
 - Use similar steps as you did in the previous exercise, with gather-spread, so cases are columns.
-- Did you name the new gather key column "Disease"?
-- Are you using `spread` and `gather` properly and in the right order?
+- Name the new gather key column "Disease".
+- Use `spread` and `gather` properly and in the right order.
 
 `@pre_exercise_code`
 
