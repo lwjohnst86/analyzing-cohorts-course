@@ -503,7 +503,7 @@ key: d3caf4d108
 
 One of the first things to explore is the number of cases, as this will help inform what you can ask of the data and how to analyze it. Remember, for longitudinal data, you need to count by the time period, as each participant could have several rows per collection wave.
 
-Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr have been loaded.
+Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr have been loaded and all variables have been added back into `explore_framingham`.
 
 
 `@instructions`
@@ -513,6 +513,7 @@ Next, count the number of cases and non-cases for prevalent myocardial infarctio
 - For the `gather`, name key "Disease". In `gather` you will also need to specify the columns to gather by (`prevmi` and `prevchd`).
 
 `@hint`
+- Use similar steps as you did in the previous exercise, with gather-spread, so cases are columns.
 - Did you name the new gather key column "Disease"?
 - Are you using `spread` and `gather` properly and in the right order?
 
@@ -537,14 +538,11 @@ explore_framingham <- framingham %>%
 `@sample_code`
 
 ```{r}
-# All the variables are back in `explore_framingham`, but the renamed are kept.
-
 # Count the number of participants per visit.
 explore_framingham %>% 
     count(_____)
 
-# Count the number of prevalent cases of MI and CHD per visit. Use the steps
-# like in the previous exercise with gather-spread so cases are columns
+# Count the number of prevalent cases of MI and CHD per visit. 
 explore_framingham %>% 
     _____(_____, Cases, _____, _____) %>% 
     count(followup_visit_number, _____, Cases) %>% 
@@ -555,14 +553,11 @@ explore_framingham %>%
 `@solution`
 
 ```{r}
-# All the variables are back in `explore_framingham`, but the renamed are kept.
-
 # Count the number of participants per visit.
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count the number of prevalent cases of MI and CHD per visit. Use the steps
-# like in the previous exercise with gather-spread so cases are columns
+# Count the number of prevalent cases of MI and CHD per visit. 
 explore_framingham %>% 
     gather(Disease, Cases, prevmi, prevchd) %>% 
     count(followup_visit_number, Disease, Cases) %>% 
