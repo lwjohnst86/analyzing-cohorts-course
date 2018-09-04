@@ -15,6 +15,7 @@ key: b2111dc061
 
 `@projector_key`
 fd067459a73b16863b609297f96ac32c
+
 ---
 
 ## Identify the cohort study
@@ -89,6 +90,7 @@ msg3 <- "Incorrect. While cohorts always include a time component, this alone do
 msg4 <- "Incorrect. While all cohorts have risk factors measured, this alone doesn't make it a cohort."
 test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
+
 ---
 
 ## What cohort type is the Framingham Heart Study?
@@ -140,6 +142,7 @@ key: a537fbe14a
 
 `@projector_key`
 9e3d8b35b89128ebb91908d3aa815cf1
+
 ---
 
 ## Which variables are the outcomes and exposures?
@@ -240,6 +243,7 @@ explore_framingham
 ```{r}
 success_msg("Great job! You've selected and renamed the variables correctly.")
 ```
+
 ---
 
 ## Simple summary of the exposures by outcome
@@ -278,6 +282,7 @@ explore_framingham <- framingham %>%
 ```{r}
 explore_framingham  %>%
 ```
+
 ***
 
 
@@ -393,6 +398,7 @@ key: 382b3edde1
 
 `@projector_key`
 d8b40a3d5d81b2b050f65eb79581aa42
+
 ---
 
 ## What questions can be asked from Framingham?
@@ -435,6 +441,7 @@ msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Stu
 msg5 <- "Incorrect. One of the above is a valid question."
 test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
+
 ---
 
 ## Count number of participants and cases per visit
