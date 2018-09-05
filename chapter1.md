@@ -17,39 +17,6 @@ key: b2111dc061
 fd067459a73b16863b609297f96ac32c
 ---
 
-## Identify the cohort study
-
-```yaml
-type: PureMultipleChoiceExercise 
-xp: 50 
-skills: 1
-key: 6a414dfc25   
-```
-
-
-Usually the study design is explicitly stated in the study protocols, however, it can be sometimes tricky to determine if a study is a cohort and what type it is. Here are a couple examples of studies. Which study is a cohort study?
-
-
-`@hint`
-- Participants need to share a "common" feature.
-- A cohort study should have a time component to it.
-
-`@possible_answers`
-- Researchers use data from insurance companies with medication use, diagnoses, and hospital visits to find out possible side effects of drugs.
-- All persons from a clinic who were diagnosed with a disease were recruited into a study. From the general public, another group was recruited as a matching control.
-- [Over a one month period, all newborns in a hospital are recruited into a study and followed over time for health complications.]
-- In a city, researchers advertised for a study for individuals who have symptoms of a disease. Individuals come in for a single visit to have data collected.
-- None of the above
-
-`@feedback`
-- Incorrect. This could almost be viewed as a cohort because of the common use of an insurance company, except that individuals weren't followed over time, not all had a disease, and all data analysis was done retrospectively data that was already collected. This is an example of "registry-based" type study.
-- Incorrect. While this may seem like it could be a "retrospective" cohort, the key feature is the "matched controls", which indicates that this is case-control study.
-- Correct! This study is a prospective cohort because the newborns were all born around the same time in the same hospital and did not have any diseases when included in the study.
-- Incorrect. But the key feature here is the single time point. Cohorts include multiple time points. This is considered a cross-sectional study.
-- Incorrect. One of them is a cohort study design.
-
----
-
 ## What makes it a cohort?
 
 ```yaml
