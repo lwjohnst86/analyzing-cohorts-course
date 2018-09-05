@@ -568,9 +568,8 @@ key: a0c6bd239b
 
 
 `@instructions`
-- Now, we want to count the number of cases of `prevmi` and `prevchd` for each `followup_visit_number`.
-- You will need to use a similar `gather`-`spread` strategy as in a previous exercise.
-- First, use `gather`. The key should be "Disease" and the value should be "Cases". Specify which columns you want to gather (`prevmi` and `prevchd`).
+- Now, we want to count the cases of `prevmi` and `prevchd` for each `followup_visit_number`.
+- Use `gather`, with key as "Disease" and value as "Cases". Gather only the two disease columns.
 
 
 `@hint`
