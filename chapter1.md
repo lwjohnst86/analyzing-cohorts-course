@@ -71,6 +71,7 @@ type: NormalExercise
 lang: r
 xp: 100
 skills: 1
+key: bb64056fa8
 ```
 
 
