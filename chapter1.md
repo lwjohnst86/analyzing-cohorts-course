@@ -161,8 +161,8 @@ Initially, it can be helpful to keep only variables of interest. For now, let's 
 - There are also several time points, so we need to also select time (`period`). Rename it to `followup_visit_number`.
 
 `@hint`
-- Try using `cvd` as the outcome. Try using `totchol` and `bmi` as the original names in the dataset.
-- For renaming, replace all spaces with `_` of the variables stated in the instructions.
+- Confirm the exact original variable names in the dataset.
+- For renaming the predictors, replace the spaces with `_` for the variables stated in the instructions.
 
 `@pre_exercise_code`
 
@@ -287,6 +287,7 @@ key: 85e4b0de64
 
 ```{r}
 explore_framingham  %>%
+
 ```
 
 `@solution`
@@ -372,7 +373,7 @@ key: 61e6dcd04b
 - Use the tidyr `spread` function to have CVD status (the key) as the new column headers, and the the mean values (the value) as the values in the new columns.
 
 `@hint`
-- Use `got_cvd` as the key argument and `mean_values` as the values argument.
+- Use `got_cvd` as the key argument.
 
 `@sample_code`
 
@@ -442,8 +443,8 @@ The unchanged `framingham` dataset has been loaded in case you want to look  thr
 - All of the above.
 
 `@hint`
-- We cannot directly determine "causes" from cohort studies.
 - Remember, these are questions to ask *of the Framingham study*... the variables in the question must exist in the dataset.
+- We cannot directly determine "causes" from cohort studies.
 
 `@pre_exercise_code`
 
@@ -573,9 +574,8 @@ key: a0c6bd239b
 
 
 `@hint`
-- Use similar steps as you did in the previous exercise, with gather-spread, so cases are columns.
-- Name the new gather key column "Disease".
-- Gather the correct columns.
+- Gather the correct disease columns as written in the instructions.
+- Name the new gather key column "Disease" and the value column "Cases".
 
 
 `@sample_code`
@@ -631,7 +631,7 @@ key: 9bfa483cb9
 
 
 `@hint`
-- Use the `count` function.
+- Use the `count` function with three variables.
 
 
 `@sample_code`
@@ -688,7 +688,7 @@ key: 19a1c49e37
 - Lastly, you need to `spread` the data so `Cases` are columns, with their corresponding count.
 
 `@hint`
-- Spread so `Cases` are the columns and `n` is the values in those columns.
+- The variable `n` should be the values in the spread columns.
 
 `@sample_code`
 
