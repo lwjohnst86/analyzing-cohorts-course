@@ -67,14 +67,15 @@ test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ## What cohort type is the Framingham Heart Study?
 
 ```yaml
-type: NormalExercise
+type: NormalExercise 
 lang: r
-xp: 100
+xp: 100 
 skills: 1
+key: bb64056fa8   
 ```
 
 
-Usually you can determine the cohort design from the variables in the dataset. What cohort study design is the Framingam study, based on the variables? 
+Usually you can determine the cohort design from the variables in the dataset. What cohort study design is the Framingam study, based on the variables?
 
 
 `@instructions`
@@ -94,6 +95,7 @@ library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
 
+
 `@sample_code`
 
 ```{r}
@@ -104,6 +106,7 @@ framingham %>%
 # Study design
 "_____"
 ```
+
 
 `@solution`
 
@@ -116,11 +119,13 @@ framingham %>%
 "prospective"
 ```
 
+
 `@sct`
 
 ```{r}
 success_msg("Yes! You've identified that Framingham is a prospective cohort!")
 ```
+
 
 ---
 
@@ -290,6 +295,7 @@ explore_framingham  %>%
 
 ```
 
+
 `@solution`
 
 ```{r}
@@ -334,8 +340,9 @@ key: 9ca4b15cf5
 
 ```{r}
 explore_framingham %>% 
-    gather(variables, values, -followup_visit_number, -got_cvd) %>% 
+    gather(variables, values, -followup_visit_number, -got_cvd) %>%
 ```
+
 
 `@solution`
 
@@ -381,8 +388,9 @@ key: 61e6dcd04b
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
     group_by(followup_visit_number, got_cvd, variables) %>% 
-    summarize(mean_values = mean(values, na.rm = TRUE)) %>% 
+    summarize(mean_values = mean(values, na.rm = TRUE)) %>%
 ```
+
 
 `@solution`
 
@@ -475,10 +483,10 @@ xp: 100
 key: 2ba20dff0f   
 ```
 
+
 One of the first things to explore is the number of cases, as this will help inform what you can ask of the data and how to analyze it. Remember, for longitudinal data, you need to count by the time period, as each participant could have several rows per collection wave.
 
 Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr have been loaded and all variables have been added back into `explore_framingham`.
-
 
 
 `@pre_exercise_code`
@@ -503,8 +511,7 @@ explore_framingham <- framingham %>%
 
 ```{r}
 # Count the number of participants per visit.
-explore_framingham %>% 
-
+explore_framingham %>%
 ```
 
 
@@ -532,8 +539,7 @@ key: 69ff80d798
 
 ```{r}
 # Count the number of participants per visit.
-explore_framingham %>% 
-
+explore_framingham %>%
 ```
 
 
@@ -572,11 +578,9 @@ key: a0c6bd239b
 - Now, we want to count the cases of `prevmi` and `prevchd` for each `followup_visit_number`.
 - Use `gather`, with key as "Disease" and value as "Cases". Gather only the two disease columns.
 
-
 `@hint`
 - Gather the correct disease columns as written in the instructions.
 - Name the new gather key column "Disease" and the value column "Cases".
-
 
 `@sample_code`
 
@@ -586,8 +590,7 @@ explore_framingham %>%
     count(followup_visit_number)
 
 # Count the number of prevalent cases of MI and CHD per visit. 
-explore_framingham %>% 
-
+explore_framingham %>%
 ```
 
 
@@ -629,10 +632,8 @@ key: 9bfa483cb9
 `@instructions`
 - Next we need to count the number of `Cases` by `Disease` and visit number (`followup_visit_number`).
 
-
 `@hint`
 - Use the `count` function with three variables.
-
 
 `@sample_code`
 
@@ -643,8 +644,7 @@ explore_framingham %>%
 
 # Count the number of prevalent cases of MI and CHD per visit. 
 explore_framingham %>% 
-    gather(Disease, Cases, prevmi, prevchd) %>% 
-
+    gather(Disease, Cases, prevmi, prevchd) %>%
 ```
 
 
@@ -700,8 +700,7 @@ explore_framingham %>%
 # Count the number of prevalent cases of MI and CHD per visit. 
 explore_framingham %>% 
     gather(Disease, Cases, prevmi, prevchd) %>% 
-    count(followup_visit_number, Disease, Cases) %>% 
-
+    count(followup_visit_number, Disease, Cases) %>%
 ```
 
 
