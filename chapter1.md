@@ -492,29 +492,16 @@ test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ## Count number of participants and cases per visit
 
 ```yaml
-type: NormalExercise 
-lang: r
+type: TabExercise 
 xp: 100 
-skills: 1
-key: d3caf4d108   
+key: 2ba20dff0f   
 ```
-
 
 One of the first things to explore is the number of cases, as this will help inform what you can ask of the data and how to analyze it. Remember, for longitudinal data, you need to count by the time period, as each participant could have several rows per collection wave.
 
 Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr have been loaded and all variables have been added back into `explore_framingham`.
 
 
-`@instructions`
-- Count the number of participants (i.e. rows) for each `followup_visit_number`.
-- Then, count the number of cases of `prevmi` and `prevchd` for each `followup_visit_number`.
-- You will need to use a similar `gather`-`spread` strategy as in a previous exercise.
-- For the `gather`, name key "Disease". In `gather` you will also need to specify the columns to gather by (`prevmi` and `prevchd`).
-
-`@hint`
-- Use similar steps as you did in the previous exercise, with gather-spread, so cases are columns.
-- Name the new gather key column "Disease".
-- Use `spread` and `gather` properly and in the right order.
 
 `@pre_exercise_code`
 
@@ -531,64 +518,6 @@ explore_framingham <- framingham %>%
         currently_smokes = cursmoke,
         followup_visit_number = period
     )
-```
-
-
-`@sample_code`
-
-```{r}
-# Count the number of participants per visit.
-explore_framingham %>% 
-    count(_____)
-
-# Count the number of prevalent cases of MI and CHD per visit. 
-explore_framingham %>% 
-    _____(_____, Cases, _____, _____) %>% 
-    count(followup_visit_number, _____, Cases) %>% 
-    _____(Cases, n)
-```
-
-
-`@solution`
-
-```{r}
-# Count the number of participants per visit.
-explore_framingham %>% 
-    count(followup_visit_number)
-
-# Count the number of prevalent cases of MI and CHD per visit. 
-explore_framingham %>% 
-    gather(Disease, Cases, prevmi, prevchd) %>% 
-    count(followup_visit_number, Disease, Cases) %>% 
-    spread(Cases, n)
-```
-
-
-`@sct`
-
-```{r}
-success_msg("Woohoo! Nice job. You now know how to count the number of cases by visit.")
-```
-
-
----
-
-## Count number of participants and cases per visit
-
-```yaml
-type: TabExercise 
-xp: 100 
-key: 2ba20dff0f   
-```
-
-
-
-
-
-`@pre_exercise_code`
-
-```{r}
-
 ```
 
 
@@ -614,14 +543,16 @@ key: 69ff80d798
 
 
 `@instructions`
-
+- Count the number of participants (i.e. rows) for each `followup_visit_number`.
 
 `@hint`
-
+- Use the `count` function.
 
 `@sample_code`
 
 ```{r}
+# Count the number of participants per visit.
+explore_framingham %>% 
 
 ```
 
@@ -629,14 +560,16 @@ key: 69ff80d798
 `@solution`
 
 ```{r}
-
+# Count the number of participants per visit.
+explore_framingham %>% 
+    count(followup_visit_number)
 ```
 
 
 `@sct`
 
 ```{r}
-
+success_msg("Great! You now know how to count the number of participants at each time point.")
 ```
 
 
@@ -656,14 +589,26 @@ key: a0c6bd239b
 
 
 `@instructions`
+- Now, we want to count the number of cases of `prevmi` and `prevchd` for each `followup_visit_number`.
+- You will need to use a similar `gather`-`spread` strategy as in a previous exercise.
+- First, use `gather`. The key should be "Disease" and the value should be "Cases". Specify which columns you want to gather (`prevmi` and `prevchd`).
 
 
 `@hint`
+- Use similar steps as you did in the previous exercise, with gather-spread, so cases are columns.
+- Name the new gather key column "Disease".
+- Gather the correct columns.
 
 
 `@sample_code`
 
 ```{r}
+# Count the number of participants per visit.
+explore_framingham %>% 
+    count(followup_visit_number)
+
+# Count the number of prevalent cases of MI and CHD per visit. 
+explore_framingham %>% 
 
 ```
 
@@ -671,14 +616,20 @@ key: a0c6bd239b
 `@solution`
 
 ```{r}
+# Count the number of participants per visit.
+explore_framingham %>% 
+    count(followup_visit_number)
 
+# Count the number of prevalent cases of MI and CHD per visit. 
+explore_framingham %>% 
+    gather(Disease, Cases, prevmi, prevchd)
 ```
 
 
 `@sct`
 
 ```{r}
-
+success_msg("Excellent, now the next step.")
 ```
 
 
@@ -698,14 +649,23 @@ key: 9bfa483cb9
 
 
 `@instructions`
+- Next we need to count the number of `Cases` by `Disease` and visit number (`followup_visit_number`).
 
 
 `@hint`
+- Use the `count` function.
 
 
 `@sample_code`
 
 ```{r}
+# Count the number of participants per visit.
+explore_framingham %>% 
+    count(followup_visit_number)
+
+# Count the number of prevalent cases of MI and CHD per visit. 
+explore_framingham %>% 
+    gather(Disease, Cases, prevmi, prevchd) %>% 
 
 ```
 
@@ -713,14 +673,21 @@ key: 9bfa483cb9
 `@solution`
 
 ```{r}
+# Count the number of participants per visit.
+explore_framingham %>% 
+    count(followup_visit_number)
 
+# Count the number of prevalent cases of MI and CHD per visit. 
+explore_framingham %>% 
+    gather(Disease, Cases, prevmi, prevchd) %>% 
+    count(followup_visit_number, Disease, Cases)
 ```
 
 
 `@sct`
 
 ```{r}
-
+success_msg("Nearly there!")
 ```
 
 
@@ -740,14 +707,22 @@ key: 19a1c49e37
 
 
 `@instructions`
-
+- Lastly, you need to `spread` the data so `Cases` are columns, with their corresponding count.
 
 `@hint`
-
+- Spread so `Cases` are the columns and `n` is the values in those columns.
 
 `@sample_code`
 
 ```{r}
+# Count the number of participants per visit.
+explore_framingham %>% 
+    count(followup_visit_number)
+
+# Count the number of prevalent cases of MI and CHD per visit. 
+explore_framingham %>% 
+    gather(Disease, Cases, prevmi, prevchd) %>% 
+    count(followup_visit_number, Disease, Cases) %>% 
 
 ```
 
@@ -755,14 +730,22 @@ key: 19a1c49e37
 `@solution`
 
 ```{r}
+# Count the number of participants per visit.
+explore_framingham %>% 
+    count(followup_visit_number)
 
+# Count the number of prevalent cases of MI and CHD per visit. 
+explore_framingham %>% 
+    gather(Disease, Cases, prevmi, prevchd) %>% 
+    count(followup_visit_number, Disease, Cases) %>% 
+    spread(Cases, n)
 ```
 
 
 `@sct`
 
 ```{r}
-
+success_msg("Woohoo! Nice job. You now know how to count the number of cases by visit.")
 ```
 
 
