@@ -292,7 +292,6 @@ key: 85e4b0de64
 
 ```{r}
 explore_framingham  %>%
-
 ```
 
 
