@@ -67,24 +67,25 @@ test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ## What cohort type is the Framingham Heart Study?
 
 ```yaml
-type: MultipleChoiceExercise 
+type: NormalExercise
 lang: r
-xp: 50 
+xp: 100
 skills: 1
-key: bb64056fa8   
 ```
 
 
-What cohort study design is the Framingam study? You should be able to determine the type based on the variables and the data structure in the `framingham` dataset.
+Usually you can determine the cohort design from the variables in the dataset. What cohort study design is the Framingam study, based on the variables? 
 
 
 `@instructions`
-- Prospective.
-- Retrospective.
-- Neither.
+- Take a look through the `framingham` dataset.
+- Select the two variables that indicate the cohort design.
+- Write in the text what the cohort type is: either "prospective" or "retrospective".
 
 `@hint`
-- There is a time column and participants don't have the disease at the start of the study.
+- The first column should be `time`. While there is also another column for time (`period`), you don't need to select this one for this exercise.
+- Recall that Framingham was designed to study the disease `cvd`.
+- The cohort type should be in lower case.
 
 `@pre_exercise_code`
 
@@ -92,16 +93,33 @@ What cohort study design is the Framingam study? You should be able to determine
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
 
+`@sample_code`
+
+```{r}
+# Two columns indicating design
+framingham %>% 
+    select(_____, _____)
+
+# Study design
+"_____"
+```
+
+`@solution`
+
+```{r}
+# Two columns indicating design
+framingham %>% 
+    select(time, cvd)
+
+# Study design
+"prospective"
+```
 
 `@sct`
 
 ```{r}
-msg1 <- "Correct! That's because there is a time component and the participants don't have the disease yet."
-msg2 <- "Incorrect. Only if the participants already had the disease would it be a retrospective cohort."
-msg3 <- "Incorrect. It has to be one of the designs."
-test_mc(1, feedback_msgs = c(msg1, msg2, msg3))
+success_msg("Yes! You've identified that Framingham is a prospective cohort!")
 ```
-
 
 ---
 
