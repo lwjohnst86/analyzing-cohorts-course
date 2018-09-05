@@ -2,6 +2,8 @@
 library(tidyverse)
 library(emojifont)
 library(ghibli)
+library(gganimate)
+library(ggrepel)
 color_theme <- ghibli_palette("MononokeMedium")
 
 # Chapter 1, prospective cohort outcomes ----------------------------------
@@ -97,9 +99,13 @@ prev_incid_plot <- ggplot(prev_incid,
            x = Visit,
            y = Disease,
            group = Person,
-           colour = Person
+           colour = Person,
+           label = Person
        )) +
     geom_line() +
+    geom_point() +
+    geom_text_repel(colour = "black") +
+    transition_states(Visit, 3, 2, wrap = FALSE) +
     scale_color_manual(values = rev(color_theme)) +
     coord_cartesian(ylim = c(0.75, 2.25), expand = FALSE) +
     theme(
@@ -110,5 +116,7 @@ prev_incid_plot <- ggplot(prev_incid,
     ) +
     labs(y = NULL, x = "Followup visit number",
          title = "Incident vs prevalent cases",
-         subtitle = "- Prevalent cases only at given visit\n- Incidence is total new cases")
+         subtitle = "- Prevalent cases only at given visit\n- Incidence is total new cases") +
+    shadow_trail()
+prev_incid_plot
 ggsave("datasets/plot-prevalence-incidence.png", dpi = 90)
