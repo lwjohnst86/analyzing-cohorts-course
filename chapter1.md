@@ -90,6 +90,7 @@ Usually you can determine the cohort design from the variables in the dataset. W
 `@pre_exercise_code`
 
 ```{r}
+library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
 
