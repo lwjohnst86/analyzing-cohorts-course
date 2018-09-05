@@ -152,38 +152,7 @@ key: a537fbe14a
 9e3d8b35b89128ebb91908d3aa815cf1
 ---
 
-## Which variables are the outcomes and exposures?
-
-```yaml
-type: PureMultipleChoiceExercise 
-xp: 50 
-skills: 1
-key: 38894646ce   
-```
-
-
-Which of these answers has the correct variables as the outcome and some potential exposures/predictors?
-
-
-`@hint`
-- The outcome should be a disease.
-- Time should not be an exposure/predictor.
-
-`@possible_answers`
-- Outcome = Body Mass (`bmi`); Exposure = Cholesterol (`totchol`), cardiovascular disease (`cvd`), smoking (`cursmoke`)
-- [Outcome = Cardiovascular disease (`cvd`); Exposure = Cholesterol (`totchol`), smoking (`cursmoke`), body mass (`bmi`)]
-- Outcome = Cardiovascular disease (`cvd`); Exposure = Time (`time`), cholesterol (`totchol`), sex (`sex`)
-- Outcome = Smoking (`cursmoke`); Exposure = Cholesterol (`totchol`), educational attainment (`educ`), age of participant (`age`)
-
-`@feedback`
-- Incorrect. The outcome should not be a predictor and the disease should not be an exposure (in this case).
-- Correct! The outcome is a disease, and the exposures are possible exposures/predictors.
-- Incorrect. This is almost the right answer, except for time. Technically, time is not an exposure, it is just a variable that tells us the visit time.
-- Incorrect. Smoking is not the outcome, as it is not a disease.
-
----
-
-## Select the outcome and exposures
+## Select the outcome and some exposures
 
 ```yaml
 type: NormalExercise 
