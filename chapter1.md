@@ -297,6 +297,12 @@ key: 85e4b0de64
 `@hint`
 - Use the `-` to exclude `followup_visit_number` and `got_cvd`.
 
+`@sample_code`
+
+```{r}
+explore_framingham  %>%
+```
+
 `@solution`
 
 ```{r}
@@ -337,6 +343,13 @@ key: 9ca4b15cf5
 - Use `na.rm = TRUE` with `mean`.
 - Name the new summarized variable `mean_values`.
 
+`@sample_code`
+
+```{r}
+explore_framingham %>% 
+    gather(variables, values, -followup_visit_number, -got_cvd) %>% 
+```
+
 `@solution`
 
 ```{r}
@@ -374,6 +387,15 @@ key: 61e6dcd04b
 
 `@hint`
 - Use `got_cvd` as the key argument and `mean_values` as the values argument.
+
+`@sample_code`
+
+```{r}
+explore_framingham %>% 
+    gather(variables, values, -followup_visit_number, -got_cvd) %>% 
+    group_by(followup_visit_number, got_cvd, variables) %>% 
+    summarize(mean_values = mean(values, na.rm = TRUE)) %>% 
+```
 
 `@solution`
 
@@ -493,6 +515,8 @@ explore_framingham <- framingham %>%
 `@sample_code`
 
 ```{r}
+# Count the number of participants per visit.
+explore_framingham %>% 
 
 ```
 
