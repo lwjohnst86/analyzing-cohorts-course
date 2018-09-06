@@ -17,7 +17,7 @@ title: Instructor
 
 `@script`
 
-Like all scientific studies, the design and available data restrict the type of questions you can ask to get a valid, scientific answer. This is why before  starting a study you need to have the research questions firmly in mind, since you can't answer questions that the design can't answer! Now, before we get into the type of questions we can ask, we need to cover an important concept and  a powerful feature of cohorts, especially prospective cohorts.
+Like all scientific studies, the design and available data restrict the type of questions you can ask to get a valid, scientific answer. This is why before  starting a study you should have the research questions firmly in mind, since you can't answer questions that the design can't answer! Before we get into the questions we can ask, we need to cover an important concept and powerful feature of prospective cohorts.
 
 ---
 ## Prevalent vs incident cases of disease
@@ -32,7 +32,38 @@ type: FullImageSlide
 
 `@script`
 
-In disease epidemiology, there are two concepts. Prevalence and incidence of  disease. Prevalence is when you take a snap shot in time and count how many people have a disease. Incidence on the other hand is the number of new cases over a  defined period of time. In terms of understanding how predictors influence disease, incidence data is much more scientifically powerful than prevalence  because there is the time component. This figure here shows what prevalence vs incidence is in the context of a prospective cohort. There are 4 people. The  first person has the disease at the first visit and at each later visit. The next person has no disease but then gets the disease at visit 1. The third person gets the disease at the last visit. Lastly, the fourth person never gets the disease. The prevalence of disease depends on the visit time you look at. In visit 0, there is only 1 prevalent case, while at visit 3 there are 3 prevalent cases. Incidence on the other hand is the number of new cases from start to end. In this case, only persons 2 and 3 got a disease during the study, so there are only 2 incident cases. Determining incident cases is dependent on the person's previous status and so is a bit more difficult to count compared to prevalence. But it is this incidence cases that give prospective cohorts more scientific power for  finding evidence of risk for exposures.
+In disease epidemiology, there are two concepts. Prevalence and incidence. Prevalence is when you take a snap shot in time and count how many people have a disease. Incidence is the number of new cases over a defined period of time. For understanding how exposures influence disease, incidence data is much more powerful because of the time component. This figure here shows what prevalence vs incidence is in a prospective cohort. There are 4 people. At visit 0, there is one case, so there is one prevalent case. At visit 1, there are 2 cases and 1 is new, so two prevalent cases, but only one incident case. At visit 2, there are 3 cases, three prevalent, one incident. As you can see, determining incident cases requires knowing a person's previous state, so is a bit more difficult to count compared to prevalence. It is these incidence data that give prospective cohorts more scientific power when studying evidence of risk from exposures.
+
+---
+## Counting number of cases at recruitment
+
+```yaml
+type: TwoRows
+```
+
+`@part1`
+
+```{r}
+framingham %>% 
+    rename(prevalent_chd = prevchd,
+           followup_visit_number = period) %>% 
+    filter(followup_visit_number == 1) %>% 
+    count(prevalent_chd)
+```
+
+`@part2`
+
+```{text}
+# A tibble: 2 x 2
+  prevalent_chd     n
+          <int> <int>
+1             0  4240
+2             1   194
+```
+
+`@script`
+
+For prospective cohort analyses, it's always a good idea to check the prevalence of the disease outcomes at the first visit. It's fairly easy to do this using dplyr verbs. In this case, we are counting the number of prevalence of coronary heart disease, which is a subset of cardiovascular disease, at the first visit. One of the exclusion criteria for the Framingham study was not having cardiovascular disease. But you can see here that there are still some people who had prevalent CHD at the first visit. These things happen, even with the most rigorous practices. Part of your analysis must be to check these things before hand.
 
 ---
 ## Type of design restricts questions and analysis
@@ -57,7 +88,30 @@ type: TwoRows
 
 `@script`
 
-With the prevalence vs incidence in mind, we can see that some questions can't be asked of retrospective cohorts. But there are several other restrictions to consider when thinking of questions answerable from cohort designs. For one, because cohorts are observational studies, questions on causes are difficult, if not impossible, to answer. Questions that include people outside the scope of the cohort can't be answered. For instance, if the cohort is only older adults, you can't ask questions about young children using this data. More realistically, and also very common, if the cohort is made up of mostly people of European ancestry, you can't apply the answers to your questions to other ethnic groups or ancestries. When it comes to the prospective cohorts specifically, because of the time component, we can answer questions that include some temporal aspect as well as answer questions about risk in unexposed vs exposed.
+Keeping in mind the prevalence vs incidence, we can see that some questions we can't ask of retrospective cohorts. There are several other restrictions to consider of answerable questions. Because cohorts are observational studies, questions on causes are difficult, if not impossible, to answer. Questions that include people outside the scope of the cohort can't be answered. For instance, if the cohort is only older adults, you can't ask questions about young children using this data. More realistically, if the cohort has mostly people of European ancestry, you can't answer questions about other ethnic groups or ancestries. For prospective cohorts, because of the time component, we can answer questions that include some temporal aspect and also answer questions about risk in unexposed vs exposed.
+
+---
+## Unanswerable or difficult to answer questions
+
+```yaml
+type: FullSlide
+```
+
+`@part1`
+
+- (Most) Questions on cause.
+    - Does moderate alcohol intake *cause* some types of cancer? 
+- Questions involving a difficult or impossible to measure exposure.
+    - How does a nutrient like Vitamin D influence disease? 
+- Questions that need data that are unreliable or many be measured differently.
+    - Does physical activity reduce risk of disease differently between two
+    countries?
+- Questions on or about very small subgroups of a population. 
+    - Is there a higher risk of rare cancers in those with XXY chromosomes? 
+
+`@script`
+
+Some questions we can't ask are often obvious, such as not being able to answer questions you don't have data on. Other questions are more nuanced. For instance, questions on causes are difficult to answer because of potential confounding, which we'll cover in later chapters. In the example, alcohol consumption is often done with other high risk behaviours like smoking. Some data are too unreliable to use, such as the example of individual nutrient intakes and disease. Given that diet itself is very hard to measure, nutrient intake is even more difficult to reliably measure. Or some data may be measured differently between collection sites, such as the physical activity example as there are many ways to measure it. We can't rely on data that has a lot of noise or error in measurement to answer our questions. Lastly, questions on very small subgroups of a population are difficult since there often isn't enough data to use.
 
 ---
 ## Let's practice!
