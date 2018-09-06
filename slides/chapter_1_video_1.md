@@ -111,7 +111,7 @@ Prospective cohorts are by far the most common and most powerful form of cohort 
 
 
 ---
-## Why the basics are important to know
+## Why the basics are important to know?
 
 ```yaml
 type: "FullSlide"
