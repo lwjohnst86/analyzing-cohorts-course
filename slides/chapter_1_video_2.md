@@ -83,6 +83,10 @@ type: TwoRows
 
 `@part2`
 
+```{r}
+framingham
+```
+
 ```
 # A tibble: 11,627 x 39
   randid   sex totchol   age sysbp diabp cursmoke cigpday   bmi diabetes
