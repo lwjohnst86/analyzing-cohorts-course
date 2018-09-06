@@ -144,7 +144,7 @@ key: 5c430ef5dd
 ... which brings me to the main goal of this course... we aren't going to cover specific statistical techniques because cohorts and their analyses are so diverse. So instead, we are going to focus on the overall workflow and process to looking at, analyzing, interpreting, and presenting results from cohorts. 
 
 ---
-## Let's try what we've learned!
+## Let's do some exercises!
 
 ```yaml
 type: FinalSlide
