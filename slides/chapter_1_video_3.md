@@ -38,7 +38,7 @@ In disease epidemiology, there are two concepts. Prevalence and incidence. Preva
 ## Counting number of cases at recruitment
 
 ```yaml
-type: TwoRows
+type: FullSlide
 ```
 
 `@part1`
@@ -50,8 +50,6 @@ framingham %>%
     filter(followup_visit_number == 1) %>% 
     count(prevalent_chd)
 ```
-
-`@part2`
 
 ```{text}
 # A tibble: 2 x 2
