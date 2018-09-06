@@ -104,12 +104,10 @@ type: FullSlide
 - Questions that need data that are unreliable or many be measured differently.
     - Does physical activity reduce risk of disease differently between two
     countries?
-- Questions on or about very small subgroups of a population. 
-    - Is there a higher risk of rare cancers in those with XXY chromosomes? 
 
 `@script`
 
-Some questions we can't ask are often obvious, such as not being able to answer questions you don't have data on. Other questions are more nuanced. For instance, questions on causes are difficult to answer because of potential confounding, which we'll cover in later chapters. In the example, alcohol consumption is often done with other high risk behaviours like smoking. Some data are too unreliable to use, such as the example of individual nutrient intakes and disease. Given that diet itself is very hard to measure, nutrient intake is even more difficult to reliably measure. Or some data may be measured differently between collection sites, such as the physical activity example as there are many ways to measure it. We can't rely on data that has a lot of noise or error in measurement to answer our questions. Lastly, questions on very small subgroups of a population are difficult since there often isn't enough data to use.
+Some questions we can't ask are often obvious, such as not being able to answer questions you don't have data on. Other questions are more nuanced. For instance, questions on causes are difficult to answer because of potential confounding, which we'll cover in later chapters. In the example, alcohol consumption is often done with other high risk behaviours like smoking. Some data are too unreliable to use, such as the example of individual nutrient intakes and disease. Given that diet itself is very hard to measure, nutrient intake is even more difficult to reliably measure. Or some data may be measured differently between collection sites, such as the physical activity example as there are many ways to measure it. We can't rely on data that has a lot of noise or error in measurement to answer our questions.
 
 ---
 ## Let's practice!
