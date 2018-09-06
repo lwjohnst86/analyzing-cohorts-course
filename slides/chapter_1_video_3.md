@@ -119,4 +119,4 @@ key: 91e2c39791
 
 `@script`
 
-Alright, let's get to doing some more exploring of the data!
+Alright, let's practice!
