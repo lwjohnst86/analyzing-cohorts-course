@@ -2,82 +2,85 @@
 title: Introduction to cohort studies
 key: fd067459a73b16863b609297f96ac32c
 
-
 ---
 ## Introduction to cohort studies
 
 ```yaml
-type: TitleSlide
-key: 0e5ec8f7ed
+type: "TitleSlide"
+key: "0e5ec8f7ed"
 ```
 
 `@lower_third`
+
 name: Luke Johnston
 title: Instructor
 
-`@script`
 
-Hi! I'm Luke and I do research in diabetes epidemiology. I will be your instructor for this course, where we will be going over how to analyze cohort  datasets. In this chapter, we will be covering some of the basics of what a cohort is, thoughts about the process of and typical steps involved in analyzing cohort datasets, and some first steps in looking over the data.
+`@script`
+Hi! I'm Luke Johnston and I do research in diabetes epidemiology. I will be your instructor for this course, where we will be going over how to analyze cohort datasets. In this chapter, we will be covering some of the basics of what a cohort is, thoughts about the process of and typical steps involved in analyzing cohort datasets, and some first steps in looking over the data.
+
 
 ---
 ## What is a cohort study?
 
 ```yaml
-type: TwoColumns
+type: "TwoColumns"
+key: "9039aa5cb9"
 ```
 
 `@part1`
-
 Features:
 
 - Studies associations with (usually) disease
 - Includes some time component to the data
 - *Participants share common characteristic(s)*
 
-`@part2`
 
+`@part2`
 ![Example cohort recruitment and sample. Font Awesome Icons, using emojifonts package.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/4f1ae5179ba09672f8f19c1a005b71d883467a2c/plot-cohort-sample.png)
 
-`@script`
 
+`@script`
 Let's begin with the very basic. What does it mean that a study is a cohort study? The cohort study design in general has a very specific features. For one, cohorts usually are scientific studies to investigate how factors influence the  risk for a disease. In cohorts, there is always a time component, as in there is a temporal aspect to the data. And lastly, but most importantly, is that participants in a cohort always share a common characteristic. For instance, in the Nurses' Health Study from the United States, all participants are married female nurses.
+
 
 ---
 ## Purpose and usefulness of cohorts
 
 ```yaml
-type: TwoRowsTwoColumns
-key: 3020a2875a
+type: "TwoRowsTwoColumns"
+key: "3020a2875a"
 ```
 
 `@part1`
-
 ![Risk factors and health management. Font Awesome Icons, using emojifonts package.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/c3805372fcdf0f8d07a371a2a3167578bed0a36f/plot-purpose-risk-factors.png)
 
-`@part2`
 
+`@part2`
 ![Informing diagnosis decisions](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/e820bcda71d9330dfe338754432df5fd316a2b7a/plot-purpose-diagnosis.png)
 
-`@part3`
 
+`@part3`
 ![Tracking side effects and safety from drugs](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/62af4f9f6bf1799107925f3a937b84ab945ba2f9/plot-purpose-side-effects.png)
+
 
 `@part4`
 
-`@script`
 
+
+`@script`
 Cohort studies are fundamental to epidemiological research and a key design for answering research questions about human health and behaviour. Cohort studies are especially common in studies on health and disease, as they can be used to identify risk factors for disease that can be targeted in prevention and disease management strategies. They are also incredibly powerful for helping inform evidence-based clinical decisions and for when watching for side effects from new, or old, drugs.
+
 
 ---
 ## Two cohort study designs
 
 ```yaml
-type: TwoColumns
-key: 5a578ef6a6
+type: "TwoColumns"
+key: "5a578ef6a6"
 ```
 
 `@part1`
-
 #### Prospective
 
 Study participants:
@@ -88,8 +91,8 @@ Study participants:
     - Health and other conditions measured at time visit
 - Comparison group is those without the disease
 
-`@part2`
 
+`@part2`
 #### Retrospective
 
 Study participants:
@@ -100,22 +103,22 @@ Study participants:
     - ...or past medical health records examined
 - Needs a comparison group without the disease
 
-`@script`
 
+`@script`
 We will briefly go over the basics of cohort study designs in this lesson, but will cover each design in more detail in later lessons. There are two cohort study designs: prospective and retrospective. These two designs have many similarities, but it is their differences that really sets them apart.
 
 Prospective cohorts are by far the most common and most powerful form of cohort for studying disease states, especially for diseases that are common (e.g. diabetes). Retrospective cohorts are useful with rarer diseases, where health records are easy to access, or when it is impractical or impossible to conduct a prospective cohort.
+
 
 ---
 ## Why the basics are important to know
 
 ```yaml
-type: FullSlide
-key: d2a6af7c52
+type: "FullSlide"
+key: "d2a6af7c52"
 ```
 
 `@part1`
-
 Why not just analyze the data? Why need to know the basics of cohorts?
 
 - Type of cohort design restricts type of analysis and interpretation
@@ -123,34 +126,35 @@ Why not just analyze the data? Why need to know the basics of cohorts?
 - How and what variables were measured limit analysis and interpretation
     - Example: Some exposures/predictors are abstractions of underlying physiology, so need to transform variables so results are meaningful
 
-`@script`
 
-Given the rise in data science and machine learning, sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". This is dangerous in many ways, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have real world impact on people's lives. So as the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and  interpret the results. In the case of cohorts, the study design and types of  variables measured influence how you do your data analysis. For instance,  retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many many ways of analyzing cohort datasets. 
+`@script`
+Given the rise in data science and machine learning, sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". This is dangerous in many ways, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have real world impact on people's lives. So as the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and  interpret the results. In the case of cohorts, the study design and types of  variables measured influence how you do your data analysis. For instance,  retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many many ways of analyzing cohort datasets.
+
 
 ---
 ## Main goal of this course
 
 ```yaml
-type: FullSlide
-key: 5c430ef5dd
+type: "FullSlide"
+key: "5c430ef5dd"
 ```
 
 `@part1`
-
 > **Learn the thought process, general analytic workflow, and main focus of doing and analyzing a cohort study... not to learn a specific statistical method.**
 
-`@script`
 
-... which brings me to the main goal of this course... we aren't going to cover specific statistical techniques because cohorts and their analyses are so diverse. So instead, we are going to focus on the overall workflow and process to looking at, analyzing, interpreting, and presenting results from cohorts. 
+`@script`
+... which brings me to the main goal of this course... we aren't going to cover specific statistical techniques because cohorts and their analyses are so diverse. So instead, we are going to focus on the overall workflow and process to looking at, analyzing, interpreting, and presenting results from cohorts.
+
 
 ---
 ## Let's do some exercises!
 
 ```yaml
-type: FinalSlide
-key: 97f61fb6b7
+type: "FinalSlide"
+key: "97f61fb6b7"
 ```
 
 `@script`
-
 Alright, let's now do a few exercises to review and test your knowledge of cohorts!
+
