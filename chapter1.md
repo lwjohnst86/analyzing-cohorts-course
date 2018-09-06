@@ -6,34 +6,33 @@ description: 'In this chapter we will introduce what a cohort is, how to approac
 ## Introduction to cohort studies
 
 ```yaml
-type: VideoExercise 
+type: VideoExercise
+key: b2111dc061
 lang: r
-xp: 50 
+xp: 50
 skills: 1
-key: b2111dc061   
 ```
 
 `@projector_key`
 fd067459a73b16863b609297f96ac32c
+
 ---
 
 ## What makes it a cohort?
 
 ```yaml
-type: MultipleChoiceExercise 
+type: MultipleChoiceExercise
+key: ed0789164c
 lang: r
-xp: 50 
+xp: 50
 skills: 1
-key: ed0789164c   
 ```
-
 
 We will be using the Framingham Heart Study dataset for this course. The next few exercises will get you more familiar with the dataset and thinking more about cohorts.
 
 First, some background. The Framingham study was set up to study what might might influence the risk of cardiovascular disease (CVD). People from Framingham, USA were recruited and followed over time. Data was collected on "risk factors" and CVD every few years.
 
 What makes Framingham a cohort? The `framingham` dataset is loaded for you to explore. The dataset has yet to be fully tidied, which we will do more in Chapter 2.
-
 
 `@instructions`
 - It studies a disease (CVD).
@@ -45,14 +44,11 @@ What makes Framingham a cohort? The `framingham` dataset is loaded for you to ex
 Cohorts are people who have *something in common*.
 
 `@pre_exercise_code`
-
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
 
-
 `@sct`
-
 ```{r}
 msg1 <- "Incorrect. While cohorts often are used to study a disease, this doesn't make it a cohort."
 msg2 <- "Correct! Cohorts are people who share a common characteristic. In this case, the participants share a town and so have a similar environment."
@@ -61,22 +57,19 @@ msg4 <- "Incorrect. While all cohorts have risk factors measured, this alone doe
 test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
 
-
 ---
 
 ## What cohort type is the Framingham Heart Study?
 
 ```yaml
-type: NormalExercise 
+type: NormalExercise
+key: bb64056fa8
 lang: r
-xp: 100 
+xp: 100
 skills: 1
-key: bb64056fa8   
 ```
 
-
 Usually you can determine the cohort design from the variables in the dataset. What cohort study design is the Framingam study, based on the variables?
-
 
 `@instructions`
 - Take a look through the `framingham` dataset.
@@ -89,15 +82,12 @@ Usually you can determine the cohort design from the variables in the dataset. W
 - The cohort type should be in lower case.
 
 `@pre_exercise_code`
-
 ```{r}
 library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
 
-
 `@sample_code`
-
 ```{r}
 # Two columns indicating design
 framingham %>% 
@@ -107,9 +97,7 @@ framingham %>%
 "_____"
 ```
 
-
 `@solution`
-
 ```{r}
 # Two columns indicating design
 framingham %>% 
@@ -119,45 +107,41 @@ framingham %>%
 "prospective"
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Yes! You've identified that Framingham is a prospective cohort!")
 ```
-
 
 ---
 
 ## Cohort types and introducing the dataset
 
 ```yaml
-type: VideoExercise 
+type: VideoExercise
+key: a537fbe14a
 lang: r
-xp: 50 
+xp: 50
 skills: 1
-key: a537fbe14a   
 ```
 
 `@projector_key`
 9e3d8b35b89128ebb91908d3aa815cf1
+
 ---
 
 ## Select the outcome and some exposures
 
 ```yaml
-type: NormalExercise 
+type: NormalExercise
+key: 98e9f6d5d6
 lang: r
-xp: 100 
+xp: 100
 skills: 1
-key: 98e9f6d5d6   
 ```
-
 
 You need to know which variables are which for the analysis. Usually, it's fairly easy to identify the outcome. However, knowing which are potential predictors can be tricky, as modern cohorts often have massive amounts of data on each participant. Many variables are collected for checking the data, to aggregate or summarize, or to use as "confounders" (discussed more in later chapters).
 
 Initially, it can be helpful to keep only variables of interest. For now, let's select interesting variables to explore them more. At the same time, let's rename the variables so they are more descriptive.
-
 
 `@instructions`
 - Use `names()` to find the exact name of the variables, then `select` and renaming them all to be more descriptive.
@@ -170,15 +154,12 @@ Initially, it can be helpful to keep only variables of interest. For now, let's 
 - For renaming the predictors, replace the spaces with `_` for the variables stated in the instructions.
 
 `@pre_exercise_code`
-
 ```{r}
 library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
 
-
 `@sample_code`
-
 ```{r}
 # Select the potential exposures as well as the main outcome for the framingham
 # dataset.
@@ -195,9 +176,7 @@ explore_framingham <- framingham %>%
 explore_framingham
 ```
 
-
 `@solution`
-
 ```{r}
 # Select the potential exposures as well as the main outcome for the framingham
 # dataset.
@@ -214,25 +193,21 @@ explore_framingham <- framingham %>%
 explore_framingham
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Great job! You've selected and renamed the variables correctly.")
 ```
-
 
 ---
 
 ## Simple summary of the exposures by outcome
 
 ```yaml
-type: TabExercise 
+type: TabExercise
+key: 45b64907b1
 lang: r
-xp: 100 
-key: 45b64907b1   
+xp: 100
 ```
-
 
 Like the majority of data analyses, a large part of the work involves wrangling the data into the appropriate form to then analyze. One common technique involved in data processing and in data exploration and checking is the "split-apply-combine" method. For exploration, particularly of cohort datasets with multiple time points, it's useful see how multiple variables change over time using simple summary statistics.
 
@@ -240,9 +215,7 @@ In this case, since we not only have time as a column, but also multiple variabl
 
 It is expected that you are familiar with data wrangling in the tidyverse, since you will need to use the functions from the dplyr and tidyr packages.
 
-
 `@pre_exercise_code`
-
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -258,25 +231,18 @@ explore_framingham <- framingham %>%
     )
 ```
 
-
 `@sample_code`
-
 ```{r}
 explore_framingham  %>%
 ```
 
-
 ***
 
-
-
 ```yaml
-type: NormalExercise 
-xp: 35 
-key: 85e4b0de64   
+type: NormalExercise
+key: 85e4b0de64
+xp: 35
 ```
-
-
 
 
 
@@ -289,39 +255,28 @@ key: 85e4b0de64
 - Use the `-` to exclude `followup_visit_number` and `got_cvd`.
 
 `@sample_code`
-
 ```{r}
 explore_framingham  %>%
 ```
 
-
 `@solution`
-
 ```{r}
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Great job! `gather` is a very powerful function to converting to long form.")
 ```
 
-
-
 ***
 
-
-
 ```yaml
-type: NormalExercise 
-xp: 35 
-key: 9ca4b15cf5   
+type: NormalExercise
+key: 9ca4b15cf5
+xp: 35
 ```
-
-
 
 
 
@@ -336,15 +291,12 @@ key: 9ca4b15cf5
 - Name the new summarized variable `mean_values`.
 
 `@sample_code`
-
 ```{r}
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>%
 ```
 
-
 `@solution`
-
 ```{r}
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
@@ -352,26 +304,18 @@ explore_framingham %>%
     summarize(mean_values = mean(Value, na.rm = TRUE))
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Great job! Combining `gather`, `group_by`, and another function such as `summarize` is a powerful approach to 'split-apply-combine' analyses.")
 ```
 
-
-
 ***
 
-
-
 ```yaml
-type: NormalExercise 
-xp: 30 
-key: 61e6dcd04b   
+type: NormalExercise
+key: 61e6dcd04b
+xp: 30
 ```
-
-
 
 
 
@@ -382,7 +326,6 @@ key: 61e6dcd04b
 - Use `got_cvd` as the key argument.
 
 `@sample_code`
-
 ```{r}
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
@@ -390,9 +333,7 @@ explore_framingham %>%
     summarize(mean_values = mean(values, na.rm = TRUE)) %>%
 ```
 
-
 `@solution`
-
 ```{r}
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
@@ -401,46 +342,41 @@ explore_framingham %>%
     spread(got_cvd, mean_values)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Awesome! You did it. You now have can compare between those who didn't and those who did get CVD.")
 ```
-
-
 
 ---
 
 ## Questions and answers we can get from cohorts
 
 ```yaml
-type: VideoExercise 
+type: VideoExercise
+key: 382b3edde1
 lang: r
-xp: 50 
+xp: 50
 skills: 1
-key: 382b3edde1   
 ```
 
 `@projector_key`
 d8b40a3d5d81b2b050f65eb79581aa42
+
 ---
 
 ## What questions can be asked from Framingham?
 
 ```yaml
-type: MultipleChoiceExercise 
+type: MultipleChoiceExercise
+key: d7e39ba425
 lang: r
-xp: 50 
+xp: 50
 skills: 1
-key: d7e39ba425   
 ```
-
 
 Because the Framingham study is a prospective cohort, with certain limits to the data, and with three data collection visits, there are limits to the questions we can ask and answer. Choose the most valid and most appropriate question that we could ask from Framingham.
 
 The unchanged `framingham` dataset has been loaded in case you want to look  through it.
-
 
 `@instructions`
 - Does higher cholesterol cause cardiovascular disease (CVD)?
@@ -454,14 +390,11 @@ The unchanged `framingham` dataset has been loaded in case you want to look  thr
 - We cannot directly determine "causes" from cohort studies.
 
 `@pre_exercise_code`
-
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 ```
 
-
 `@sct`
-
 ```{r}
 msg1 <- "Incorrect. The cohort study was not designed to answer 'causes'."
 msg2 <- "Incorrect. While cohorts could answer this questions, Framingham participants are all in middle age so we can't answer questions outside of that timeframe."
@@ -471,25 +404,21 @@ msg5 <- "Incorrect. One of the above is a valid question."
 test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
 
-
 ---
 
 ## Count number of participants and cases per visit
 
 ```yaml
-type: TabExercise 
-xp: 100 
-key: 2ba20dff0f   
+type: TabExercise
+key: 2ba20dff0f
+xp: 100
 ```
-
 
 One of the first things to explore is the number of cases, as this will help inform what you can ask of the data and how to analyze it. Remember, for longitudinal data, you need to count by the time period, as each participant could have several rows per collection wave.
 
 Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr have been loaded and all variables have been added back into `explore_framingham`.
 
-
 `@pre_exercise_code`
-
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -505,26 +434,19 @@ explore_framingham <- framingham %>%
     )
 ```
 
-
 `@sample_code`
-
 ```{r}
 # Count the number of participants per visit.
 explore_framingham %>%
 ```
 
-
 ***
 
-
-
 ```yaml
-type: NormalExercise 
-xp: 25 
-key: 69ff80d798   
+type: NormalExercise
+key: 69ff80d798
+xp: 25
 ```
-
-
 
 
 
@@ -535,41 +457,30 @@ key: 69ff80d798
 - Use the `count` function.
 
 `@sample_code`
-
 ```{r}
 # Count the number of participants per visit.
 explore_framingham %>%
 ```
 
-
 `@solution`
-
 ```{r}
 # Count the number of participants per visit.
 explore_framingham %>% 
     count(followup_visit_number)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Great! You now know how to count the number of participants at each time point.")
 ```
 
-
-
 ***
 
-
-
 ```yaml
-type: NormalExercise 
-xp: 25 
-key: a0c6bd239b   
+type: NormalExercise
+key: a0c6bd239b
+xp: 25
 ```
-
-
 
 
 
@@ -582,7 +493,6 @@ key: a0c6bd239b
 - Name the new gather key column "Disease" and the value column "Cases".
 
 `@sample_code`
-
 ```{r}
 # Count the number of participants per visit.
 explore_framingham %>% 
@@ -592,9 +502,7 @@ explore_framingham %>%
 explore_framingham %>%
 ```
 
-
 `@solution`
-
 ```{r}
 # Count the number of participants per visit.
 explore_framingham %>% 
@@ -605,26 +513,18 @@ explore_framingham %>%
     gather(Disease, Cases, prevmi, prevchd)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Excellent, now the next step.")
 ```
 
-
-
 ***
 
-
-
 ```yaml
-type: NormalExercise 
-xp: 25 
-key: 9bfa483cb9   
+type: NormalExercise
+key: 9bfa483cb9
+xp: 25
 ```
-
-
 
 
 
@@ -635,7 +535,6 @@ key: 9bfa483cb9
 - Use the `count` function with three variables.
 
 `@sample_code`
-
 ```{r}
 # Count the number of participants per visit.
 explore_framingham %>% 
@@ -646,9 +545,7 @@ explore_framingham %>%
     gather(Disease, Cases, prevmi, prevchd) %>%
 ```
 
-
 `@solution`
-
 ```{r}
 # Count the number of participants per visit.
 explore_framingham %>% 
@@ -660,26 +557,18 @@ explore_framingham %>%
     count(followup_visit_number, Disease, Cases)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Nearly there!")
 ```
 
-
-
 ***
 
-
-
 ```yaml
-type: NormalExercise 
-xp: 25 
-key: 19a1c49e37   
+type: NormalExercise
+key: 19a1c49e37
+xp: 25
 ```
-
-
 
 
 
@@ -690,7 +579,6 @@ key: 19a1c49e37
 - The variable `n` should be the values in the spread columns.
 
 `@sample_code`
-
 ```{r}
 # Count the number of participants per visit.
 explore_framingham %>% 
@@ -702,9 +590,7 @@ explore_framingham %>%
     count(followup_visit_number, Disease, Cases) %>%
 ```
 
-
 `@solution`
-
 ```{r}
 # Count the number of participants per visit.
 explore_framingham %>% 
@@ -717,12 +603,7 @@ explore_framingham %>%
     spread(Cases, n)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Woohoo! Nice job. You now know how to count the number of cases by visit.")
 ```
-
-
-
