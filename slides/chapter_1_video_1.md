@@ -111,7 +111,7 @@ Prospective cohorts are by far the most common and most powerful form of cohort 
 
 
 ---
-## Why the basics are important to know?
+## Why the basics are important to know
 
 ```yaml
 type: "FullSlide"
@@ -128,7 +128,7 @@ Why not just analyze the data? Why need to know the basics of cohorts?
 
 
 `@script`
-Given the rise in data science and machine learning, sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". This is dangerous in many ways, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have real world impact on people's lives. So as the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and  interpret the results. In the case of cohorts, the study design and types of  variables measured influence how you do your data analysis. For instance,  retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many many ways of analyzing cohort datasets.
+Given the rise in data science and machine learning, sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". This is dangerous in many ways, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have a real-world impact on people's lives. So, as the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. In the case of cohorts, the study design and types of variables measured influence how you do your data analysis. For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many many ways of analyzing cohort datasets.
 
 
 ---
