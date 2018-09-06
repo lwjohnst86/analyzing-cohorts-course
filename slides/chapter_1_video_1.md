@@ -41,7 +41,7 @@ Features:
 
 
 `@script`
-Let's begin with the very basic. What does it mean that a study is a cohort study? The cohort study design in general has a very specific features. For one, cohorts usually are scientific studies to investigate how factors influence the  risk for a disease. In cohorts, there is always a time component, as in there is a temporal aspect to the data. And lastly, but most importantly, is that participants in a cohort always share a common characteristic. For instance, in the Nurses' Health Study from the United States, all participants are married female nurses.
+Let's begin with the very basic. What does it mean that a study is a cohort study? The cohort study design in general has very specific features. For one, cohorts are usually scientific studies to investigate how factors influence the risk for a disease. In cohorts, there is always a time component, as in there is a temporal aspect to the data. And lastly, but most importantly, participants in a cohort always share a common characteristic. For instance, in the Nurses' Health Study from the United States, all participants are married female nurses.
 
 
 ---
