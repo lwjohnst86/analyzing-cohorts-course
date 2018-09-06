@@ -105,9 +105,9 @@ Study participants:
 
 
 `@script`
-We will briefly go over the basics of cohort study designs in this lesson, but will cover each design in more detail in later lessons. There are two cohort study designs: prospective and retrospective. These two designs have many similarities, but it is their differences that really sets them apart.
+We will briefly go over the basics of cohort study designs in this lesson, but we will cover each design in more detail in later lessons. There are two cohort study designs: prospective and retrospective. These two designs have many similarities, but it is their differences that really sets them apart.
 
-Prospective cohorts are by far the most common and most powerful form of cohort for studying disease states, especially for diseases that are common (e.g. diabetes). Retrospective cohorts are useful with rarer diseases, where health records are easy to access, or when it is impractical or impossible to conduct a prospective cohort.
+Prospective cohorts are by far the most common and most powerful form of cohort for studying disease states, especially for diseases that are common, like diabetes. Retrospective cohorts are useful with rarer diseases, where health records are easy to access, or when it is impractical or impossible to conduct a prospective cohort.
 
 
 ---
