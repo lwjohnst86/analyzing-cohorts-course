@@ -17,7 +17,7 @@ title: Instructor
 
 `@script`
 
-Like all scientific studies, the design and available data restrict the type of questions you can ask to get a valid, scientific answer. This is why before  starting a study you should have the research questions firmly in mind, since you can't answer questions that the design can't answer! Before we get into the questions we can ask, we need to cover an important concept and powerful feature of prospective cohorts.
+Like all studies, the design and available data restrict what valid scientific questions you can ask. This is why before starting a study you should have the questions firmly in mind, since the study design dictates the question. Before we get into the questions we can ask, we need to cover an important concept and powerful feature of prospective cohorts.
 
 ---
 ## Prevalent vs incident cases of disease
