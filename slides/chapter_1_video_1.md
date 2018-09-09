@@ -40,7 +40,7 @@ Features:
 
 
 `@script`
-What is a cohort study? Cohorts are usually scientific studies to investigate how factors influence the risk for a disease. Cohorts always include a time component, or a temporal aspect. Most importantly, participants in a cohorts share a common characteristic. For instance, in the Nurses' Health Study from the United States, all participants are married female nurses. In this course, we aren't going to cover specific statistical techniques because cohort analysis is so diverse. Instead, we are going to focus on the overall workflow and process to looking at, analyzing, interpreting, and presenting results from cohorts.
+What is a cohort study? Cohorts are usually scientific studies to investigate how factors influence the risk for a disease. Cohorts always include a time component, or a temporal aspect. Most importantly, participants in a cohort share a common characteristic. For instance, in the Nurses' Health Study from the United States, all participants are married female nurses. In this course, we aren't going to cover specific statistical techniques because cohort analysis is so diverse. Instead, we are going to focus on the overall workflow and process to looking at, analyzing, interpreting, and presenting results from cohorts.
 
 
 ---
