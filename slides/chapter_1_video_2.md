@@ -75,7 +75,7 @@ In cohort studys, there are commonly two terms used, outcome and exposure or pre
 
 ---
 
-## Summary of lesson
+## Lesson summary
 
 ```yaml
 type: FullSlide
