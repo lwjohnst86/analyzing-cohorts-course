@@ -128,7 +128,7 @@ Why not just analyze the data? Why need to know the basics of cohorts?
 `@script`
 Sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". This is dangerous in many ways, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have a real-world impact on people's lives. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. 
 
-In the case of cohorts, the study design and types of variables measured influence how you analyze your data. For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many ways of analyzing cohort datasets.
+In the case of cohorts, the study design and types of variables measured influence how you analyze your data. For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that are abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many ways of analyzing cohort datasets.
 
 
 ---
@@ -162,7 +162,7 @@ framingham
 `@script`
 Now we get to the Framingham study, which started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, with data collected about 3 times over 15 years of followup.  
 
-There are things that aren't very clean in the dataset. For instance, the variable names aren't clear and some values don't tell us their meaning, such as the values in sex. What does 2 mean? We'll need to do some tidying beforehand. Before that, it's a good idea to explore the data to understand it.
+There are things that aren't very clean in the dataset. For instance, the variable names aren't clear and some values don't tell us their meaning. An example is sex; what does 2 mean? We'll need to do some tidying beforehand. Before that, it's a good idea to explore the data to understand it.
 
 
 ---
