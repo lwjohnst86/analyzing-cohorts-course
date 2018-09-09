@@ -24,7 +24,7 @@ Before getting more into the Framingham dataset, we're going to quickly cover mo
 
 ```yaml
 type: FullSlide
-key: e6902d439c
+key: 583fae4d2d
 ```
 
 `@part1`
@@ -40,7 +40,7 @@ There are some important differences between the two cohort types. The main diff
 
 ```yaml
 type: FullImageSlide
-key: 997fa167f5
+key: b7cc4ddc54
 ```
 
 `@part1`
@@ -56,7 +56,7 @@ Here is a typical prospective cohort. Each line is a hypothetical participant. A
 
 ```yaml
 type: FullSlide
-key: abac1ea2ff
+key: 278d9126a9
 ```
 
 `@part1`
@@ -73,13 +73,13 @@ key: abac1ea2ff
 
 In cohort studys, there are commonly two-ish terms used: outcomes and exposure or predictor. The term outcomes is used to mean the disease and is the y variable commonly seen in statistical notation. The terms exposures or predictors represent the variables that relate to or potentially influence the outcome in some way. These are the variables that we think predict getting the disease (for instance, cigarette smoke and lung cancer).
 
-
 ---
+
 ## Summary of lesson
 
 ```yaml
 type: FullSlide
-key: aed042715b
+key: 75da8bcc42
 ```
 
 `@part1`
@@ -90,10 +90,14 @@ key: aed042715b
 - Variables of interest
     - Outcome: Is the disease 
     - Exposure/predictor: Factor that is thought to influence the outcome
+- Framingham cohort
+    - ~3 time points, ~15 years
+    - ~4400 participants
+    - Many possible predictors
 
 `@script`
 
-Let's quickly review what we covered. We compared the cohort types, and differences being mostly in when the disease occurs. The terms for the variables are outcome for the disease and exposure or predictor for the variables that might relate to the outcome.
+Let's quickly review what we covered. We compared the cohort types, and differences being mostly in when the disease occurs. The terms for the variables are outcome for the disease and exposure or predictor for the variables that might relate to the outcome. Lastly, we briefly looked at the Framingham study. 
 ---
 ## Let's practice and explore the dataset!
 
