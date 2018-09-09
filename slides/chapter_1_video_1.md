@@ -68,7 +68,7 @@ key: "3020a2875a"
 
 
 `@script`
-Cohort studies are fundamental to epidemiological research and a key design for answering research questions about human health and behaviour. Cohort studies are especially common in health studies, as they can be used to identify risk factors for disease that can be targeted in prevention and disease management strategies. They are also incredibly powerful for helping inform evidence-based clinical decisions.
+Cohort studies are fundamental to epidemiological research and a key design for answering research questions about human health and behavior. Cohort studies are especially common in health studies, as they can be used to identify risk factors for disease that can be targeted in prevention and disease management strategies. They are also incredibly powerful for helping inform evidence-based clinical decisions.
 
 
 ---
