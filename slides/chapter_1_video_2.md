@@ -36,7 +36,7 @@ key: 583fae4d2d
 There are some important differences between the two cohort types. The main difference is when the study starts relative to outcome occurrence. In a retrospective cohort, the study starts when people have the disease and their data is collected from past records. This is very common when data is collected in a frequent or typical way, such as in a hospital, so data are already available. In prospective cohorts, people don't have a disease at the start of the study and they are followup either until the end of the study or until they get the disease. Data is collected as the time passes. Both designs have their strengths and weaknesses. If you have easy access to data already collected by for example a hospital or the government, retrospective cohorts are very powerful scientific tools. But, there are many strengths to prospective cohorts, which is why they tend to be pretty common. They give stronger scientific evidence to research questions, because people are recruited without the disease. This is why the Framingham study was chosen.
 
 ---
-## How a prospective cohort looks like over time
+## How a prospective cohort looks over time
 
 ```yaml
 type: FullImageSlide
