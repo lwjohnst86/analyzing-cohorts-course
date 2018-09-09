@@ -98,8 +98,7 @@ Study participants:
 
 - Have the disease
 - Looks back in time:
-    - Asked about past conditions
-    - ...or past medical health records examined
+    - Asked about past conditions or past medical health records are examined
 - Needs a comparison group without the disease
 
 
