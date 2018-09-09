@@ -52,7 +52,7 @@ key: b7cc4ddc54
 Here is a typical prospective cohort. Each line is a hypothetical participant. At the study start, no one has a disease. As time passes, some people get the disease and others don't. When the study ends or at the time of analysis, there are a group of people who have the disease and usually a lot more who don't. There is also data collected at several time points over the study period. So now, you can compare how these two groups of people are different. What factors distinguish those with and without the disease? That is what we try to answer when we analyze the data.
 
 ---
-## What are the main variables of interest called?
+## Variables of interest
 
 ```yaml
 type: FullSlide
