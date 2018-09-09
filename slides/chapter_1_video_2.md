@@ -24,6 +24,7 @@ Before getting more into the Framingham dataset, we're going to quickly cover mo
 
 ```yaml
 type: FullSlide
+key: e6902d439c
 ```
 
 `@part1`
@@ -39,6 +40,7 @@ There are some important differences between the two cohort types. The main diff
 
 ```yaml
 type: FullImageSlide
+key: 997fa167f5
 ```
 
 `@part1`
@@ -54,6 +56,7 @@ Here is a typical prospective cohort. Each line is a hypothetical participant. A
 
 ```yaml
 type: FullSlide
+key: abac1ea2ff
 ```
 
 `@part1`
@@ -70,42 +73,13 @@ type: FullSlide
 
 In cohort studys, there are commonly two-ish terms used: outcomes and exposure or predictor. The term outcomes is used to mean the disease and is the y variable commonly seen in statistical notation. The terms exposures or predictors represent the variables that relate to or potentially influence the outcome in some way. These are the variables that we think predict getting the disease (for instance, cigarette smoke and lung cancer).
 
----
-## Framingham Heart Study
-
-```yaml
-type: TwoRows
-```
-
-`@part1`
-
-![Original Framingham Heart Study publication. PubMedID: PMC1525365.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/fb4a5797d1d3f1ea761ce274b23248e606775bf0/framingham-study.png)
-
-`@part2`
-
-```{r}
-framingham
-```
-
-```
-# A tibble: 11,627 x 39
-  randid   sex totchol   age sysbp diabp cursmoke cigpday   bmi diabetes
-   <int> <int>   <int> <int> <dbl> <dbl>    <int>   <int> <dbl>    <int>
-1   2448     1     195    39  106   70          0       0  27.0        0
-2   2448     1     209    52  121   66          0       0  NA          0
-3   6238     2     250    46  121   81          0       0  28.7        0
-# ... with 29 more variables...
-```
-
-`@script`
-
-Now we get to the Framingham study! This study started in the 1950s and was first to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, who had data collected on them about 3 times over around 15 years of followup.  If you'll notice, there are things that aren't very clean in the dataset... for instance, the variable names aren't clear and some values don't tell us their meaning, such as the values in sex. What does 2 mean? We'll need to do some tidying beforehand. Before that, it's a good idea to explore the data a bit to get a better sense of it.
 
 ---
 ## Summary of lesson
 
 ```yaml
 type: FullSlide
+key: aed042715b
 ```
 
 `@part1`
@@ -116,14 +90,10 @@ type: FullSlide
 - Variables of interest
     - Outcome: Is the disease 
     - Exposure/predictor: Factor that is thought to influence the outcome
-- Framingham cohort
-    - ~3 time points, ~15 years
-    - ~4400 participants
-    - Many possible predictors
 
 `@script`
 
-Let's quickly review what we covered. We compared the cohort types, and differences being mostly in when the disease occurs. The terms for the variables are outcome for the disease and exposure or predictor for the variables that might relate to the outcome. Lastly, we briefly looked at the Framingham study. 
+Let's quickly review what we covered. We compared the cohort types, and differences being mostly in when the disease occurs. The terms for the variables are outcome for the disease and exposure or predictor for the variables that might relate to the outcome.
 ---
 ## Let's practice and explore the dataset!
 
