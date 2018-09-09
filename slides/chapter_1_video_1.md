@@ -17,8 +17,7 @@ title: Instructor
 
 
 `@script`
-Hi! I'm Luke Johnston and I do research in diabetes epidemiology. I will be your instructor for this course, where we will be going over how to analyze cohort datasets. In this chapter, we will be covering some of the basics of what a cohort is, thoughts about the process of and typical steps involved in analyzing cohort datasets, and some first steps in looking over the data.
-
+Hi! I'm Luke Johnston and I am a diabetes epidemiology researcher. I will be your instructor for this course, where we will be going over how to analyze cohort datasets. In this chapter, we will cover some of the basics of a cohort, the process of analyzing cohort datasets, first steps in analysis, and briefly look at the Framingham Cohort study.
 
 ---
 ## What is a cohort study?
@@ -41,7 +40,7 @@ Features:
 
 
 `@script`
-Let's begin with the very basic. What does it mean that a study is a cohort study? The cohort study design in general has very specific features. For one, cohorts are usually scientific studies to investigate how factors influence the risk for a disease. In cohorts, there is always a time component, as in there is a temporal aspect to the data. And lastly, but most importantly, participants in a cohort always share a common characteristic. For instance, in the Nurses' Health Study from the United States, all participants are married female nurses.
+What is a cohort study? Cohorts are usually scientific studies to investigate how factors influence the risk for a disease. Cohorts always include a time component, or a temporal aspect. Most importantly, participants in a cohorts share a common characteristic. For instance, in the Nurses' Health Study from the United States, all participants are married female nurses. In this course, we aren't going to cover specific statistical techniques because cohort analysis is so diverse. Instead, we are going to focus on the overall workflow and process to looking at, analyzing, interpreting, and presenting results from cohorts.
 
 
 ---
@@ -69,7 +68,7 @@ key: "3020a2875a"
 
 
 `@script`
-Cohort studies are fundamental to epidemiological research and a key design for answering research questions about human health and behaviour. Cohort studies are especially common in studies on health and disease, as they can be used to identify risk factors for disease that can be targeted in prevention and disease management strategies. They are also incredibly powerful for helping inform evidence-based clinical decisions and for when watching for side effects from new, or old, drugs.
+Cohort studies are fundamental to epidemiological research and a key design for answering research questions about human health and behaviour. Cohort studies are especially common in health studies, as they can be used to identify risk factors for disease that can be targeted in prevention and disease management strategies. They are also incredibly powerful for helping inform evidence-based clinical decisions.
 
 
 ---
@@ -105,7 +104,7 @@ Study participants:
 
 
 `@script`
-We will briefly go over the basics of cohort study designs in this lesson, but we will cover each design in more detail in later lessons. There are two cohort study designs: prospective and retrospective. These two designs have many similarities, but it is their differences that really sets them apart.
+We will briefly discuss the basics of cohort study designs in this lesson and cover them in more detail later. There are two cohort study designs, prospective and retrospective. The designs have many similarities, but it is their differences that really set them apart.
 
 Prospective cohorts are by far the most common and most powerful form of cohort for studying disease states, especially for diseases that are common, like diabetes. Retrospective cohorts are useful with rarer diseases, where health records are easy to access, or when it is impractical or impossible to conduct a prospective cohort.
 
@@ -128,24 +127,43 @@ Why not just analyze the data? Why need to know the basics of cohorts?
 
 
 `@script`
-Given the rise in data science and machine learning, sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". This is dangerous in many ways, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have a real-world impact on people's lives. So, as the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. In the case of cohorts, the study design and types of variables measured influence how you do your data analysis. For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many many ways of analyzing cohort datasets.
+Sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". This is dangerous in many ways, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have a real-world impact on people's lives. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. 
 
+In the case of cohorts, the study design and types of variables measured influence how you analyze your data. For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many ways of analyzing cohort datasets.
 
 ---
-## Main goal of this course
+## Framingham Heart Study
 
 ```yaml
-type: "FullSlide"
-key: "5c430ef5dd"
+type: TwoRows
+key: 6fa4470529
 ```
 
 `@part1`
-> **Learn the thought process, general analytic workflow, and main focus of doing and analyzing a cohort study... not to learn a specific statistical method.**
 
+![Original Framingham Heart Study publication. PubMedID: PMC1525365.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/fb4a5797d1d3f1ea761ce274b23248e606775bf0/framingham-study.png)
+
+`@part2`
+
+```{r}
+framingham
+```
+
+```
+# A tibble: 11,627 x 39
+  randid   sex totchol   age sysbp diabp cursmoke cigpday   bmi diabetes
+   <int> <int>   <int> <int> <dbl> <dbl>    <int>   <int> <dbl>    <int>
+1   2448     1     195    39  106   70          0       0  27.0        0
+2   2448     1     209    52  121   66          0       0  NA          0
+3   6238     2     250    46  121   81          0       0  28.7        0
+# ... with 29 more variables...
+```
 
 `@script`
-... which brings me to the main goal of this course... we aren't going to cover specific statistical techniques because cohorts and their analyses are so diverse. So instead, we are going to focus on the overall workflow and process to looking at, analyzing, interpreting, and presenting results from cohorts.
 
+Now we get to the Framingham study, which started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, with data collected about 3 times over 15 years of followup.  
+
+There are things that aren't very clean in the dataset. For instance, the variable names aren't clear and some values don't tell us their meaning, such as the values in sex. What does 2 mean? We'll need to do some tidying beforehand. Before that, it's a good idea to explore the data to understand it.
 
 ---
 ## Let's do some exercises!
@@ -156,5 +174,5 @@ key: "97f61fb6b7"
 ```
 
 `@script`
-Alright, let's now do a few exercises to review and test your knowledge of cohorts!
+Let's do a few exercises to review and test your cohort knowledge!
 
