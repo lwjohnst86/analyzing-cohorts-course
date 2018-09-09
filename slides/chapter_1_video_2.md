@@ -71,7 +71,7 @@ key: 278d9126a9
 
 `@script`
 
-In cohort studys, there are commonly two-ish terms used: outcomes and exposure or predictor. The term outcomes is used to mean the disease and is the y variable commonly seen in statistical notation. The terms exposures or predictors represent the variables that relate to or potentially influence the outcome in some way. These are the variables that we think predict getting the disease (for instance, cigarette smoke and lung cancer).
+In cohort studys, there are commonly two terms used, outcome and exposure or predictor. The term outcome is used to mean the disease and is the y variable commonly seen in statistical notation. The term exposure or predictor represents the variables that relate to or potentially influence the outcome in some way. These are the variables that we think predict getting the disease, for example, cigarette smoke and lung cancer.
 
 ---
 
