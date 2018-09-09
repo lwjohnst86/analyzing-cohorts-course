@@ -19,6 +19,7 @@ title: Instructor
 `@script`
 Hi! I'm Luke Johnston and I am a diabetes epidemiology researcher. I will be your instructor for this course, where we will be going over how to analyze cohort datasets. In this chapter, we will cover some of the basics of a cohort, the process of analyzing cohort datasets, first steps in analysis, and briefly look at the Framingham Cohort study.
 
+
 ---
 ## What is a cohort study?
 
@@ -29,9 +30,8 @@ key: "9039aa5cb9"
 
 `@part1`
 Features:
-
-- Studies associations with (usually) disease
-- Includes some time component to the data
+- Usually studies associations with disease
+- Data includes some time component 
 - *Participants share common characteristic(s)*
 
 
@@ -131,20 +131,20 @@ Sometimes there is a pressure or urge to just "throw variables into the model an
 
 In the case of cohorts, the study design and types of variables measured influence how you analyze your data. For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many ways of analyzing cohort datasets.
 
+
 ---
 ## Framingham Heart Study
 
 ```yaml
-type: TwoRows
-key: 6fa4470529
+type: "TwoRows"
+key: "6fa4470529"
 ```
 
 `@part1`
-
 ![Original Framingham Heart Study publication. PubMedID: PMC1525365.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/fb4a5797d1d3f1ea761ce274b23248e606775bf0/framingham-study.png)
 
-`@part2`
 
+`@part2`
 ```{r}
 framingham
 ```
@@ -159,11 +159,12 @@ framingham
 # ... with 29 more variables...
 ```
 
-`@script`
 
+`@script`
 Now we get to the Framingham study, which started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, with data collected about 3 times over 15 years of followup.  
 
 There are things that aren't very clean in the dataset. For instance, the variable names aren't clear and some values don't tell us their meaning, such as the values in sex. What does 2 mean? We'll need to do some tidying beforehand. Before that, it's a good idea to explore the data to understand it.
+
 
 ---
 ## Let's do some exercises!
