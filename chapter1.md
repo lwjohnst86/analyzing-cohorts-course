@@ -28,9 +28,7 @@ xp: 50
 skills: 1
 ```
 
-We will be using the Framingham Heart Study dataset for this course. The next few exercises will get you more familiar with the dataset and thinking more about cohorts.
-
-First, some background. The Framingham study was set up to study what might might influence the risk of cardiovascular disease (CVD). People from Framingham, USA were recruited and followed over time. Data was collected on "risk factors" and CVD every few years.
+The Framingham study was set up to study what might might influence the risk of cardiovascular disease (CVD). People from Framingham, USA were recruited and followed over time. Data was collected on "risk factors" and CVD every few years.
 
 What makes Framingham a cohort? The `framingham` dataset is loaded for you to explore. The dataset has yet to be fully tidied, which we will do more in Chapter 2.
 
