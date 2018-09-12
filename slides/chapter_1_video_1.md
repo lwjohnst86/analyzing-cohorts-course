@@ -117,12 +117,16 @@ key: "d2a6af7c52"
 ```
 
 `@part1`
-Why not just analyze the data? Why need to know the basics of cohorts?
 
-- Type of cohort design restricts type of analysis and interpretation
-    - Example: Retrospective cohorts often already have measured collected that are less detailed, so need to be very general and cautious in interpretation
-- How and what variables were measured limit analysis and interpretation
-    - Example: Some exposures/predictors are abstractions of underlying physiology, so need to transform variables so results are meaningful
+- Pressure to "let the data tell the story", which is dangerous
+    - Cohorts study health, which has real-world impact on lives
+- Design type restricts 
+- Analysis and interpretation restricted by:
+    - Design type
+    - How and what was measured
+- Examples: 
+    - Imprecise measures are often in retrospective cohorts, so must be cautious
+    - Exposures that are physiological abstractions must be transformed to have meaningful results
 
 
 `@script`
