@@ -24,6 +24,7 @@ Like all studies, the design and available data restrict what valid scientific q
 
 ```yaml
 type: FullImageSlide
+key: bb42e35095
 ```
 
 `@part1`
@@ -39,6 +40,7 @@ In disease epidemiology, there are two concepts. Prevalence and incidence. Preva
 
 ```yaml
 type: FullSlide
+key: 3aad87343a
 ```
 
 `@part1`
@@ -61,21 +63,22 @@ framingham %>%
 
 `@script`
 
-For prospective cohort analyses, it's always a good idea to check the prevalence of the disease outcomes at the first visit. It's fairly easy to do this using dplyr verbs. In this case, we are counting the number of prevalence of coronary heart disease, which is a subset of cardiovascular disease, at the first visit. One of the exclusion criteria for the Framingham study was not having cardiovascular disease. But you can see here that there are still some people who had prevalent CHD at the first visit. These things happen, even with the most rigorous practices. Part of your analysis must be to check these things before hand.
+For prospective cohort analyses, it's always a good idea to check the prevalence of the disease outcomes at the first visit. It's fairly easy to do this using dplyr verbs. In this case, we are counting the number of prevalence of coronary heart disease, which is a subset of cardiovascular disease, at the first visit. One of the exclusion criteria for the Framingham study was not having cardiovascular disease. But you can see here that there are still some people who had prevalent CHD at the first visit. These things happen, even with the most rigorous practices. Part of your analysis must be to check these things beforehand.
 
 ---
-## Type of design restricts questions and analysis
+## Design type can restrict questions and analysis
 
 ```yaml
 type: TwoRows
+key: dfbf7da65b
 ```
 
 `@part1`
 
 #### Cohorts in general
 
-- Are observational, so can't (directly) find causes
-- Shared characteristic, so can't reliably answer questions outside of group
+- Are observational, and can't directly find causes
+- Participants have a shared characteristic - can't answer questions outside of the group
 
 `@part2`
 
@@ -93,6 +96,7 @@ Keeping in mind the prevalence vs incidence, we can see that some questions we c
 
 ```yaml
 type: FullSlide
+key: ab1164f998
 ```
 
 `@part1`

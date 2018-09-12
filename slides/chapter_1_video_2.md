@@ -24,6 +24,7 @@ Before getting more into the Framingham dataset, we're going to quickly cover mo
 
 ```yaml
 type: FullSlide
+key: 583fae4d2d
 ```
 
 `@part1`
@@ -35,10 +36,11 @@ type: FullSlide
 There are some important differences between the two cohort types. The main difference is when the study starts relative to outcome occurrence. In a retrospective cohort, the study starts when people have the disease and their data is collected from past records. This is very common when data is collected in a frequent or typical way, such as in a hospital, so data are already available. In prospective cohorts, people don't have a disease at the start of the study and they are followup either until the end of the study or until they get the disease. Data is collected as the time passes. Both designs have their strengths and weaknesses. If you have easy access to data already collected by for example a hospital or the government, retrospective cohorts are very powerful scientific tools. But, there are many strengths to prospective cohorts, which is why they tend to be pretty common. They give stronger scientific evidence to research questions, because people are recruited without the disease. This is why the Framingham study was chosen.
 
 ---
-## How a prospective cohort looks like over time
+## How a prospective cohort looks over time
 
 ```yaml
 type: FullImageSlide
+key: b7cc4ddc54
 ```
 
 `@part1`
@@ -50,10 +52,11 @@ type: FullImageSlide
 Here is a typical prospective cohort. Each line is a hypothetical participant. At the study start, no one has a disease. As time passes, some people get the disease and others don't. When the study ends or at the time of analysis, there are a group of people who have the disease and usually a lot more who don't. There is also data collected at several time points over the study period. So now, you can compare how these two groups of people are different. What factors distinguish those with and without the disease? That is what we try to answer when we analyze the data.
 
 ---
-## What are the main variables of interest called?
+## Variables of interest
 
 ```yaml
 type: FullSlide
+key: 278d9126a9
 ```
 
 `@part1`
@@ -68,44 +71,15 @@ type: FullSlide
 
 `@script`
 
-In cohort studys, there are commonly two-ish terms used: outcomes and exposure or predictor. The term outcomes is used to mean the disease and is the y variable commonly seen in statistical notation. The terms exposures or predictors represent the variables that relate to or potentially influence the outcome in some way. These are the variables that we think predict getting the disease (for instance, cigarette smoke and lung cancer).
+In cohort studys, there are commonly two terms used, outcome and exposure or predictor. The term outcome is used to mean the disease and is the y variable commonly seen in statistical notation. The term exposure or predictor represents the variables that relate to or potentially influence the outcome in some way. These are the variables that we think predict getting the disease, for example, cigarette smoke and lung cancer.
 
 ---
-## Framingham Heart Study
 
-```yaml
-type: TwoRows
-```
-
-`@part1`
-
-![Original Framingham Heart Study publication. PubMedID: PMC1525365.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/fb4a5797d1d3f1ea761ce274b23248e606775bf0/framingham-study.png)
-
-`@part2`
-
-```{r}
-framingham
-```
-
-```
-# A tibble: 11,627 x 39
-  randid   sex totchol   age sysbp diabp cursmoke cigpday   bmi diabetes
-   <int> <int>   <int> <int> <dbl> <dbl>    <int>   <int> <dbl>    <int>
-1   2448     1     195    39  106   70          0       0  27.0        0
-2   2448     1     209    52  121   66          0       0  NA          0
-3   6238     2     250    46  121   81          0       0  28.7        0
-# ... with 29 more variables...
-```
-
-`@script`
-
-Now we get to the Framingham study! This study started in the 1950s and was first to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, who had data collected on them about 3 times over around 15 years of followup.  If you'll notice, there are things that aren't very clean in the dataset... for instance, the variable names aren't clear and some values don't tell us their meaning, such as the values in sex. What does 2 mean? We'll need to do some tidying beforehand. Before that, it's a good idea to explore the data a bit to get a better sense of it.
-
----
-## Summary of lesson
+## Lesson summary
 
 ```yaml
 type: FullSlide
+key: 75da8bcc42
 ```
 
 `@part1`
