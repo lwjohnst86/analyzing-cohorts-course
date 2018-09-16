@@ -44,6 +44,7 @@ Cohorts are people who have *something in common*.
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+framingham$time <- NULL
 ```
 
 `@sct`
@@ -218,6 +219,7 @@ It is expected that you are familiar with data wrangling in the tidyverse, since
 library(dplyr)
 library(tidyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+framingham$time <- NULL
 explore_framingham <- framingham %>%
     select(
         got_cvd = cvd, 
@@ -390,6 +392,7 @@ The unchanged `framingham` dataset has been loaded in case you want to look  thr
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+framingham$time <- NULL
 ```
 
 `@sct`
@@ -421,6 +424,7 @@ Next, count the number of cases and non-cases for prevalent myocardial infarctio
 library(dplyr)
 library(tidyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+framingham$time <- NULL
 explore_framingham <- framingham %>%
     rename(
         got_cvd = cvd, 
