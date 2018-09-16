@@ -92,7 +92,7 @@ key: dfbf7da65b
 Keeping in mind the prevalence vs incidence, we can see that some questions we can't ask of retrospective cohorts. There are several other restrictions to consider of answerable questions. Because cohorts are observational studies, questions on causes are difficult, if not impossible, to answer. Questions that include people outside the scope of the cohort can't be answered. For instance, if the cohort is only older adults, you can't ask questions about young children using this data. More realistically, if the cohort has mostly people of European ancestry, you can't answer questions about other ethnic groups or ancestries. For prospective cohorts, because of the time component, we can answer questions that include some temporal aspect and also answer questions about risk in unexposed vs exposed.
 
 ---
-## Unanswerable or difficult to answer questions
+## Impossible or difficult to answer questions
 
 ```yaml
 type: FullSlide
@@ -101,17 +101,13 @@ key: ab1164f998
 
 `@part1`
 
-- (Most) Questions on cause.
-    - Does moderate alcohol intake *cause* some types of cancer? 
-- Questions involving a difficult or impossible to measure exposure.
-    - How does a nutrient like Vitamin D influence disease? 
-- Questions that need data that are unreliable or many be measured differently.
-    - Does physical activity reduce risk of disease differently between two
-    countries?
+- Related to causes and effects
+- Exposures that are very unreliably measured
+- Inconsistently measured exposures or outcomes
 
 `@script`
 
-Some questions we can't ask are often obvious, such as not being able to answer questions you don't have data on. Other questions are more nuanced. For instance, questions on causes are difficult to answer because of potential confounding, which we'll cover in later chapters. In the example, alcohol consumption is often done with other high risk behaviours like smoking. Some data are too unreliable to use, such as the example of individual nutrient intakes and disease. Given that diet itself is very hard to measure, nutrient intake is even more difficult to reliably measure. Or some data may be measured differently between collection sites, such as the physical activity example as there are many ways to measure it. We can't rely on data that has a lot of noise or error in measurement to answer our questions.
+Some questions we can't ask are often obvious, such as not being able to answer questions you don't have data on. Other questions are more nuanced. Questions on causes are difficult to answer because of potential confounding, which we'll cover later on. For instance, does alcohol cause cancer? This is difficult to answer because people often do many other things when they drink, like smoking. Or some data are too unreliable to use. For instance, the question on whether vitamin D intake influences some diseases is tricky because measuring diet is very hard, and measuring nutrient intake from diet is even harder. Let's say you measured vitamin D directly in the blood to ask that question... there is another level to consider because vitamin D can be measured multiple ways, and they each give different results. So some measurements of data is prone to error or noise, which can limit our questions to ask.
 
 ---
 ## Let's practice!
