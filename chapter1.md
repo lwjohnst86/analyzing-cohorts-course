@@ -53,7 +53,7 @@ msg1 <- "Incorrect. While cohorts often are used to study a disease, this doesn'
 msg2 <- "Correct! Cohorts are people who share a common characteristic. In this case, the participants share a town and so have a similar environment."
 msg3 <- "Incorrect. While cohorts always include a time component, this alone doesn't make it a cohort."
 msg4 <- "Incorrect. While all cohorts have risk factors measured, this alone doesn't make it a cohort."
-test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
+# test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
 
 ---
@@ -393,7 +393,7 @@ msg2 <- "Incorrect. While cohorts could answer this questions, Framingham partic
 msg3 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
 msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
 msg5 <- "Incorrect. One of the above is a valid question."
-test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+# test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
 
 ---
