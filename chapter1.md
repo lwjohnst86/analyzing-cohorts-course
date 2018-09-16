@@ -68,42 +68,34 @@ xp: 100
 skills: 1
 ```
 
-Usually you can determine the cohort design from the variables in the dataset. What cohort study design is the Framingam study, based on the variables?
+Usually you can determine the cohort design from the variables in the dataset. Which variables in the Framingham study give us an indication of the cohort design?
 
 `@instructions`
 - Take a look through the `framingham` dataset.
-- Select the two variables that indicate the cohort design.
-- Write in the text what the cohort type is: either "prospective" or "retrospective".
+- Select the two variables that indicate the cohort design of `framingham`.
 
 `@hint`
-- The first column should be `time`. While there is also another column for time (`period`), you don't need to select this one for this exercise.
 - Recall that Framingham was designed to study the disease `cvd`.
-- The cohort type should be in lower case.
 
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+framingham$time <- NULL
 ```
 
 `@sample_code`
 ```{r}
-# Two columns indicating design
+# Select two columns that indicate design
 framingham %>% 
     select(_____, _____)
-
-# Study design
-"_____"
 ```
 
 `@solution`
 ```{r}
-# Two columns indicating design
+# Select two columns that indicate design
 framingham %>% 
     select(time, cvd)
-
-# Study design
-"prospective"
 ```
 
 `@sct`
