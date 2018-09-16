@@ -135,10 +135,10 @@ You need to know which variables are which for the analysis. Usually, it's fairl
 Initially, it can be helpful to keep only variables of interest. For now, let's select interesting variables to explore them more. At the same time, let's rename the variables so they are more descriptive.
 
 `@instructions`
-- Use `names()` to find the exact name of the variables, then `select` and renaming them all to be more descriptive.
+- Use `names()` to find the exact name of the variables, then rename them all to be more descriptive.
 - Choose the correct outcome for cardiovascular disease (CVD). Rename it to `got_cvd`.
-- Select four predictors: total cholesterol, body mass index, participant age, and currently smokes.
-- There are also several time points, so we need to also select time (`period`). Rename it to `followup_visit_number`.
+- Rename the four predictors to `total_cholesterol`, `body_mass_index`, `participant_age`, and `currently_smokes`.
+- Rename the visit number column to `followup_visit_number`.
 
 `@hint`
 - Confirm the exact original variable names in the dataset.
@@ -148,18 +148,18 @@ Initially, it can be helpful to keep only variables of interest. For now, let's 
 ```{r}
 library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+framingham$time <- NULL
 ```
 
 `@sample_code`
 ```{r}
-# Select the potential exposures as well as the main outcome for the framingham
-# dataset.
+# Select and rename the potential exposures and outcome
 explore_framingham <- framingham %>%
     select(
-        # Format: old_variable_name = new_variable_name
+        # Format: new_variable_name = old_variable_name
         _____ = _____, # outcome variable
-        total_cholesterol = _____,
-        body_mass_index = _____,
+        _____ = totchol,
+        _____ = bmi,
         _____ = age,
         _____ = cursmoke,
         _____ = period # visit number
@@ -169,11 +169,10 @@ explore_framingham
 
 `@solution`
 ```{r}
-# Select the potential exposures as well as the main outcome for the framingham
-# dataset.
+# Select and rename the potential exposures and outcome
 explore_framingham <- framingham %>%
     select(
-        # Format: old_variable_name = new_variable_name
+        # Format: new_variable_name = old_variable_name
         got_cvd = cvd, # outcome variable
         total_cholesterol = totchol,
         body_mass_index = bmi,
