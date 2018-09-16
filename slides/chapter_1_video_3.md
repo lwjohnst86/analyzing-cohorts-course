@@ -33,7 +33,7 @@ key: bb42e35095
 
 `@script`
 
-In disease epidemiology, there are two concepts. Prevalence and incidence. Prevalence is a snap shot in time and counts how many have a disease. Incidence is the new cases of a disease over a period of time. Incidence data is much more scientifically powerful at understanding how exposures can influence disease risk because of the time component. Here shows what prevalence vs incidence is in a prospective cohort. At visit 0, there is one case, so there is one prevalent case. At visit 1, there are 2 cases and 1 is new, so two prevalent cases, but 1 incident case. At visit 2, there are 3 cases, three prevalent, one incident. Determining incident cases requires knowing a person's previous state, so is a bit more difficult to count.
+There are two terms when it comes to numbers of cases: Prevalence and incidence. Prevalence is a snap shot in time and counts how many have a disease. Incidence is the new cases of a disease over a period of time. Incidence data is much more scientifically powerful at understanding how exposures can influence disease risk because of the time component. Here shows what prevalence vs incidence is in a prospective cohort. At visit 0, there is one case, so there is one prevalent case. At visit 1, there are 2 cases and 1 is new, so two prevalent cases, but 1 incident case. At visit 2, there are 3 cases, three prevalent, one incident. Determining incident cases requires knowing a person's previous state, so is a bit more difficult to count.
 
 ---
 ## Counting number of cases at recruitment
