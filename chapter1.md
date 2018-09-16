@@ -95,7 +95,7 @@ framingham %>%
 ```{r}
 # Select two columns that indicate design
 framingham %>% 
-    select(time, cvd)
+    select(period, cvd)
 ```
 
 `@sct`
