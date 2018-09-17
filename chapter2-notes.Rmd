@@ -6,6 +6,8 @@ source("preamble.R")
 
 **Objectives**
 
+- Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
+
 - How to get data into form for quick exploration
 - How to wrangle the data to get into a form to use for the analysis/statistic
 - Know the various tools to transform the data and when is more appropriate to
