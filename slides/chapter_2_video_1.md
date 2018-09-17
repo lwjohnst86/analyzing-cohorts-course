@@ -12,12 +12,14 @@ key: "f836c98410"
 
 `@lower_third`
 
-name: Luke
+name: Luke Johnston
 title: Instructor
 
 
 `@script`
 
+- Exploring data (dot/boxplots, violinplots, correlation heatmap)
+    - Need to understand the data before doing any serious wrangling
 
 
 ---

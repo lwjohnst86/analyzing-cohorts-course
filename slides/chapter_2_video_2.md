@@ -12,12 +12,17 @@ key: "edbfed5a7c"
 
 `@lower_third`
 
-name: Luke
+name: Luke Johnston
 title: Instructor
 
 
 `@script`
 
+- Tidy data, types of structure for type of analysis
+- Longitudinal data in wide format
+    - converting into long for use by statistical techniques (e.g. mixed effects)
+    - talk about tidy data
+TODO: More content, specific to cohorts.
 
 
 ---
