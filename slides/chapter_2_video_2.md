@@ -18,6 +18,7 @@ title: Instructor
 
 `@script`
 
+- Or rather "coordinatized" data, so that each data value is unique and has a meaning.
 - Tidy data, types of structure for type of analysis
 - Longitudinal data in wide format
     - converting into long for use by statistical techniques (e.g. mixed effects)
