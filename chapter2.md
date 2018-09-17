@@ -1,5 +1,5 @@
 ---
-title: 'Data exploring, wrangling, and formatting'
+title: 'Data wrangling, exploration, and formatting'
 description: ""
 ---
 
@@ -24,6 +24,7 @@ key: e50ea375f8
 xp: 100
 ```
 
+Create a simple visual comparing the outcome with the exposures.
 
 
 `@instructions`
@@ -49,6 +50,13 @@ xp: 100
 `@solution`
 
 ```{r}
+framingham %>% 
+    select(time, cvd, totchol, age, bmi) %>% 
+    gather(Variable, Value, -time, -cvd) %>% 
+    mutate(cvd = as.factor(cvd)) %>% 
+    ggplot(aes(x = Value, group = cvd, fill = cvd)) +
+    geom_density(alpha = 0.6) +
+    facet_grid(~ Variable, scales = "free")
 
 ```
 
@@ -70,6 +78,7 @@ key: aec12c0d13
 xp: 100
 ```
 
+Create a box and jitter plot of all the variables of interest, at the baseline visit:
 
 
 `@pre_exercise_code`
@@ -82,6 +91,16 @@ xp: 100
 `@sample_code`
 
 ```{r}
+fh_long <- framingham %>% 
+    filter(time == 0) %>% 
+    select(cvd, totchol, bmi, age) %>% 
+    gather(Variable, Value)
+    
+fh_long
+
+ggplot(fh_long, aes(x = Value)) +
+    geom_histogram() +
+    facet_grid(~ Variable, scales = "free")
 
 ```
 
@@ -195,6 +214,14 @@ xp: 100
 ```
 
 
+Sometimes, categorical (factor or character) variables have many levels, but only
+a few observations in each level. For analyses, this is less than ideal, so it
+is often useful to reduce the total number of categories by merging levels together.
+This can be especially useful if interpretation of only one level is desired
+compared to other levels.
+
+Reduce the levels of education by using the `fct_recode` function from the 
+`forcats` package.
 
 `@instructions`
 
@@ -219,6 +246,18 @@ xp: 100
 `@solution`
 
 ```{r}
+library(forcats)
+fh_educ <- framingham %>% 
+    mutate(educ_reduced = fct_recode(
+        educ, 
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+# Compare the original education variable with the reduced one
+fct_count(fh_educ$educ)
+fct_count(fh_educ$educ_reduced)
+# TODO: Add another dataset to reduce categories e.g. PROMISE and ethnicity
 
 ```
 
@@ -240,6 +279,11 @@ key: ca708dca27
 xp: 100
 ```
 
+Using different types of transformations is dependent on the specific research
+question and how the data looks. It's useful to understand what each types of 
+transformations do to the available data.
+
+Explore the transforms visually.
 
 
 `@pre_exercise_code`
@@ -354,6 +398,19 @@ xp: 30
 `@solution`
 
 ```{r}
+# TODO: show a cohort with continuous outcome, and log that
+fh_transformed <- framingham %>% 
+    mutate(scale_bmi = as.numeric(scale(bmi)),
+           log_bmi = log(bmi),
+           log10_bmi = log10(bmi),
+           exp_bmi = bmi^2)
+
+fh_transformed %>% 
+    select(contains("bmi")) %>% 
+    gather(bmi_variable, bmi_value) %>% 
+    ggplot(aes(x = bmi_value)) +
+    geom_histogram() +
+    facet_grid( ~ bmi_variable, scale = "free")
 
 ```
 
