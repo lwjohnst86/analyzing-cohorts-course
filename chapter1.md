@@ -290,6 +290,7 @@ explore_framingham <- framingham %>%
 `@sample_code`
 
 ```{r}
+# Gather data into long form, but exclude (-) two columns
 explore_framingham  %>%
 ```
 
@@ -315,6 +316,7 @@ xp: 35
 `@sample_code`
 
 ```{r}
+# Gather data into long form, but exclude (-) two columns
 explore_framingham  %>%
 ```
 
