@@ -400,6 +400,7 @@ xp: 30
 `@sample_code`
 
 ```{r}
+# Spread into wide form
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
     group_by(followup_visit_number, got_cvd, variables) %>% 
@@ -410,6 +411,7 @@ explore_framingham %>%
 `@solution`
 
 ```{r}
+# Spread into wide form
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
     group_by(followup_visit_number, got_cvd, variables) %>% 
