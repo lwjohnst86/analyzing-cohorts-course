@@ -66,14 +66,12 @@ key: f9d57e327c
 xp: 100
 ```
 
-
 Usually you can determine the cohort design from the variables in the dataset. Which variables in the Framingham study give us an indication of the cohort design? What is the cohort design?
 
 We expect you to be (at least a bit) familiar with the tidyverse packages and functions, since you will need to use dplyr and tidyr functions throughout this course.
 
 
 `@pre_exercise_code`
-
 ```{r}
 library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
@@ -81,16 +79,13 @@ framingham$time <- NULL
 
 ```
 
-
 `@sample_code`
-
 ```{r}
 # Select two columns that indicate design
 framingham %>% 
     select(_____, _____)
 
 ```
-
 
 ***
 
@@ -109,9 +104,7 @@ xp: 50
 `@hint`
 - Recall that Framingham was designed to study the disease `cvd`.
 
-
 `@sample_code`
-
 ```{r}
 # Select two columns that indicate design
 framingham %>% 
@@ -119,9 +112,7 @@ framingham %>%
 
 ```
 
-
 `@solution`
-
 ```{r}
 # Select two columns that indicate design
 framingham %>% 
@@ -129,9 +120,7 @@ framingham %>%
 
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Yes! You've identified that Framingham is a prospective cohort!")
 
@@ -157,7 +146,6 @@ xp: 50
 - Recall that the study was designed to examine cardiovascular disease *over time*.
 
 `@sct`
-
 ```{r}
 success_msg("Nice job!")
 ```
@@ -227,7 +215,6 @@ explore_framingham
 ```
 
 `@solution`
-
 ```{r}
 # Select and rename the potential exposures and outcome
 explore_framingham <- framingham %>%
@@ -243,13 +230,10 @@ explore_framingham <- framingham %>%
 explore_framingham
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Great job! You've selected and renamed the variables correctly.")
 ```
-
 
 ---
 
@@ -269,7 +253,6 @@ In this case, since we not only have a time column (`period`), but also multiple
 This exercise makes heavy use of tidyverse-style wrangling, so we expect some familiarity with the tidyverse.
 
 `@pre_exercise_code`
-
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -286,14 +269,11 @@ explore_framingham <- framingham %>%
     )
 ```
 
-
 `@sample_code`
-
 ```{r}
 # Gather data into long form, but exclude (-) two columns
 explore_framingham  %>%
 ```
-
 
 ***
 
@@ -314,23 +294,18 @@ xp: 35
 - Use the `-` to exclude `followup_visit_number` and `got_cvd`.
 
 `@sample_code`
-
 ```{r}
 # Gather data into long form, but exclude (-) two columns
 explore_framingham  %>%
 ```
 
-
 `@solution`
-
 ```{r}
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Great job! `gather` is a very powerful function to converting to long form.")
 ```
@@ -356,16 +331,13 @@ xp: 35
 - Name the new summarized variable `mean_values`.
 
 `@sample_code`
-
 ```{r}
 # Group by, then summarise
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>%
 ```
 
-
 `@solution`
-
 ```{r}
 # Group by, then summarise
 explore_framingham %>% 
@@ -374,9 +346,7 @@ explore_framingham %>%
     summarize(mean_values = mean(Value, na.rm = TRUE))
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Great job! Combining `gather`, `group_by`, and another function such as `summarize` is a powerful approach to 'split-apply-combine' analyses.")
 ```
@@ -398,7 +368,6 @@ xp: 30
 - Use `got_cvd` as the key argument.
 
 `@sample_code`
-
 ```{r}
 # Spread into wide form
 explore_framingham %>% 
@@ -407,9 +376,7 @@ explore_framingham %>%
     summarize(mean_values = mean(values, na.rm = TRUE)) %>%
 ```
 
-
 `@solution`
-
 ```{r}
 # Spread into wide form
 explore_framingham %>% 
@@ -419,9 +386,7 @@ explore_framingham %>%
     spread(got_cvd, mean_values)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Awesome! You did it. You now have can compare between those who didn't and those who did get CVD.")
 ```
@@ -475,7 +440,6 @@ framingham$time <- NULL
 ```
 
 `@sct`
-
 ```{r}
 msg1 <- "Incorrect. The cohort study was not designed to answer 'causes'."
 msg2 <- "Incorrect. While cohorts could answer this questions, Framingham participants are all in middle age so we can't answer questions outside of that timeframe."
@@ -484,7 +448,6 @@ msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Stu
 msg5 <- "Incorrect. One of the above is a valid question."
 # test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
-
 
 ---
 
@@ -501,7 +464,6 @@ One of the first things to explore is the number of cases, as this will help inf
 Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr have been loaded and all variables have been added back into `explore_framingham`.
 
 `@pre_exercise_code`
-
 ```{r}
 library(dplyr)
 library(tidyr)
@@ -518,14 +480,11 @@ explore_framingham <- framingham %>%
     )
 ```
 
-
 `@sample_code`
-
 ```{r}
 # Count number of participants per visit
 explore_framingham %>%
 ```
-
 
 ***
 
@@ -544,24 +503,19 @@ xp: 25
 - Use the `count` function.
 
 `@sample_code`
-
 ```{r}
 # Count number of participants per visit
 explore_framingham %>%
 ```
 
-
 `@solution`
-
 ```{r}
 # Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Great! You now know how to count the number of participants at each time point.")
 ```
@@ -585,7 +539,6 @@ xp: 25
 - Name the new gather key column "Disease" and the value column "Cases".
 
 `@sample_code`
-
 ```{r}
 # Count number of participants per visit
 explore_framingham %>% 
@@ -596,9 +549,7 @@ explore_framingham %>%
     # First, gather to long form
 ```
 
-
 `@solution`
-
 ```{r}
 # Count number of participants per visit
 explore_framingham %>% 
@@ -610,9 +561,7 @@ explore_framingham %>%
     gather(Disease, Cases, prevmi, prevchd)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Excellent, now the next step.")
 ```
@@ -634,7 +583,6 @@ xp: 25
 - Use the `count` function with three variables.
 
 `@sample_code`
-
 ```{r}
 # Count number of participants per visit
 explore_framingham %>% 
@@ -646,9 +594,7 @@ explore_framingham %>%
     # Now, count the cases
 ```
 
-
 `@solution`
-
 ```{r}
 # Count number of participants per visit
 explore_framingham %>% 
@@ -661,9 +607,7 @@ explore_framingham %>%
     count(followup_visit_number, Disease, Cases)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Nearly there!")
 ```
@@ -685,7 +629,6 @@ xp: 25
 - The variable `n` should be the values in the spread columns.
 
 `@sample_code`
-
 ```{r}
 # Count number of participants per visit
 explore_framingham %>% 
@@ -698,9 +641,7 @@ explore_framingham %>%
     # Spread to wide form
 ```
 
-
 `@solution`
-
 ```{r}
 # Count number of participants per visit
 explore_framingham %>% 
@@ -714,9 +655,7 @@ explore_framingham %>%
     spread(Cases, n)
 ```
 
-
 `@sct`
-
 ```{r}
 success_msg("Woohoo! Nice job. You now know how to count the number of cases by visit.")
 ```
