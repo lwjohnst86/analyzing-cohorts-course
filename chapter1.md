@@ -69,6 +69,8 @@ xp: 100
 
 Usually you can determine the cohort design from the variables in the dataset. Which variables in the Framingham study give us an indication of the cohort design? What is the cohort design?
 
+We expect you to be (at least a bit) familiar with the tidyverse packages and functions, since you will need to use dplyr and tidyr functions throughout this course.
+
 
 `@pre_exercise_code`
 
