@@ -262,11 +262,11 @@ lang: r
 xp: 100
 ```
 
-Like the majority of data analyses, a large part of the work involves wrangling the data into the appropriate form to then analyze. One common technique involved in data processing and in data exploration and checking is the "split-apply-combine" method. For exploration, particularly of cohort datasets with multiple time points, it's useful see how multiple variables change over time using simple summary statistics.
+Like the majority of data analyses, a large part of the work involves wrangling the data into the appropriate form to then analyze. For exploration, particularly of cohort datasets with multiple time points, it's useful see how multiple variables change over time using simple summary statistics.
 
-In this case, since we not only have time as a column, but also multiple variables to summarize, we'll need to convert the data into a very long format
+In this case, since we not only have a time column (`period`), but also multiple variables to summarize, we'll need to convert the data into a very long format.
 
-It is expected that you are familiar with data wrangling in the tidyverse, since you will need to use the functions from the dplyr and tidyr packages.
+This exercise makes heavy use of tidyverse-style wrangling, so we expect some familiarity with the tidyverse.
 
 `@pre_exercise_code`
 
