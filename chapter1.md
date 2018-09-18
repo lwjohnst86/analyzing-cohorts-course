@@ -522,7 +522,7 @@ explore_framingham <- framingham %>%
 `@sample_code`
 
 ```{r}
-# Count the number of participants per visit.
+# Count number of participants per visit
 explore_framingham %>%
 ```
 
@@ -546,7 +546,7 @@ xp: 25
 `@sample_code`
 
 ```{r}
-# Count the number of participants per visit.
+# Count number of participants per visit
 explore_framingham %>%
 ```
 
@@ -554,7 +554,7 @@ explore_framingham %>%
 `@solution`
 
 ```{r}
-# Count the number of participants per visit.
+# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 ```
