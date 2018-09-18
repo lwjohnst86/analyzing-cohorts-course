@@ -578,7 +578,7 @@ xp: 25
 
 `@instructions`
 - Now, we want to count the cases of `prevmi` and `prevchd` for each `followup_visit_number`.
-- Use `gather`, with key as "Disease" and value as "Cases". Gather only the two disease columns.
+- Use `gather` to create new columns "Disease" and "Cases" specific to the two diseases.
 
 `@hint`
 - Gather the correct disease columns as written in the instructions.
@@ -587,24 +587,26 @@ xp: 25
 `@sample_code`
 
 ```{r}
-# Count the number of participants per visit.
+# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count the number of prevalent cases of MI and CHD per visit. 
+# Count prevalent cases of MI and CHD per visit
 explore_framingham %>%
+    # First, gather to long form
 ```
 
 
 `@solution`
 
 ```{r}
-# Count the number of participants per visit.
+# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count the number of prevalent cases of MI and CHD per visit. 
+# Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
+    # First, gather to long form
     gather(Disease, Cases, prevmi, prevchd)
 ```
 
@@ -634,26 +636,28 @@ xp: 25
 `@sample_code`
 
 ```{r}
-# Count the number of participants per visit.
+# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count the number of prevalent cases of MI and CHD per visit. 
+# Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
     gather(Disease, Cases, prevmi, prevchd) %>%
+    # Now, count the cases
 ```
 
 
 `@solution`
 
 ```{r}
-# Count the number of participants per visit.
+# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count the number of prevalent cases of MI and CHD per visit. 
+# Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
     gather(Disease, Cases, prevmi, prevchd) %>% 
+    # Now, count the cases
     count(followup_visit_number, Disease, Cases)
 ```
 
@@ -683,28 +687,30 @@ xp: 25
 `@sample_code`
 
 ```{r}
-# Count the number of participants per visit.
+# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count the number of prevalent cases of MI and CHD per visit. 
+# Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
     gather(Disease, Cases, prevmi, prevchd) %>% 
     count(followup_visit_number, Disease, Cases) %>%
+    # Spread to wide form
 ```
 
 
 `@solution`
 
 ```{r}
-# Count the number of participants per visit.
+# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count the number of prevalent cases of MI and CHD per visit. 
+# Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
     gather(Disease, Cases, prevmi, prevchd) %>% 
     count(followup_visit_number, Disease, Cases) %>% 
+    # Spread to wide form
     spread(Cases, n)
 ```
 
