@@ -347,7 +347,7 @@ xp: 35
 
 `@instructions`
 - `group_by` on followup number, CVD status, and the variables.
-- Use the dplyr `summarize` function to calculate the `mean` and call the new variable `mean_values`).
+- Use the dplyr `summarize` function to calculate the `mean` and call the new variable `mean_values`.
 - Make sure to use the `na.rm = TRUE` option when calculating the mean.
 
 `@hint`
@@ -358,6 +358,7 @@ xp: 35
 `@sample_code`
 
 ```{r}
+# Group by, then summarise
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>%
 ```
@@ -366,6 +367,7 @@ explore_framingham %>%
 `@solution`
 
 ```{r}
+# Group by, then summarise
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
     group_by(followup_visit_number, got_cvd, variables) %>% 
