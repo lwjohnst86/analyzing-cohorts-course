@@ -18,6 +18,7 @@ title: Instructor
 
 `@script`
 
+- DON't Dichotomize!!
 - Types of transformations and why to use them:
     - Log: if data is highly skewed, if interested in output after
     backtransforming of percent impact rather than on original unit impact
