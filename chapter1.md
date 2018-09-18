@@ -61,63 +61,21 @@ msg4 <- "Incorrect. While all cohorts have risk factors measured, this alone doe
 ## What cohort type is the Framingham Heart Study?
 
 ```yaml
-type: NormalExercise
-key: bb64056fa8
-lang: r
-xp: 100
-skills: 1
-```
-
-Usually you can determine the cohort design from the variables in the dataset. Which variables in the Framingham study give us an indication of the cohort design?
-
-`@instructions`
-- Take a look through the `framingham` dataset.
-- Select the two variables that indicate the cohort design of `framingham`.
-
-`@hint`
-- Recall that Framingham was designed to study the disease `cvd`.
-
-`@pre_exercise_code`
-```{r}
-library(dplyr)
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
-framingham$time <- NULL
-```
-
-`@sample_code`
-```{r}
-# Select two columns that indicate design
-framingham %>% 
-    select(_____, _____)
-```
-
-`@solution`
-```{r}
-# Select two columns that indicate design
-framingham %>% 
-    select(period, cvd)
-```
-
-`@sct`
-```{r}
-success_msg("Yes! You've identified that Framingham is a prospective cohort!")
-```
-
----
-
-## Insert exercise title here
-
-```yaml
 type: TabExercise
 key: f9d57e327c
 xp: 100
 ```
 
 
+Usually you can determine the cohort design from the variables in the dataset. Which variables in the Framingham study give us an indication of the cohort design? What is the cohort design?
+
 
 `@pre_exercise_code`
 
 ```{r}
+library(dplyr)
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+framingham$time <- NULL
 
 ```
 
@@ -125,6 +83,9 @@ xp: 100
 `@sample_code`
 
 ```{r}
+# Select two columns that indicate design
+framingham %>% 
+    select(_____, _____)
 
 ```
 
@@ -140,14 +101,19 @@ xp: 50
 
 
 `@instructions`
-
+- Take a look through the `framingham` dataset.
+- Select the two variables that indicate the cohort design of `framingham`.
 
 `@hint`
+- Recall that Framingham was designed to study the disease `cvd`.
 
 
 `@sample_code`
 
 ```{r}
+# Select two columns that indicate design
+framingham %>% 
+    select(_____, _____)
 
 ```
 
@@ -155,6 +121,9 @@ xp: 50
 `@solution`
 
 ```{r}
+# Select two columns that indicate design
+framingham %>% 
+    select(period, cvd)
 
 ```
 
@@ -162,6 +131,7 @@ xp: 50
 `@sct`
 
 ```{r}
+success_msg("Yes! You've identified that Framingham is a prospective cohort!")
 
 ```
 
@@ -176,15 +146,18 @@ xp: 50
 
 
 `@instructions`
-
+- Prospective
+- Retrospective
+- Neither
+- Both
 
 `@hint`
-
+- Recall that the study was designed to examine cardiovascular disease *over time*.
 
 `@sct`
 
 ```{r}
-
+success_msg("Nice job!")
 ```
 
 ---
