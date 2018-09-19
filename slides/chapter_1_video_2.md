@@ -110,7 +110,7 @@ knitr::kable(initial_sample)
 
 
 `@script`
-Let's take a look at Framingham in more detail. First, we can check the number of visits participants came in for and how long participants where followed for. Using dplyr, we see that there were 3 data collection visits, which is the variable period here, and more than 13 years of follow up, which is the variable time that was in days. Next, we can check how many participants came into the first visit. Since the first collection visit is set as 1 (other datasets use 0 instead), we need to keep only data from the baseline visit. Here we see there are more than 4400 participants, which is a pretty big cohort.
+Let's look at Framingham more. By using dplyr and kable from knitr, we can check and present the number of visits participants came in for and how long participants where followed for. There were 3 visits, which is from the variable period, and >13 years of follow-up, which is the variable time in days. Next, let's check how many participants came at the first visit. To only see baseline data, we filter by period. We see there are >4400 participants, which is a pretty big sample.
 
 
 ---
