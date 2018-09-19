@@ -194,7 +194,6 @@ Initially, it can be helpful to keep only variables of interest. For now, let's 
 ```{r}
 library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
-framingham$time <- NULL
 ```
 
 `@sample_code`
@@ -256,7 +255,6 @@ This exercise makes heavy use of tidyverse-style wrangling, so we expect some fa
 library(dplyr)
 library(tidyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
-framingham$time <- NULL
 explore_framingham <- framingham %>%
     select(
         got_cvd = cvd, 
@@ -467,7 +465,6 @@ Next, count the number of cases and non-cases for prevalent myocardial infarctio
 library(dplyr)
 library(tidyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
-framingham$time <- NULL
 explore_framingham <- framingham %>%
     rename(
         got_cvd = cvd, 
