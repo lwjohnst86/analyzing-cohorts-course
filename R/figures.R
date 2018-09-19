@@ -111,7 +111,7 @@ over_time_plot <- function(.data) {
             point.padding = 0.25,
             direction = "y",
             nudge_x = 0.1) +
-        scale_color_manual(values = rev(color_theme)) +
+        scale_color_manual(values = rev(color_theme), na.translate = FALSE) +
         coord_cartesian(ylim = c(0.75, 2.25), xlim = c(0.75, 3.25), expand = FALSE) +
         theme(
             panel.background = element_blank(),
@@ -125,13 +125,20 @@ over_time_plot <- function(.data) {
 }
 
 fig1 <- prev_incid %>%
-    mutate_at(vars(Disease, PersonText), funs(ifelse(Visit == 0, ., NA))) %>%
+    mutate(
+        Person = if_else(Visit %in% 0, Person, NA_character_),
+        Disease = if_else(Visit %in% 0, Disease, NA_integer_),
+        PersonText = if_else(Visit == 0, PersonText, NA_character_)
+    ) %>%
     over_time_plot()
 ggsave("datasets/plot-prevalence-incidence-0.png", dpi = 90)
 
 fig2 <- prev_incid %>%
-    mutate_at(vars(Disease), funs(ifelse(Visit %in% 0:1, ., NA))) %>%
-    mutate_at(vars(PersonText), funs(ifelse(Visit == 1, ., NA))) %>%
+    mutate(
+        Person = if_else(Visit %in% 0:1, Person, NA_character_),
+        Disease = if_else(Visit %in% 0:1, Disease, NA_integer_),
+        PersonText = if_else(Visit == 1, PersonText, NA_character_)
+    ) %>%
     over_time_plot()
 ggsave("datasets/plot-prevalence-incidence-1.png", dpi = 90)
 
