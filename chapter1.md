@@ -70,7 +70,6 @@ Usually you can determine the cohort design from the variables in the dataset. W
 
 We expect you to be (at least a bit) familiar with the tidyverse packages and functions, since you will need to use dplyr and tidyr functions throughout this course.
 
-
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
