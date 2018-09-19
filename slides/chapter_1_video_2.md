@@ -122,11 +122,31 @@ key: "fd098b73b9"
 ```
 
 `@part1`
+```{r}
+names(framingham)
+```
 
+```
+ [1] "randid"   "sex"      "totchol"  "age"      "sysbp"   
+ [6] "diabp"    "cursmoke" "cigpday"  "bmi"      "diabetes"
+[11] "bpmeds"   "heartrte" "glucose"  "educ"     "prevchd" 
+[16] "prevap"   "prevmi"   "prevstrk" "prevhyp"  "time"    
+[21] "period"   "hdlc"     "ldlc"     "death"    "angina"  
+[26] "hospmi"   "mi_fchd"  "anychd"   "stroke"   "cvd"     
+[31] "hyperten" "timeap"   "timemi"   "timemifc" "timechd" 
+[36] "timestrk" "timecvd"  "timedth"  "timehyp" 
+```
+
+```
+> unique(framingham$educ)
+[1]  4  2  1  3 NA
+> unique(framingham$sex)
+[1] 1 2
+```
 
 
 `@script`
-There are things that aren't very clean in the dataset. For instance, the variable names aren't clear and some values don't tell us their meaning. An example is sex; what does 2 mean? We'll need to do some tidying beforehand. So, it's a good idea to explore the data to understand it first.
+There are many things that aren't clean or obvious in the dataset. For instance, the variable names aren't clear and some values don't tell us their meaning. For instance, what does 2 mean for sex or education? We'll need to do some tidying beforehand. It's a good idea to first explore the data a bit to understand it more.
 
 
 ---
@@ -144,6 +164,9 @@ key: "75da8bcc42"
 - Variables of interest
     - Outcome: Is the disease 
     - Exposure/predictor: Factor that is thought to influence the outcome
+- Framingham:
+    - 3 visits, >13 years follow up
+    - ~4400 participants
 
 
 `@script`
