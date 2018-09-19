@@ -75,18 +75,54 @@ In cohort studys, there are commonly two terms used, outcome and exposure or pre
 
 
 ---
-## More details on the Framingham Study
+## The prospective Framingham cohort
 
 ```yaml
-type: "FullSlide"
-key: "bb27ce60f1"
+type: "TwoRows"
+key: "88bd3012a7"
 ```
 
 `@part1`
-- Framingham cohort
-    - ~3 time points, ~15 years
-    - ~4400 participants
-    - Many possible predictors
+```{r}
+library(dplyr)
+followup <- framingham %>%
+    summarise(number_visits = max(period),
+              number_years = round(max(time) / 365, 1))
+knitr::kable(followup)
+```
+
+| number_visits| number_years|
+|-------------:|------------:|
+|             3|         13.3|
+
+
+`@part2`
+```{r}
+initial_sample <- framingham %>% 
+    filter(period == 1) %>% 
+    summarise(number_participants = n())
+knitr::kable(initial_sample)
+```
+
+| number_participants|
+|-------------------:|
+|                4434|
+
+
+`@script`
+Let's take a look at Framingham in more detail. First, we can check the number of visits participants came in for and how long participants where followed for. Using dplyr, we see that there were 3 data collection visits, which is the variable period here, and more than 13 years of follow up, which is the variable time that was in days. Next, we can check how many participants came into the first visit. Since the first collection visit is set as 1 (other datasets use 0 instead), we need to keep only data from the baseline visit. Here we see there are more than 4400 participants, which is a pretty big cohort.
+
+
+---
+## The prospective Framingham cohort
+
+```yaml
+type: "FullSlide"
+key: "fd098b73b9"
+```
+
+`@part1`
+
 
 
 `@script`
