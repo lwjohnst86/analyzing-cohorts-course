@@ -29,11 +29,42 @@ key: bb42e35095
 
 `@part1`
 
-![Prevalent vs incident cases](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/9b742faef2e87f693056fc5df943b18a6a85ee24/plot-prevalence-incidence.png)
+![Prevalent vs incident cases](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/3e456b349ecb086e4896f2736cebe209bbf5a6f1/plot-prevalence-incidence-0.png)
 
 `@script`
 
-There are two terms when it comes to numbers of cases: Prevalence and incidence. Prevalence is a snap shot in time and counts how many have a disease. Incidence is the new cases of a disease over a period of time. Incidence data is much more scientifically powerful at understanding how exposures can influence disease risk because of the time component. Here shows what prevalence vs incidence is in a prospective cohort. At visit 0, there is one case, so there is one prevalent case. At visit 1, there are 2 cases and 1 is new, so two prevalent cases, but 1 incident case. At visit 2, there are 3 cases, three prevalent, one incident. Determining incident cases requires knowing a person's previous state, so is a bit more difficult to count.
+There are two terms when it comes to numbers of cases: Prevalence and incidence. Prevalence is a snap shot in time and counts how many have a disease. Incidence is the new cases of a disease over a period of time. Incidence data is much more scientifically powerful at understanding how exposures can influence disease risk because of the time component. Here shows what prevalence vs incidence is in a prospective cohort. At visit 0, there is one case, so there is one prevalent case.
+
+---
+## Prevalent vs incident cases of disease
+
+```yaml
+type: FullImageSlide
+```
+
+`@part1`
+
+![Prevalent vs incident cases](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/c761fb007f4e74dc60b6a13be7d1138ea9aea972/plot-prevalence-incidence-1.png)
+
+`@script`
+
+At visit 1, there are now 2 cases, 1 of which is new. So there are two prevalent cases, but 1 incident case.
+
+---
+## Prevalent vs incident cases of disease
+
+```yaml
+type: FullImageSlide
+```
+
+`@part1`
+
+![Prevalent vs incident cases](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/76e7bcc72f2df978b36720268e27241ca370750e/plot-prevalence-incidence-2.png)
+
+`@script`
+
+At visit 2, there are now 3 cases, three prevalent, one incident. Prevalence is always the number of cases at any given time point. To determine incident cases we need to know the person's previous state, so is a bit more difficult to count. In this case, there are two incident cases over the entire study period.
+
 
 ---
 ## Counting number of cases at recruitment
