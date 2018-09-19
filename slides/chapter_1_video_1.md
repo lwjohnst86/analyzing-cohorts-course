@@ -117,20 +117,18 @@ key: "d2a6af7c52"
 ```
 
 `@part1`
-
-- Pressure to "let the data tell the story", which is dangerous
-    - Cohorts study health, which has real-world impact on lives
-- Design type restricts 
+- Context is vital when examining data
+    - Cohorts study health, has real-world impact on lives
 - Analysis and interpretation restricted by:
     - Design type
     - How and what was measured
 - Examples: 
-    - Imprecise measures are often in retrospective cohorts, so must be cautious
-    - Exposures that are physiological abstractions must be transformed to have meaningful results
+    - Imprecise measures are often in retrospective cohorts - be cautious
+    - If exposure is physiological abstraction, need to transform for interpretation
 
 
 `@script`
-Sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". This is dangerous in many ways, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have a real-world impact on people's lives. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. 
+Sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". This is dangerous in many ways, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have a real-world impact on people's lives. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. You need to know the context of the data.
 
 In the case of cohorts, the study design and types of variables measured influence how you analyze your data. For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that are abstractions of a physiological process, so by transforming the variable you can have meaningful results. This also means there are many ways of analyzing cohort datasets.
 
@@ -164,9 +162,7 @@ framingham
 
 
 `@script`
-Now we get to the Framingham study, which started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, with data collected about 3 times over 15 years of followup.  
-
-There are things that aren't very clean in the dataset. For instance, the variable names aren't clear and some values don't tell us their meaning. An example is sex; what does 2 mean? We'll need to do some tidying beforehand. Before that, it's a good idea to explore the data to understand it.
+Now we get to the Framingham study, which started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, with data collected about 3 times over 15 years of followup.
 
 
 ---
