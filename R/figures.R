@@ -2,7 +2,6 @@
 library(tidyverse)
 library(emojifont)
 library(ghibli)
-library(gganimate)
 library(ggrepel)
 color_theme <- ghibli_palette("MononokeMedium")
 
@@ -92,31 +91,51 @@ prev_incid <- tibble(
     gather(Person, Disease, -Visit) %>%
     mutate(Person = str_remove(Person, "Person_"),
            Disease = if_else(Disease == 0, "Healthy", "Disease"),
-           Disease = fct_rev(Disease))
+           Disease = fct_rev(Disease),
+           PersonText = Person)
 
-prev_incid_plot <- ggplot(prev_incid,
-       aes(
-           x = Visit,
-           y = Disease,
-           group = Person,
-           colour = Person,
-           label = Person
-       )) +
-    geom_line() +
-    geom_point() +
-    geom_text_repel(colour = "black") +
-    transition_states(Visit, 3, 2, wrap = FALSE) +
-    scale_color_manual(values = rev(color_theme)) +
-    coord_cartesian(ylim = c(0.75, 2.25), expand = FALSE) +
-    theme(
-        panel.background = element_blank(),
-        panel.grid.major.x = element_line(colour = "grey85"),
-        axis.ticks = element_blank(),
-        legend.key = element_blank()
-    ) +
-    labs(y = NULL, x = "Followup visit number",
-         title = "Incident vs prevalent cases",
-         subtitle = "- Prevalent cases only at given visit\n- Incidence is total new cases") +
-    shadow_trail()
-prev_incid_plot
-ggsave("datasets/plot-prevalence-incidence.png", dpi = 90)
+over_time_plot <- function(.data) {
+    ggplot(.data,
+           aes(
+               x = Visit,
+               y = Disease,
+               group = Person,
+               colour = Person,
+               label = PersonText
+           )) +
+        geom_line() +
+        geom_point() +
+        geom_text_repel(
+            colour = "black",
+            segment.size = 0.2,
+            point.padding = 0.25,
+            direction = "y",
+            nudge_x = 0.1) +
+        scale_color_manual(values = rev(color_theme)) +
+        coord_cartesian(ylim = c(0.75, 2.25), xlim = c(0.75, 3.25), expand = FALSE) +
+        theme(
+            panel.background = element_blank(),
+            panel.grid.major.x = element_line(colour = "grey85"),
+            axis.ticks = element_blank(),
+            legend.key = element_blank()
+        ) +
+        labs(y = NULL, x = "Followup visit number",
+             title = "Incident vs prevalent cases",
+             subtitle = "- Prevalent cases only at given visit\n- Incidence is total new cases")
+}
+
+fig1 <- prev_incid %>%
+    mutate_at(vars(Disease, PersonText), funs(ifelse(Visit == 0, ., NA))) %>%
+    over_time_plot()
+ggsave("datasets/plot-prevalence-incidence-0.png", dpi = 90)
+
+fig2 <- prev_incid %>%
+    mutate_at(vars(Disease), funs(ifelse(Visit %in% 0:1, ., NA))) %>%
+    mutate_at(vars(PersonText), funs(ifelse(Visit == 1, ., NA))) %>%
+    over_time_plot()
+ggsave("datasets/plot-prevalence-incidence-1.png", dpi = 90)
+
+fig3 <- prev_incid %>%
+    mutate_at(vars(PersonText), funs(ifelse(Visit == 2, ., NA))) %>%
+    over_time_plot()
+ggsave("datasets/plot-prevalence-incidence-2.png", dpi = 90)
