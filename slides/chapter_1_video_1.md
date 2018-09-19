@@ -162,9 +162,7 @@ framingham
 
 
 `@script`
-Now we get to the Framingham study, which started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, with data collected about 3 times over 15 years of followup.  
-
-There are things that aren't very clean in the dataset. For instance, the variable names aren't clear and some values don't tell us their meaning. An example is sex; what does 2 mean? We'll need to do some tidying beforehand. So, it's a good idea to explore the data to understand it first.
+Now we get to the Framingham study, which started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, with data collected about 3 times over 15 years of followup.
 
 
 ---
