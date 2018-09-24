@@ -40,7 +40,7 @@ Features:
 
 
 `@script`
-What is a cohort study? Cohorts are usually scientific studies to investigate how factors influence the risk for a disease. Cohorts always include a time component, or a temporal aspect. Most importantly, participants in a cohort share a common characteristic. For instance, in the Nurses' Health Study from the United States, all participants are married female nurses. In this course, we aren't going to cover specific statistical techniques because cohort analysis is so diverse. Instead, we are going to focus on the overall workflow and process of looking at, analyzing, interpreting, and presenting results from cohorts.
+What is a cohort study? Cohorts are usually scientific studies to investigate how factors influence the risk for a disease. Cohorts always include a time component, or there is a temporal aspect to the data. Most importantly, participants in a cohort share a common characteristic. For instance, in the Nurses' Health Study from the United States, all participants are married female nurses. In this course, we aren't going to cover specific statistical techniques because cohort analysis is so diverse. Instead, we are going to focus on the overall workflow and process of looking at, analyzing, interpreting, and presenting results from cohorts.
 
 
 ---
@@ -118,7 +118,7 @@ key: "d2a6af7c52"
 
 `@part1`
 - Context is vital when examining data
-    - Cohorts study health, has real-world impact on lives
+    - Cohorts study health, have real-world impact on lives
 - Analysis and interpretation restricted by:
     - Design type
     - How and what was measured
@@ -162,7 +162,7 @@ framingham
 
 
 `@script`
-Now we get to the Framingham study, which started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown from the results of this study. The study has about 4400 participants, with data collected about 3 times over 15 years of followup.
+Now we get to the Framingham study, which started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown by the results of this study. The study has about 4400 participants, with data collected about 3 times over 15 years of followup.
 
 
 ---
