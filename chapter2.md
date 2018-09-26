@@ -340,19 +340,21 @@ library(forcats)
 `@solution`
 
 ```{r}
-library(forcats)
+# Count levels of education
+count(framingham, education)
+
+# Merge levels together
 fh_educ <- framingham %>% 
-    mutate(educ_reduced = fct_recode(
-        educ, 
+    mutate(education_combined = fct_recode(
+        education, 
         "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
+        "Post-Secondary" = "Vocational",
+        ...
         ))
 
-# Compare the original education variable with the reduced one
-fct_count(fh_educ$educ)
-fct_count(fh_educ$educ_reduced)
-# TODO: Add another dataset to reduce categories e.g. PROMISE and ethnicity
-
+# Check levels of new variable
+count(framingham, education_combined)
+# or this? fct_count(framingham$education)
 ```
 
 
