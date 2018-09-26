@@ -61,7 +61,6 @@ framingham %>%
     ggplot(aes(x = Value, group = cvd, fill = cvd)) +
     geom_density(alpha = 0.6) +
     facet_grid(~ Variable, scales = "free")
-
 ```
 
 
@@ -135,6 +134,16 @@ xp: 50
 `@solution`
 
 ```{r}
+fh_long <- framingham %>% 
+    filter(time == 0) %>% 
+    select(cvd, totchol, bmi, age) %>% 
+    gather(Variable, Value)
+    
+fh_long
+
+ggplot(fh_long, aes(x = Value)) +
+    geom_histogram() +
+    facet_grid(~ Variable, scales = "free")
 
 ```
 
@@ -171,6 +180,17 @@ xp: 50
 `@solution`
 
 ```{r}
+fh_long <- framingham %>% 
+    filter(time == 0) %>% 
+    select(cvd, totchol, bmi, age) %>% 
+    gather(Variable, Value)
+    
+fh_long
+
+ggplot(fh_long, aes(x = Value)) +
+    geom_histogram() +
+    facet_grid(~ Variable, scales = "free")
+
 
 ```
 
