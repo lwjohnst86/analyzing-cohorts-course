@@ -221,6 +221,7 @@ xp: 50
 ```yaml
 type: NormalExercise
 xp: 100
+key: d905b3eee0
 ```
 
 
