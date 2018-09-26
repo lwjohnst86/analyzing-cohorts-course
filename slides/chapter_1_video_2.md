@@ -85,28 +85,32 @@ key: "88bd3012a7"
 `@part1`
 ```{r}
 library(dplyr)
-followup <- framingham %>%
+framingham %>%
     summarise(number_visits = max(period),
               number_years = round(max(time) / 365, 1))
-knitr::kable(followup)
 ```
 
-| number_visits| number_years|
-|-------------:|------------:|
-|             3|         13.3|
+```{text}
+# A tibble: 1 x 2
+  number_visits number_years
+          <dbl>        <dbl>
+1             3         13.3
+```
 
 
 `@part2`
 ```{r}
-initial_sample <- framingham %>% 
+framingham %>% 
     filter(period == 1) %>% 
     summarise(number_participants = n())
-knitr::kable(initial_sample)
 ```
 
-| number_participants|
-|-------------------:|
-|                4434|
+```{text}
+# A tibble: 1 x 1
+  number_participants
+                <int>
+1                4434
+```
 
 
 `@script`
