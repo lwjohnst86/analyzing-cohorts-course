@@ -26,6 +26,7 @@ xp: 100
 
 Create a simple visual comparing the outcome with the exposures.
 
+{{convert to tab exercise}}
 
 `@instructions`
 
@@ -35,8 +36,11 @@ Create a simple visual comparing the outcome with the exposures.
 
 `@pre_exercise_code`
 
-```{r}
-
+```{r setup}
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 ```
 
 
