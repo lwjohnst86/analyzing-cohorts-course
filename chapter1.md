@@ -340,7 +340,7 @@ explore_framingham %>%
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
     group_by(followup_visit_number, got_cvd, variables) %>% 
-    summarize(mean_values = mean(Value, na.rm = TRUE))
+    summarize(mean_values = mean(values, na.rm = TRUE))
 ```
 
 `@sct`
