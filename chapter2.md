@@ -216,6 +216,69 @@ xp: 50
 
 ---
 
+## Make discrete variables human-readable
+
+```yaml
+type: NormalExercise
+xp: 100
+```
+
+
+{{Convert to tab exercise}}
+
+
+`@instructions`
+
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+
+```{r}
+library(dplyr)
+library(forcats)
+```
+
+
+`@sample_code`
+
+```{r}
+
+```
+
+
+`@solution`
+
+```{r}
+framingham %>% 
+    mutate(
+        sex = case_when(
+            sex == 1 ~ "Male",
+            sex == 2 ~ "Female",
+            TRUE ~ NA_character_
+        ), 
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            )
+        )
+```
+
+
+`@sct`
+
+```{r}
+
+```
+
+
+---
+
 ## Transforming and modifying variables
 
 ```yaml
