@@ -298,6 +298,7 @@ explore_framingham  %>%
 
 `@solution`
 ```{r}
+# Gather data into long form, but exclude (-) two columns
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd)
 ```
