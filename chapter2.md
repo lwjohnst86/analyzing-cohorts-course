@@ -375,24 +375,25 @@ key: ca708dca27
 xp: 100
 ```
 
-Using different types of transformations is dependent on the specific research
-question and how the data looks. It's useful to understand what each types of 
-transformations do to the available data.
-
-Explore the transforms visually.
-
+There are many different types of transformations to use. Which to choose is
+dependent on the specific research question, how the data looks, and how you
+want your results to be interpreted. Let's see how each transformation changes the data.
 
 `@pre_exercise_code`
 
 ```{r}
-
+library(dplyr)
 ```
 
 
 `@sample_code`
 
 ```{r}
-
+fh_transformed <- framingham %>% 
+    mutate(scale_bmi = scale(bmi),
+           log_bmi = log(bmi),
+           log10_bmi = log10(bmi),
+           exp_bmi = bmi^2)
 ```
 
 
@@ -407,6 +408,7 @@ xp: 35
 
 
 `@instructions`
+- 
 
 
 `@hint`
@@ -415,14 +417,22 @@ xp: 35
 `@sample_code`
 
 ```{r}
-
+fh_transformed <- framingham %>% 
+    mutate(scale_bmi = scale(bmi),
+           log_bmi = log(bmi),
+           log10_bmi = log10(bmi),
+           exp_bmi = bmi^2)
 ```
 
 
 `@solution`
 
 ```{r}
-
+fh_transformed <- framingham %>% 
+    mutate(scale_bmi = scale(bmi),
+           log_bmi = log(bmi),
+           log10_bmi = log10(bmi),
+           exp_bmi = bmi^2)
 ```
 
 
