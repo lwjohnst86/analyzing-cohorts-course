@@ -301,16 +301,23 @@ xp: 100
 ```
 
 
-Sometimes, categorical (factor or character) variables have many levels, but only
-a few observations in each level. For analyses, this is less than ideal, so it
-is often useful to reduce the total number of categories by merging levels together.
-This can be especially useful if interpretation of only one level is desired
-compared to other levels.
+Sometimes, categorical (i.e. factor or character) variables have many levels,
+but only a few observations in each level. For many analyses, this is not ideal
+as small sample sizes in some groups make it difficult to ... {{complete this}}.
+So, it is often useful to reduce the number of categories by merging levels
+together. This can be especially useful if we only want to interpret one level
+compared to the other levels.
 
-Reduce the levels of education by using the `fct_recode` function from the 
+But first, let's make the values of education understandable, rather than just
+numbers.
+
+{{Convert to tab exercise}}
+
+Reduce the levels of education by using the `fct_recode` function from the
 `forcats` package.
 
 `@instructions`
+
 
 
 `@hint`
@@ -319,7 +326,7 @@ Reduce the levels of education by using the `fct_recode` function from the
 `@pre_exercise_code`
 
 ```{r}
-
+library(forcats)
 ```
 
 
