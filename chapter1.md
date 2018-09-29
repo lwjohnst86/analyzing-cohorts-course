@@ -32,7 +32,7 @@ The Framingham study was set up to study what might influence the risk of cardio
 
 What makes Framingham a cohort? The `framingham` dataset is loaded for you to explore. The dataset has yet to be fully tidied, which we will do more of in Chapter 2.
 
-`@instructions`
+`@possible_answers`
 - It studies a disease (CVD).
 - Participants all came from the town of Framingham, USA.
 - Participants were followed over time.
@@ -94,8 +94,6 @@ key: fbd1546da1
 xp: 50
 ```
 
-
-
 `@instructions`
 - Take a look through the `framingham` dataset.
 - Select the two variables that indicate the cohort design of `framingham`.
@@ -133,9 +131,10 @@ key: c22855322d
 xp: 50
 ```
 
+`@question`
 
 
-`@instructions`
+`@possible_answers`
 - Prospective
 - Retrospective
 - Neither
@@ -280,8 +279,6 @@ key: 85e4b0de64
 xp: 35
 ```
 
-
-
 `@instructions`
 - Using the tidyr `gather` function, make two new columns `variables` and `values`, but exclude
 `followup_visit_number` and `got_cvd`.
@@ -315,8 +312,6 @@ type: NormalExercise
 key: 9ca4b15cf5
 xp: 35
 ```
-
-
 
 `@instructions`
 - `group_by` on followup number, CVD status, and the variables.
@@ -356,8 +351,6 @@ type: NormalExercise
 key: 61e6dcd04b
 xp: 30
 ```
-
-
 
 `@instructions`
 - Use the tidyr `spread` function to have CVD status (the key) as the new column headers, and the the mean values (the value) as the values in the new columns.
@@ -420,7 +413,7 @@ Because the Framingham study is a prospective cohort, with certain limits to the
 
 The unchanged `framingham` dataset has been loaded in case you want to look  through it.
 
-`@instructions`
+`@possible_answers`
 - Does higher cholesterol cause cardiovascular disease (CVD)?
 - Will lower body mass during adolescence increase the risk for CVD?
 - Does smoking increase the risk for CVD?
@@ -491,8 +484,6 @@ key: 69ff80d798
 xp: 25
 ```
 
-
-
 `@instructions`
 - Count the number of participants (i.e. rows) for each `followup_visit_number`.
 
@@ -524,8 +515,6 @@ type: NormalExercise
 key: a0c6bd239b
 xp: 25
 ```
-
-
 
 `@instructions`
 - Now, we want to count the cases of `prevmi` and `prevchd` for each `followup_visit_number`.
@@ -571,8 +560,6 @@ key: 9bfa483cb9
 xp: 25
 ```
 
-
-
 `@instructions`
 - Next we need to count the number of `Cases` by `Disease` and visit number (`followup_visit_number`).
 
@@ -616,8 +603,6 @@ type: NormalExercise
 key: 19a1c49e37
 xp: 25
 ```
-
-
 
 `@instructions`
 - Lastly, you need to `spread` the data so `Cases` are columns, with their corresponding count.
