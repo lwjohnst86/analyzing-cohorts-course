@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-Before getting more into the Framingham dataset, we're going to quickly cover more differences between the two cohort types. Since Framingham is a prospective cohort, we'll highlight why a prospective cohort was chosen over a retrospective one for this course.
+Before getting more into the Framingham dataset, we're going to quickly cover more differences between the two cohort types. Since Framingham is a prospective cohort, I'll highlight why a prospective cohort was chosen over a retrospective one for this course.
 
 
 ---
@@ -33,7 +33,7 @@ key: "583fae4d2d"
 
 
 `@script`
-There are some important differences between the two cohort types. The main difference is when the study starts relative to the outcome occurrence. In a retrospective cohort, the study starts when people have the disease and their data is collected from past records. This is very common when data is collected in a frequent or typical way, such as in a hospital, so data are already available. In prospective cohorts, people don't have a disease at the start of the study and they are followup either until the end of the study or until they get the disease. Data is collected as the time passes. Both designs have their strengths and weaknesses. If you have easy access to data already collected by a hospital or the government, retrospective cohorts are very powerful scientific tools. But, there are many strengths to prospective cohorts, which is why they tend to be common. They give stronger scientific evidence to research questions, because people are recruited without the disease. The Framingham dataset was chosen for this course because it is a prospective cohort.
+We briefly covered the main difference between the two cohort types, specifically when the outcome occurs relative to the study start. In retrospective cohorts, people have the disease at the study start and their data is collected from past records. This is very common when data is collected frequently or consistently, such as in hospitals, and is easily available. In prospective cohorts, people don't have a disease at the study start. They are usually followed over time until the study end. Over time, more data is collected. Both designs have their strengths and weaknesses. If you have easy access to data already collected by a hospital or by the government, retrospective cohort designs are a very powerful scientific tool. But, there are many strengths to prospective cohort designs. They give stronger scientific evidence to research questions, because people are recruited without the disease. The Framingham dataset was chosen for this reason.
 
 
 ---
@@ -49,11 +49,11 @@ key: "b7cc4ddc54"
 
 
 `@script`
-Here is a typical prospective cohort. Each line is a hypothetical participant. At the study start, no one has a disease. As time passes, some people get the disease and others don't. When the study ends or at the time of analysis, there are a group of people who have the disease and usually a lot more who don't. There is also data collected at several time points over the study period. So now, you can compare how these two groups of people are different. What factors distinguish those with and without the disease? That is what we try to answer when we analyze the data.
+Here we see a typical prospective cohort. Each line is a hypothetical participant. At the study start, no one has a disease. As time passes, some people get the disease and others don't. When the study ends or at the time of analysis, there are a group of people who have the disease, the orange lines, and usually a lot more who don't, the blue lines. There is also data collected at several time points over the study period. So now, you can compare how these two groups of people are different. What factors distinguish those with and without the disease? That is what we try to answer when we analyze the data.
 
 
 ---
-## Variables of interest
+## Main variables of interest
 
 ```yaml
 type: "FullSlide"
@@ -62,7 +62,7 @@ key: "278d9126a9"
 
 `@part1`
 - *Outcome*: 
-    - The disease or health state (e.g. cancer)
+    - Disease or health state (e.g. cancer)
     - Commonly shown as the $y$ in regression analysis
 
 - *Exposure/predictor*: 
@@ -71,7 +71,7 @@ key: "278d9126a9"
 
 
 `@script`
-In cohort studys, there are commonly two terms used, outcome and exposure or predictor. The term outcome is used to mean the disease and is the y variable commonly seen in statistical notation. The term exposure or predictor represents the variables that relate to or potentially influence the outcome in some way. These are the variables that we think predict getting the disease, for example, cigarette smoke and lung cancer.
+In cohort studys, there are commonly two terms used, outcome and exposure or predictor. The term outcome is used to mean the disease and it is the y variable commonly seen in statistical notation. The term exposure or predictor represents the variables that relate to or potentially influence the outcome in some way. These are the variables that we think predict getting the disease, for example, cigarette smoke and lung cancer.
 
 
 ---
@@ -114,7 +114,7 @@ framingham %>%
 
 
 `@script`
-Let's look at Framingham more. By using dplyr and kable from knitr, we can check and present the number of visits participants came in for and how long participants where followed for. There were 3 visits, which is from the variable period, and >13 years of follow-up, which is the variable time in days. Next, let's check how many participants came at the first visit. To only see baseline data, we filter by period. We see there are >4400 participants, which is a pretty big sample.
+Let's look more at the data. Using dplyr, we can see the maximum number of visits participants came in for and how long they where followed for. Here, we see there were 3 visits, found by looking at the period variable, and >13 years of follow-up, found from the time variable, which was in days. Next, let's check how many participants came at the first visit. To only see baseline data, we filter by the first period. Here it shows there are >4400 participants, which is a pretty big sample.
 
 
 ---
@@ -150,7 +150,7 @@ names(framingham)
 
 
 `@script`
-There are many things that aren't clean or obvious in the dataset. For instance, the variable names aren't clear and some values don't tell us their meaning. For instance, what does 2 mean for sex or education? We'll need to do some tidying beforehand. It's a good idea to first explore the data a bit to understand it more.
+Now, there are many things that aren't clean or obvious from this dataset. The variable names aren't clear while some values don't tell us their meaning. For instance, what does 2 mean for sex or education? Or, what does "timeap" mean? Before doing any analysis, we'll need to tidy it up. But first, we should explore the data to better understand it.
 
 
 ---
@@ -166,15 +166,15 @@ key: "75da8bcc42"
     - Prospective: No disease, data collected as time passes
     - Retrospective: Disease at start, data obtained from past records
 - Variables of interest
-    - Outcome: Is the disease 
-    - Exposure/predictor: Factor that is thought to influence the outcome
+    - Outcome: The disease 
+    - Exposure/predictor: Factor that may influence the outcome
 - Framingham:
     - 3 visits, >13 years follow up
     - ~4400 participants
 
 
 `@script`
-Let's quickly review what we covered. We compared the cohort types, and differences being mostly in when the disease occurs. The terms for the variables are outcome for the disease and exposure or predictor for the variables that might relate to the outcome. Lastly, we briefly looked at the Framingham study.
+In summary, we compared the prospective and retrospective designs, the difference in when the disease occurs, the outcome and exposure or predictor, and a brief look at the Framingham study.
 
 
 ---
@@ -186,5 +186,5 @@ key: "ddbf9a5e1a"
 ```
 
 `@script`
-Ok, now, let's get to exploring the data!
+Now, let's get to exploring the data!
 
