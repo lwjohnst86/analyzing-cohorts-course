@@ -175,12 +175,12 @@ xp: 100
 skills: 1
 ```
 
-You need to know which variables are which for the analysis. Usually, it's fairly easy to identify the outcome. However, knowing which are potential predictors can be tricky, as modern cohorts often have massive amounts of data on each participant. Many variables are collected for checking the data, to aggregate or summarize, or to use as "confounders" (discussed more in later chapters).
+You need to know what the variables are, so you can analyze the data. Usually, it's fairly easy to identify the outcome. However, knowing which are potential predictors can be tricky, as modern cohorts often have massive amounts of data on each participant. Many variables are collected for checking the data, to aggregate or to summarize, or to use as "confounders" (discussed more in later chapters).
 
-Initially, it can be helpful to keep only variables of interest. For now, let's select interesting variables to explore them more. At the same time, let's rename the variables so they are more descriptive.
+Initially, it can be helpful to keep only the variables of interest. For now, let's select interesting variables to explore them more. At the same time, let's rename the variables so they are more descriptive.
 
 `@instructions`
-- Use `names()` to find the exact name of the variables, then rename them all to be more descriptive.
+- Use `names(framingham)` to find the exact name of the variables, then rename them all to be more descriptive.
 - Choose the correct outcome for cardiovascular disease (CVD). Rename it to `got_cvd`.
 - Rename the four predictors to `total_cholesterol`, `body_mass_index`, `participant_age`, and `currently_smokes`.
 - Rename the visit number column to `followup_visit_number`.
@@ -243,11 +243,11 @@ lang: r
 xp: 100
 ```
 
-Like the majority of data analyses, a large part of the work involves wrangling the data into the appropriate form to then analyze. For exploration, particularly of cohort datasets with multiple time points, it's useful see how multiple variables change over time using simple summary statistics.
+Like the majority of data analyses, a large part of the work involves wrangling the data into the appropriate form to then analyze it. For exploration, particularly of cohort datasets with multiple time points, it's useful see how multiple variables change over time using simple summary statistics.
 
 In this case, since we not only have a time column (`period`), but also multiple variables to summarize, we'll need to convert the data into a very long format.
 
-This exercise makes heavy use of tidyverse-style wrangling, so we expect some familiarity with the tidyverse.
+This exercise makes heavy use of tidyverse-style wrangling, so we expect familiarity with the tidyverse.
 
 `@pre_exercise_code`
 ```{r}
@@ -280,8 +280,7 @@ xp: 35
 ```
 
 `@instructions`
-- Using the tidyr `gather` function, make two new columns `variables` and `values`, but exclude
-`followup_visit_number` and `got_cvd`.
+- Using the tidyr `gather` function, make two new columns `variables` and `values`, but exclude `followup_visit_number` and `got_cvd`.
 - Make sure to only have four columns at the end.
 
 `@hint`
@@ -302,7 +301,7 @@ explore_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Great job! `gather` is a very powerful function to converting to long form.")
+success_msg("Great job! `gather` is a very powerful function for converting to long form.")
 ```
 
 ***
@@ -314,7 +313,7 @@ xp: 35
 ```
 
 `@instructions`
-- `group_by` on followup number, CVD status, and the variables.
+- Use `group_by` on visit number, CVD status, and the variables.
 - Use the dplyr `summarize` function to calculate the `mean` and call the new variable `mean_values`.
 - Make sure to use the `na.rm = TRUE` option when calculating the mean.
 
@@ -353,7 +352,7 @@ xp: 30
 ```
 
 `@instructions`
-- Use the tidyr `spread` function to have CVD status (the key) as the new column headers, and the the mean values (the value) as the values in the new columns.
+- Use the tidyr `spread` function to have CVD status (the key) as the new column headers, and the mean values (the value) as the values in the new columns.
 
 `@hint`
 - Use `got_cvd` as the key argument.
@@ -379,7 +378,7 @@ explore_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Awesome! You did it. You now have can compare between those who didn't and those who did get CVD.")
+success_msg("Awesome! You did it. You compared those who didn't and those who did get CVD.")
 ```
 
 ---
