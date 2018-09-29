@@ -408,9 +408,9 @@ xp: 50
 skills: 1
 ```
 
-Because the Framingham study is a prospective cohort, with certain limits to the data, and with three data collection visits, there are limits to the questions we can ask and answer. Choose the most valid and most appropriate question that we could ask from Framingham.
+Because the Framingham study is a prospective cohort, with certain limits to the data and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of Framingham data.
 
-The unchanged `framingham` dataset has been loaded in case you want to look  through it.
+The unchanged `framingham` dataset is loaded in case you want to look through it.
 
 `@possible_answers`
 - Does higher cholesterol cause cardiovascular disease (CVD)?
@@ -432,11 +432,11 @@ framingham$time <- NULL
 `@sct`
 ```{r}
 msg1 <- "Incorrect. The cohort study was not designed to answer 'causes'."
-msg2 <- "Incorrect. While cohorts could answer this questions, Framingham participants are all in middle age so we can't answer questions outside of that timeframe."
+msg2 <- "Incorrect. While cohorts could answer this question, Framingham participants are all in middle age so we can't answer questions outside of that timeframe."
 msg3 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
 msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
 msg5 <- "Incorrect. One of the above is a valid question."
-# test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
 
 ---
@@ -449,9 +449,9 @@ key: 2ba20dff0f
 xp: 100
 ```
 
-One of the first things to explore is the number of cases, as this will help inform what you can ask of the data and how to analyze it. Remember, for longitudinal data, you need to count by the time period, as each participant could have several rows per collection wave.
+One of the first things to explore is the number of cases, as this will help inform what you can ask of the data and how to analyze it. Remember, for longitudinal data, you need to count by the time period, as each participant could have several rows because of multiple collection waves.
 
-Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr have been loaded and all variables have been added back into `explore_framingham`.
+Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr are loaded and all variables have been added back into `explore_framingham`.
 
 `@pre_exercise_code`
 ```{r}
@@ -517,11 +517,11 @@ xp: 25
 
 `@instructions`
 - Now, we want to count the cases of `prevmi` and `prevchd` for each `followup_visit_number`.
-- Use `gather` to create new columns "Disease" and "Cases" specific to the two diseases.
+- Use `gather` to create new columns "disease" and "cases" specific to the two diseases.
 
 `@hint`
 - Gather the correct disease columns as written in the instructions.
-- Name the new gather key column "Disease" and the value column "Cases".
+- Name the new gather key column "disease" and the value column "cases".
 
 `@sample_code`
 ```{r}
@@ -543,7 +543,7 @@ explore_framingham %>%
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
     # First, gather to long form
-    gather(Disease, Cases, prevmi, prevchd)
+    gather(disease, cases, prevmi, prevchd)
 ```
 
 `@sct`
@@ -560,10 +560,10 @@ xp: 25
 ```
 
 `@instructions`
-- Next we need to count the number of `Cases` by `Disease` and visit number (`followup_visit_number`).
+- Next we need to count the number of `cases` by `disease` and by visit number (`followup_visit_number`).
 
 `@hint`
-- Use the `count` function with three variables.
+- Use the `count` function with the three variables.
 
 `@sample_code`
 ```{r}
@@ -573,7 +573,7 @@ explore_framingham %>%
 
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
-    gather(Disease, Cases, prevmi, prevchd) %>%
+    gather(disease, cases, prevmi, prevchd) %>%
     # Now, count the cases
 ```
 
@@ -585,9 +585,9 @@ explore_framingham %>%
 
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
-    gather(Disease, Cases, prevmi, prevchd) %>% 
+    gather(disease, cases, prevmi, prevchd) %>% 
     # Now, count the cases
-    count(followup_visit_number, Disease, Cases)
+    count(followup_visit_number, disease, cases)
 ```
 
 `@sct`
@@ -604,7 +604,7 @@ xp: 25
 ```
 
 `@instructions`
-- Lastly, you need to `spread` the data so `Cases` are columns, with their corresponding count.
+- Lastly, you need to `spread` the data so `cases` are columns, with their corresponding count.
 
 `@hint`
 - The variable `n` should be the values in the spread columns.
@@ -617,8 +617,8 @@ explore_framingham %>%
 
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
-    gather(Disease, Cases, prevmi, prevchd) %>% 
-    count(followup_visit_number, Disease, Cases) %>%
+    gather(disease, cases, prevmi, prevchd) %>% 
+    count(followup_visit_number, disease, cases) %>%
     # Spread to wide form
 ```
 
@@ -630,10 +630,10 @@ explore_framingham %>%
 
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
-    gather(Disease, Cases, prevmi, prevchd) %>% 
-    count(followup_visit_number, Disease, Cases) %>% 
+    gather(disease, cases, prevmi, prevchd) %>% 
+    count(followup_visit_number, disease, cases) %>% 
     # Spread to wide form
-    spread(Cases, n)
+    spread(cases, n)
 ```
 
 `@sct`
