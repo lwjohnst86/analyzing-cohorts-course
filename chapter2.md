@@ -24,9 +24,9 @@ key: e50ea375f8
 xp: 100
 ```
 
-Create a simple visual comparing the outcome with the exposures.
-
 {{convert to tab exercise}}
+
+Create a simple visual comparing the outcome with the exposures.
 
 `@instructions`
 
@@ -41,6 +41,16 @@ load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+
+framingham <- framingham %>%
+    rename(
+        got_cvd = cvd,
+        total_cholesterol = totchol,
+        body_mass_index = bmi,
+        participant_age = age,
+        currently_smokes = cursmoke,
+        followup_visit_number = period
+    )
 ```
 
 
