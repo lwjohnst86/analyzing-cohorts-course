@@ -28,7 +28,7 @@ xp: 50
 skills: 1
 ```
 
-The Framingham study was set up to study what might influence the risk of cardiovascular disease (CVD). People from Framingham, USA were recruited and followed over time. Data was collected on "risk factors" and CVD every few years.
+The Framingham cohort was set up to study what might influence the risk of cardiovascular disease (CVD). People from Framingham, USA were recruited and followed over time. Data was collected on "risk factors" and CVD outcomes every few years.
 
 What makes Framingham a cohort? The `framingham` dataset is loaded for you to explore. The dataset has yet to be fully tidied, which we will do more of in Chapter 2.
 
@@ -53,7 +53,7 @@ msg1 <- "Incorrect. While cohorts often are used to study a disease, this doesn'
 msg2 <- "Correct! Cohorts are people who share a common characteristic. In this case, the participants share a town and so have a similar environment."
 msg3 <- "Incorrect. While cohorts always include a time component, this alone doesn't make it a cohort."
 msg4 <- "Incorrect. While all cohorts have risk factors measured, this alone doesn't make it a cohort."
-# test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
+test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
 
 ---
@@ -96,7 +96,7 @@ xp: 50
 
 `@instructions`
 - Take a look through the `framingham` dataset.
-- Select the two variables that indicate the cohort design of `framingham`.
+- Select the two variables that indicate `framingham`'s cohort design.
 
 `@hint`
 - Recall that Framingham was designed to study the disease `cvd`.
@@ -119,7 +119,7 @@ framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Yes! You've identified that Framingham is a prospective cohort!")
+success_msg("Yes! You've identified the two variables that tell us Framingham's design!")
 
 ```
 
@@ -145,7 +145,7 @@ xp: 50
 
 `@sct`
 ```{r}
-success_msg("Nice job!")
+success_msg("Nice job! You've identified that Framingham is a prospective cohort design!")
 ```
 
 ---
