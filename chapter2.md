@@ -65,9 +65,10 @@ framingham <- framingham %>%
 
 ```{r}
 framingham %>% 
-    select(time, cvd, totchol, age, bmi) %>% 
-    gather(Variable, Value, -time, -cvd) %>% 
+    select(time, got_cvd, total_cholesterol, participant_age, body_mass_index,
+           currently_smokes) %>% 
     mutate(cvd = as.factor(cvd)) %>% 
+    gather(Variable, Value, -time, -cvd) %>% 
     ggplot(aes(x = Value, group = cvd, fill = cvd)) +
     geom_density(alpha = 0.6) +
     facet_grid(~ Variable, scales = "free")
