@@ -403,6 +403,7 @@ d8b40a3d5d81b2b050f65eb79581aa42
 ```yaml
 type: TabExercise
 xp: 100
+key: 25d9449073
 ```
 
 `@instructions`
