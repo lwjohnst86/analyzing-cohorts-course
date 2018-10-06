@@ -1,9 +1,9 @@
 ---
-title: Questions and answers we can get from cohorts
+title: Prevalence and incidence in cohorts
 key: d8b40a3d5d81b2b050f65eb79581aa42
 
 ---
-## Prevalence, incidence, and what questions to ask
+## Prevalence and incidence in cohorts
 
 ```yaml
 type: "TitleSlide"
