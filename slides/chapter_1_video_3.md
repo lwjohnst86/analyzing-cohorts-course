@@ -103,50 +103,17 @@ framingham %>%
 `@script`
 For prospective cohort analyses, it's good to check the prevalence of disease at the first visit. We'll do that using dplyr functions. First we filter to the first visit, then we count the disease. Here, we are counting prevalent cases of coronary heart disease, which is a subset of CVD. One of the exclusion criteria for the Framingham study was to not have CVD. But there are still some people who had prevalent CVD at the first visit. These things can happen, even with the most rigorous practices. Part of your analysis must be to check these things.
 
-
 ---
-## Design type can restrict questions and analysis
-
-```yaml
-type: "TwoRows"
-key: "dfbf7da65b"
-```
-
-`@part1`
-#### Cohorts in general
-
-- Are observational, and can't directly find causes
-- Participants have a shared characteristic - can't answer questions outside of the group
-
-
-`@part2`
-#### Prospective cohorts specifically
-
-- Allow you to assess risk over a defined time, but not outside that time
-- Answer questions about risk of those exposed and not exposed
-
-
-`@script`
-Knowing the difference between prevalence vs incidence, we can see that some questions can't be asked of retrospective cohorts since it only has prevalent cases. There are several other restrictions on questions to ask. Cohorts are observational studies, so questions on causes are difficult, or impossible, to answer. Questions about people or characteristics outside the cohort can't be answered. For instance, for a cohort of older adults, you can't ask questions about younger age groups. Or, more commonly, if the cohort is mainly those with European ancestry, you can't answer questions about other ethnic groups or ancestries. For prospective cohorts we can answer questions that include some time aspect and can also ask about risk in unexposed vs exposed.
-
-
----
-## Impossible or difficult to answer questions
+## Counting number of cases at recruitment
 
 ```yaml
 type: "FullSlide"
-key: "ab1164f998"
+key: "3aad87343a"
 ```
 
 `@part1`
-- Related to causes and effects
-- Exposures that are very unreliably measured
-- Inconsistently measured exposures or outcomes
-
 
 `@script`
-Some questions we can't ask are often obvious, such as when you don't have the data to answer your question. Other questions are more nuanced. Causes are difficult to study because of confounding, which we'll cover later. For instance, does alcohol cause cancer? This is difficult because people often do many other things when they drink, like smoke. Some data are too unreliable to use. For instance, whether vitamin D intake influences some diseases is tricky to answer because measuring diet is very hard, and measuring nutrient intake from diet is even harder. Or assume vitamin D was measured in the blood... another level to consider is that vitamin D can be measured in several ways, that each gives slightly different values. Some measurements of data are prone to error or noise, which can limit how much we trust answers to some questions.
-
 
 ---
 ## Let's practice!
@@ -158,4 +125,5 @@ key: "91e2c39791"
 
 `@script`
 Alright, let's practice some more!
+
 
