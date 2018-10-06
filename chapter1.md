@@ -398,46 +398,50 @@ d8b40a3d5d81b2b050f65eb79581aa42
 
 ---
 
-## What questions can be asked from Framingham?
+## Remove prevalent cases at the baseline
 
 ```yaml
-type: MultipleChoiceExercise
-key: d7e39ba425
-lang: r
-xp: 50
-skills: 1
+type: TabExercise
+xp: 100
 ```
 
-Because the Framingham study is a prospective cohort, with certain limits to the data and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of Framingham data.
-
-The unchanged `framingham` dataset is loaded in case you want to look through it.
-
-`@possible_answers`
-- Does higher cholesterol cause cardiovascular disease (CVD)?
-- Will lower body mass during adolescence increase the risk for CVD?
-- Does smoking increase the risk for CVD?
-- Does having many close friends lower the risk for CVD?
-- All of the above.
+`@instructions`
 
 `@hint`
-- Remember, these are questions to ask *of the Framingham study*... the variables in the question must exist in the dataset.
-- We cannot directly determine "causes" from cohort studies.
+
 
 `@pre_exercise_code`
 ```{r}
+library(dplyr)
+library(tidyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
-framingham$time <- NULL
+explore_framingham <- framingham %>%
+    rename(
+        got_cvd = cvd, 
+        total_cholesterol = totchol,
+        body_mass_index = bmi,
+        participant_age = age,
+        currently_smokes = cursmoke,
+        followup_visit_number = period
+    )
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
 ```
 
 `@sct`
 ```{r}
-msg1 <- "Incorrect. The cohort study was not designed to answer 'causes'."
-msg2 <- "Incorrect. While cohorts could answer this question, Framingham participants are all in middle age so we can't answer questions outside of that timeframe."
-msg3 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
-msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
-msg5 <- "Incorrect. One of the above is a valid question."
-test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+success_msg("Yes! You've identified the two variables that tell us Framingham's design!")
+
 ```
+
 
 ---
 
