@@ -383,7 +383,7 @@ success_msg("Awesome! You did it. You compared those who didn't and those who di
 
 ---
 
-## Prevalence, incidence, and what questions to ask
+## Prevalence and incidence in cohorts
 
 ```yaml
 type: VideoExercise
