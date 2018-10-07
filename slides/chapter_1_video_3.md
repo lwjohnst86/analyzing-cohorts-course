@@ -88,31 +88,17 @@ framingham %>%
            followup_visit_number = period) %>% 
     filter(followup_visit_number == 1) %>% 
     count(prevalent_chd)
-```
 
-```{text}
-# A tibble: 2 x 2
-  prevalent_chd     n
-          <int> <int>
-1             0  4240
-2             1   194
+#> # A tibble: 2 x 2
+#>   prevalent_chd     n
+#>           <int> <int>
+#> 1             0  4240
+#> 2             1   194
 ```
 
 
 `@script`
-For prospective cohort analyses, it's good to check the prevalence of disease at the first visit. We'll do that using dplyr functions. First we filter to the first visit, then we count the disease. Here, we are counting prevalent cases of coronary heart disease, which is a subset of CVD. One of the exclusion criteria for the Framingham study was to not have CVD. But there are still some people who had prevalent CVD at the first visit. These things can happen, even with the most rigorous practices. Part of your analysis must be to check these things.
-
----
-## Counting number of cases at recruitment
-
-```yaml
-type: "FullSlide"
-key: "3aad87343a"
-```
-
-`@part1`
-
-`@script`
+For prospective cohort analyses, it's good to check the prevalence of disease at the first visit. We'll do that using dplyr functions. First we filter to the first visit, then we count the disease. Here, we are counting prevalent cases of coronary heart disease, which is a subset of CVD. One of the exclusion criteria for the Framingham study was to not have CVD. But there are still some people who had prevalent CVD at the first visit. These things can happen, even with the most rigorous practices. Part of your analysis must be to check these things. You'll also notice that we didn't use the got_cvd variable. There are more variables that contain data on other cardiovascular events, such as stroke. We'll need to check into these variables as we explore and tidy up.
 
 ---
 ## Let's practice!
