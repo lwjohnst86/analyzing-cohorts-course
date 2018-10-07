@@ -1,9 +1,9 @@
 ---
-title: Cohort types and introducing the dataset
+title: Cohort types, variables, and the Framingham Study
 key: 9e3d8b35b89128ebb91908d3aa815cf1
 
 ---
-## Cohort types and introducing the dataset
+## Cohort types, variables, and the Framingham Study
 
 ```yaml
 type: "TitleSlide"
