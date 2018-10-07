@@ -17,8 +17,7 @@ title: Instructor
 
 
 `@script`
-Like all studies, the design and available data restrict what valid scientific questions you can ask. This is why before starting a study or analysis you should have the questions firmly in mind, since the study design dictates the questions. Before we get into the questions we can ask, we need to cover an important concept and a powerful feature of prospective cohorts.
-
+The purpose of epidemiology is to study disease. There are important terms when it comes to diseases in cohort settings: prevalence and incidence.
 
 ---
 ## Prevalent vs incident cases of disease
@@ -35,7 +34,7 @@ center_content: true
 
 
 `@script`
-There are two terms when it comes to the numbers of disease cases: Prevalence and incidence. Prevalence is a snapshot in time and counts how many have a disease. Incidence is the new cases of a disease over a period of time. Because of the time component, incidence data is much more powerful at uncovering how exposures can influence disease. This graph illustrates prevalence vs incidence. At visit 0, there is one case, and so one prevalent case.
+What are prevalence and incidence? We briefly covered it in the previous video, but here we will go into more detail. Prevalence is a single snapshot in time and counts how many people have a disease. Incidence is the number of new cases of a disease over a specific period of time. Because of the time component, incidence data is much more powerful at uncovering how exposures can influence disease. This graph illustrates prevalence vs incidence. At visit 0, there is one case, and so one prevalent case.
 
 
 ---
@@ -53,7 +52,7 @@ center_content: true
 
 
 `@script`
-At visit 1, there are now 2 cases, and 1 is new. So there are two prevalent cases, 1 incident case.
+At visit 1, one person developed the disease, so there are now 2 prevalent cases. One of these cases is an incident case.
 
 
 ---
