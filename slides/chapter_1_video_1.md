@@ -161,6 +161,22 @@ framingham
 `@script`
 We will working with the Framingham Heart Study dataset. This study started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown because of the results of this study. There are about 4400 participants, with data collected a max of 3 times over 15 years of followup, so this is great dataset to practice how to analyze cohorts.
 
+---
+## Lesson summary
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+- Features of a cohort: health, time, commonality
+- Powerful study design to investigate health
+- Two types: prospective and retrospective
+- Using Framingham Study throughout course
+
+`@script`
+So, to quickly summarise, in this lesson we covered some features of what cohorts are and why we use them in health research, the two types of designs, and that we will be using the Framingham dataset for this course.
 
 ---
 ## Let's do some exercises!
