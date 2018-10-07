@@ -86,30 +86,28 @@ key: "88bd3012a7"
 ```{r}
 library(dplyr)
 framingham %>%
-    summarise(number_visits = max(period),
-              number_years = round(max(time) / 365, 1))
-```
+    select(followup_visit_number = period, days_of_followup = time)
+    summarise(number_visits = max(followup_visit_number),
+              number_years = round(max(days_of_followup) / 365, 1))
 
-```{text}
-# A tibble: 1 x 2
-  number_visits number_years
-          <dbl>        <dbl>
-1             3         13.3
+#> # A tibble: 1 x 2
+#>   number_visits number_years
+#>           <dbl>        <dbl>
+#> 1             3         13.3
 ```
 
 
 `@part2`
 ```{r}
 framingham %>% 
-    filter(period == 1) %>% 
+    select(followup_visit_number = period) %>% 
+    filter(followup_visit_number == 1) %>% 
     summarise(number_participants = n())
-```
 
-```{text}
-# A tibble: 1 x 1
-  number_participants
-                <int>
-1                4434
+#> # A tibble: 1 x 1
+#>   number_participants
+#>                 <int>
+#> 1                4434
 ```
 
 
