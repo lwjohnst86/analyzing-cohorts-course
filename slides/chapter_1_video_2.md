@@ -139,17 +139,8 @@ names(framingham)
 [36] "timestrk" "timecvd"  "timedth"  "timehyp" 
 ```
 
-```
-> unique(framingham$educ)
-[1]  4  2  1  3 NA
-> unique(framingham$sex)
-[1] 1 2
-```
-
-
 `@script`
-Now, there are many things that aren't clean or obvious from this dataset. The variable names aren't clear while some values don't tell us their meaning. For instance, what does 2 mean for sex or education? Or, what does "timeap" mean? Before doing any analysis, we'll need to tidy it up. But first, we should explore the data to better understand it.
-
+Now, there are many things that aren't clean or obvious from this dataset. For instance, the variable names aren't very clear what they mean. We'll need to tidy it up a bit more as we explore it further... we will likely find more things to tidy in the process.
 
 ---
 ## Lesson summary
