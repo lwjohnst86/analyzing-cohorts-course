@@ -70,8 +70,25 @@ center_content: true
 
 
 `@script`
-At visit 2, there are now 3 cases, three prevalent, one incident. Prevalence is always the number of cases at a given time. For incident cases, we need to know the person's previous status, so is more difficult to count. Overall, there are two incident cases over the entire followup.
+At visit 2, there are now 3 cases, three prevalent, one incident. Prevalence is always the number of cases at a given time. For incident cases, we need to know the person's previous status, so is more difficult to count. Overall, there are two incident cases over the entire followup. It's this incidence information from prospective cohorts that makes them very powerful scientific tools.
 
+---
+## Incident data gives stronger scientific evidence
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+- Temporal aspect of an association
+    - Exposure preceding disease occurrence
+- Participants at recruitment *shouldn't have the disease*
+    - If they do, it isn't incident data
+
+`@script`
+
+This is the strength of prospective cohorts, this ability to determine incident cases. It is this temporal aspect to the design and analysis that provides stronger evidence to the study findings. Because the exposure occurs before the disease develops, you can state with more certainty whether it influences the disease or not. For this to happen, participants cannot have the disease at the baseline. Otherwise, it won't be incident data, as we saw in the graph. So, for prospective cohort analyses, it's important to confirm prevalent cases at the first visit.
 
 ---
 ## Counting number of cases at recruitment
