@@ -150,7 +150,7 @@ success_msg("Nice job! You've identified that Framingham is a prospective cohort
 
 ---
 
-## Cohort types and introducing the dataset
+## Cohort types, variables, and the Framingham Study
 
 ```yaml
 type: VideoExercise
