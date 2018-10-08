@@ -398,54 +398,6 @@ d8b40a3d5d81b2b050f65eb79581aa42
 
 ---
 
-## Remove prevalent cases at the baseline
-
-```yaml
-type: TabExercise
-xp: 100
-key: 25d9449073
-```
-
-`@instructions`
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-library(dplyr)
-library(tidyr)
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
-explore_framingham <- framingham %>%
-    rename(
-        got_cvd = cvd, 
-        total_cholesterol = totchol,
-        body_mass_index = bmi,
-        participant_age = age,
-        currently_smokes = cursmoke,
-        followup_visit_number = period
-    )
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-success_msg("Yes! You've identified the two variables that tell us Framingham's design!")
-
-```
-
-
----
-
 ## Count number of participants and cases per visit
 
 ```yaml
@@ -456,7 +408,7 @@ xp: 100
 
 One of the first things to explore is the number of cases, as this will help inform what you can ask of the data and how to analyze it. Remember, for longitudinal data, you need to count by the time period, as each participant could have several rows because of multiple collection waves.
 
-Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack) and coronary heart disease (CHD) at each visit. Both dplyr and tidyr are loaded and all variables have been added back into `explore_framingham`.
+Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack; `prevalent_mi`) and coronary heart disease (CHD; `prevalent_chd`) at each visit. Both dplyr and tidyr are loaded and all variables have been added back into `explore_framingham`.
 
 `@pre_exercise_code`
 ```{r}
@@ -635,7 +587,7 @@ explore_framingham %>%
 
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
-    gather(disease, cases, prevmi, prevchd) %>% 
+    gather(disease, cases, prevalent_mi, prevalent_chd) %>% 
     count(followup_visit_number, disease, cases) %>% 
     # Spread to wide form
     spread(cases, n)
@@ -645,3 +597,65 @@ explore_framingham %>%
 ```{r}
 success_msg("Woohoo! Nice job. You now know how to count the number of cases by visit.")
 ```
+
+---
+
+## Remove prevalent cases at the baseline
+
+```yaml
+type: NormalExercise
+xp: 100
+```
+
+
+
+`@instructions`
+
+- Drop all cases of CHD (`1`) at the first (`1`) visit.
+- Confirm that these have been dropped by counting the number of cases by visit.
+
+`@hint`
+
+`@pre_exercise_code`
+```{r}
+library(dplyr)
+library(tidyr)
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+explore_framingham <- framingham %>%
+    rename(
+        got_cvd = cvd, 
+        total_cholesterol = totchol,
+        body_mass_index = bmi,
+        participant_age = age,
+        currently_smokes = cursmoke,
+        followup_visit_number = period,
+        prevalent_chd = prevchd,
+        prevalent_mi = prevmi
+    )
+```
+
+`@sample_code`
+```{r}
+# Drop prevalent chd cases from first visit
+no_prevalent_cases <- explore_framingham %>% 
+    filter(!(_____ == _____ & _____ == _____)) 
+
+# Confirm the count of chd cases
+no_prevalent_cases %>% 
+    _____(_____, _____) 
+```
+
+`@solution`
+```{r}
+# Drop prevalent chd cases from first visit
+no_prevalent_cases <- explore_framingham %>% 
+    filter(!(followup_visit_number == 1 & prevalent_chd == 1)) 
+
+# Confirm the count of chd cases
+no_prevalent_cases %>% 
+    count(followup_visit_number, prevalent_chd) 
+```
+
+`@sct`
+```{r}
+success_msg("Excellent! You've dropped baseline prevalent cases of CHD.")
