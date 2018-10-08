@@ -617,7 +617,8 @@ We know there are prevalent cases of cardiovascular events at the first visit. I
 - Confirm that these have been dropped by counting the number of cases by visit.
 
 `@hint`
-
+- Filter first prevalent CHD and then followup visit number.
+- Count by followup visit and by prevalent CHD.
 
 `@pre_exercise_code`
 ```{r}
