@@ -606,18 +606,18 @@ success_msg("Woohoo! Nice job. You now know how to count the number of cases by 
 
 ```yaml
 type: NormalExercise
-xp: 100
 key: 25d9449073
+xp: 100
 ```
 
 We know there are prevalent cases of cardiovascular events at the first visit. In order to move on to further analyses and exploration, we must remove these prevalent cases so we don't introduce any bias into the results. For now, only drop prevalent cases of coronary heart disease (CHD).
 
 `@instructions`
-
 - Drop all cases of CHD (`1`) at the first (`1`) visit.
 - Confirm that these have been dropped by counting the number of cases by visit.
 
 `@hint`
+
 
 `@pre_exercise_code`
 ```{r}
