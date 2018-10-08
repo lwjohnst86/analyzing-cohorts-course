@@ -402,13 +402,10 @@ d8b40a3d5d81b2b050f65eb79581aa42
 
 ```yaml
 type: TabExercise
-xp: 100
 key: 25d9449073
+xp: 100
 ```
 
-`@instructions`
-
-`@hint`
 
 
 `@pre_exercise_code`
@@ -431,18 +428,6 @@ explore_framingham <- framingham %>%
 ```{r}
 
 ```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-success_msg("Yes! You've identified the two variables that tell us Framingham's design!")
-
-```
-
 
 ---
 
