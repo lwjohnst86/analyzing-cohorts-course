@@ -607,6 +607,7 @@ success_msg("Woohoo! Nice job. You now know how to count the number of cases by 
 ```yaml
 type: NormalExercise
 xp: 100
+key: 25d9449073
 ```
 
 We know there are prevalent cases of cardiovascular events at the first visit. In order to move on to further analyses and exploration, we must remove these prevalent cases so we don't introduce any bias into the results. For now, only drop prevalent cases of coronary heart disease (CHD).
