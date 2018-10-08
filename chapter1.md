@@ -422,7 +422,9 @@ explore_framingham <- framingham %>%
         body_mass_index = bmi,
         participant_age = age,
         currently_smokes = cursmoke,
-        followup_visit_number = period
+        followup_visit_number = period,
+        prevalent_chd = prevchd,
+        prevalent_mi = prevmi
     )
 ```
 
@@ -500,7 +502,7 @@ explore_framingham %>%
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
     # First, gather to long form
-    gather(disease, cases, prevmi, prevchd)
+    gather(disease, cases, prevalent_mi, prevalent_chd)
 ```
 
 `@sct`
@@ -542,7 +544,7 @@ explore_framingham %>%
 
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
-    gather(disease, cases, prevmi, prevchd) %>% 
+    gather(disease, cases, prevalent_mi, prevalent_chd) %>% 
     # Now, count the cases
     count(followup_visit_number, disease, cases)
 ```
@@ -574,7 +576,7 @@ explore_framingham %>%
 
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
-    gather(disease, cases, prevmi, prevchd) %>% 
+    gather(disease, cases, prevalent_mi, prevalent_chd) %>% 
     count(followup_visit_number, disease, cases) %>%
     # Spread to wide form
 ```
@@ -659,3 +661,4 @@ no_prevalent_cases %>%
 `@sct`
 ```{r}
 success_msg("Excellent! You've dropped baseline prevalent cases of CHD.")
+```
