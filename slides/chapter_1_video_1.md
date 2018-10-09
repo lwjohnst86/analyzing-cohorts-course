@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-Hi! I'm Luke Johnston and I work as a diabetes epidemiology researcher. In this course, we will be going over the general workflow on how to analyze cohort datasets. In this chapter, we will cover some of the basics of cohort study designs and general workflow for analyzing cohort data. We will be using the Framingham Cohort study dataset to illustrate these concepts.
+Hi! I'm Luke Johnston and I work as a diabetes epidemiology researcher. In this course, we will be going over the general workflow to analyzing cohort datasets. In this chapter, we will cover some of the basics of cohort studies and designs.
 
 
 ---
@@ -40,7 +40,7 @@ Features:
 
 
 `@script`
-What is a cohort study? Cohorts are usually scientific studies that investigate how factors influence the risk for a disease. Cohorts always include some type of time component to the data. But most importantly, participants in a cohort all share a common characteristic hence the term "cohort". For example, in the US Nurses' Health Study, all of the participants were married female nurses.
+So what is a cohort study? Cohorts are scientific studies that investigate how factors influence the risk for a disease. Cohorts always include some type of time component to the data. Most importantly, participants in a cohort all share a common characteristic, hence the term "cohort". For example, the US Nurses' Health Study has only participants that are married female nurses.
 
 
 ---
@@ -68,7 +68,7 @@ key: "3020a2875a"
 
 
 `@script`
-Cohort studies are fundamental to epidemiological research and a key design for answering research questions about human health and behaviour. Cohort studies are especially common in health or biomedical studies, as they can be used to identify risk factors for disease that can be targeted for prevention and for disease management strategies. They are also incredibly powerful for helping inform evidence-based clinical decisions.
+Cohort studies are fundamental to epidemiology and are a key design for answering questions about human health and behaviour. Cohorts are common in health or biomedical studies, as they are used to identify risk factors for disease to target for prevention and for disease management. They are also incredibly powerful for helping inform evidence-based clinical decisions.
 
 
 ---
@@ -101,9 +101,7 @@ Study participants:
 
 
 `@script`
-There are two main types of cohort study designs, prospective and retrospective. The designs have many similarities, but it's their differences that set them apart.
-
-Prospective cohorts are by far the most common and most powerful form of cohort design when studying how diseases develop. Retrospective cohorts on the other hand are useful for rarer diseases, where health records are easy to access, or when it is impractical or impossible to conduct a prospective cohort. The main difference between these two designs is that in the prospective cohort, participants don't have the disease at the start of the study, while for the retrospective cohort they do. We will cover these design types in more detail later.
+There are two main types of cohort designs, prospective and retrospective. Prospective cohorts are by far the most common and arguably the most powerful form of cohort design to study disease development. Retrospective cohorts on the other hand are useful where health records are easy to access or when it is impractical or impossible to conduct a prospective cohort. The main difference between these designs is that for prospective cohorts, participants don't have the disease at the start of the study, while for retrospective cohorts they do. We will cover these designs more later.
 
 
 ---
@@ -125,7 +123,7 @@ key: "d2a6af7c52"
 
 
 `@script`
-Sometimes there is a pressure or urge to just "throw variables into the model and let the data tell the story". But this can be very dangerous, especially when it comes to studies on health. Because cohort studies often involve some disease, the results can have a real-world impact on people's lives. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. You need to know the context of the data, which is why its important to know the basics in study design.
+Sometimes there is a pressure to "throw variables into the model, adjust for everything, and let the data tell the story". This can be very dangerous, especially for studies on health. Because cohort studies often involve some disease, the results can have a real-world impact on people's lives. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. You need to know the context of the data, which is why its important to know the basics in study design.
 
 For cohorts, the study design and types of variables measured influence how you analyze your data. For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Or there are some measures that are abstractions of a physiological process, so by transforming the variable you can create more meaningful and interpretable results. This also means there are many ways of analyzing cohort datasets.
 
