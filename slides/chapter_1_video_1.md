@@ -159,7 +159,7 @@ framingham
 
 
 `@script`
-We will working with the Framingham Heart Study dataset. This study started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown because of the results of this study. There are about 4400 participants, with data collected a max of 3 times over 15 years of followup, so this is great dataset to practice how to analyze cohorts.
+We will working with the Framingham Heart Study dataset. This study started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first shown because of the results of this study. There are about 4400 participants, with data collected a max of 3 times over 15 years of followup, so this is great dataset to practice how to analyze cohorts. You'll notice that it is a "tibble" rather than a dataframe. This is part of the tidyverse, which we will be making heavy use of throughout the course and expect you to be fairly familiar with.
 
 
 ---
