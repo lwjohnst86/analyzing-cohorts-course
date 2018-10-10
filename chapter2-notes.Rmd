@@ -6,6 +6,8 @@ source("preamble.R")
 
 **Objectives**
 
+- Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
+
 - How to get data into form for quick exploration
 - How to wrangle the data to get into a form to use for the analysis/statistic
 - Know the various tools to transform the data and when is more appropriate to
@@ -18,9 +20,9 @@ use them
 ## Lesson 1: Pre-wrangling exploration
 
 *Content*
-- Exploring data (dot/boxplots, violinplots, correlation heatmap)
-    - Need to understand the data before doing any serious wrangling
-TODO: Add more content, focus it on cohorts.
+
+Rename all variables here? And do more wrangling,,,?
+
 - NE: Coding example of Simpson's paradox in health setting (real world example?) (or in lesson 2)
 
 ### Exercise: Plot individual (or summary) change over time in longitudinal datasets
@@ -31,45 +33,16 @@ Create a line plot (or summary line plot if data too big) by individual.
 framing
 ```
 
-### Exercise: Visually examine the outcomes with the exposures
-
-Create a simple visual comparing the outcome with the exposures.
-
-```{r}
-framingham %>% 
-    select(time, cvd, totchol, age, bmi) %>% 
-    gather(Variable, Value, -time, -cvd) %>% 
-    mutate(cvd = as.factor(cvd)) %>% 
-    ggplot(aes(x = Value, group = cvd, fill = cvd)) +
-    geom_density(alpha = 0.6) +
-    facet_grid(~ Variable, scales = "free")
-```
-
-### Exercise: Inspect graphically all variables of interest individually
-
-Create a box and jitter plot of all the variables of interest, at the baseline visit:
-
-```{r ex_eda}
-fh_long <- framingham %>% 
-    filter(time == 0) %>% 
-    select(cvd, totchol, bmi, age) %>% 
-    gather(Variable, Value)
-    
-fh_long
-
-ggplot(fh_long, aes(x = Value)) +
-    geom_histogram() +
-    facet_grid(~ Variable, scales = "free")
-```
 
 ## Lesson 2: Tidy cohort data and wrangling into analyzable form.
 
 *Content*
-- Tidy data, types of structure for type of analysis
-- Longitudinal data in wide format
-    - converting into long for use by statistical techniques (e.g. mixed effects)
-    - talk about tidy data
-TODO: More content, specific to cohorts.
+
+For running models, each row should represent the all the values for one person
+at one time point.
+
+For plotting, the distributions of each variable, each row should represent one
+variable for one person at one time point
 
 *Exercises*
 ... maybe two waves that need to be combined?
@@ -106,23 +79,6 @@ We have a longitudinal cohort that has some variables {{finish}}
 ## Lesson 3: Transforming and modifying variables (maybe into two lessons?)
 
 *Content*
-- Types of transformations and why to use them:
-    - Log: if data is highly skewed, if interested in output after
-    backtransforming of percent impact rather than on original unit impact
-    (often used)
-    - square: ... (rarely done)
-    - scaled: Put variables on same scale/unit (all become SD, fairly common)
-    - Transformation can be used to correct "violations in regression
-    assumptions", but this is not often important or necessary.
-    - Use transformations such as log if the variable is unitless, or there is
-    disagreement between studies on the specific unit, or if the unit value
-    varies between studies. That way the result is interpreted in a way that 
-    can be compared to previous and future studies.
-    - Don't convert continuous to discrete. There could be non-linear relationships
-- Categorical variable modication:
-    - sometimes some categories are too small, so sometimes for model
-    interpretation and generalizability, grouping categories makes sense,
-    and to also balance the sample between groups.
 
 *Exercise*
 - NE: Here's a research question and a dataset. transform the data to be able to 
@@ -147,58 +103,6 @@ dataname %>%
     print() %>% # show what it looks like
     spread(Measure, Value)
     
-```
-
-### Exercise: Reduce number of categories in these datasets
-
-Sometimes, categorical (factor or character) variables have many levels, but only
-a few observations in each level. For analyses, this is less than ideal, so it
-is often useful to reduce the total number of categories by merging levels together.
-This can be especially useful if interpretation of only one level is desired
-compared to other levels.
-
-Reduce the levels of education by using the `fct_recode` function from the 
-`forcats` package.
-
-```{r}
-library(forcats)
-fh_educ <- framingham %>% 
-    mutate(educ_reduced = fct_recode(
-        educ, 
-        "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
-        ))
-
-# Compare the original education variable with the reduced one
-fct_count(fh_educ$educ)
-fct_count(fh_educ$educ_reduced)
-# TODO: Add another dataset to reduce categories e.g. PROMISE and ethnicity
-```
-
-### Exercise: Comparison between different transformations
-
-{{Multiple part question?}}
-
-Using different types of transformations is dependent on the specific research
-question and how the data looks. It's useful to understand what each types of 
-transformations do to the available data.
-
-Explore the transforms visually.
-
-```{r}
-# TODO: show a cohort with continuous outcome, and log that
-fh_transformed <- framingham %>% 
-    mutate(scale_bmi = as.numeric(scale(bmi)),
-           log_bmi = log(bmi),
-           log10_bmi = log10(bmi),
-           exp_bmi = bmi^2)
-
-fh_transformed %>% 
-    select(contains("bmi")) %>% 
-    gather(bmi_variable, bmi_value) %>% 
-    ggplot(aes(x = bmi_value)) +
-    geom_histogram() +
-    facet_grid( ~ bmi_variable, scale = "free")
 ```
 
 Part 2:

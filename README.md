@@ -1,4 +1,4 @@
-# (Introduction to?) Analyzing Cohort Data in R by Luke Johnston
+# Analyzing Cohort Data in R by Luke Johnston
 
 ## Course Development timeline (as of July 20, 2018)
 
@@ -68,7 +68,6 @@ please speak with your Curriculum Lead.*
     - not understanding probability/p-values
 7. What datasets will you use?
     - Framingham Heart Study
-    - CHD Diet from Epi package
 
 ## Step 2: Who is this course for?
 
@@ -94,8 +93,8 @@ very useful.
 
 ## Step 3: What will learners do along the way?
 
-- See exercises found in chapters [1](chapter1.Rmd), [2](chapter2.Rmd),
-[3](chapter3.Rmd), and [4](chapter4.Rmd).
+- See exercises found in chapters [1](chapter1-notes.Rmd), [2](chapter2-notes.Rmd),
+[3](chapter3-notes.Rmd), and [4](chapter4-notes.Rmd).
 
 ## Step 4: How are the concepts connected?
 
@@ -118,10 +117,9 @@ very useful.
     - Lesson 3: Communicating your results through graphs
     - Lesson 4: Using tables to convey your findings
 
-The datasets are:
+The dataset is:
 
 - `framingham`: Framingham Heart Study.
-- `diet`: Diet and CHD (from Epi package) (only for a few exercises)
 
 ## Step 5: Course overview
 
