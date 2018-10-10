@@ -135,16 +135,21 @@ xp: 50
 What is the cohort design?
 
 `@possible_answers`
-- Prospective
-- Retrospective
-- Neither
-- Both
+- Prospective.
+- Retrospective.
+- Neither.
+- Both.
 
 `@hint`
 - Recall that the study was designed to examine cardiovascular disease *over time*.
 
 `@sct`
 ```{r}
+msg1 = "Correct."
+msg2 = "Incorrect."
+msg3 = "Incorrect."
+msg4 = "Incorrect."
+ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4))
 success_msg("Nice job! You've identified that Framingham is a prospective cohort design!")
 ```
 
