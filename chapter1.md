@@ -409,9 +409,9 @@ key: 2ba20dff0f
 xp: 100
 ```
 
-One of the first things to explore is the number of cases, as this will help inform what you can ask of the data and how to analyze it. Remember, for longitudinal data, you need to count by the time period, as each participant could have several rows because of multiple collection waves.
+Here, you will count the number of cases and non-cases for both prevalent myocardial infarction (MI), or `prevalent_mi`, and coronary heart disease (CHD), or `prevalent_chd`, at each visit. Remember, for longitudinal data you need to count by the time period since each participant may have several rows because of multiple data collection visits.
 
-Next, count the number of cases and non-cases for prevalent myocardial infarction (MI, aka heart attack; `prevalent_mi`) and coronary heart disease (CHD; `prevalent_chd`) at each visit. Both dplyr and tidyr are loaded and all variables have been added back into `explore_framingham`.
+Both dplyr and tidyr are loaded and all variables have been added back into `explore_framingham`.
 
 `@pre_exercise_code`
 ```{r}
@@ -446,7 +446,7 @@ xp: 25
 ```
 
 `@instructions`
-- Count the number of participants (i.e. rows) for each `followup_visit_number`.
+- Count the number of participants for each follow-up visit number.
 
 `@hint`
 - Use the `count` function.
@@ -478,8 +478,8 @@ xp: 25
 ```
 
 `@instructions`
-- Now, we want to count the cases of `prevmi` and `prevchd` for each `followup_visit_number`.
-- Use `gather` to create new columns "disease" and "cases" specific to the two diseases.
+- Now, we want to count the cases of `prevmi` and `prevchd` for each follow-up visit number. 
+- Use `gather` to create new columns called "disease" and "cases", that are specific to the two diseases.
 
 `@hint`
 - Gather the correct disease columns as written in the instructions.
@@ -493,7 +493,7 @@ explore_framingham %>%
 
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>%
-    # First, gather to long form
+    # Gather to long form
 ```
 
 `@solution`
@@ -504,7 +504,7 @@ explore_framingham %>%
 
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
-    # First, gather to long form
+    # Gather to long form
     gather(disease, cases, prevalent_mi, prevalent_chd)
 ```
 
@@ -522,7 +522,7 @@ xp: 25
 ```
 
 `@instructions`
-- Next we need to count the number of `cases` by `disease` and by visit number (`followup_visit_number`).
+- Count the number of cases by disease and by visit number.
 
 `@hint`
 - Use the `count` function with the three variables.
@@ -536,7 +536,7 @@ explore_framingham %>%
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
     gather(disease, cases, prevmi, prevchd) %>%
-    # Now, count the cases
+    # Count the cases
 ```
 
 `@solution`
@@ -548,7 +548,7 @@ explore_framingham %>%
 # Count prevalent cases of MI and CHD per visit
 explore_framingham %>% 
     gather(disease, cases, prevalent_mi, prevalent_chd) %>% 
-    # Now, count the cases
+    # Count the cases
     count(followup_visit_number, disease, cases)
 ```
 
@@ -566,7 +566,7 @@ xp: 25
 ```
 
 `@instructions`
-- Lastly, you need to `spread` the data so `cases` are columns, with their corresponding count.
+- Lastly, `spread` the data so the cases are columns, with their corresponding count.
 
 `@hint`
 - The variable `n` should be the values in the spread columns.
