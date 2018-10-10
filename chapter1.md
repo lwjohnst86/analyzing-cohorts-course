@@ -132,7 +132,7 @@ xp: 50
 ```
 
 `@question`
-
+What is the cohort design?
 
 `@possible_answers`
 - Prospective
