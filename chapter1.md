@@ -180,12 +180,12 @@ xp: 100
 skills: 1
 ```
 
-You need to know what the variables are, so you can analyze the data. Usually, it's fairly easy to identify the outcome. However, knowing which are potential predictors can be tricky, as modern cohorts often have massive amounts of data on each participant. Many variables are collected for checking the data, to aggregate or to summarize, or to use as "confounders" (discussed more in later chapters).
+You need to know what each variable represents so you can analyze the data. Usually, it's fairly easy to identify the outcome. However, knowing which are potential predictors can be tricky, since modern cohorts often have massive amounts of data on each participant. 
 
-Initially, it can be helpful to keep only the variables of interest. For now, let's select interesting variables to explore them more. At the same time, let's rename the variables so they are more descriptive.
+Initially, it can be helpful to keep only the variables of interest. For now, let's select a few interesting variables to explore them more. At the same time, let's rename the variables so they are more descriptive.
 
 `@instructions`
-- Use `names(framingham)` to find the exact name of the variables, then rename them all to be more descriptive.
+- Run `names(framingham)` in the console to find the exact names of the variables. 
 - Choose the correct outcome for cardiovascular disease (CVD). Rename it to `got_cvd`.
 - Rename the four predictors to `total_cholesterol`, `body_mass_index`, `participant_age`, and `currently_smokes`.
 - Rename the visit number column to `followup_visit_number`.
@@ -206,12 +206,12 @@ load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd
 explore_framingham <- framingham %>%
     select(
         # Format: new_variable_name = old_variable_name
-        _____ = _____, # outcome variable
+        _____ = _____, # Outcome variable
         _____ = totchol,
         _____ = bmi,
         _____ = age,
         _____ = cursmoke,
-        _____ = period # visit number
+        _____ = period # Visit number
     )
 explore_framingham
 ```
@@ -222,12 +222,12 @@ explore_framingham
 explore_framingham <- framingham %>%
     select(
         # Format: new_variable_name = old_variable_name
-        got_cvd = cvd, # outcome variable
+        got_cvd = cvd, # Outcome variable
         total_cholesterol = totchol,
         body_mass_index = bmi,
         participant_age = age,
         currently_smokes = cursmoke,
-        followup_visit_number = period # visit number
+        followup_visit_number = period # Visit number
     )
 explore_framingham
 ```
