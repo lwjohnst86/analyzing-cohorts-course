@@ -35,7 +35,6 @@ Create a simple visual comparing the outcome with the exposures.
 
 
 `@pre_exercise_code`
-
 ```{r setup}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 library(dplyr)
@@ -53,16 +52,12 @@ framingham <- framingham %>%
     )
 ```
 
-
 `@sample_code`
-
 ```{r}
 
 ```
 
-
 `@solution`
-
 ```{r}
 framingham %>% 
     select(time, got_cvd, total_cholesterol, participant_age, body_mass_index,
@@ -74,13 +69,10 @@ framingham %>%
     facet_grid(~ Variable, scales = "free")
 ```
 
-
 `@sct`
-
 ```{r}
 
 ```
-
 
 ---
 
@@ -94,16 +86,12 @@ xp: 100
 
 Create a box and jitter plot of all the variables of interest, at the baseline visit:
 
-
 `@pre_exercise_code`
-
 ```{r}
 
 ```
 
-
 `@sample_code`
-
 ```{r}
 fh_long <- framingham %>% 
     filter(time == 0) %>% 
@@ -117,7 +105,6 @@ ggplot(fh_long, aes(x = Value)) +
     facet_grid(~ Variable, scales = "free")
 
 ```
-
 
 ***
 
@@ -127,8 +114,6 @@ key: 101226608c
 xp: 50
 ```
 
-
-
 `@instructions`
 
 
@@ -136,14 +121,11 @@ xp: 50
 
 
 `@sample_code`
-
 ```{r}
 
 ```
 
-
 `@solution`
-
 ```{r}
 fh_long <- framingham %>% 
     filter(time == 0) %>% 
@@ -158,9 +140,7 @@ ggplot(fh_long, aes(x = Value)) +
 
 ```
 
-
 `@sct`
-
 ```{r}
 
 ```
@@ -173,8 +153,6 @@ key: 16fbde9ec8
 xp: 50
 ```
 
-
-
 `@instructions`
 
 
@@ -182,14 +160,11 @@ xp: 50
 
 
 `@sample_code`
-
 ```{r}
 
 ```
 
-
 `@solution`
-
 ```{r}
 fh_long <- framingham %>% 
     filter(time == 0) %>% 
@@ -205,9 +180,7 @@ ggplot(fh_long, aes(x = Value)) +
 
 ```
 
-
 `@sct`
-
 ```{r}
 
 ```
@@ -231,38 +204,30 @@ xp: 50
 
 ```yaml
 type: NormalExercise
-xp: 100
 key: d905b3eee0
+xp: 100
 ```
-
 
 {{Convert to tab exercise}}
 
-
 `@instructions`
-
 
 
 `@hint`
 
 
 `@pre_exercise_code`
-
 ```{r}
 library(dplyr)
 library(forcats)
 ```
 
-
 `@sample_code`
-
 ```{r}
 
 ```
 
-
 `@solution`
-
 ```{r}
 framingham %>% 
     mutate(
@@ -281,13 +246,10 @@ framingham %>%
         )
 ```
 
-
 `@sct`
-
 ```{r}
 
 ```
-
 
 ---
 
@@ -330,26 +292,20 @@ Reduce the levels of education by using the `fct_recode` function from the
 `@instructions`
 
 
-
 `@hint`
 
 
 `@pre_exercise_code`
-
 ```{r}
 library(forcats)
 ```
 
-
 `@sample_code`
-
 ```{r}
 
 ```
 
-
 `@solution`
-
 ```{r}
 # Count levels of education
 count(framingham, education)
@@ -368,13 +324,10 @@ count(framingham, education_combined)
 # or this? fct_count(framingham$education)
 ```
 
-
 `@sct`
-
 ```{r}
 
 ```
-
 
 ---
 
@@ -391,14 +344,11 @@ dependent on the specific research question, how the data looks, and how you
 want your results to be interpreted. Let's see how each transformation changes the data.
 
 `@pre_exercise_code`
-
 ```{r}
 library(dplyr)
 ```
 
-
 `@sample_code`
-
 ```{r}
 fh_transformed <- framingham %>% 
     mutate(scale_bmi = scale(bmi),
@@ -406,7 +356,6 @@ fh_transformed <- framingham %>%
            log10_bmi = log10(bmi),
            exp_bmi = bmi^2)
 ```
-
 
 ***
 
@@ -416,17 +365,13 @@ key: 0255ca16ff
 xp: 35
 ```
 
-
-
 `@instructions`
-- 
-
+-
 
 `@hint`
 
 
 `@sample_code`
-
 ```{r}
 fh_transformed <- framingham %>% 
     mutate(scale_bmi = scale(bmi),
@@ -434,10 +379,8 @@ fh_transformed <- framingham %>%
            log10_bmi = log10(bmi),
            exp_bmi = bmi^2)
 ```
-
 
 `@solution`
-
 ```{r}
 fh_transformed <- framingham %>% 
     mutate(scale_bmi = scale(bmi),
@@ -446,9 +389,7 @@ fh_transformed <- framingham %>%
            exp_bmi = bmi^2)
 ```
 
-
 `@sct`
-
 ```{r}
 
 ```
@@ -461,8 +402,6 @@ key: 2422f8318a
 xp: 35
 ```
 
-
-
 `@instructions`
 
 
@@ -470,21 +409,16 @@ xp: 35
 
 
 `@sample_code`
-
 ```{r}
 
 ```
-
 
 `@solution`
-
 ```{r}
 
 ```
 
-
 `@sct`
-
 ```{r}
 
 ```
@@ -497,8 +431,6 @@ key: f4dfabce02
 xp: 30
 ```
 
-
-
 `@instructions`
 
 
@@ -506,14 +438,11 @@ xp: 30
 
 
 `@sample_code`
-
 ```{r}
 
 ```
 
-
 `@solution`
-
 ```{r}
 # TODO: show a cohort with continuous outcome, and log that
 fh_transformed <- framingham %>% 
@@ -531,9 +460,7 @@ fh_transformed %>%
 
 ```
 
-
 `@sct`
-
 ```{r}
 
 ```
