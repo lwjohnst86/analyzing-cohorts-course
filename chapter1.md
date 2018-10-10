@@ -248,11 +248,9 @@ lang: r
 xp: 100
 ```
 
-Like the majority of data analyses, a large part of the work involves wrangling the data into the appropriate form to then analyze it. For exploration, particularly of cohort datasets with multiple time points, it's useful see how multiple variables change over time using simple summary statistics.
+Like the majority of data analyses, a large part of the work involves wrangling the data into the appropriate form to then analyze it. For exploration, particularly of cohort datasets with multiple time points, it's useful to see how multiple variables change over time using simple summary statistics.
 
-In this case, since we not only have a time column (`period`), but also multiple variables to summarize, we'll need to convert the data into a very long format.
-
-This exercise makes heavy use of tidyverse-style wrangling, so we expect familiarity with the tidyverse.
+In this case, since we not only have a time column, but also multiple variables to summarize, we'll need to convert the data into a very long format.
 
 `@pre_exercise_code`
 ```{r}
@@ -285,21 +283,22 @@ xp: 35
 ```
 
 `@instructions`
-- Using the tidyr `gather` function, make two new columns `variables` and `values`, but exclude `followup_visit_number` and `got_cvd`.
+- Using the tidyr `gather` function, make two new columns called `variables` and `values`, and exclude the follow-up visit number and CVD status.
 - Make sure to only have four columns at the end.
 
 `@hint`
-- Use the `-` to exclude `followup_visit_number` and `got_cvd`.
+- Use `-` in front of each variable to exclude it. 
+- The variables to exclude here are `followup_visit_number` and `got_cvd`.
 
 `@sample_code`
 ```{r}
-# Gather data into long form, but exclude (-) two columns
+# Gather data into long form, but exclude two columns
 explore_framingham  %>%
 ```
 
 `@solution`
 ```{r}
-# Gather data into long form, but exclude (-) two columns
+# Gather data into long form, but exclude two columns
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd)
 ```
@@ -319,8 +318,7 @@ xp: 35
 
 `@instructions`
 - Use `group_by` on visit number, CVD status, and the variables.
-- Use the dplyr `summarize` function to calculate the `mean` and call the new variable `mean_values`.
-- Make sure to use the `na.rm = TRUE` option when calculating the mean.
+- Create a new `mean_values` variable that calculates the mean of the values.
 
 `@hint`
 - Use `group_by` with `followup_visit_number`, `got_cvd`, and `variables`.
@@ -329,14 +327,14 @@ xp: 35
 
 `@sample_code`
 ```{r}
-# Group by, then summarise
+# Group by, then summarize
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>%
 ```
 
 `@solution`
 ```{r}
-# Group by, then summarise
+# Group by, then summarize
 explore_framingham %>% 
     gather(variables, values, -followup_visit_number, -got_cvd) %>% 
     group_by(followup_visit_number, got_cvd, variables) %>% 
@@ -357,7 +355,7 @@ xp: 30
 ```
 
 `@instructions`
-- Use the tidyr `spread` function to have CVD status (the key) as the new column headers, and the mean values (the value) as the values in the new columns.
+- Use the tidyr `spread` function to have CVD status as the new column headers, and the mean values variable as the values in the new columns.
 
 `@hint`
 - Use `got_cvd` as the key argument.
@@ -383,7 +381,7 @@ explore_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Awesome! You did it. You compared those who didn't and those who did get CVD.")
+success_msg("Awesome! You did it. You compared those who did and did not get CVD.")
 ```
 
 ---
