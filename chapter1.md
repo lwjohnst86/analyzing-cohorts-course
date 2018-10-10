@@ -28,15 +28,15 @@ xp: 50
 skills: 1
 ```
 
-The Framingham cohort was set up to study what might influence the risk of cardiovascular disease (CVD). People from Framingham, USA were recruited and followed over time. Data was collected on "risk factors" and CVD outcomes every few years.
+The Framingham cohort was set up to study what might influence the risk of cardiovascular disease (CVD). People from Framingham, USA were recruited and followed over time. Data was collected on risk factors and CVD outcomes every few years.
 
-What makes Framingham a cohort? The `framingham` dataset is loaded for you to explore. The dataset has yet to be fully tidied, which we will do more of in Chapter 2.
+What makes the Framingham dataset a cohort? The `framingham` dataset is loaded for you to explore. The dataset has yet to be fully tidied, which we will do more of in Chapter 2.
 
 `@possible_answers`
 - It studies a disease (CVD).
 - Participants all came from the town of Framingham, USA.
 - Participants were followed over time.
-- Participants had "risk factors" measured.
+- Participants had risk factors measured.
 
 `@hint`
 Cohorts are people who have *something in common*.
