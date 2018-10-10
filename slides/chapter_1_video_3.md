@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-The purpose of epidemiology is to study disease. There are important terms when it comes to diseases in cohort settings: prevalence and incidence.
+The purpose of epidemiology is to study disease. Two important terms related to diseases in cohort settings are prevalence and incidence.
 
 
 ---
@@ -35,7 +35,7 @@ center_content: true
 
 
 `@script`
-What are prevalence and incidence? We briefly covered it in the previous video, but here we will go into more detail. Prevalence is a single snapshot in time and counts how many people have a disease. Incidence is the number of new cases of a disease over a specific period of time. Because of the time component, incidence data is much more powerful at uncovering how exposures can influence disease. This graph illustrates prevalence vs incidence. At visit 0, there is one case, and so one prevalent case.
+What are prevalence and incidence? We briefly covered it in the previous video, but here we will go into more detail. Prevalence is a single snapshot in time and counts how many people have a disease. Incidence is the number of new cases of a disease over a specific period of time. Because of the time component, incidence data is much more powerful at uncovering how exposures can influence disease. This graph illustrates prevalence compared to incidence. At visit 0, there is one case, and so one prevalent case.
 
 
 ---
@@ -71,7 +71,7 @@ center_content: true
 
 
 `@script`
-At visit 2, there are now 3 cases, three prevalent, one incident. Prevalence is always the number of cases at a given time. For incident cases, we need to know the person's previous status, so is more difficult to count. Overall, there are two incident cases over the entire followup. It's this incidence information from prospective cohorts that makes them very powerful scientific tools.
+At visit 2, there are now 3 cases, three prevalent, one incident. Prevalence is always the number of cases at a given time. For incident cases, we need to know the person's previous status, so it is more difficult to count. Overall, there are two incident cases over the entire period of follow-up. It's this information about the incidence that we get from prospective cohorts that makes the study design such a powerful scientific tool.
 
 
 ---
@@ -90,7 +90,7 @@ key: "84d7194a6c"
 
 
 `@script`
-This is the strength of prospective cohorts, this ability to determine incident cases. It is this temporal aspect to the design and analysis that provides stronger evidence to the study findings. Because the exposure occurs before the disease develops, you can state with more certainty whether it influences the disease or not. For this to happen, participants cannot have the disease at the baseline. Otherwise, it won't be incident data, as we saw in the graph. So, for prospective cohort analyses, it's important to confirm prevalent cases at the first visit.
+The ability to determine incident cases is the strength of prospective cohorts. It is this temporal aspect of the design and analysis that provides stronger evidence for the study findings. Since the exposure occurs before the disease develops, you are able to state with more certainty whether it influenced the disease or not. For this to happen, participants cannot have the disease at the baseline. Otherwise, it won't be incident data, as we saw in the graph. So, for prospective cohort analyses, it's important to confirm prevalent cases during the first visit.
 
 
 ---
@@ -116,15 +116,17 @@ framingham %>%
 #> 2             1   194
 ```
 
-- Note: `filter` keeps rows that match the `TRUE` logical condition
+- `filter(followup_visit_number == 1)` keeps rows that match the `TRUE` logical condition
     - To drop rows, use the opposite
-    - i.e. `!(follow_visit_number == 1)` or use `!=` instead of `==`
+    - `filter!(follow_visit_number == 1)` or use `!=` instead of `==`
 
 
 `@script`
-Here, we're going to check the number of cases at the baseline visit. To make the variable names clearer, we rename them to be more descriptive. Next we filter to keep just the first visit data. Then we count the number of disease cases. With this code, we are counting the prevalent cases of coronary heart disease, or CHD, which is a subset of CVD. One of the exclusion criteria for the Framingham study was to not have CVD. For whatever reason, these participants got included into the study. Often during data collection at the first visit we find out some participants actually have the disease and were recruited accidentally. These things can happen, even with the most rigorous practices. That's why exploratory data analysis is so important. Part of your analysis must be to check these things out and to confirm your assumptions. You'll also notice that we didn't use the got_cvd variable. This is for several reasons which we will cover in later chapters. One of the reasons is that there are many types of CVD events, so there are multiple variables that contain that data. These are variables we will need to check into as we explore the data more and tidy it up in the process.
+Let's check the number of cases at the baseline visit. We rename the variable names to be more descriptive, then filter to keep only baseline data. Then we count the number of disease cases. Here we are counting the prevalent cases of coronary heart disease, or CHD, which is a subset of CVD. One of the exclusion criteria for the Framingham study was to not have CVD, but, for whatever reason, these participants were included in the study. 
 
-A quick note. Filter keeps the rows that match the true condition. In this case, only the first visit. But if you want to drop, you need to do the opposite by using the exclamation mark.
+Often during baseline data collection, researchers find out some participants actually have the disease and were accidentally recruited. This happens even with the most rigorous practices, and it's why exploratory data analysis is so important. Part of your analysis must be to check these things out and to confirm your assumptions. You'll also notice that we didn't use the got_cvd variable. One of the reasons for this is that there are many types of CVD events, so there are multiple variables that contain that information. These are variables we will need to check into as we explore the data more and tidy it up in the process.
+
+Note that, in our code, filter kept the rows that match the true condition. In this case, only the first visit. But if you want to drop rows, you can do the opposite and drop the rows that do not match the true condition, by using the exclamation mark.
 
 
 ---
@@ -136,5 +138,5 @@ key: "91e2c39791"
 ```
 
 `@script`
-Alright, let's practice some more!
+Alright, let's practice!
 
