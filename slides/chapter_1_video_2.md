@@ -49,7 +49,7 @@ key: "b7cc4ddc54"
 
 
 `@script`
-Here we see a typical prospective cohort. Each line is a hypothetical participant. At the study start, no one has a disease. As time passes, some people get the disease and others don't. When the study ends or at the time of analysis, there are a group of people who have the disease, the orange lines, and usually a lot more who don't, the blue lines. There is also data collected at several time points over the study period. So now, you can compare how these two groups of people are different. What factors distinguish those with and without the disease? That is what we try to answer when we analyze the data.
+Here we see a typical prospective cohort. Each line is a hypothetical participant. At the study start, no one has a disease. As time passes, some people get the disease and others don't. When the study ends, or at the time of analysis, there are a group of people who have the disease, shown by the orange lines, and usually a lot more who don't, shown by the blue lines. Data is also collected at several time points over the study period. So, you can compare how these two groups of people are different. What factors distinguish those with and without the disease? That is what we try to answer when we analyze the data.
 
 
 ---
@@ -112,7 +112,9 @@ framingham %>%
 
 
 `@script`
-Let's look more at the data. Using dplyr, we can see the maximum number of visits participants came in for and how long they where followed for. Here, we see there were 3 visits, found by looking at the period variable, and >13 years of follow-up, found from the time variable, which was in days. Next, let's check how many participants came at the first visit. To only see baseline data, we filter by the first period. Here it shows there are >4400 participants, which is a pretty big sample.
+Let's look more at the data. Using dplyr, we can see the maximum number of visits possible for a participant, and how long they were followed in the study. Here, we see from the period variable, there was a maximum of 3 visits. The time variable, which was originally listed in days, tells us there were more than 13 years of follow-up. 
+
+Next, let's check how many participants were part of the first visit. To only see baseline data, we filter by the first period. Here it shows there are more than 4400 participants, which is a pretty big sample.
 
 
 ---
@@ -139,8 +141,10 @@ names(framingham)
 [36] "timestrk" "timecvd"  "timedth"  "timehyp" 
 ```
 
+
 `@script`
-Now, there are many things that aren't clean or obvious from this dataset. For instance, the variable names aren't very clear what they mean. We'll need to tidy it up a bit more as we explore it further... we will likely find more things to tidy in the process.
+There are many things that aren't clean or obvious from this dataset. For instance, the variable names don't always clearly communicate what they mean. We'll need to tidy it up a bit more as we explore it further, and we will likely find more things to tidy in the process.
+
 
 ---
 ## Lesson summary
@@ -158,12 +162,12 @@ key: "75da8bcc42"
     - Outcome: The disease 
     - Exposure/predictor: Factor that may influence the outcome
 - Framingham:
-    - 3 visits, >13 years follow up
-    - ~4400 participants
+    - 3 visits, > 13 years follow up
+    - ~ 4400 participants
 
 
 `@script`
-In summary, we compared the prospective and retrospective designs, the difference in when the disease occurs, the outcome and exposure or predictor, and a brief look at the Framingham study.
+In summary, we compared the prospective and retrospective designs in terms of the difference in when the disease occurs, defined the outcome and exposure or predictor, and took a brief look at more details of the Framingham study.
 
 
 ---
