@@ -36,20 +36,12 @@ Create a simple visual comparing the outcome with the exposures.
 
 `@pre_exercise_code`
 ```{r setup}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+# load(url(""))
+library(forcats)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-
-framingham <- framingham %>%
-    rename(
-        got_cvd = cvd,
-        total_cholesterol = totchol,
-        body_mass_index = bmi,
-        participant_age = age,
-        currently_smokes = cursmoke,
-        followup_visit_number = period
-    )
+load("datasets/framingham_tidier.rda")
 ```
 
 `@sample_code`
@@ -59,14 +51,14 @@ framingham <- framingham %>%
 
 `@solution`
 ```{r}
-framingham %>% 
-    select(time, got_cvd, total_cholesterol, participant_age, body_mass_index,
+tidier_framingham %>% 
+    select(followup_visit_number, got_cvd, total_cholesterol, participant_age, body_mass_index,
            currently_smokes) %>% 
-    mutate(cvd = as.factor(cvd)) %>% 
-    gather(Variable, Value, -time, -cvd) %>% 
-    ggplot(aes(x = Value, group = cvd, fill = cvd)) +
+    mutate(got_cvd = forcats::as_factor(as.character(got_cvd))) %>% 
+    gather(Variable, Value, -followup_visit_number, -got_cvd) %>% 
+    ggplot(aes(x = Value, group = got_cvd, fill = got_cvd)) +
     geom_density(alpha = 0.6) +
-    facet_grid(~ Variable, scales = "free")
+    facet_grid(followup_visit_number ~ Variable, scales = "free")
 ```
 
 `@sct`
