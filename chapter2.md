@@ -1,5 +1,5 @@
 ---
-title: 'Data wrangling, exploration, and formatting'
+title: 'Exploring, wrangling, and transforming cohort data'
 description: ""
 ---
 
