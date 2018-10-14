@@ -1,8 +1,5 @@
-```{r setup}
-source("preamble.R")
-```
 
-# Chapter 2: Data exploring, wrangling, and formatting
+# Chapter 2
 
 **Objectives**
 
@@ -19,20 +16,6 @@ use them
 
 ## Lesson 1: Pre-wrangling exploration
 
-*Content*
-
-Rename all variables here? And do more wrangling,,,?
-
-- NE: Coding example of Simpson's paradox in health setting (real world example?) (or in lesson 2)
-
-### Exercise: Plot individual (or summary) change over time in longitudinal datasets
-
-Create a line plot (or summary line plot if data too big) by individual.
-
-```{r}
-framing
-```
-
 
 ## Lesson 2: Tidy cohort data and wrangling into analyzable form.
 
@@ -47,65 +30,10 @@ variable for one person at one time point
 *Exercises*
 ... maybe two waves that need to be combined?
 
-### Exercise: Which are untidy data?
-
-Identify tidy datasets given the statistical technique/study design
-(or which are wrong)
-
-- wrong ones (possibles):
-    - wide instead of long for longitudinal study
-    - wide instead of long for those with the disease and those without
-    - different character strings for same disease (rather than numbers), e.g.
-    "t2dm" and "dm" for diabetes status
-    - "excel" style of two datasets in one spreadsheet
-
-### Exercise: Long vs wide, or which side is which?
-
-Sometimes analyses are more easily done with data all completely in a long
-form, either for plotting or for summarizing.
-
-```{r}
-# TODO: Write up code for this.
-```
-
-### Exercise: Data could be tidy, but not for analysis
-
-We have a longitudinal cohort that has some variables {{finish}}
-
-```{r}
-
-```
-
 ## Lesson 3: Transforming and modifying variables (maybe into two lessons?)
 
 *Content*
 
-*Exercise*
-- NE: Here's a research question and a dataset. transform the data to be able to 
-get the results to be interpreted this specific way.
-- MCQ/text: Which transformation is best suited for the research question.
-- NE: Here is the output. Get the data to be in this form.
-
-### Exercise: Wide to long for longitudinal data
-
-Depending on the specific data and how a research team decided to enter the data
-into the database, ... {{complete}}
-
-TODO: I'll need to wrangle one of the datasets to fit this form for this exercise.
-Some cohort studies do this, but many don't. Still important to know how to do.
-
-```{r}
-dataname %>% 
-    gather(Measure, Value, -SubjectID) %>%
-    print() %>% # to show what it looks like
-    separate("Measure", into = c("Measure", "Time"), sep = "_") %>%  
-    # _ is one of many separations.
-    print() %>% # show what it looks like
-    spread(Measure, Value)
-    
-```
-
-Part 2:
 
 - Compare the distributions between the normal bmi and scaled bmi. What is different? WHy might scaling be useful?
 - Compare the distributions between the normal bmi and the log bmi. What does logging do and why might it be useful?
@@ -117,10 +45,3 @@ Part 2:
 - Transforming for statistics if necessary
 
 
-
-```{r}
-count(framingham, educ)
-[1]  4  2  1  3 NA
-> unique(framingham$sex)
-[1] 1 2
-```
