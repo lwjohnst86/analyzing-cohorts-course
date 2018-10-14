@@ -25,6 +25,14 @@ title: Instructor
     - talk about tidy data
 TODO: More content, specific to cohorts.
 
+TODO: slide on `case_when` usage.
+
+count(framingham, educ)
+[1]  4  2  1  3 NA
+> unique(framingham$sex)
+[1] 1 2
+
+
 
 ---
 ## Final Slide
