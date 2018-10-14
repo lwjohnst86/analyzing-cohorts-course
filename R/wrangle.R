@@ -1,12 +1,22 @@
 
-# Run this when in the project.
-library(tidyverse)
-framingham <- read_csv(unz("data-raw/framingham.zip", "FRAMINGHAM_csv/frmgham2.csv")) %>%
+library(tidyverse, quietly = TRUE)
+
+# Unzip and load in the framingham dataset
+framingham <- read_csv(unz("data-raw/framingham.zip", "FRAMINGHAM_csv/frmgham2.csv"))
+
+
+# Data for chapter 1 ------------------------------------------------------
+
+# Convert column names to lower case
+framingham <- framingham %>%
     rename_all(str_to_lower)
 
 save(framingham, file = "datasets/framingham.rda")
 
 
+# For chapter 2 -----------------------------------------------------------
+
+# Rename all the variables
 tidier_framingham <- framingham %>%
     rename(
         subject_id = randid,
@@ -37,3 +47,5 @@ tidier_framingham <- framingham %>%
         currently_smokes = cursmoke,
         followup_visit_number = period
     )
+
+save(tidier_framingham, file = "datasets/framingham_tidier.rda")
