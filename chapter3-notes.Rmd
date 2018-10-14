@@ -16,6 +16,8 @@ exactly is most useful to present and show for higher impact)
 fully), and how this can inform what is going on in the relationship.
 - Knowing how to choose/decide on what variables to adjust for
 
+- Comment about staying away from p-values... or maybe for chapter 4...?
+
 ## Lesson 1: Common statistical techniques used for analyzing cohorts
 
 *Content*:
