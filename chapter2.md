@@ -502,3 +502,24 @@ fh_transformed %>%
 ```{r}
 
 ```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+key: 58373c7c64
+```
+
+`@question`
+Looking at the graph, observe how each transformation influences the distribution of body mass index. Which statement is correct?
+
+`@possible_answers`
+
+
+`@hint`
+
+
+`@sct`
+```{r}
+
+```
