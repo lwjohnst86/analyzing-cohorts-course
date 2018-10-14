@@ -339,11 +339,15 @@ library(dplyr)
 
 `@sample_code`
 ```{r}
-fh_transformed <- framingham %>% 
-    mutate(scale_bmi = scale(bmi),
-           log_bmi = log(bmi),
-           log10_bmi = log10(bmi),
-           exp_bmi = bmi^2)
+# Use four transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate(scale_body_mass_index = ___(body_mass_index),
+           log_body_mass_index = ___(body_mass_index),
+           log10_body_mass_index = ___(body_mass_index),
+           sqrt_body_mass_index = ___(body_mass_index))
+
+# Confirm variables have been created
+transformed_framingham
 ```
 
 ***
@@ -355,27 +359,34 @@ xp: 35
 ```
 
 `@instructions`
--
 
 `@hint`
 
 
 `@sample_code`
 ```{r}
-fh_transformed <- framingham %>% 
-    mutate(scale_bmi = scale(bmi),
-           log_bmi = log(bmi),
-           log10_bmi = log10(bmi),
-           exp_bmi = bmi^2)
+# Use four transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate(scale_body_mass_index = ___(body_mass_index),
+           log_body_mass_index = ___(body_mass_index),
+           log10_body_mass_index = ___(body_mass_index),
+           sqrt_body_mass_index = ___(body_mass_index))
+
+# Confirm variables have been created
+transformed_framingham
 ```
 
 `@solution`
 ```{r}
-fh_transformed <- framingham %>% 
-    mutate(scale_bmi = scale(bmi),
-           log_bmi = log(bmi),
-           log10_bmi = log10(bmi),
-           exp_bmi = bmi^2)
+# Use four transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate(scale_body_mass_index = scale(body_mass_index),
+           log_body_mass_index = log(body_mass_index),
+           log10_body_mass_index = log10(body_mass_index),
+           sqrt_body_mass_index = sqrt(body_mass_index))
+
+# Confirm variables have been created
+transformed_framingham
 ```
 
 `@sct`
@@ -404,7 +415,16 @@ xp: 35
 
 `@solution`
 ```{r}
+# Use four transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate(scale_body_mass_index = scale(body_mass_index),
+           log_body_mass_index = log(body_mass_index),
+           log10_body_mass_index = log10(body_mass_index),
+           sqrt_body_mass_index = sqrt(body_mass_index))
 
+# Gather the body mass index variables into long form
+transformed_framingham %>% 
+    gather(bmi_variable, bmi_value, contains("body_mass_index")) 
 ```
 
 `@sct`
@@ -433,19 +453,19 @@ xp: 30
 
 `@solution`
 ```{r}
-# TODO: show a cohort with continuous outcome, and log that
-fh_transformed <- framingham %>% 
-    mutate(scale_bmi = as.numeric(scale(bmi)),
-           log_bmi = log(bmi),
-           log10_bmi = log10(bmi),
-           exp_bmi = bmi^2)
+# Use four transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate(scale_body_mass_index = scale(body_mass_index),
+           log_body_mass_index = log(body_mass_index),
+           log10_body_mass_index = log10(body_mass_index),
+           sqrt_body_mass_index = sqrt(body_mass_index))
 
-fh_transformed %>% 
-    select(contains("bmi")) %>% 
-    gather(bmi_variable, bmi_value) %>% 
+# Visually inspect the transformations
+transformed_framingham %>% 
+    gather(bmi_variable, bmi_value, contains("body_mass_index")) %>% 
     ggplot(aes(x = bmi_value)) +
     geom_histogram() +
-    facet_grid( ~ bmi_variable, scale = "free")
+    facet_wrap( ~ bmi_variable, scale = "free")
 
 ```
 
