@@ -221,21 +221,6 @@ library(forcats)
 
 `@solution`
 ```{r}
-framingham %>% 
-    mutate(
-        sex = case_when(
-            sex == 1 ~ "Male",
-            sex == 2 ~ "Female",
-            TRUE ~ NA_character_
-        ), 
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_
-            )
-        )
 ```
 
 `@sct`
@@ -300,20 +285,32 @@ library(forcats)
 `@solution`
 ```{r}
 # Count levels of education
-count(framingham, education)
+count(tidier_framingham, education)
+
+# 
+fh_educ <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            )
+        )
 
 # Merge levels together
-fh_educ <- framingham %>% 
+fh_educ <- tidier_framingham %>% 
     mutate(education_combined = fct_recode(
         education, 
         "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational",
-        ...
+        "Post-Secondary" = "Vocational"
         ))
 
 # Check levels of new variable
-count(framingham, education_combined)
+count(tidier_framingham, education)
 # or this? fct_count(framingham$education)
+# forcats::fct_count(as.factor(tidier_framingham$education))
 ```
 
 `@sct`
