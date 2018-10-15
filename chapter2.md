@@ -611,18 +611,20 @@ xp: 35
 ```
 
 `@instructions`
+- Scale, log, log10, and square root the values of body mass index.
 
 `@hint`
+- Use the `body_mass_index`
 
 
 `@sample_code`
 ```{r}
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
-    mutate(scale_body_mass_index = ___(body_mass_index),
-           log_body_mass_index = ___(body_mass_index),
-           log10_body_mass_index = ___(body_mass_index),
-           sqrt_body_mass_index = ___(body_mass_index))
+    mutate(scale_body_mass_index = ___(___),
+           log_body_mass_index = ___(___),
+           log10_body_mass_index = ___(___),
+           sqrt_body_mass_index = ___(___))
 
 # Confirm variables have been created
 transformed_framingham
