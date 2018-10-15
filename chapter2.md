@@ -304,6 +304,7 @@ library(dplyr)
 ```yaml
 type: MultipleChoiceExercise
 xp: 25
+key: 0a5da268db
 ```
 
 `@question`
