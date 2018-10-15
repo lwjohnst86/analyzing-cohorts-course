@@ -267,7 +267,20 @@ library(forcats)
 
 ---
 
-## Insert exercise title here
+## Transforming and modifying variables
+
+```yaml
+type: VideoExercise
+key: bfcfbe9aa2
+xp: 50
+```
+
+`@projector_key`
+5d026dadac109f3540f3c1f59a6f96ea
+
+---
+
+## Tidy, then merge categories of discrete variables
 
 ```yaml
 type: TabExercise
@@ -275,11 +288,15 @@ key: d9c9ebd5d7
 xp: 100
 ```
 
+Sometimes, categorical (i.e. factor or character) variables have many levels, but only a few observations in one or more levels. For some analyses or for particular questions, it might make sense to combine categories together. This is especially useful if we only want to interpret one level compared to the other levels.
 
+Before we group together categories of a factor, we need to tidy it up. Often you will encounter discrete data as integers rather than human understandable strings. Let's fix up education, so it is understandable. Then merge some of the categories together.
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/78dd9ad366a4497984a94aa0558ffb8c1d1a044c/framingham_tidier.rda"))
+library(forcats)
+library(dplyr)
 ```
 
 ***
@@ -292,18 +309,62 @@ xp: 25
 
 `@instructions`
 
+- Check the original levels of education.
+- Convert the education values to human readable format using `case_when` inside of `mutate`.
+- The original education numbers should correspond to the following:
+    - 1: "0-11 years"
+    - 2: "High School"
+    - 3: "Vocational"
+    - 4: "College"
+- Confirm they were appropriately changed.
 
 `@hint`
 
 
 `@sample_code`
 ```{r}
+# Count levels of original education
+___(tidier_framingham, ___)
 
+# Convert education to human-readable values
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = ___(
+            # Use the format: variable == number ~ "string"
+            ___ == ___ ~ ___,
+            ___ == ___ ~ ___,
+            ___ == ___ ~ ___,
+            ___ == ___ ~ ___,
+            # Need this as last value
+            TRUE ~ NA_character_
+            )
+        )
+
+# Confirm changes to revised education
+___(tidier2_framingham, ___)
 ```
 
 `@solution`
 ```{r}
+# Check levels of original education
+count(tidier_framingham, education)
 
+# Convert education to human-readable values
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            # Use the format: variable == number ~ "string"
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            # Need this as last value
+            TRUE ~ NA_character_
+            )
+        )
+
+# Confirm changes to revised education
+count(tidier2_framingham, education)
 ```
 
 `@sct`
@@ -327,11 +388,67 @@ xp: 25
 
 `@sample_code`
 ```{r}
+# Check levels of original education
+count(tidier_framingham, education)
+
+# Convert education to human-readable values
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            )
+        )
+
+# Confirm changes to revised education
+count(tidier2_framingham, education)
+
+# Merge college and vocational levels together
+tidier2_framingham <- tidier2_framingham %>% 
+    mutate(education_combined = fct_recode(
+        education, 
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+# Check changes to reduced education
+count(tidier2_framingham, education_combined)
 
 ```
 
 `@solution`
 ```{r}
+# Check levels of original education
+count(tidier_framingham, education)
+
+# Convert education to human-readable values
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            )
+        )
+
+# Confirm changes to revised education
+count(tidier2_framingham, education)
+
+# Merge college and vocational levels together
+tidier2_framingham <- tidier2_framingham %>% 
+    mutate(education_combined = fct_recode(
+        education, 
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+# Check changes to reduced education
+count(tidier2_framingham, education_combined)
 
 ```
 
@@ -350,18 +467,75 @@ xp: 25
 
 `@instructions`
 
+- Reduce the levels of education by using the `fct_recode` function from the
+`forcats` package.
 
 `@hint`
 
 
 `@sample_code`
 ```{r}
+# Check levels of original education
+count(tidier_framingham, education)
+
+# Convert education to human-readable values
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            )
+        )
+
+# Confirm changes to revised education
+count(tidier2_framingham, education)
+
+# Merge college and vocational levels together
+tidier2_framingham <- tidier2_framingham %>% 
+    mutate(education_combined = fct_recode(
+        education, 
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+# Check changes to reduced education
+count(tidier2_framingham, education_combined)
 
 ```
 
 `@solution`
 ```{r}
+# Check levels of original education
+count(tidier_framingham, education)
 
+# Convert education to human-readable values
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            )
+        )
+
+# Confirm changes to revised education
+count(tidier2_framingham, education)
+
+# Merge college and vocational levels together
+tidier2_framingham <- tidier2_framingham %>% 
+    mutate(education_combined = fct_recode(
+        education, 
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+# Check changes to reduced education
+count(tidier2_framingham, education_combined)
 ```
 
 `@sct`
@@ -379,6 +553,7 @@ xp: 25
 
 `@question`
 
+Why is it ok to convert 
 
 `@possible_answers`
 
@@ -391,99 +566,10 @@ xp: 25
 
 ```
 
----
-
-## Transforming and modifying variables
-
-```yaml
-type: VideoExercise
-key: bfcfbe9aa2
-xp: 50
-```
-
-`@projector_key`
-5d026dadac109f3540f3c1f59a6f96ea
 
 ---
 
-## Reduce number of categories in these datasets
-
-```yaml
-type: NormalExercise
-key: a721377679
-xp: 100
-```
-
-{{Convert to tab exercise}}
-
-Sometimes, categorical (i.e. factor or character) variables have many levels,
-but only a few observations in one or more levels. For many analyses, this is
-not ideal as small sample sizes in some groups make it difficult to ...
-{{complete this}}. So, it can be useful to reduce the number of categories by
-merging levels together. This can be especially useful if we only want to
-interpret one level compared to the other levels.
-
-But first, let's make the values of education understandable, rather than just
-numbers.
-
-Reduce the levels of education by using the `fct_recode` function from the
-`forcats` package.
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-library(forcats)
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-# Count levels of education
-count(tidier_framingham, education)
-
-# 
-fh_educ <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_
-            )
-        )
-
-# Merge levels together
-fh_educ <- tidier_framingham %>% 
-    mutate(education_combined = fct_recode(
-        education, 
-        "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
-        ))
-
-# Check levels of new variable
-count(tidier_framingham, education)
-# or this? fct_count(framingham$education)
-# forcats::fct_count(as.factor(tidier_framingham$education))
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
-## Comparison between different transformations
+## Compare different types of transformations
 
 ```yaml
 type: TabExercise
@@ -491,23 +577,26 @@ key: ca708dca27
 xp: 100
 ```
 
-There are many different types of transformations to use. Which to choose is
-dependent on the specific research question, how the data looks, and how you
-want your results to be interpreted. Let's see how each transformation changes the data.
+There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses. 
+
+Use several transformations on body mass index {{other one?}} and visually compare each one to the original values.
 
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
+library(tidyr)
+library(ggplot2)
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/78dd9ad366a4497984a94aa0558ffb8c1d1a044c/framingham_tidier.rda"))
 ```
 
 `@sample_code`
 ```{r}
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
-    mutate(scale_body_mass_index = ___(body_mass_index),
-           log_body_mass_index = ___(body_mass_index),
-           log10_body_mass_index = ___(body_mass_index),
-           sqrt_body_mass_index = ___(body_mass_index))
+    mutate(scale_body_mass_index = ___(___),
+           log_body_mass_index = ___(___),
+           log10_body_mass_index = ___(___),
+           sqrt_body_mass_index = ___(___))
 
 # Confirm variables have been created
 transformed_framingham
