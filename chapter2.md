@@ -68,6 +68,44 @@ tidier_framingham %>%
 
 ---
 
+## Plot individual (or summary) change over time in longitudinal datasets
+
+```yaml
+type: NormalExercise
+key: e784da5222
+xp: 100
+```
+
+Create a line plot (or summary line plot if data too big) by individual.
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Inspect graphically all variables of interest individually
 
 ```yaml
@@ -222,6 +260,132 @@ library(forcats)
 `@solution`
 ```{r}
 ```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## Insert exercise title here
+
+```yaml
+type: TabExercise
+key: d9c9ebd5d7
+xp: 100
+```
+
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: d76bbc4aa0
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: d2b17a1c8d
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: b6027a2fe7
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+key: 5ce3ed1c0d
+xp: 25
+```
+
+`@question`
+
+
+`@possible_answers`
+
+
+`@hint`
+
 
 `@sct`
 ```{r}
@@ -468,6 +632,27 @@ transformed_framingham %>%
     facet_wrap( ~ bmi_variable, scale = "free")
 
 ```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+key: 58373c7c64
+```
+
+`@question`
+Looking at the graph, observe how each transformation influences the distribution of body mass index. Which statement is correct?
+
+`@possible_answers`
+
+
+`@hint`
+
 
 `@sct`
 ```{r}
