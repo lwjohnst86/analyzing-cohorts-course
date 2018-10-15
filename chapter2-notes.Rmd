@@ -3,8 +3,6 @@
 
 **Objectives**
 
-- Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
-
 - How to get data into form for quick exploration
 - How to wrangle the data to get into a form to use for the analysis/statistic
 - Know the various tools to transform the data and when is more appropriate to
@@ -27,9 +25,6 @@ at one time point.
 For plotting, the distributions of each variable, each row should represent one
 variable for one person at one time point
 
-*Exercises*
-... maybe two waves that need to be combined?
-
 ## Lesson 3: Transforming and modifying variables (maybe into two lessons?)
 
 *Content*
@@ -43,5 +38,3 @@ variable for one person at one time point
 - Look over data to find problems or fit to needs of research question
 - Wrangling data to get into proper for statistics
 - Transforming for statistics if necessary
-
-
