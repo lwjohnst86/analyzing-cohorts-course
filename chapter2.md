@@ -302,6 +302,37 @@ library(dplyr)
 ***
 
 ```yaml
+type: MultipleChoiceExercise
+xp: 25
+```
+
+`@question`
+
+What is the `n` for each of the education values? Use the R console to count the levels of the education variable.
+
+`@possible_answers`
+
+- 1 = 3410, 2 = 4690, 3 = 1347, 4 = 1885, NA = 295
+- 1 = 4690, 2 = 3410, 3 = 1885, 4 = 1347, NA = 295
+- 1 = 2314, 2 = 4312, 3 = 1223, 4 = 3778
+- None of the above.
+
+`@hint`
+
+- Use `count` on the `education` variable.
+
+`@sct`
+```{r}
+msg1 <- "Incorrect."
+msg2 <- "Correct!"
+msg3 <- "Incorrect. There are missing values."
+msg4 <- "Incorrect. One of the above has the right answer."
+ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
+```
+
+***
+
+```yaml
 type: NormalExercise
 key: d76bbc4aa0
 xp: 25
@@ -316,16 +347,15 @@ xp: 25
     - 2: "High School"
     - 3: "Vocational"
     - 4: "College"
-- Confirm they were appropriately changed.
+- Confirm that the education values have properly changed.
 
 `@hint`
 
+- The form for the `case_when` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
+- Use `count` with the `education` variable.
 
 `@sample_code`
 ```{r}
-# Count levels of original education
-___(tidier_framingham, ___)
-
 # Convert education to human-readable values
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
@@ -346,9 +376,6 @@ ___(tidier2_framingham, ___)
 
 `@solution`
 ```{r}
-# Check levels of original education
-count(tidier_framingham, education)
-
 # Convert education to human-readable values
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
@@ -369,7 +396,7 @@ count(tidier2_framingham, education)
 
 `@sct`
 ```{r}
-
+success_msg("Awesome! You've tidied up discrete values to be human understandable.")
 ```
 
 ***
@@ -382,15 +409,16 @@ xp: 25
 
 `@instructions`
 
+- Change the levels of Vocational and College education to be Post-Secondary by using the `fct_recode` function from the `forcats` package (which has been loaded).
+- Confirm that the education values have been correctly merged by counting the new education variable.
 
 `@hint`
 
+- Make sure to capitalise the old and new education levels.
+- Use `count` on the `education_combined` variable.
 
 `@sample_code`
 ```{r}
-# Check levels of original education
-count(tidier_framingham, education)
-
 # Convert education to human-readable values
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
@@ -403,27 +431,21 @@ tidier2_framingham <- tidier_framingham %>%
             )
         )
 
-# Confirm changes to revised education
-count(tidier2_framingham, education)
-
 # Merge college and vocational levels together
 tidier2_framingham <- tidier2_framingham %>% 
-    mutate(education_combined = fct_recode(
+    mutate(education_combined = ___(
         education, 
-        "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
+        # Form is: "new" = "old"
+        ___ = ___,
+        ___ = ___
         ))
 
-# Check changes to reduced education
-count(tidier2_framingham, education_combined)
-
+# Confirm changes to the new combined education
+___(tidier2_framingham, ___)
 ```
 
 `@solution`
 ```{r}
-# Check levels of original education
-count(tidier_framingham, education)
-
 # Convert education to human-readable values
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
@@ -436,111 +458,22 @@ tidier2_framingham <- tidier_framingham %>%
             )
         )
 
-# Confirm changes to revised education
-count(tidier2_framingham, education)
-
 # Merge college and vocational levels together
 tidier2_framingham <- tidier2_framingham %>% 
     mutate(education_combined = fct_recode(
         education, 
+        # Form is: "new" = "old"
         "Post-Secondary" = "College",
         "Post-Secondary" = "Vocational"
         ))
 
-# Check changes to reduced education
-count(tidier2_framingham, education_combined)
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: b6027a2fe7
-xp: 25
-```
-
-`@instructions`
-
-- Reduce the levels of education by using the `fct_recode` function from the
-`forcats` package.
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-# Check levels of original education
-count(tidier_framingham, education)
-
-# Convert education to human-readable values
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_
-            )
-        )
-
-# Confirm changes to revised education
-count(tidier2_framingham, education)
-
-# Merge college and vocational levels together
-tidier2_framingham <- tidier2_framingham %>% 
-    mutate(education_combined = fct_recode(
-        education, 
-        "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
-        ))
-
-# Check changes to reduced education
-count(tidier2_framingham, education_combined)
-
-```
-
-`@solution`
-```{r}
-# Check levels of original education
-count(tidier_framingham, education)
-
-# Convert education to human-readable values
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_
-            )
-        )
-
-# Confirm changes to revised education
-count(tidier2_framingham, education)
-
-# Merge college and vocational levels together
-tidier2_framingham <- tidier2_framingham %>% 
-    mutate(education_combined = fct_recode(
-        education, 
-        "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
-        ))
-
-# Check changes to reduced education
+# Confirm changes to the new combined education
 count(tidier2_framingham, education_combined)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great! You've combined two factor levels together into a new level.")
 ```
 
 ***
@@ -553,7 +486,7 @@ xp: 25
 
 `@question`
 
-Why is it ok to convert 
+Why might it be a good idea to reduce the number of levels in the factor variable.
 
 `@possible_answers`
 
