@@ -516,23 +516,10 @@ Use several transformations on body mass index {{other one?}} and visually compa
 
 `@pre_exercise_code`
 ```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/78dd9ad366a4497984a94aa0558ffb8c1d1a044c/framingham_tidier.rda"))
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/78dd9ad366a4497984a94aa0558ffb8c1d1a044c/framingham_tidier.rda"))
-```
-
-`@sample_code`
-```{r}
-# Use four transformations on body mass index
-transformed_framingham <- tidier_framingham %>% 
-    mutate(scale_body_mass_index = ___(___),
-           log_body_mass_index = ___(___),
-           log10_body_mass_index = ___(___),
-           sqrt_body_mass_index = ___(___))
-
-# Confirm variables have been created
-transformed_framingham
 ```
 
 ***
@@ -547,7 +534,8 @@ xp: 35
 - Scale, log, log10, and square root the values of body mass index.
 
 `@hint`
-- Use the `body_mass_index`
+- Use the `body_mass_index` variable.
+- Use `scale`, `log`, `log10`, and `sqrt` to transform the values.
 
 
 `@sample_code`
@@ -560,7 +548,7 @@ transformed_framingham <- tidier_framingham %>%
            sqrt_body_mass_index = ___(___))
 
 # Confirm variables have been created
-transformed_framingham
+summary(___)
 ```
 
 `@solution`
@@ -573,12 +561,12 @@ transformed_framingham <- tidier_framingham %>%
            sqrt_body_mass_index = sqrt(body_mass_index))
 
 # Confirm variables have been created
-transformed_framingham
+summary(transformed_framingham)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Excellent! You've used several transformation types on a variable.")
 ```
 
 ***
@@ -591,13 +579,24 @@ xp: 35
 
 `@instructions`
 
+- We want to plot all transformation types on one plot, so we need a long data format.
+- Convert the dataset into the long format, with two new columns variables and values, for only the original and transformed body mass index variables.
 
 `@hint`
 
 
 `@sample_code`
 ```{r}
+# Use four transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate(scale_body_mass_index = scale(body_mass_index),
+           log_body_mass_index = log(body_mass_index),
+           log10_body_mass_index = log10(body_mass_index),
+           sqrt_body_mass_index = sqrt(body_mass_index))
 
+# Convert the body mass index variables into long form
+transformed_framingham %>% 
+    ___(___, ___, contains("body_mass_index")) 
 ```
 
 `@solution`
@@ -609,14 +608,14 @@ transformed_framingham <- tidier_framingham %>%
            log10_body_mass_index = log10(body_mass_index),
            sqrt_body_mass_index = sqrt(body_mass_index))
 
-# Gather the body mass index variables into long form
+# Convert the body mass index variables into long form
 transformed_framingham %>% 
-    gather(bmi_variable, bmi_value, contains("body_mass_index")) 
+    gather(variables, values, contains("body_mass_index")) 
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Nice, now we need to plot the data!")
 ```
 
 ***
@@ -649,10 +648,10 @@ transformed_framingham <- tidier_framingham %>%
 
 # Visually inspect the transformations
 transformed_framingham %>% 
-    gather(bmi_variable, bmi_value, contains("body_mass_index")) %>% 
-    ggplot(aes(x = bmi_value)) +
+    gather(variables, values, contains("body_mass_index")) %>% 
+    ggplot(aes(x = values)) +
     geom_histogram() +
-    facet_wrap( ~ bmi_variable, scale = "free")
+    facet_wrap( ~ variables, scale = "free")
 
 ```
 
