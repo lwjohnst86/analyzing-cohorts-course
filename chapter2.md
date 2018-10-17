@@ -260,6 +260,7 @@ library(forcats)
 
 `@solution`
 ```{r}
+
 ```
 
 `@sct`
@@ -305,22 +306,20 @@ library(dplyr)
 
 ```yaml
 type: MultipleChoiceExercise
+key: 0a5da268db
 xp: 25
 ```
 
 `@question`
-
 What is the `n` for each of the education values? Use the R console to count the levels of the education variable.
 
 `@possible_answers`
-
 - 1 = 3410, 2 = 4690, 3 = 1347, 4 = 1885, NA = 295
 - 1 = 4690, 2 = 3410, 3 = 1885, 4 = 1347, NA = 295
 - 1 = 2314, 2 = 4312, 3 = 1223, 4 = 3778
 - None of the above.
 
 `@hint`
-
 - Use `count` on the `education` variable.
 
 `@sct`
@@ -341,7 +340,6 @@ xp: 25
 ```
 
 `@instructions`
-
 - Check the original levels of education.
 - Convert the education values to human readable format using `case_when` inside of `mutate`.
 - The original education numbers should correspond to the following:
@@ -352,7 +350,6 @@ xp: 25
 - Confirm that the education values have properly changed.
 
 `@hint`
-
 - The form for the `case_when` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
 - Use `count` with the `education` variable.
 
@@ -410,12 +407,10 @@ xp: 25
 ```
 
 `@instructions`
-
 - Change the levels of Vocational and College education to be Post-Secondary by using the `fct_recode` function from the `forcats` package (which has been loaded).
 - Confirm that the education values have been correctly merged by counting the new education variable.
 
 `@hint`
-
 - Make sure to capitalise the old and new education levels.
 - Use `count` on the `education_combined` variable.
 
@@ -487,7 +482,6 @@ xp: 25
 ```
 
 `@question`
-
 Why might it be a good idea to reduce the number of levels in the factor variable.
 
 `@possible_answers`
@@ -500,7 +494,6 @@ Why might it be a good idea to reduce the number of levels in the factor variabl
 ```{r}
 
 ```
-
 
 ---
 
@@ -577,7 +570,6 @@ xp: 35
 ```
 
 `@instructions`
-
 - We want to plot all transformation types on one plot, so we need a long data format.
 - Convert the dataset into the long format, with two new columns variables and values, for only the original and transformed body mass index variables.
 
