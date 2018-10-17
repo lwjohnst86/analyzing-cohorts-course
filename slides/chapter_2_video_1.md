@@ -18,6 +18,7 @@ title: Instructor
 
 `@script`
 
+- How to get data into form for quick exploration
 - Exploring data (dot/boxplots, violinplots, correlation heatmap)
     - Need to understand the data before doing any serious wrangling
 - NE: Coding example of Simpson's paradox in health setting (real world example?) (or in lesson 2)

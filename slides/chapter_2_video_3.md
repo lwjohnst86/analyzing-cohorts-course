@@ -28,6 +28,11 @@ title: Instructor
     interpretation and generalizability, grouping categories makes sense,
     and to also balance the sample between groups.
     - Use sex as an example
+- Know the various tools to transform the data and when is more appropriate to
+use them
+    - Know to be very careful of ever converting continuous into discrete
+    - Know when and why to transform variables (good reasons and bad)
+    - Reducing number of categories in categorical variable
 
 
 

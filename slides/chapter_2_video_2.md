@@ -24,6 +24,10 @@ title: Instructor
     - converting into long for use by statistical techniques (e.g. mixed effects)
     - talk about tidy data
 TODO: More content, specific to cohorts.
+For running models, each row should represent the all the values for one person
+at one time point.
+- How to wrangle the data to get into a form to use for the analysis/statistic
+- Dealing with outliers (or not)
 
 TODO: slide on `case_when` usage.
 
