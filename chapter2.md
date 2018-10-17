@@ -36,7 +36,7 @@ Create a simple visual comparing the outcome with the exposures.
 
 `@pre_exercise_code`
 ```{r setup}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/78dd9ad366a4497984a94aa0558ffb8c1d1a044c/framingham_tidier.rda"))
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
 load("datasets/framingham_tidier.rda")
 library(forcats)
 library(dplyr)
@@ -297,7 +297,7 @@ Before we group together categories of a factor, we need to tidy it up. Often yo
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/78dd9ad366a4497984a94aa0558ffb8c1d1a044c/framingham_tidier.rda"))
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
 library(forcats)
 library(dplyr)
 ```
@@ -502,7 +502,7 @@ Why might it be a good idea to reduce the number of levels in the factor variabl
 ```yaml
 type: TabExercise
 key: ca708dca27
-xp: 100
+xp: 150
 ```
 
 There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses. 
@@ -511,7 +511,7 @@ Use several transformations on body mass index {{other one?}} and visually compa
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/78dd9ad366a4497984a94aa0558ffb8c1d1a044c/framingham_tidier.rda"))
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -522,7 +522,7 @@ library(ggplot2)
 ```yaml
 type: NormalExercise
 key: 0255ca16ff
-xp: 35
+xp: 30
 ```
 
 `@instructions`
@@ -566,7 +566,7 @@ success_msg("Excellent! You've used several transformation types on two variable
 ```yaml
 type: NormalExercise
 key: 2422f8318a
-xp: 35
+xp: 30
 ```
 
 `@instructions`
@@ -668,6 +668,7 @@ success_msg("Amazing! Check out how each transformation influences the distribut
 ```yaml
 type: MultipleChoiceExercise
 key: 58373c7c64
+exp: 15
 ```
 
 `@question`
@@ -760,6 +761,7 @@ success_msg("Great! Compare how the transformations affect the cigarettes data c
 
 ```yaml
 type: MultipleChoiceExercise
+xp: 15
 ```
 
 `@question`
