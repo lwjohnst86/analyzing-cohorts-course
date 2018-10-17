@@ -531,21 +531,20 @@ xp: 35
 ```
 
 `@instructions`
-- Scale, log, log10, and square root the values of body mass index.
+
+- Scale, log, log10, and square root the values of body mass index and cigarettes per day.
 
 `@hint`
-- Use the `body_mass_index` variable.
-- Use `scale`, `log`, `log10`, and `sqrt` to transform the values.
 
+- Use the `body_mass_index` and the `cigarettes_per_day` variables.
+- Use `scale`, `log`, `log10`, and `sqrt` to transform the values.
 
 `@sample_code`
 ```{r}
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
-    mutate(scale_body_mass_index = ___(___),
-           log_body_mass_index = ___(___),
-           log10_body_mass_index = ___(___),
-           sqrt_body_mass_index = ___(___))
+    mutate_at(vars(___, ___), 
+              funs(___, ___, ___, sqrt))
 
 # Confirm variables have been created
 summary(___)
@@ -555,10 +554,8 @@ summary(___)
 ```{r}
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
-    mutate(scale_body_mass_index = scale(body_mass_index),
-           log_body_mass_index = log(body_mass_index),
-           log10_body_mass_index = log10(body_mass_index),
-           sqrt_body_mass_index = sqrt(body_mass_index))
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(scale, log, log10, sqrt))
 
 # Confirm variables have been created
 summary(transformed_framingham)
@@ -566,7 +563,7 @@ summary(transformed_framingham)
 
 `@sct`
 ```{r}
-success_msg("Excellent! You've used several transformation types on a variable.")
+success_msg("Excellent! You've used several transformation types on two variables.")
 ```
 
 ***
@@ -584,15 +581,15 @@ xp: 35
 
 `@hint`
 
+- Use `gather` to convert to long form.
+- Name the key argument  `variables` and the value argument `values`.
 
 `@sample_code`
 ```{r}
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
-    mutate(scale_body_mass_index = scale(body_mass_index),
-           log_body_mass_index = log(body_mass_index),
-           log10_body_mass_index = log10(body_mass_index),
-           sqrt_body_mass_index = sqrt(body_mass_index))
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(scale, log, log10, sqrt))
 
 # Convert the body mass index variables into long form
 transformed_framingham %>% 
@@ -603,10 +600,8 @@ transformed_framingham %>%
 ```{r}
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
-    mutate(scale_body_mass_index = scale(body_mass_index),
-           log_body_mass_index = log(body_mass_index),
-           log10_body_mass_index = log10(body_mass_index),
-           sqrt_body_mass_index = sqrt(body_mass_index))
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(scale, log, log10, sqrt))
 
 # Convert the body mass index variables into long form
 transformed_framingham %>% 
@@ -628,36 +623,50 @@ xp: 30
 
 `@instructions`
 
+- Using ggplot2 functions, put the values on the x-axis and plot a histogram for each variable.
 
 `@hint`
 
+- Use `geom_histogram` as a ggplot layer.
+- Have `x = values` as the aesthetic.
 
 `@sample_code`
 ```{r}
+# Use four transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate(cigarettes_per_day = cigarettes_per_day + 0.5) %>% 
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(scale, log, log10, sqrt))
 
+# Visually inspect the transformations for body mass index
+transformed_framingham %>% 
+    gather(variables, values, contains("body_mass_index")) %>% 
+    ___ +
+    ___ +
+    # All histograms can be easily seen with facet and free scales
+    facet_wrap( ~ variables, scale = "free")
 ```
 
 `@solution`
 ```{r}
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
-    mutate(scale_body_mass_index = scale(body_mass_index),
-           log_body_mass_index = log(body_mass_index),
-           log10_body_mass_index = log10(body_mass_index),
-           sqrt_body_mass_index = sqrt(body_mass_index))
+    mutate(cigarettes_per_day = cigarettes_per_day + 0.5) %>% 
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(scale, log, log10, sqrt))
 
-# Visually inspect the transformations
+# Visually inspect the transformations for body mass index
 transformed_framingham %>% 
     gather(variables, values, contains("body_mass_index")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
+    # All histograms can be easily seen with facet and free scales
     facet_wrap( ~ variables, scale = "free")
-
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Amazing! Check out how each transformation influences the distribution of body mass index.")
 ```
 
 ***
@@ -668,15 +677,120 @@ key: 58373c7c64
 ```
 
 `@question`
-Looking at the graph, observe how each transformation influences the distribution of body mass index. Which statement is correct?
+Looking at the graph, observe how each transformation influences the distribution of body mass index and think about how these new distributions might influence later analyses. Which statement is true?
 
 `@possible_answers`
 
+- Taking the square root and scaling doesn't change the distribution but does change the unit.
+- Taking the logarthm changes the distribution and the unit.
+- For later analyses, body mass index already has a good distribution and has the original unit, so interpretation will be easier if no transformations are used.
+- For later analyses, taking the scale can make interpretation easy since one unit is equal to one standard deviation of the original unit.
+- All of the above.
 
 `@hint`
 
+- Look at the distribution of each transformation on body mass index, compared to the original distribution.
 
 `@sct`
 ```{r}
+msg1 <- "Almost. While this is true, it's not the only true answer."
+msg2 <- "Almost. While this is true, it's not the only true answer."
+msg3 <- "Almost. While this is true, it's not the only true answer."
+msg4 <- "Almost. While this is true, it's not the only true answer."
+msg5 <- "Yes! Which type of and when you might transform really depends on the research question, the data values, and how you will want the results from your analyses to be interpreted. This means you need to carefully think about and have justifications for what you do to the data."
+ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+```
 
+***
+
+```yaml
+type: NormalExercise
+xp: 30
+```
+
+`@instructions`
+
+- Now do the same thing for cigarettes per day as you did for body mass index.
+
+`@hint`
+
+- Use the same code as you did for the body mass index, but for `cigarettes_per_day`.
+
+`@sample_code`
+```{r}
+# Use four transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(scale, log, log10, sqrt))
+
+# Visually inspect the transformations for body mass index
+transformed_framingham %>% 
+    gather(variables, values, contains("body_mass_index")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    facet_wrap( ~ variables, scale = "free", ncol = 3)
+
+# Visually inspect the transformations for cigarettes per day
+
+```
+
+`@solution`
+```{r}
+# Use four transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(scale, log, log10, sqrt))
+
+# Visually inspect the transformations for body mass index
+transformed_framingham %>% 
+    gather(variables, values, contains("body_mass_index")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    facet_wrap( ~ variables, scale = "free", ncol = 3)
+
+# Visually inspect the transformations for cigarettes per day
+transformed_framingham %>% 
+    gather(variables, values, contains("cigarettes_per_day")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    facet_wrap( ~ variables, scale = "free", ncol = 3)
+```
+
+`@sct`
+```{r}
+success_msg("Great! Compare how the transformations affect the cigarettes data compared to the body mass index data.")
+```
+
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+```
+
+`@question`
+
+The cigarettes per day variable contains count data with a large number of zero values. Because of this, there are some problems and other considerations to think about. Look at the distribution of the data and at the warning messages. Which of following statements is true? 
+
+`@possible_answers`
+
+- Some transformations aren't appropriate. For instance, the log of 0 doesn't work (`log(0)` = `-Inf`), so there will be many missing values.
+- There seems to be two "peaks", one at zero and one at 20. Depending on the research question, you could convert this variable to a categorical variable.
+- Most values seem to be zero. Depending on the research question, you could dichotomize this variable.
+- All of the above. 
+- None of the above.
+
+`@hint`
+
+- Notice the warning message and check the summary of the transformed data.
+- Look at the distribution of each transformation on cigarettes per day.
+
+`@sct`
+```{r}
+msg1 <- "Almost. While this is true, it's not the only true answer."
+msg2 <- "Almost. While this is true, it's not the only true answer."
+msg3 <- "Almost. While this is true, it's not the only true answer."
+msg4 <- "That's right! Some transformations won't work with this data. One way of dealing with zeros is by adding 0.5 to all the values. However, you'll also notice that there are two peaks in the data, so it has a bimodal distribution. Because of this, most transformations won't fix this. Generally it's a bad idea to convert continuous variables to discrete variables. However, depending on the data and the research questions, this can sometimes be appropriate to do. Especially considering that this is 'memory recall' data, and not directly measured, so there will be more noise in the data."
+msg5 <- "Incorrect. One of the above has the right answer."
+ex() %>% check_mc(4, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
