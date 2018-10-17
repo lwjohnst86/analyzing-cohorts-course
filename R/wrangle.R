@@ -22,7 +22,7 @@ tidier_framingham <- framingham %>%
         subject_id = randid,
         systolic_blood_pressure = sysbp,
         diastolic_blood_pressure = diabp,
-        cigerattes_per_day = cigpday,
+        cigarettes_per_day = cigpday,
         blood_pressure_meds = bpmeds,
         heart_rate = heartrte,
         fasting_blood_glucose = glucose,
