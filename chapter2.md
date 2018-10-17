@@ -283,7 +283,7 @@ xp: 50
 
 ---
 
-## Tidy, then merge categories of discrete variables
+## Tidy then merge categories of discrete variables
 
 ```yaml
 type: TabExercise
@@ -340,9 +340,8 @@ xp: 25
 ```
 
 `@instructions`
-- Check the original levels of education.
-- Convert the education values to human readable format using `case_when` inside of `mutate`.
-- The original education numbers should correspond to the following:
+- Convert the education values to human readable format using `case_when`.
+- The original education numbers should correspond to the following strings:
     - 1: "0-11 years"
     - 2: "High School"
     - 3: "Vocational"
@@ -395,7 +394,7 @@ count(tidier2_framingham, education)
 
 `@sct`
 ```{r}
-success_msg("Awesome! You've tidied up discrete values to be human understandable.")
+success_msg("Awesome! You've tidied up discrete values to be understandable to humans.")
 ```
 
 ***
@@ -407,7 +406,7 @@ xp: 25
 ```
 
 `@instructions`
-- Change the levels of Vocational and College education to be Post-Secondary by using the `fct_recode` function from the `forcats` package (which has been loaded).
+- Change the levels of Vocational and College education to be Post-Secondary by using `fct_recode` (forcats has been loaded).
 - Confirm that the education values have been correctly merged by counting the new education variable.
 
 `@hint`
@@ -482,10 +481,11 @@ xp: 25
 ```
 
 `@question`
-Why might it be a good idea to reduce the number of levels in the factor variable.
+Why might it be a good idea to reduce the number of levels in the factor variable?
 
 `@possible_answers`
-
+- Increase the sample size in smaller groups.
+- Improve interpretability.
 
 `@hint`
 
