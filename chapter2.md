@@ -236,6 +236,7 @@ xp: 50
 ```yaml
 type: NormalExercise
 xp: 100
+key: d905b3eee0
 ```
 {{MCQ question about number of sex... then comment about what the numbers mean.}}
 
