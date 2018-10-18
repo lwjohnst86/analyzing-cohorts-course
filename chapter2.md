@@ -613,6 +613,7 @@ ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```yaml
 type: NormalExercise
 xp: 30
+key: 38521a1913
 ```
 
 `@instructions`
@@ -674,6 +675,7 @@ success_msg("Great! Compare how the transformations affect the cigarettes data c
 ```yaml
 type: MultipleChoiceExercise
 xp: 15
+key: 3c5705a42e
 ```
 
 `@question`
