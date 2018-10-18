@@ -307,7 +307,7 @@ library(dplyr)
 ```yaml
 type: MultipleChoiceExercise
 key: 0a5da268db
-xp: 25
+xp: 35
 ```
 
 `@question`
@@ -336,7 +336,7 @@ ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```yaml
 type: NormalExercise
 key: d76bbc4aa0
-xp: 25
+xp: 35
 ```
 
 `@instructions`
@@ -402,7 +402,7 @@ success_msg("Awesome! You've tidied up discrete values to be understandable to h
 ```yaml
 type: NormalExercise
 key: d2b17a1c8d
-xp: 25
+xp: 30
 ```
 
 `@instructions`
@@ -465,6 +465,7 @@ tidier2_framingham <- tidier2_framingham %>%
 
 # Confirm changes to the new combined education
 count(tidier2_framingham, education_combined)
+# TODO: include count by visit number?
 ```
 
 `@sct`
@@ -472,28 +473,6 @@ count(tidier2_framingham, education_combined)
 success_msg("Great! You've combined two factor levels together into a new level.")
 ```
 
-***
-
-```yaml
-type: MultipleChoiceExercise
-key: 5ce3ed1c0d
-xp: 25
-```
-
-`@question`
-Why might it be a good idea to reduce the number of levels in the factor variable?
-
-`@possible_answers`
-- Increase the sample size in smaller groups.
-- Improve interpretability.
-
-`@hint`
-
-
-`@sct`
-```{r}
-
-```
 
 ---
 
