@@ -235,37 +235,163 @@ xp: 50
 
 ```yaml
 type: NormalExercise
-key: d905b3eee0
 xp: 100
 ```
+{{MCQ question about number of sex... then comment about what the numbers mean.}}
 
-{{Convert to tab exercise}}
+As you will have noticed, there are several discrete variables with ambiguous values. For instance, with sex the values are either 1 or 2. Often you will encounter discrete data as integers rather than human understandable strings. But what exactly does that mean? With data like this, you need to have a data dictionary to review to find out.  Let's fix that problem and tidy up the data a bit more so it is human-readable.
 
 `@instructions`
-
+- Convert the education and sex values to human readable format using `case_when`.
+- The original education numbers should correspond to the following strings:
+    - 1: "0-11 years"
+    - 2: "High School"
+    - 3: "Vocational"
+    - 4: "College"
+- The original sex numbers should correspond to the following strings:
+    - 1: "Man"
+    - 2: "Woman"
+- Confirm that the education and sex values have properly changed.
 
 `@hint`
-
+- The form for the `case_when` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
+- Use `count` with the `education` variable.
 
 `@pre_exercise_code`
 ```{r}
-library(dplyr)
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
 library(forcats)
+library(dplyr)
 ```
 
 `@sample_code`
 ```{r}
+# Convert education and sex to human-readable values
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = ___(
+            # Use the format: variable == number ~ "string"
+            ___ == ___ ~ ___,
+            ___ == ___ ~ ___,
+            ___ == ___ ~ ___,
+            ___ == ___ ~ ___,
+            # Need this as last value
+            TRUE ~ NA_character_
+            ),
+        # Do the same thing with sex
+        sex = ___
+        )
+
+# Confirm changes to revised education
+___(tidier2_framingham, ___)
+
+# Confirm changes to revised sex
 
 ```
 
 `@solution`
 ```{r}
+# Convert education to human-readable values
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            # Use the format: variable == number ~ "string"
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            # Need this as last value
+            TRUE ~ NA_character_
+            ),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            # Need this as last value
+            TRUE ~ NA_character_
+            )
+        )
 
+# Confirm changes to revised education
+count(tidier2_framingham, education)
+
+# Confirm changes to revised sex
+count(tidier2_framingham, sex)
 ```
 
 `@sct`
 ```{r}
+success_msg("Awesome! You've tidied up discrete values to be understandable to humans.")
+```
 
+---
+
+## Merge factor categories together
+
+```yaml
+type: NormalExercise
+key: d905b3eee0
+xp: 100
+```
+
+Sometimes, categorical (i.e. factor or character) variables have many levels, but only a few observations in one or more levels. For some analyses or for particular questions, it might make sense to combine categories together. This is especially useful if we only want to interpret one level compared to the other levels.
+
+`@instructions`
+- Change the levels of Vocational and College education to be Post-Secondary by using `fct_recode` (forcats has been loaded).
+- Confirm that the education values have been correctly merged by counting the new education variable.
+
+`@hint`
+- Make sure to capitalise the old and new education levels.
+- Use `count` on the `education_combined` variable.
+- Compare how the numbers differ between the original and the new education variable over each followup visit.
+
+`@pre_exercise_code`
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(forcats)
+library(dplyr)
+```
+
+`@sample_code`
+```{r}
+# Merge college and vocational levels together
+tidier2_framingham <- tidier2_framingham %>% 
+    mutate(education_combined = ___(
+        education, 
+        # Form is: "new" = "old"
+        ___ = ___,
+        ___ = ___
+        ))
+
+# Confirm changes to the new combined education
+___(tidier2_framingham, ___)
+
+# Compare counts of education vs the combined version with visit number
+___
+___
+```
+
+`@solution`
+```{r}
+# Merge college and vocational levels together
+tidier2_framingham <- tidier2_framingham %>% 
+    mutate(education_combined = fct_recode(
+        education, 
+        # Form is: "new" = "old"
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+# Confirm changes to the new combined education
+count(tidier2_framingham, education_combined)
+
+# Compare the count of education with the combined version
+count(tidier2_framingham, followup_visit_number, education)
+count(tidier2_framingham, followup_visit_number, education_combined)
+```
+
+`@sct`
+```{r}
+success_msg("Great! You've combined two factor levels together into a new level.")
 ```
 
 ---
@@ -280,199 +406,6 @@ xp: 50
 
 `@projector_key`
 5d026dadac109f3540f3c1f59a6f96ea
-
----
-
-## Tidy then merge categories of discrete variables
-
-```yaml
-type: TabExercise
-key: d9c9ebd5d7
-xp: 100
-```
-
-Sometimes, categorical (i.e. factor or character) variables have many levels, but only a few observations in one or more levels. For some analyses or for particular questions, it might make sense to combine categories together. This is especially useful if we only want to interpret one level compared to the other levels.
-
-Before we group together categories of a factor, we need to tidy it up. Often you will encounter discrete data as integers rather than human understandable strings. Let's fix up education, so it is understandable. Then merge some of the categories together.
-
-`@pre_exercise_code`
-```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-library(forcats)
-library(dplyr)
-```
-
-***
-
-```yaml
-type: MultipleChoiceExercise
-key: 0a5da268db
-xp: 35
-```
-
-`@question`
-What is the `n` for each of the education values? Use the R console to count the levels of the education variable.
-
-`@possible_answers`
-- 1 = 3410, 2 = 4690, 3 = 1347, 4 = 1885, NA = 295
-- 1 = 4690, 2 = 3410, 3 = 1885, 4 = 1347, NA = 295
-- 1 = 2314, 2 = 4312, 3 = 1223, 4 = 3778
-- None of the above.
-
-`@hint`
-- Use `count` on the `education` variable.
-
-`@sct`
-```{r}
-msg1 <- "Incorrect."
-msg2 <- "Correct!"
-msg3 <- "Incorrect. There are missing values."
-msg4 <- "Incorrect. One of the above has the right answer."
-ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: d76bbc4aa0
-xp: 35
-```
-
-`@instructions`
-- Convert the education values to human readable format using `case_when`.
-- The original education numbers should correspond to the following strings:
-    - 1: "0-11 years"
-    - 2: "High School"
-    - 3: "Vocational"
-    - 4: "College"
-- Confirm that the education values have properly changed.
-
-`@hint`
-- The form for the `case_when` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
-- Use `count` with the `education` variable.
-
-`@sample_code`
-```{r}
-# Convert education to human-readable values
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = ___(
-            # Use the format: variable == number ~ "string"
-            ___ == ___ ~ ___,
-            ___ == ___ ~ ___,
-            ___ == ___ ~ ___,
-            ___ == ___ ~ ___,
-            # Need this as last value
-            TRUE ~ NA_character_
-            )
-        )
-
-# Confirm changes to revised education
-___(tidier2_framingham, ___)
-```
-
-`@solution`
-```{r}
-# Convert education to human-readable values
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            # Use the format: variable == number ~ "string"
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            # Need this as last value
-            TRUE ~ NA_character_
-            )
-        )
-
-# Confirm changes to revised education
-count(tidier2_framingham, education)
-```
-
-`@sct`
-```{r}
-success_msg("Awesome! You've tidied up discrete values to be understandable to humans.")
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: d2b17a1c8d
-xp: 30
-```
-
-`@instructions`
-- Change the levels of Vocational and College education to be Post-Secondary by using `fct_recode` (forcats has been loaded).
-- Confirm that the education values have been correctly merged by counting the new education variable.
-
-`@hint`
-- Make sure to capitalise the old and new education levels.
-- Use `count` on the `education_combined` variable.
-
-`@sample_code`
-```{r}
-# Convert education to human-readable values
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_
-            )
-        )
-
-# Merge college and vocational levels together
-tidier2_framingham <- tidier2_framingham %>% 
-    mutate(education_combined = ___(
-        education, 
-        # Form is: "new" = "old"
-        ___ = ___,
-        ___ = ___
-        ))
-
-# Confirm changes to the new combined education
-___(tidier2_framingham, ___)
-```
-
-`@solution`
-```{r}
-# Convert education to human-readable values
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_
-            )
-        )
-
-# Merge college and vocational levels together
-tidier2_framingham <- tidier2_framingham %>% 
-    mutate(education_combined = fct_recode(
-        education, 
-        # Form is: "new" = "old"
-        "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
-        ))
-
-# Confirm changes to the new combined education
-count(tidier2_framingham, education_combined)
-# TODO: include count by visit number?
-```
-
-`@sct`
-```{r}
-success_msg("Great! You've combined two factor levels together into a new level.")
-```
-
 
 ---
 
