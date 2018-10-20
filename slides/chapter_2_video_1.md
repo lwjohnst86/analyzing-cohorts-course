@@ -18,6 +18,12 @@ title: Instructor
 
 `@script`
 
+- How to wrangle the data to get into a form to use for the analysis/statistic
+- Or rather "coordinatized" data, so that each data value is unique and has a meaning.
+- Tidy data, types of structure for type of analysis
+- Longitudinal data in wide format
+    - converting into long for use by statistical techniques (e.g. mixed effects)
+    - talk about tidy data
 - How to get data into form for quick exploration
 - Exploring data (dot/boxplots, violinplots, correlation heatmap)
     - Need to understand the data before doing any serious wrangling
