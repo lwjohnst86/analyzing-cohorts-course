@@ -419,47 +419,16 @@ key: c812627e90
 xp: 100
 ```
 
-
+There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses. 
 
 `@instructions`
 
+- Scale, log, log10, and square root the values of body mass index and cigarettes per day.
 
 `@hint`
 
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
-## Compare different types of transformations
-
-```yaml
-type: TabExercise
-key: ca708dca27
-xp: 100
-```
-
-There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses. 
-
-Use several transformations on body mass index {{other one?}} and visually compare each one to the original values.
+- Use the `body_mass_index` and the `cigarettes_per_day` variables.
+- Use `scale`, `log`, `log10`, and `sqrt` to transform the values.
 
 `@pre_exercise_code`
 ```{r}
@@ -468,21 +437,6 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 ```
-
-***
-
-```yaml
-type: NormalExercise
-key: 0255ca16ff
-xp: 20
-```
-
-`@instructions`
-- Scale, log, log10, and square root the values of body mass index and cigarettes per day.
-
-`@hint`
-- Use the `body_mass_index` and the `cigarettes_per_day` variables.
-- Use `scale`, `log`, `log10`, and `sqrt` to transform the values.
 
 `@sample_code`
 ```{r}
@@ -511,12 +465,34 @@ summary(transformed_framingham)
 success_msg("Excellent! You've used several transformation types on two variables.")
 ```
 
+---
+
+## Compare the different transformations
+
+```yaml
+type: TabExercise
+key: ca708dca27
+xp: 150
+```
+
+Visualize how each transformation influences the distribution of the data. Graphing these transformations is useful in helping to guide you to choosing a certain transformation.
+
+`@pre_exercise_code`
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+transformed_framingham <- tidier_framingham %>% 
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(scale, log, log10, sqrt))
+```
+
 ***
 
 ```yaml
 type: NormalExercise
 key: 2422f8318a
-xp: 20
 ```
 
 `@instructions`
@@ -529,11 +505,6 @@ xp: 20
 
 `@sample_code`
 ```{r}
-# Use four transformations on body mass index
-transformed_framingham <- tidier_framingham %>% 
-    mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt))
-
 # Convert the body mass index variables into long form
 transformed_framingham %>% 
     ___(___, ___, contains("body_mass_index")) 
@@ -541,11 +512,6 @@ transformed_framingham %>%
 
 `@solution`
 ```{r}
-# Use four transformations on body mass index
-transformed_framingham <- tidier_framingham %>% 
-    mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt))
-
 # Convert the body mass index variables into long form
 transformed_framingham %>% 
     gather(variables, values, contains("body_mass_index")) 
@@ -561,7 +527,6 @@ success_msg("Nice, now we need to plot the data!")
 ```yaml
 type: NormalExercise
 key: f4dfabce02
-xp: 20
 ```
 
 `@instructions`
@@ -573,12 +538,6 @@ xp: 20
 
 `@sample_code`
 ```{r}
-# Use four transformations on body mass index
-transformed_framingham <- tidier_framingham %>% 
-    mutate(cigarettes_per_day = cigarettes_per_day + 0.5) %>% 
-    mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt))
-
 # Visually inspect the transformations for body mass index
 transformed_framingham %>% 
     gather(variables, values, contains("body_mass_index")) %>% 
@@ -590,12 +549,6 @@ transformed_framingham %>%
 
 `@solution`
 ```{r}
-# Use four transformations on body mass index
-transformed_framingham <- tidier_framingham %>% 
-    mutate(cigarettes_per_day = cigarettes_per_day + 0.5) %>% 
-    mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt))
-
 # Visually inspect the transformations for body mass index
 transformed_framingham %>% 
     gather(variables, values, contains("body_mass_index")) %>% 
@@ -615,7 +568,6 @@ success_msg("Amazing! Check out how each transformation influences the distribut
 ```yaml
 type: MultipleChoiceExercise
 key: 58373c7c64
-xp: 20
 ```
 
 `@question`
@@ -646,7 +598,6 @@ ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```yaml
 type: NormalExercise
 key: 38521a1913
-xp: 20
 ```
 
 `@instructions`
@@ -657,11 +608,6 @@ xp: 20
 
 `@sample_code`
 ```{r}
-# Use four transformations on body mass index
-transformed_framingham <- tidier_framingham %>% 
-    mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt))
-
 # Visually inspect the transformations for body mass index
 transformed_framingham %>% 
     gather(variables, values, contains("body_mass_index")) %>% 
@@ -675,11 +621,6 @@ transformed_framingham %>%
 
 `@solution`
 ```{r}
-# Use four transformations on body mass index
-transformed_framingham <- tidier_framingham %>% 
-    mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt))
-
 # Visually inspect the transformations for body mass index
 transformed_framingham %>% 
     gather(variables, values, contains("body_mass_index")) %>% 
