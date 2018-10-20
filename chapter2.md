@@ -365,7 +365,7 @@ tidier2_framingham <- tidier2_framingham %>%
 # Confirm changes to the new combined education
 ___(tidier2_framingham, ___)
 
-# Compare counts of education vs the combined version with visit number
+# Compare counts of education and the combined version with visit number
 ___
 ___
 ```
