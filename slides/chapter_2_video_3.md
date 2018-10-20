@@ -1,5 +1,5 @@
 ---
-title: Insert title here
+title: Variable transformations
 key: 5d026dadac109f3540f3c1f59a6f96ea
 
 ---
@@ -18,16 +18,6 @@ title: Instructor
 
 `@script`
 
-- DON't Dichotomize!!
-    - Don't convert continuous to discrete. There could be non-linear relationships
-    - eg with BMI or age...
-    - unless data values look like it could or if a confounder in model.. (e.g. cigarettes)
-    - show visual of why dich is wrong (point with colours of categories)
-- Categorical variable modication:
-    - sometimes some categories are too small, so sometimes for model
-    interpretation and generalizability, grouping categories makes sense,
-    and to also balance the sample between groups.
-    - Use sex as an example
 - Know the various tools to transform the data and when is more appropriate to
 use them
     - Know to be very careful of ever converting continuous into discrete
