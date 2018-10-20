@@ -235,8 +235,10 @@ xp: 50
 
 ```yaml
 type: NormalExercise
+key: d905b3eee0
 xp: 100
 ```
+
 {{MCQ question about number of sex... then comment about what the numbers mean.}}
 
 As you will have noticed, there are several discrete variables with ambiguous values. For instance, with sex the values are either 1 or 2. Often you will encounter discrete data as integers rather than human understandable strings. But what exactly does that mean? With data like this, you need to have a data dictionary to review to find out.  Let's fix that problem and tidy up the data a bit more so it is human-readable.
@@ -329,7 +331,7 @@ success_msg("Awesome! You've tidied up discrete values to be understandable to h
 
 ```yaml
 type: NormalExercise
-key: d905b3eee0
+key: 62bcf49a5e
 xp: 100
 ```
 
@@ -409,12 +411,50 @@ xp: 50
 
 ---
 
+## Apply several transformations
+
+```yaml
+type: NormalExercise
+key: c812627e90
+xp: 100
+```
+
+
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Compare different types of transformations
 
 ```yaml
 type: TabExercise
 key: ca708dca27
-xp: 150
+xp: 100
 ```
 
 There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses. 
@@ -434,15 +474,13 @@ library(ggplot2)
 ```yaml
 type: NormalExercise
 key: 0255ca16ff
-xp: 30
+xp: 20
 ```
 
 `@instructions`
-
 - Scale, log, log10, and square root the values of body mass index and cigarettes per day.
 
 `@hint`
-
 - Use the `body_mass_index` and the `cigarettes_per_day` variables.
 - Use `scale`, `log`, `log10`, and `sqrt` to transform the values.
 
@@ -478,7 +516,7 @@ success_msg("Excellent! You've used several transformation types on two variable
 ```yaml
 type: NormalExercise
 key: 2422f8318a
-xp: 30
+xp: 20
 ```
 
 `@instructions`
@@ -486,7 +524,6 @@ xp: 30
 - Convert the dataset into the long format, with two new columns variables and values, for only the original and transformed body mass index variables.
 
 `@hint`
-
 - Use `gather` to convert to long form.
 - Name the key argument  `variables` and the value argument `values`.
 
@@ -524,15 +561,13 @@ success_msg("Nice, now we need to plot the data!")
 ```yaml
 type: NormalExercise
 key: f4dfabce02
-xp: 30
+xp: 20
 ```
 
 `@instructions`
-
 - Using ggplot2 functions, put the values on the x-axis and plot a histogram for each variable.
 
 `@hint`
-
 - Use `geom_histogram` as a ggplot layer.
 - Have `x = values` as the aesthetic.
 
@@ -580,14 +615,13 @@ success_msg("Amazing! Check out how each transformation influences the distribut
 ```yaml
 type: MultipleChoiceExercise
 key: 58373c7c64
-exp: 15
+xp: 20
 ```
 
 `@question`
 Looking at the graph, observe how each transformation influences the distribution of body mass index and think about how these new distributions might influence later analyses. Which statement is true?
 
 `@possible_answers`
-
 - Taking the square root and scaling doesn't change the distribution but does change the unit.
 - Taking the logarthm changes the distribution and the unit.
 - For later analyses, body mass index already has a good distribution and has the original unit, so interpretation will be easier if no transformations are used.
@@ -595,7 +629,6 @@ Looking at the graph, observe how each transformation influences the distributio
 - All of the above.
 
 `@hint`
-
 - Look at the distribution of each transformation on body mass index, compared to the original distribution.
 
 `@sct`
@@ -612,16 +645,14 @@ ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 
 ```yaml
 type: NormalExercise
-xp: 30
 key: 38521a1913
+xp: 20
 ```
 
 `@instructions`
-
 - Now do the same thing for cigarettes per day as you did for body mass index.
 
 `@hint`
-
 - Use the same code as you did for the body mass index, but for `cigarettes_per_day`.
 
 `@sample_code`
@@ -669,21 +700,17 @@ transformed_framingham %>%
 success_msg("Great! Compare how the transformations affect the cigarettes data compared to the body mass index data.")
 ```
 
-
 ***
 
 ```yaml
 type: MultipleChoiceExercise
-xp: 15
 key: 3c5705a42e
 ```
 
 `@question`
-
-The cigarettes per day variable contains count data with a large number of zero values. Because of this, there are some problems and other considerations to think about. Look at the distribution of the data and at the warning messages. Which of following statements is true? 
+The cigarettes per day variable contains count data with a large number of zero values. Because of this, there are some problems and other considerations to think about. Look at the distribution of the data and at the warning messages. Which of following statements is true?
 
 `@possible_answers`
-
 - Some transformations aren't appropriate. For instance, the log of 0 doesn't work (`log(0)` = `-Inf`), so there will be many missing values.
 - There seems to be two "peaks", one at zero and one at 20. Depending on the research question, you could convert this variable to a categorical variable.
 - Most values seem to be zero. Depending on the research question, you could dichotomize this variable.
@@ -691,7 +718,6 @@ The cigarettes per day variable contains count data with a large number of zero 
 - None of the above.
 
 `@hint`
-
 - Notice the warning message and check the summary of the transformed data.
 - Look at the distribution of each transformation on cigarettes per day.
 
