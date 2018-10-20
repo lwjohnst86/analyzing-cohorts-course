@@ -331,7 +331,7 @@ success_msg("Awesome! You've tidied up discrete values to be understandable to h
 
 ```yaml
 type: NormalExercise
-key: 2dcd905801
+key: d905b3eee0
 xp: 100
 ```
 
@@ -408,6 +408,44 @@ xp: 50
 
 `@projector_key`
 5d026dadac109f3540f3c1f59a6f96ea
+
+---
+
+## Apply several transformations
+
+```yaml
+type: NormalExercise
+key: c812627e90
+xp: 100
+```
+
+
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
 
 ---
 
