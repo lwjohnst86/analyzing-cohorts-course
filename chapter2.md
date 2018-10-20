@@ -331,7 +331,7 @@ success_msg("Awesome! You've tidied up discrete values to be understandable to h
 
 ```yaml
 type: NormalExercise
-key: d905b3eee0
+key: 62bcf49a5e
 xp: 100
 ```
 
