@@ -440,10 +440,13 @@ library(ggplot2)
 
 `@sample_code`
 ```{r}
+# Create invert function for easy use in mutate
+invert <- function(x) 1 / x
+
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
     mutate_at(vars(___, ___), 
-              funs(___, ___, ___, sqrt))
+              funs(___, ___, ___, ___, invert))
 
 # Confirm variables have been created
 summary(___)
@@ -451,10 +454,13 @@ summary(___)
 
 `@solution`
 ```{r}
+# Create invert function for easy use in mutate
+invert <- function(x) 1 / x
+
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt))
+              funs(scale, log, log10, sqrt, invert))
 
 # Confirm variables have been created
 summary(transformed_framingham)
