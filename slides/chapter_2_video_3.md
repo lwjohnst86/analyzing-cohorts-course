@@ -113,6 +113,20 @@ type: "FullSlide"
 
 `@script`
 
+These figures show how the distribution and unit changes depending on 
+
+---
+## Lesson summary
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+`@script`
+
+{{... and if your results are not easy to interpret, they could end up harming people's health instead.}}
 
 ---
 ## Let's practice transforming some variables!
@@ -124,4 +138,3 @@ key: "9da01b4e1a"
 
 `@script`
 
-... and if your results are not easy to interpret, they could end up harming people's health instead.
