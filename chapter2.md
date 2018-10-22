@@ -96,8 +96,8 @@ Create a line plot (or summary line plot if data too big) by individual.
 
 `@solution`
 ```{r}
-tidier_framingham %>% 
-    gather(Measure, Value)
+# tidier_framingham %>% 
+#    gather(Measure, Value, )i
 ```
 
 `@sct`
