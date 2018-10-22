@@ -29,6 +29,9 @@ title: Instructor
     and to also balance the sample between groups.
     - Use sex as an example
 
+    - Reducing number of categories in categorical variable
+    - Know to be very careful of ever converting continuous into discrete
+
 TODO: More content, specific to cohorts.
 For running models, each row should represent the all the values for one person
 at one time point.
