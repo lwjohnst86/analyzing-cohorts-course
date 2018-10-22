@@ -124,16 +124,17 @@ Create a box and jitter plot of all the variables of interest, at the baseline v
 
 `@sample_code`
 ```{r}
-fh_long <- framingham %>% 
-    filter(time == 0) %>% 
-    select(cvd, totchol, bmi, age) %>% 
-    gather(Variable, Value)
-    
-fh_long
-
-ggplot(fh_long, aes(x = Value)) +
+# fh_long <- 
+    tidier_framingham %>% 
+    # filter(followup_visit_number == 1) %>% 
+    select(followup_visit_number, total_cholesterol, 
+           body_mass_index, participant_age,
+           high_density_lipoprotein, low_density_lipoprotein) %>% 
+    gather(Variable, Value, -followup_visit_number) %>% 
+    ggplot(aes(x = Value)) +
+    # ggplot(fh_long, aes(x = Value)) +
     geom_histogram() +
-    facet_grid(~ Variable, scales = "free")
+    facet_grid(followup_visit_number ~ Variable, scales = "free")
 
 ```
 
@@ -158,16 +159,6 @@ xp: 50
 
 `@solution`
 ```{r}
-fh_long <- framingham %>% 
-    filter(time == 0) %>% 
-    select(cvd, totchol, bmi, age) %>% 
-    gather(Variable, Value)
-    
-fh_long
-
-ggplot(fh_long, aes(x = Value)) +
-    geom_histogram() +
-    facet_grid(~ Variable, scales = "free")
 
 ```
 
@@ -197,17 +188,6 @@ xp: 50
 
 `@solution`
 ```{r}
-fh_long <- framingham %>% 
-    filter(time == 0) %>% 
-    select(cvd, totchol, bmi, age) %>% 
-    gather(Variable, Value)
-    
-fh_long
-
-ggplot(fh_long, aes(x = Value)) +
-    geom_histogram() +
-    facet_grid(~ Variable, scales = "free")
-
 
 ```
 
