@@ -3,7 +3,7 @@ title: Variable transformations
 key: 5d026dadac109f3540f3c1f59a6f96ea
 
 ---
-## Transforming and modifying variables
+## Variable transformations
 
 ```yaml
 type: "TitleSlide"

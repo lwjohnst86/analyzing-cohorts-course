@@ -398,7 +398,7 @@ success_msg("Great! You've combined two factor levels together into a new level.
 
 ---
 
-## Transforming and modifying variables
+## Variable transformations
 
 ```yaml
 type: VideoExercise
