@@ -399,14 +399,12 @@ key: c812627e90
 xp: 100
 ```
 
-There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses. 
+There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses.
 
 `@instructions`
-
 - Scale, log, log10, and square root the values of body mass index and cigarettes per day.
 
 `@hint`
-
 - Use the `body_mass_index` and the `cigarettes_per_day` variables.
 - Use `scale`, `log`, `log10`, and `sqrt` to transform the values.
 
@@ -458,7 +456,7 @@ success_msg("Excellent! You've used several transformation types on two variable
 ```yaml
 type: TabExercise
 key: ca708dca27
-xp: 150
+xp: 100
 ```
 
 Visualize how each transformation influences the distribution of the data. Graphing these transformations is useful in helping to guide you to choosing a certain transformation.
@@ -479,6 +477,7 @@ transformed_framingham <- tidier_framingham %>%
 ```yaml
 type: NormalExercise
 key: 2422f8318a
+xp: 20
 ```
 
 `@instructions`
@@ -513,6 +512,7 @@ success_msg("Nice, now we need to plot the data!")
 ```yaml
 type: NormalExercise
 key: f4dfabce02
+xp: 20
 ```
 
 `@instructions`
@@ -554,6 +554,7 @@ success_msg("Amazing! Check out how each transformation influences the distribut
 ```yaml
 type: MultipleChoiceExercise
 key: 58373c7c64
+xp: 20
 ```
 
 `@question`
@@ -584,6 +585,7 @@ ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```yaml
 type: NormalExercise
 key: 38521a1913
+xp: 20
 ```
 
 `@instructions`
@@ -632,6 +634,7 @@ success_msg("Great! Compare how the transformations affect the cigarettes data c
 ```yaml
 type: MultipleChoiceExercise
 key: 3c5705a42e
+xp: 20
 ```
 
 `@question`
