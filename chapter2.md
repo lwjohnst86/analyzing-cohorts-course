@@ -626,58 +626,9 @@ ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ***
 
 ```yaml
-type: NormalExercise
-key: 38521a1913
-xp: 20
-```
-
-`@instructions`
-- Now do the same thing for cigarettes per day as you did for body mass index.
-
-`@hint`
-- Use the same code as you did for the body mass index, but for `cigarettes_per_day`.
-
-`@sample_code`
-```{r}
-# Visually inspect the transformations for body mass index
-transformed_framingham %>% 
-    gather(variables, values, contains("body_mass_index")) %>% 
-    ggplot(aes(x = values)) +
-    geom_histogram() +
-    facet_wrap( ~ variables, scale = "free", ncol = 3)
-
-# Visually inspect the transformations for cigarettes per day
-
-```
-
-`@solution`
-```{r}
-# Visually inspect the transformations for body mass index
-transformed_framingham %>% 
-    gather(variables, values, contains("body_mass_index")) %>% 
-    ggplot(aes(x = values)) +
-    geom_histogram() +
-    facet_wrap( ~ variables, scale = "free", ncol = 3)
-
-# Visually inspect the transformations for cigarettes per day
-transformed_framingham %>% 
-    gather(variables, values, contains("cigarettes_per_day")) %>% 
-    ggplot(aes(x = values)) +
-    geom_histogram() +
-    facet_wrap( ~ variables, scale = "free", ncol = 3)
-```
-
-`@sct`
-```{r}
-success_msg("Great! Compare how the transformations affect the cigarettes data compared to the body mass index data.")
-```
-
-***
-
-```yaml
 type: MultipleChoiceExercise
 key: 3c5705a42e
-xp: 20
+xp: 50
 ```
 
 `@question`
@@ -702,79 +653,4 @@ msg3 <- "Almost. While this is true, it's not the only true answer."
 msg4 <- "That's right! Some transformations won't work with this data. One way of dealing with zeros is by adding 0.5 to all the values. However, you'll also notice that there are two peaks in the data, so it has a bimodal distribution. Because of this, most transformations won't fix this. Generally it's a bad idea to convert continuous variables to discrete variables. However, depending on the data and the research questions, this can sometimes be appropriate to do. Especially considering that this is 'memory recall' data, and not directly measured, so there will be more noise in the data."
 msg5 <- "Incorrect. One of the above has the right answer."
 ex() %>% check_mc(4, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
-```
-
----
-
-## Insert exercise title here
-
-```yaml
-type: BulletExercise
-key: a4867af13b
-xp: 100
-```
-
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: e0ccd581d4
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 8588b94514
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
 ```
