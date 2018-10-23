@@ -55,10 +55,10 @@ key: "edbfed5a7c"
 `@part1`
 
 
-> Dichotomania: The obsession to convert continuous data into discrete or binary data, also known as dichotomizing. For instance, obesity is defined as a body mass index of >30 while overweight is defined as between 25-30...
+> Dichotomania: The obsession to convert continuous data into discrete or binary data, also known as dichotomizing. For instance, obesity is defined as a body mass index of >30 while overweight is defined as between 25-30... {{1}}
 
-- Should be avoided at all costs
-- Dichotomizing or discretizing:
+- Should be avoided at all costs {{2}}
+- Dichotomizing or discretizing: {{3}}
     - Has no statistical utility
     - Has little to no clinical value
     - Misclassifies individuals
