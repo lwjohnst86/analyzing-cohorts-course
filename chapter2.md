@@ -454,12 +454,14 @@ success_msg("Excellent! You've used several transformation types on two variable
 ## Compare the different transformations
 
 ```yaml
-type: TabExercise
-key: ca708dca27
+type: BulletExercise
+key: a4867af13b
 xp: 100
 ```
 
 Visualize how each transformation influences the distribution of the data. Graphing these transformations is useful in helping to guide you to choosing a certain transformation.
+
+We want to plot all transformation types on one plot. As we've done several times throughout the course, we need to have a long data format to do this.
 
 `@pre_exercise_code`
 ```{r}
@@ -476,49 +478,16 @@ transformed_framingham <- tidier_framingham %>%
 
 ```yaml
 type: NormalExercise
-key: 2422f8318a
-xp: 20
+key: e0ccd581d4
+xp: 50
 ```
 
 `@instructions`
-- We want to plot all transformation types on one plot, so we need a long data format.
-- Convert the dataset into the long format, with two new columns variables and values, for only the original and transformed body mass index variables.
+- Convert the dataset into the long format for just the body mass index variable. Then create a ggplot object with a histogram layer.
 
 `@hint`
 - Use `gather` to convert to long form.
 - Name the key argument  `variables` and the value argument `values`.
-
-`@sample_code`
-```{r}
-# Convert the body mass index variables into long form
-transformed_framingham %>% 
-    ___(___, ___, contains("body_mass_index")) 
-```
-
-`@solution`
-```{r}
-# Convert the body mass index variables into long form
-transformed_framingham %>% 
-    gather(variables, values, contains("body_mass_index")) 
-```
-
-`@sct`
-```{r}
-success_msg("Nice, now we need to plot the data!")
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: f4dfabce02
-xp: 20
-```
-
-`@instructions`
-- Using ggplot2 functions, put the values on the x-axis and plot a histogram for each variable.
-
-`@hint`
 - Use `geom_histogram` as a ggplot layer.
 - Have `x = values` as the aesthetic.
 
@@ -526,8 +495,8 @@ xp: 20
 ```{r}
 # Visually inspect the transformations for body mass index
 transformed_framingham %>% 
-    gather(variables, values, contains("body_mass_index")) %>% 
-    ___ +
+    ___(variables, values, contains("___")) %>% 
+    ___(___(x = values)) +
     ___ +
     # All histograms can be easily seen with facet and free scales
     facet_wrap( ~ variables, scale = "free")
@@ -552,9 +521,83 @@ success_msg("Amazing! Check out how each transformation influences the distribut
 ***
 
 ```yaml
+type: NormalExercise
+key: 8588b94514
+xp: 50
+```
+
+`@instructions`
+- Now do the same thing for cigarettes per day as you did for body mass index.
+
+`@hint`
+- Use the same code as you did for the body mass index, but for `cigarettes_per_day`.
+
+
+`@sample_code`
+```{r}
+# Visually inspect the transformations for cigarettes per day
+transformed_framingham %>% 
+    gather(variables, values, contains("___")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    # All histograms can be easily seen with facet and free scales
+    facet_wrap( ~ variables, scale = "free", ncol = 3)
+```
+
+`@solution`
+```{r}
+# Visually inspect the transformations for cigarettes per day
+transformed_framingham %>% 
+    gather(variables, values, contains("cigarettes_per_day")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    # All histograms can be easily seen with facet and free scales
+    facet_wrap( ~ variables, scale = "free", ncol = 3)
+```
+
+`@sct`
+```{r}
+success_msg("Great! Compare how the transformations affect the cigarettes data compared to the body mass index data.")
+```
+
+---
+
+## How do the transformations change the distributions?
+
+```yaml
+type: TabExercise
+key: ca708dca27
+xp: 100
+```
+
+`@pre_exercise_code`
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+transformed_framingham <- tidier_framingham %>% 
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(scale, log, log10, sqrt))
+```
+
+`@sample_code`
+```{r}
+# Visually inspect the transformations for body mass index 
+# (or for cigarettes per day)
+transformed_framingham %>% 
+    gather(variables, values, contains("___")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    facet_wrap( ~ variables, scale = "free", ncol = 3)
+```
+
+***
+
+```yaml
 type: MultipleChoiceExercise
 key: 58373c7c64
-xp: 20
+xp: 50
 ```
 
 `@question`
