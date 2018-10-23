@@ -660,3 +660,78 @@ msg4 <- "That's right! Some transformations won't work with this data. One way o
 msg5 <- "Incorrect. One of the above has the right answer."
 ex() %>% check_mc(4, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
+
+---
+
+## Insert exercise title here
+
+```yaml
+type: BulletExercise
+key: a4867af13b
+xp: 100
+```
+
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: e0ccd581d4
+xp: 50
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 8588b94514
+xp: 50
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
