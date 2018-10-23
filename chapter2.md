@@ -532,7 +532,6 @@ xp: 50
 `@hint`
 - Use the same code as you did for the body mass index, but for `cigarettes_per_day`.
 
-
 `@sample_code`
 ```{r}
 # Visually inspect the transformations for cigarettes per day
@@ -569,6 +568,8 @@ type: TabExercise
 key: ca708dca27
 xp: 100
 ```
+
+
 
 `@pre_exercise_code`
 ```{r}
