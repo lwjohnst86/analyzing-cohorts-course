@@ -73,7 +73,7 @@ There are so many ways to transform your variables. Which transformation to use 
 ## Transforming your data in R
 
 ```yaml
-type: "TwoRows"
+type: "FullSlide"
 key: "80913fa973"
 ```
 
@@ -86,8 +86,8 @@ transformed <- diet %>%
            )
 ``` {{1}}
 
+&nbsp;
 
-`@part2`
 ```{r}
 transformed <- diet %>%
     select(height, weight) %>% 
