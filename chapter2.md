@@ -197,6 +197,110 @@ xp: 50
 
 ---
 
+## Insert exercise title here
+
+```yaml
+type: BulletExercise
+key: c6f4be6cde
+xp: 100
+```
+
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 2a85bae775
+xp: 35
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 7b93354589
+xp: 35
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: d6a3c7d607
+xp: 30
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Tidy cohort data and wrangling into analyzable form.
 
 ```yaml
