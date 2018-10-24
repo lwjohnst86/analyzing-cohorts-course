@@ -16,6 +16,167 @@ xp: 50
 
 ---
 
+## Visually explore all the variables of interest at each visit
+
+```yaml
+type: BulletExercise
+key: c6f4be6cde
+xp: 100
+```
+
+Visually examining the data is an incredibly important early step in any data analysis project. In these series of exercises, you can visualize what the distribution of the data are for each variable. As we did in the previous chapter, you will be making heavy use of the `gather()` function to convert to long form in order to plot the data.
+
+`@pre_exercise_code`
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 2a85bae775
+xp: 35
+```
+
+`@instructions`
+- Select the blood measure variables (e.g. cholesterol, lipoprotein, glucose, blood pressure) and create histograms.
+
+`@hint`
+- The six variables are total cholesterol, systolic and diastolic blood pressure, fasting glucose, and high and low density lipoprotein.
+- Use `geom_histogram()`.
+
+
+`@sample_code`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the six blood measure variables
+        ___
+    ) %>%
+    gather(variable, value, -followup_visit_number) %>%
+    ggplot(aes(x = value)) +
+    ___() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
+```
+
+`@solution`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        total_cholesterol, 
+        contains("lipoprotein"),
+        ends_with("blood_pressure"),
+        fasting_blood_glucose
+    ) %>%
+    gather(variable, value, -followup_visit_number) %>%
+    ggplot(aes(x = value)) +
+    geom_histogram() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
+```
+
+`@sct`
+```{r}
+success_msg("Great! Notice the right skew to the blood pressure variables and the empty data for the lipoprotein variables at visits 1 and 2. These will be important to keep in mind.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 7b93354589
+xp: 35
+```
+
+`@instructions`
+- Select the 5 overall participant characteristic (age, body mass, education, smoking status) and plot them.
+
+`@hint`
+- Use participant age, body mass index, education, currently smoking, and number of cigarettes per day.
+
+`@sample_code`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the 5 charactistics
+        ___
+    ) %>%
+    ___(variable, value, -followup_visit_number) %>%
+    ___(aes(x = value)) +
+    ___() +
+    ___(followup_visit_number ~ variable, scales = "free")
+```
+
+`@solution`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        body_mass_index, participant_age,
+        education, currently_smokes, cigarettes_per_day
+    ) %>%
+    gather(variable, value, -followup_visit_number) %>%
+    ggplot(aes(x = value)) +
+    geom_histogram() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
+```
+
+`@sct`
+```{r}
+success_msg("Nice! Pay attention to the highest number of cigarettes smoked or how age has a jagged distribution. These are good things to keep in mind for later analyses.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: d6a3c7d607
+xp: 30
+```
+
+`@instructions`
+- Now do the same with for all the 5 prevalent cardiovascular events as well as the main outcome.
+
+`@hint`
+- Select the `got_cvd` as well as the prevalent MI, angina, CHD, hypertension, and stroke.
+
+`@sample_code`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # 
+        ___
+    ) %>% 
+```
+
+`@solution`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        contains("prevalent"),
+        got_cvd
+    ) %>%
+    gather(variable, value, -followup_visit_number) %>%
+    ggplot(aes(x = value)) +
+    geom_histogram() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
+```
+
+`@sct`
+```{r}
+success_msg("Amazing! Did you notice how there is a high prevalence of hypertension and that it increases over time? Anyway, you've now visually checked nearly all of the more interesting variables!")
+```
+
+---
+
 ## Visually examine the outcomes with the exposures
 
 ```yaml
@@ -55,9 +216,10 @@ tidier_framingham %>%
            currently_smokes, ) %>% 
     mutate(got_cvd = forcats::as_factor(as.character(got_cvd))) %>% 
     gather(Variable, Value, -followup_visit_number, -got_cvd) %>% 
-    ggplot(aes(x = Value, y = Variable, group = got_cvd, colour = got_cvd)) +
-    geom_jitter() +
-    facet_grid(rows = vars(followup_visit_number), scales = "free")
+    ggplot(aes(y = Value, x = Variable, colour = got_cvd)) +
+    geom_point(position = position_jitterdodge(dodge.width = 0.9)) +
+    facet_grid(rows = vars(followup_visit_number), scales = "free") +
+    coord_flip()
 ```
 
 `@sct`
@@ -97,201 +259,6 @@ Create a line plot (or summary line plot if data too big) by individual.
 ```{r}
 # tidier_framingham %>% 
 #    gather(Measure, Value, )i
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
-## Inspect graphically all variables of interest individually
-
-```yaml
-type: TabExercise
-key: aec12c0d13
-xp: 100
-```
-
-Create a box and jitter plot of all the variables of interest, at the baseline visit:
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-# fh_long <- 
-    tidier_framingham %>% 
-    # filter(followup_visit_number == 1) %>% 
-    select(followup_visit_number, total_cholesterol, 
-           body_mass_index, participant_age,
-           high_density_lipoprotein, low_density_lipoprotein) %>% 
-    gather(Variable, Value, -followup_visit_number) %>% 
-    ggplot(aes(x = Value)) +
-    # ggplot(fh_long, aes(x = Value)) +
-    geom_histogram() +
-    facet_grid(followup_visit_number ~ Variable, scales = "free")
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 101226608c
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 16fbde9ec8
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
-## Insert exercise title here
-
-```yaml
-type: BulletExercise
-key: c6f4be6cde
-xp: 100
-```
-
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 2a85bae775
-xp: 35
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 7b93354589
-xp: 35
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: d6a3c7d607
-xp: 30
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
 ```
 
 `@sct`
