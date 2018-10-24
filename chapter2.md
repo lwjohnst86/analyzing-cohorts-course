@@ -37,7 +37,6 @@ Create a simple visual comparing the outcome with the exposures.
 `@pre_exercise_code`
 ```{r setup}
 load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-load("datasets/framingham_tidier.rda")
 library(forcats)
 library(dplyr)
 library(tidyr)
