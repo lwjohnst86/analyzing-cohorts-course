@@ -51,7 +51,7 @@ key: "cb8a52378a"
 
 `@part1`
 - Think carefully about which to use {{1}}
-- Will depend on the data, the analysis, and the interpretation of the results {{2}}
+- Depends on data, analysis, and eventual interpretation {{2}}
 
 &nbsp;
 
