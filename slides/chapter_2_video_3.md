@@ -115,7 +115,7 @@ key: "f1d0ec80d5"
 ```
 
 `@part1`
-![Transformation distributions](datasets/plot_transform_weight.png)
+![Transformation distributions](http://assets.datacamp.com/production/repositories/2079/datasets/a2a1cc3b6769cb841ba7905f473f842cbc5f5e24/plot_transform_weight.png)
 
 
 `@script`
