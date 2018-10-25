@@ -19,30 +19,15 @@ title: Instructor
 `@script`
 
 - DON't Dichotomize!!
-    - Don't convert continuous to discrete. There could be non-linear relationships
-    - eg with BMI or age...
     - unless data values look like it could or if a confounder in model.. (e.g. cigarettes)
     - show visual of why dich is wrong (point with colours of categories)
 - Categorical variable modication:
     - sometimes some categories are too small, so sometimes for model
     interpretation and generalizability, grouping categories makes sense,
     and to also balance the sample between groups.
-    - Use sex as an example
 
-    - Reducing number of categories in categorical variable
-    - Know to be very careful of ever converting continuous into discrete
 
-TODO: More content, specific to cohorts.
-For running models, each row should represent the all the values for one person
-at one time point.
 - Dealing with outliers (or not)
-
-TODO: slide on `case_when` usage.
-
-count(framingham, educ)
-[1]  4  2  1  3 NA
-> unique(framingham$sex)
-[1] 1 2
 
 ---
 ## "Dichotomania": A major problem in health research
@@ -70,15 +55,69 @@ key: "edbfed5a7c"
 ## The problem of discretizing: An visual example
 
 ```yaml
-type: "FullSlide"
+type: "TwoColumns"
 key: "edbfed5a7c"
 ```
 
 `@part1`
 
-- show example of dichotomizing or discretizing continuous data like BMI
+| Category | BMI range |
+|:---------|:----------|
+| "Underweight" | < 18.5 |
+| "Normal weight" | 18.5 - 25 |
+| "Overweight" | 25 - 30 |
+| "Obese" | > 30 | {{1}}
+
+`@part2`
+
+![Discretizing a continuous body mass index]() {{2}}
 
 `@script`
+
+Maybe you are familiar with the different weight classes based on your body mass index, or BMI. These weight classes are often used in health research. This is a perfect example for why discretizing is a problem. Look at this figure here, which illustrates one of the reasons why discretizing should be avoided. You can see here that 
+
+---
+## Reducing levels of an already discrete variable
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+```{r}
+# diet dataset from the Epi package
+count(diet, job)
+
+#> # A tibble: 3 x 2
+#>   job             n
+#>   <fct>       <int>
+#> 1 Driver        102
+#> 2 Conductor      84
+#> 3 Bank worker   151
+``` {{1}}
+
+```{r}
+reduced_job <- diet %>%
+    mutate(bank_worker = case_when(
+        job == "Bank worker" ~ "Yes",
+        job != "Bank worker" ~ "No",
+        TRUE ~ NA_character_
+    ))
+``` {{2}}
+
+```{r}
+count(reduced_job, bank_worker)
+#> # A tibble: 2 x 2
+#>   bank_worker     n
+#>   <chr>       <int>
+#> 1 No            186
+#> 2 Yes           151
+``` {{3}}
+
+`@script`
+
+While converting a continuous variable to a discrete one is almost always discouraged, for variables that are discrete it may make sense to reduce their levels. This could simplify the interpretation or maybe there are too many levels in the variable already. So reducing can be useful in this case. Let's look at job titles in this diet dataset. Using the count function on the variable, we can see there are three levels with more or less similar numbers between each level. For showing the 
 
 ---
 ## 
