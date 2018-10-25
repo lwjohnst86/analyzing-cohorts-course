@@ -268,7 +268,7 @@ Create a line plot (or summary line plot if data too big) by individual.
 
 ---
 
-## Tidy cohort data and wrangling into analyzable form.
+## Tidying the data for later analysis
 
 ```yaml
 type: VideoExercise
