@@ -49,7 +49,6 @@ xp: 35
 - The six variables are total cholesterol, systolic and diastolic blood pressure, fasting glucose, and high and low density lipoprotein.
 - Use `geom_histogram()`.
 
-
 `@sample_code`
 ```{r}
 tidier_framingham %>%
