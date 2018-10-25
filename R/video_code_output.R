@@ -154,13 +154,23 @@ ggsave("datasets/plot-prevalence-incidence-2.png", dpi = 90)
 
 # Chapter 2 video 2 -------------------------------------------------------
 
-View(diet)
-diet %>%
-    as_tibble() %>%
-    mutate(BMI = weight / (height ^ 2)) %>%
+plot_discretising <- diet %>%
+    mutate(BMI = weight / ((height / 100) ^ 2)) %>%
     ggplot(aes(x = BMI)) +
-    geom_histogram(colour = "black", fill = "white")
+    geom_histogram(colour = "black", fill = color_theme[7], bins = 40) +
+    geom_vline(xintercept = c(20, 25, 30), size = 1, linetype = "dashed") +
+    xlab("Body mass index")
+ggsave("datasets/plot-discretising.png", dpi = 100)
 
+count(diet, job)
+
+reduced_job <- diet %>%
+    mutate(bank_worker = case_when(
+        job == "Bank worker" ~ "Yes",
+        job != "Bank worker" ~ "No",
+        TRUE ~ NA_character_
+    ))
+count(reduced_job, bank_worker)
 
 # Chapter 2 video 3 -------------------------------------------------------
 
@@ -181,13 +191,12 @@ transformed %>%
 histo_density <- function(.data, x) {
     xvar <- enquo(x)
     ggplot(transformed, aes(x = !!xvar, y = stat(density))) +
-        geom_histogram(colour = "black", fill = "lightblue", size = 0.25) +
+        geom_histogram(colour = "black", fill = color_theme[7], size = 0.25) +
         geom_density()
 }
 
-histo_density(transformed, weight) +
+plot_transform_weight <- histo_density(transformed, weight) +
     histo_density(transformed, weight_scale) + ylab("") +
     histo_density(transformed, weight_log) +
     histo_density(transformed, weight_invert) + ylab("")
-
-ggsave("datasets/plot_transform_weight.png")
+ggsave("datasets/plot-transform-weight.png", dpi = 100)
