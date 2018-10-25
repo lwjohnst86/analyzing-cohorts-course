@@ -103,7 +103,7 @@ You can transform your variables easily using dplyr. Here is the typical way of 
 ## Visualizing the transformations
 
 ```yaml
-type: "FullSlide"
+type: "FullImageSlide"
 key: "f1d0ec80d5"
 ```
 
