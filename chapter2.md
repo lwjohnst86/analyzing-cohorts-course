@@ -16,7 +16,7 @@ xp: 50
 
 ---
 
-## Visually explore all the variables of interest at each visit
+## Visualize variables at each visit
 
 ```yaml
 type: BulletExercise
