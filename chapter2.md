@@ -228,45 +228,6 @@ tidier_framingham %>%
 
 ---
 
-## Plot individual (or summary) change over time in longitudinal datasets
-
-```yaml
-type: NormalExercise
-key: e784da5222
-xp: 100
-```
-
-Create a line plot (or summary line plot if data too big) by individual.
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-# tidier_framingham %>% 
-#    gather(Measure, Value, )i
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
 ## Tidying the data for later analysis
 
 ```yaml
