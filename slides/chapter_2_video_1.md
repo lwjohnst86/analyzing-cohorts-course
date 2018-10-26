@@ -1,9 +1,9 @@
 ---
-title: Insert title here
+title: Exploring before wrangling
 key: 146b85090bb8ab77efbfe45c5c751f5d
 
 ---
-## Pre-wrangling exploration
+## Exploring before wrangling
 
 ```yaml
 type: "TitleSlide"

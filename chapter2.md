@@ -3,7 +3,7 @@ title: 'Exploring, wrangling, and transforming cohort data'
 description: ""
 ---
 
-## Pre-wrangling exploration
+## Exploring before wrangling
 
 ```yaml
 type: VideoExercise
