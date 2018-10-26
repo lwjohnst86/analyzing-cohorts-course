@@ -58,13 +58,13 @@ key: "cb8a52378a"
 | Type | R code | When to use |
 |:-----|:-------|:------------|
 | natural logarithm | `log(x)` | If highly right skewed, positive data |
-| scaling | `scale(x)` | For same unit scale |
+| scaling | `scale(x)` | For same unit scale, but not great for longitudinal data |
 | square root | `sqrt(x)` | Great for count data, handles zeros |
 | multiplicative inverse |`1 / x`| To invert values/unit, but no zeros | {{3}}
 
 
 `@script`
-There are many types of transformations. Which one to use depends on your data, on your choice of statistics, and how you want the results to be interpreted. Here is a table of some common transformations. A common transformation is the natural logarithm. You use it when your data is highly right-skewed or when you want your regression results to be interpreted as a percent change. Another common transformation is scaling, which is when the values are substracted by the mean and divided by the standard deviation. This results in a value of, for instance, +1 being a "1 SD increase". This is useful when you have variables with different units (kilogram or meters) or different sizes of a unit (meters of a person vs an elephant). After scaling, you can compare these variables more easily. 
+There are many types of transformations. Which one to use depends on your data, on your choice of statistics, and how you want the results to be interpreted. Here is a table of some common transformations. A common transformation is the natural logarithm. You use it when your data is highly right-skewed or when you want your regression results to be interpreted as a percent change. Another common transformation is scaling, which is when the values are substracted by the mean and divided by the standard deviation. This results in a value of, for instance, +1 being a "1 SD increase". This is useful when you have variables with different units (kilogram or meters) or different sizes of a unit (meters of a person vs an elephant). After scaling, you can compare these variables more easily. But, scaling is not a good option with repeated measurements, since it removes the change over time information.
 
 ---
 ## Transforming your data in R
