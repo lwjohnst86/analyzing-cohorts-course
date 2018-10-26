@@ -121,26 +121,27 @@ long_form %>%
 Here, we combine the long data form with ggplot2's facet_wrap, by facetting on the variable column. To specify the variable, you need to wrap the variable name with the vars function. Setting scale to free allows the axis range to fit the variable's own value range. From the previous use of geom_histograms, the only difference is the data source, the x axis column, and the use of the facet_wrap. We see here that it shows multiple histograms on one single plot, which let's us explore the data faster and more efficiently! This approach is powerful not only for visualizing, but also for other exploring and analyzing tasks such as creating summary tables or running simple statistics.
 
 ---
-## Visually explore cohort data
+## Visually explore exposure by outcome
 
 ```yaml
-type: "FullSlide"
+type: "TwoColumns"
 ```
 
 `@part1`
 
+```{r}
+diet %>%
+    ggplot(aes(x = chd, y = weight,
+               colour = chd)) +
+    geom_boxplot()
+``` 
+
+`@part2`
+
+![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/8501ad0061c59bb5f1757a2ad99652fd11f70952/ch2-v1-boxplot.png) 
+
 `@script`
-
----
-## slides
-
-```yaml
-type: "FullSlide"
-```
-
-`@part1`
-
-`@script`
+Univariate visualizations are great, but don't forget that we should look at plots of exposures by outcome. For categorical outcome variables, boxplots are great tools. Here, it is fairly straight forward to put the outcome, which is coronary heart disease in this case, on the x-axis and an exposure like weight on the y-axis. Using colours help distinguish the two groups more easily.
 
 ---
 ## Exploring time!
