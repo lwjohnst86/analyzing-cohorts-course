@@ -184,7 +184,7 @@ key: e50ea375f8
 xp: 100
 ```
 
-Create multiple boxplots of several exposures with the outcome. Use a combination of converting to long data form, grouping to show the outcome, and facetting by year to show temporal changes. 
+Create multiple boxplots of several exposures with the outcome. Use a combination of converting to long data form, grouping to show the outcome, and facetting by year to show temporal changes.
 
 `@instructions`
 - Select participant age, total cholesterol, body mass, and systolic and diastolic blood pressure.
@@ -196,7 +196,7 @@ Create multiple boxplots of several exposures with the outcome. Use a combinatio
 - Select `total_cholesterol`, `participant_age`, `body_mass_index`, `systolic_blood_pressure`, and `diastolic_blood_pressure`.
 - Use `gather` and exclude the followup visit number and the `got_cvd` outcome.
 - Create `geom_boxplots`, coloured by `got_cvd`.
-- Use the `vars()` function to wrap the variable name in `facet_grid`. 
+- Use the `vars()` function to wrap the variable name in `facet_grid`.
 
 `@pre_exercise_code`
 ```{r}
