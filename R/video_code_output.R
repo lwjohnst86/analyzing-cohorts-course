@@ -152,6 +152,45 @@ fig3 <- prev_incid %>%
     over_time_plot()
 ggsave("datasets/plot-prevalence-incidence-2.png", dpi = 90)
 
+# Chapter 2 video 1 -------------------------------------------------------
+
+library(ggplot2)
+library(Epi)
+data("diet")
+
+ggplot(diet, aes(x = weight)) +
+    geom_histogram()
+ggsave("datasets/ch2-v1-histogram.png", dpi = 120, width = 5, height = 5)
+
+wide_form <- diet %>%
+    head(4) %>%
+    select(id, weight,
+           energy_intake = energy)
+wide_form
+
+long_form <- wide_form %>%
+    gather(variable, value, -id)
+long_form
+
+long_form <- diet %>%
+    select(id, weight, energy_intake = energy) %>%
+    gather(variable, value, -id)
+long_form %>%
+    ggplot(aes(x = value)) +
+    geom_histogram() +
+    facet_wrap(
+        vars(variable),
+        scale = "free",
+        ncol = 1
+    )
+ggsave("datasets/ch2-v1-two-histograms.png", dpi = 120, width = 5, height = 7)
+
+diet %>%
+    mutate(chd = as.character(chd)) %>%
+    ggplot(aes(x = chd, y = weight)) +
+    geom_boxplot()
+ggsave("datasets/ch2-v1-boxplot.png", dpi = 120, width = 5, height = 5)
+
 # Chapter 2 video 2 -------------------------------------------------------
 
 plot_discretising <- diet %>%
