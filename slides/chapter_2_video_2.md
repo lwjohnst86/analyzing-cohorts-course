@@ -31,8 +31,21 @@ type: "FullSlide"
 > Dichotomania: The obsession to convert continuous data into discrete or binary data, also known as discretizing or dichotomizing. {{1}}
 
 - Example: obesity = body mass index >30, overweight = between 25-30 {{2}}
-- Should be avoided {{3}}
-- Dichotomizing or discretizing: {{4}}
+
+`@script`
+But before continuing, I want to talk about a problem common in health research... and that is something known as dichotomania. Dichotomania is an obsession for researchers to convert continuous data into discrete or binary data. These processes are known as discretizing or dichotomising. An example of this is with the definition of obesity, which is any BMI >30.
+
+---
+## A comment on "dichotomania"
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+- Should be avoided {{1}}
+- Dichotomizing or discretizing: {{2}}
     - No statistical utility
     - Little to no clinical value
     - High misclassification
@@ -40,7 +53,7 @@ type: "FullSlide"
 
 `@script`
 
-But before continuing, I want to talk about a problem common in health research... and that is something known as dichotomania. Dichotomania is an obsession for researchers to convert continuous data into discrete or binary data. These processes are known as discretizing or dichotomising. An example of this is with the definition of obesity, which is any BMI >30. This is be avoided at all costs because there are many problems with this. Discretizing has no statistical utility, doesn't provide much clinical value, misclassification of individual's health risk is high, and you reduce statistical power.
+This is be avoided at all costs because there are many problems with this. Discretizing has no statistical utility, doesn't provide much clinical value, misclassification of individual's health risk is high, and you reduce statistical power.
 
 ---
 ## The problem of discretizing: An visual example
