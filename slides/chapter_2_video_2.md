@@ -24,7 +24,6 @@ Cohort datasets often contain many discrete variables, such as from questionnair
 
 ```yaml
 type: "FullSlide"
-key: "edbfed5a7c"
 ```
 
 `@part1`
