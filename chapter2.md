@@ -359,6 +359,24 @@ Sometimes, categorical (i.e. factor or character) variables have many levels, bu
 load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
 library(forcats)
 library(dplyr)
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            # Use the format: variable == number ~ "string"
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            # Need this as last value
+            TRUE ~ NA_character_
+            ),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            # Need this as last value
+            TRUE ~ NA_character_
+            )
+        )
 ```
 
 `@sample_code`
@@ -442,6 +460,30 @@ load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/20
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            # Use the format: variable == number ~ "string"
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            # Need this as last value
+            TRUE ~ NA_character_
+            ),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            # Need this as last value
+            TRUE ~ NA_character_
+            )
+        ) %>% 
+    mutate(education_combined = fct_recode(
+        education, 
+        # Form is: "new" = "old"
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
 ```
 
 `@sample_code`
@@ -450,7 +492,7 @@ library(ggplot2)
 invert <- function(x) 1 / x
 
 # Use four transformations on body mass index
-transformed_framingham <- tidier_framingham %>% 
+transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(___, ___), 
               funs(___, ___, ___, ___, invert))
 
@@ -497,7 +539,31 @@ load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/20
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-transformed_framingham <- tidier_framingham %>% 
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            # Use the format: variable == number ~ "string"
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            # Need this as last value
+            TRUE ~ NA_character_
+            ),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            # Need this as last value
+            TRUE ~ NA_character_
+            )
+        ) %>% 
+    mutate(education_combined = fct_recode(
+        education, 
+        # Form is: "new" = "old"
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
               funs(scale, log, log10, sqrt))
 ```
