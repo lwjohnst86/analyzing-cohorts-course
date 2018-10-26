@@ -12,7 +12,7 @@ key: "51d2f0a99b"
 
 `@lower_third`
 
-name: Luke
+name: Luke Johnston
 title: Instructor
 
 
