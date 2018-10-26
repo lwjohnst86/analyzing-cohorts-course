@@ -227,7 +227,7 @@ tidier_framingham %>%
 
 ---
 
-## Tidying the data for later analysis
+## Tidying discrete data for later analysis
 
 ```yaml
 type: VideoExercise
