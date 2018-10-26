@@ -252,14 +252,8 @@ As you will have noticed, there are several discrete variables with ambiguous va
 
 `@instructions`
 - Convert the education and sex values to human readable format using `case_when`.
-- The original education numbers should correspond to the following strings:
-    - 1: "0-11 years"
-    - 2: "High School"
-    - 3: "Vocational"
-    - 4: "College"
-- The original sex numbers should correspond to the following strings:
-    - 1: "Man"
-    - 2: "Woman"
+- The original education numbers should correspond to the following strings: 1 = "0-11 years"; 2 = "High School"; 3 = "Vocational"; 4 = "College".
+- The original sex numbers should correspond to the following strings: 1 = "Man"; 2 = "Woman".
 - Confirm that the education and sex values have properly changed.
 
 `@hint`
@@ -280,22 +274,16 @@ tidier2_framingham <- tidier_framingham %>%
     mutate(
         education = ___(
             # Use the format: variable == number ~ "string"
-            ___ == ___ ~ ___,
-            ___ == ___ ~ ___,
-            ___ == ___ ~ ___,
-            ___ == ___ ~ ___,
-            # Need this as last value
-            TRUE ~ NA_character_
+            ___ == ___ ~ ___, # do this for the four levels
+            TRUE ~ NA_character_ # Need this as last value
             ),
         # Do the same thing with sex
         sex = ___
         )
 
-# Confirm changes to revised education
+# Confirm changes to revised education and sex
 ___(tidier2_framingham, ___)
-
-# Confirm changes to revised sex
-
+___
 ```
 
 `@solution`
@@ -304,26 +292,17 @@ ___(tidier2_framingham, ___)
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = case_when(
-            # Use the format: variable == number ~ "string"
             education == 1 ~ "0-11 years",
             education == 2 ~ "High School",
             education == 3 ~ "Vocational",
             education == 4 ~ "College",
-            # Need this as last value
-            TRUE ~ NA_character_
-            ),
+            TRUE ~ NA_character_),
         sex = case_when(
             sex == 1 ~ "Man",
             sex == 2 ~ "Woman",
-            # Need this as last value
-            TRUE ~ NA_character_
-            )
-        )
-
-# Confirm changes to revised education
+            TRUE ~ NA_character_))
+# Confirm changes to revised education and sex
 count(tidier2_framingham, education)
-
-# Confirm changes to revised sex
 count(tidier2_framingham, sex)
 ```
 
@@ -477,7 +456,7 @@ tidier2_framingham <- tidier_framingham %>%
             TRUE ~ NA_character_
             )
         ) %>% 
-    mutate(education_combined = fct_recode(
+    mutate(education_combined = forcats::fct_recode(
         education, 
         # Form is: "new" = "old"
         "Post-Secondary" = "College",
@@ -556,7 +535,7 @@ tidier2_framingham <- tidier_framingham %>%
             TRUE ~ NA_character_
             )
         ) %>% 
-    mutate(education_combined = fct_recode(
+    mutate(education_combined = forcats::fct_recode(
         education, 
         # Form is: "new" = "old"
         "Post-Secondary" = "College",
@@ -577,7 +556,7 @@ xp: 50
 ```
 
 `@instructions`
-- Convert the dataset into the long format for just the body mass index variable. Then create a ggplot object with a histogram layer.
+- Convert the dataset into the long form for the body mass index variables. Then create a ggplot histogram.
 
 `@hint`
 - Use `gather` to convert to long form.
@@ -655,7 +634,7 @@ success_msg("Great! Compare how the transformations affect the cigarettes data c
 
 ---
 
-## How do the transformations change the distributions?
+## How does the distribution change?
 
 ```yaml
 type: TabExercise
@@ -663,7 +642,7 @@ key: ca708dca27
 xp: 100
 ```
 
-
+Understanding how each transformation influences the units and the distribution of the data is an important step in properly applying these transformations. Try answering these questions about the shape of the data after each transformation.
 
 `@pre_exercise_code`
 ```{r}
