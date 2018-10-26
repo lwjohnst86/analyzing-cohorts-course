@@ -448,11 +448,11 @@ xp: 100
 There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses.
 
 `@instructions`
-- Scale, log, log10, and square root the values of body mass index and cigarettes per day.
+- Log, log10, square root, and invert the values of body mass index and cigarettes per day.
 
 `@hint`
 - Use the `body_mass_index` and the `cigarettes_per_day` variables.
-- Use `scale`, `log`, `log10`, and `sqrt` to transform the values.
+- Use `log`, `log10`, and `sqrt` to transform the values.
 
 `@pre_exercise_code`
 ```{r}
@@ -494,7 +494,7 @@ invert <- function(x) 1 / x
 # Use four transformations on body mass index
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(___, ___), 
-              funs(___, ___, ___, ___, invert))
+              funs(___, ___, ___, invert))
 
 # Confirm variables have been created
 summary(___)
@@ -508,7 +508,7 @@ invert <- function(x) 1 / x
 # Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt, invert))
+              funs(log, log10, sqrt, invert))
 
 # Confirm variables have been created
 summary(transformed_framingham)
@@ -563,9 +563,10 @@ tidier2_framingham <- tidier_framingham %>%
         "Post-Secondary" = "College",
         "Post-Secondary" = "Vocational"
         ))
+invert <- function(x) 1 / x
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt))
+              funs(invert, log, log10, sqrt))
 ```
 
 ***
@@ -671,9 +672,10 @@ load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/20
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+invert <- function(x) 1 / x
 transformed_framingham <- tidier_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(scale, log, log10, sqrt))
+              funs(invert, log, log10, sqrt))
 ```
 
 `@sample_code`
