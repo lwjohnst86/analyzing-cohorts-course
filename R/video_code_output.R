@@ -187,7 +187,8 @@ ggsave("datasets/ch2-v1-two-histograms.png", dpi = 120, width = 5, height = 7)
 
 diet %>%
     mutate(chd = as.character(chd)) %>%
-    ggplot(aes(x = chd, y = weight)) +
+    ggplot(aes(x = chd, y = weight,
+               colour = chd)) +
     geom_boxplot()
 ggsave("datasets/ch2-v1-boxplot.png", dpi = 120, width = 5, height = 5)
 
