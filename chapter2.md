@@ -249,8 +249,6 @@ key: d905b3eee0
 xp: 100
 ```
 
-{{MCQ question about number of sex... then comment about what the numbers mean.}}
-
 As you will have noticed, there are several discrete variables with ambiguous values. For instance, with sex the values are either 1 or 2. Often you will encounter discrete data as integers rather than human understandable strings. But what exactly does that mean? With data like this, you need to have a data dictionary to review to find out.  Let's fix that problem and tidy up the data a bit more so it is human-readable.
 
 `@instructions`
