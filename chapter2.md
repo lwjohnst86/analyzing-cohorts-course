@@ -212,8 +212,8 @@ library(ggplot2)
 ```{r}
 tidier_framingham %>% 
     select(followup_visit_number, got_cvd, total_cholesterol, participant_age, body_mass_index,
-           currently_smokes, ) %>% 
-    mutate(got_cvd = forcats::as_factor(as.character(got_cvd))) %>% 
+           cigarettes_per_day) %>% 
+    mutate(got_cvd = as.character(got_cvd)) %>%
     gather(Variable, Value, -followup_visit_number, -got_cvd) %>% 
     ggplot(aes(y = Value, x = Variable, colour = got_cvd)) +
     geom_point(position = position_jitterdodge(dodge.width = 0.9)) +
