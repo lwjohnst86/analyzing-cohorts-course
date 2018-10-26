@@ -18,7 +18,7 @@ title: Instructor
 
 `@script`
 
-Transforming your variables is a very common activity when analyzing cohort data. In this lesson, we will cover why you might need to transform your variables, what type of transformations are available, and how they change your data.
+Transforming your variables is a common activity when analyzing cohorts. In this lesson we will cover the why, what, and how of variable transformations.
 
 ---
 ## Why transform variables?
@@ -38,7 +38,7 @@ key: "5dcb3a9bee"
 
 
 `@script`
-Transformations are powerful tools when doing data analysis. Transforming a variable is the act of applying some mathematical function, for instance dividing all values by 10 or calculating the percentage. Oftentimes, transformations are used to change the shape of the distribution. There are many reasons to transform a variable. You use transformations to fit the variable to assumptions of a statistical technique. Or when you have several variables with different units (for instance, kilograms and meters), but want the variables to have a common or shared unit. Or when you want examine if there is a linear relationship with two or more variables, so you need to first transform to fit the statistical formula to test that linearity. But ultimately, you use transformations in order to make it easier to interpret the results of any analyses you do. And in health research, this is really really important, as your research results could be used to try to improve people's health.
+Transforming a variable is the act of applying some mathematical function to the variable, for instance, by dividing a variable by 10. There are many reasons to transform a variable. We transform to fit the variable distribution to some assumptions for a statistical technique. Or when you want several variables to have a common unit for easier comparison. Or when you want to examine linear relationships between two or more variables. Ultimately, you use transformations to make it easier to interpret the results of your analyses. In health research this is really important, as your results could be used to improve people's health.
 
 
 ---
@@ -57,14 +57,14 @@ key: "cb8a52378a"
 
 | Type | R code | When to use |
 |:-----|:-------|:------------|
-| natural log | `log(x)` | If highly right skewed, positive data |
+| natural logarithm | `log(x)` | If highly right skewed, positive data |
 | scaling | `scale(x)` | For same unit scale |
 | square root | `sqrt(x)` | Great for count data, handles zeros |
 | multiplicative inverse |`1 / x`| To invert values/unit, but no zeros | {{3}}
 
 
 `@script`
-There are so many ways to transform your variables. Which transformation to use depends heavily on what your data looks like, which statistical analysis you use, and how you want the results to be interpreted. Here is a list of some common transformations to use, how and when to use it, and how to interpret the results. One of the most common transformation is the natural logarithm. It is used if you have highly right skewed data or if you want your final regression results to be interpreted as percent change. Another very common transformation is to scale your variables. Scaling is when you substract the mean of the value and divide by the standard deviation. You end up with a value of +1 being represented as a "1 SD increase". This is very useful when you have many variables with either different units (for instance kilogram or meters) or different size of a common unit (for instance, meters of a person vs meters of an elephant). When you scale, your results using these variables can now be interpreted between each other.
+There are many types of transformations. Which one to use depends on your data, on your choice of statistics, and how you want the results to be interpreted. Here is a table of some common transformations. A common transformation is the natural logarithm. You use it when your data is highly right-skewed or when you want your regression results to be interpreted as a percent change. Another common transformation is scaling, which is when the values are substracted by the mean and divided by the standard deviation. This results in a value of, for instance, +1 being a "1 SD increase". This is useful when you have variables with different units (kilogram or meters) or different sizes of a unit (meters of a person vs an elephant). After scaling, you can compare these variables more easily. 
 
 ---
 ## Transforming your data in R
@@ -97,7 +97,7 @@ names(transformed)
 ``` {{2}}
 
 `@script`
-You can transform your variables easily using dplyr. Here is the typical way of adding a column such as the data transformation to your dataset with dplyr. You create the column by naming it, for instance here with creating the log of weight or of height. However, this gets tedious very quickly. Instead, the faster way is to use the mutate_at function. It takes two arguments, the variables with the vars function, and the functions to use to transform with the funs function. Then it appends the name of the transformation function to the end of the variable name. This is a quick way to use many transformations on many variables. 
+With the mutate function from dplyr, transforming is easy! A typical way of adding a column is shown here. You create the new column with the log of the original values. If you have many variables and many transformations, this gets tedious. A faster way is to use the mutate_at function. It takes two arguments: the variables with the vars function, and the transformation functions with the funs function. Mutate_at appends the transformation function name to the end of the variable name. You now have transformed all these variables!
 
 ---
 ## Visualizing the transformations
@@ -112,7 +112,7 @@ key: "f1d0ec80d5"
 
 
 `@script`
-These figures show how the distribution and unit changes depending on the transformation. See how scaling doesn't really change the distribution, but now the middle is more or less at zero and the units are interpreted as "standard deviations". Compare this to the logarithm. In this example it hasn't change the distribution too much, but in general it can make distributions much tighter. Lastly, see how the invert literally inverts the distribution. But pay attention to the unit, as it will be difficult to interpret after you do some later analyses.
+Let's take a look at what the transformations do. First, check how scaling doesn't really change the distribution, but now the middle is more or less at zero and the units are interpreted as "standard deviations from the mean". Compare this to the logarithm. In this particular example it doesn't change the distribution, however in general it can strongly shrink the distribution. Finally, see how the inverse literally inverts the distribution. But notice the units and consider how this influences the interpretation in later analyses.
 
 ---
 ## Lesson summary
@@ -131,7 +131,7 @@ key: "cadb2ff612"
 
 `@script`
 
-In this lesson we covered some of the reasons to use transformations and some of the types to choose from, such as the natural log or scaling. In all cases, especially in health research, be very careful and thoughtful about why you want to use transformations and which ones you choose. Your findings may be used to influence health of real human beings... and if you aren't careful, you could end up harming thousands of people or more.
+In this lesson we covered some of the reasons to use transformations and some common types, such as the log or scaling. As always, be careful and thoughtful about using transformations. Your findings may influence health of real humans... and if you aren't careful, you could end up causing harm because of unintented miscommunication.
 
 ---
 ## Let's practice transforming some variables!
