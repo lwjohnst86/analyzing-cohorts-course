@@ -184,15 +184,19 @@ key: e50ea375f8
 xp: 100
 ```
 
-{{convert to tab exercise}}
-
-Create a simple visual comparing the outcome with the exposures.
+Create multiple boxplots of several exposures with the outcome. Use a combination of converting to long data form, grouping to show the outcome, and facetting by year to show temporal changes. 
 
 `@instructions`
-
+- Select participant age, total cholesterol, body mass, and systolic and diastolic blood pressure.
+- Convert to long data form, excluding visit number and the outcome.
+- Create boxplots, coloured by the outcome.
+- Facet by visit number.
 
 `@hint`
-
+- Select `total_cholesterol`, `participant_age`, `body_mass_index`, `systolic_blood_pressure`, and `diastolic_blood_pressure`.
+- Use `gather` and exclude the followup visit number and the `got_cvd` outcome.
+- Create `geom_boxplots`, coloured by `got_cvd`.
+- Use the `vars()` function to wrap the variable name in `facet_grid`. 
 
 `@pre_exercise_code`
 ```{r}
@@ -200,29 +204,43 @@ load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/20
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+tidier_framingham <- tidier_framingham %>% 
+    mutate(got_cvd = as.character(got_cvd))
 ```
 
 `@sample_code`
 ```{r}
-
+# Convert to long form and make multiple box plots over time
+tidier_framingham %>% 
+    select(followup_visit_number, got_cvd, 
+           # select the 5 continuous variables
+           ___) %>% 
+    ___(variable, value, -___, -___) %>% 
+    ggplot(aes(y = value, x = variable, colour = ___)) +
+    ___() +
+    facet_grid(rows = ___) +
+    # To have horizontal boxplots
+    coord_flip()
 ```
 
 `@solution`
 ```{r}
+# Convert to long form and make multiple box plots over time
 tidier_framingham %>% 
-    select(followup_visit_number, got_cvd, total_cholesterol, participant_age, body_mass_index,
-           cigarettes_per_day) %>% 
-    mutate(got_cvd = as.character(got_cvd)) %>%
-    gather(Variable, Value, -followup_visit_number, -got_cvd) %>% 
-    ggplot(aes(y = Value, x = Variable, colour = got_cvd)) +
-    geom_point(position = position_jitterdodge(dodge.width = 0.9)) +
-    facet_grid(rows = vars(followup_visit_number), scales = "free") +
+    select(followup_visit_number, got_cvd, 
+           total_cholesterol, participant_age, body_mass_index,
+           systolic_blood_pressure, diastolic_blood_pressure) %>% 
+    gather(variable, value, -followup_visit_number, -got_cvd) %>% 
+    ggplot(aes(y = value, x = variable, colour = got_cvd)) +
+    geom_boxplot() +
+    facet_grid(rows = vars(followup_visit_number)) +
+    # To have horizontal boxplots
     coord_flip()
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Excellent! You quickly created a figure showing several continuous variables by the outcome, and over time! Notice how some variables are a bit higher in the `got_cvd` group and that over time these differences decreased?")
 ```
 
 ---
