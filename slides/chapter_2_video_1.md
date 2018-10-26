@@ -39,7 +39,7 @@ ggplot(diet, aes(x = weight)) +
 
 `@part2`
 
-![histogram](datasets/) {{2}}
+![histogram](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/a7a52d4b64aa5f2562fdf34478a8a31912e070fa/ch2-v1-histogram.png) {{2}}
 
 
 `@script`
@@ -114,7 +114,7 @@ long_form %>%
 
 `@part2`
 
-![facetted histograms](datasets/) {{2}}
+![facetted histograms](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/c386000b62449e65e45d4465ddc2aac280c7d167/ch2-v1-two-histograms.png) {{2}}
 
 `@script`
 
