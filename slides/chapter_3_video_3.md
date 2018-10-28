@@ -1,13 +1,13 @@
 ---
-title: Insert title here
-key: 5ab6b9af44fc27034571fab5f10ca3ef
+title: "Interaction testing and sensitivity analyses"
+key: db8d5c421cb76b9e5a85f8e22cd5dcb0
 
 ---
-## Title Slide
+## Interaction testing and sensitivity analyses
 
 ```yaml
 type: "TitleSlide"
-key: "0d2a8f7826"
+key: "41a97651b5"
 ```
 
 `@lower_third`
@@ -17,6 +17,15 @@ title: Instructor
 
 `@script`
 
+Sensitivity analyses
+    - exploring potential sub-hypotheses to test assumptions of models and to
+    get better understanding
+    - e.g. stratified analysis, models with and without covars to id which is
+    impacting results, etc
+Simpson's paradox? need to consider subgroup analyses (interactions), especially
+for sex and ethnicity. (Expand more here, tho mentioned in lesson 2)
+Interaction testing, especially for sex and ethnicity (common requirement in order
+to publish)
 
 
 ---
@@ -24,7 +33,7 @@ title: Instructor
 
 ```yaml
 type: "FullSlide"
-key: "9e89aca17a"
+key: "19262232e2"
 ```
 
 `@part1`
@@ -40,7 +49,7 @@ key: "9e89aca17a"
 
 ```yaml
 type: "FinalSlide"
-key: "38e4caa8be"
+key: "1931fc9890"
 ```
 
 `@script`

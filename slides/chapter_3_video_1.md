@@ -1,13 +1,13 @@
 ---
 title: Insert title here
-key: db8d5c421cb76b9e5a85f8e22cd5dcb0
+key: 5ab6b9af44fc27034571fab5f10ca3ef
 
 ---
 ## Title Slide
 
 ```yaml
 type: "TitleSlide"
-key: "41a97651b5"
+key: "0d2a8f7826"
 ```
 
 `@lower_third`
@@ -17,6 +17,54 @@ title: Instructor
 
 `@script`
 
+Don't go into detail too much, just "here is the code, here are the resources"
+ mixed effect
+cox model
+logistic regression
+poisson regression
+
+
+---
+## Design type can restrict questions and analysis
+
+```yaml
+type: "TwoRows"
+```
+
+`@part1`
+#### Cohorts in general
+
+- Are observational, and can't directly find causes
+- Participants have a shared characteristic - can't answer questions outside of the group
+
+
+`@part2`
+#### Prospective cohorts specifically
+
+- Allow you to assess risk over a defined time, but not outside that time
+- Answer questions about risk of those exposed and not exposed
+
+
+`@script`
+Knowing the difference between prevalence vs incidence, we can see that some questions can't be asked of retrospective cohorts since it only has prevalent cases. There are several other restrictions on questions to ask. Cohorts are observational studies, so questions on causes are difficult, or impossible, to answer. Questions about people or characteristics outside the cohort can't be answered. For instance, for a cohort of older adults, you can't ask questions about younger age groups. Or, more commonly, if the cohort is mainly those with European ancestry, you can't answer questions about other ethnic groups or ancestries. For prospective cohorts we can answer questions that include some time aspect and can also ask about risk in unexposed vs exposed.
+
+---
+## Impossible or difficult to answer questions
+
+```yaml
+type: "FullSlide"
+key: "ab1164f998"
+```
+
+`@part1`
+- Related to causes and effects
+- Exposures that are very unreliably measured
+- Inconsistently measured exposures or outcomes
+
+
+`@script`
+Some questions we can't ask are often obvious, such as when you don't have the data to answer your question. Other questions are more nuanced. Causes are difficult to study because of confounding, which we'll cover later. For instance, does alcohol cause cancer? This is difficult because people often do many other things when they drink, like smoke. Some data are too unreliable to use. For instance, whether vitamin D intake influences some diseases is tricky to answer because measuring diet is very hard, and measuring nutrient intake from diet is even harder. Or assume vitamin D was measured in the blood... another level to consider is that vitamin D can be measured in several ways, that each gives slightly different values. Some measurements of data are prone to error or noise, which can limit how much we trust answers to some questions.
+
 
 
 ---
@@ -24,7 +72,7 @@ title: Instructor
 
 ```yaml
 type: "FullSlide"
-key: "19262232e2"
+key: "9e89aca17a"
 ```
 
 `@part1`
@@ -40,7 +88,7 @@ key: "19262232e2"
 
 ```yaml
 type: "FinalSlide"
-key: "1931fc9890"
+key: "38e4caa8be"
 ```
 
 `@script`
