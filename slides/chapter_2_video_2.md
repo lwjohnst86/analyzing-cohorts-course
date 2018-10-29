@@ -145,7 +145,6 @@ Since there are a large number of bank workers, we could, for later interpretati
 
 ```yaml
 type: "FullSlide"
-key: "edbfed5a7c"
 ```
 
 `@part1`
@@ -165,7 +164,6 @@ Before finishing this lesson, I want to make a comment on dealing with outliers.
 
 ```yaml
 type: "FullSlide"
-key: "1eba1be603"
 ```
 
 `@part1`
