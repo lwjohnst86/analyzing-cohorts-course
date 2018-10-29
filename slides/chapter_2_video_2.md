@@ -145,7 +145,6 @@ Since there are a large number of bank workers, we could, for later interpretati
 
 ```yaml
 type: "FullSlide"
-key: "edbfed5a7c"
 ```
 
 `@part1`
