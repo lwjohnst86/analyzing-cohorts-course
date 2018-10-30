@@ -95,7 +95,7 @@ So instead of doing histograms one at a time, we can make use of using a differe
 ## Visually explore multiple variables
 
 ```yaml
-type: "TwoColumns"
+type: "TwoRows"
 ```
 
 `@part1`
@@ -104,12 +104,7 @@ type: "TwoColumns"
 long_form %>%
     ggplot(aes(x = value)) +
     geom_histogram() +
-    # or use facet_grid
-    facet_wrap(
-        vars(variable),
-        scale = "free",
-        ncol = 1
-    )
+    facet_wrap(vars(variable), scale = "free", nrow = 1)
 ``` {{1}}
 
 `@part2`
