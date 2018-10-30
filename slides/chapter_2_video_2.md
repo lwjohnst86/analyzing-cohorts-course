@@ -73,11 +73,35 @@ type: "TwoColumns"
 
 `@part2`
 
+```{r}
+diet %>%
+    mutate(BMI = weight / ((height / 100) ^ 2)) %>%
+    ggplot(aes(x = BMI)) +
+    geom_histogram(colour = "black", fill = "lightyellow", 
+                   bins = 40) +
+    geom_vline(xintercept = c(20, 25, 30), 
+               size = 1, linetype = "dashed") +
+    xlab("Body mass index")
+``` {{1}}
+
+`@script`
+
+Let's show an example. Maybe you are familiar with the different weight classes based on your body mass index, or BMI. These weight classes, shown in the table, are often used in health research and perfectly shows why discretizing is a problem. Let's plot BMI from the diet cohort. With this code we will create the next image showing the problem.
+
+---
+## The problem of discretizing: An visual example
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
 ![Discretizing a continuous body mass index](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/6f6a793790e58b28f993ee4986409a5873fb424f/plot-discretising.png) {{2}}
 
 `@script`
 
-Let's show an example. Maybe you are familiar with the different weight classes based on your body mass index, or BMI. These weight classes are often used in health research and perfectly shows why discretizing is a problem. For instance, someone with a BMI of 24.9 would be classified as normal weight. But, gain a bit of weight or eat a large meal and that BMI could become 25.1 and now that person is classified as overweight. You would now, statistically, be treated equally as someone who has a BMI of 29.9. Biologically this makes no sense. So when you have continuous data, don't dichotomize it.
+Here we see that BMI smooths passes each category. So, someone with a BMI of 24.9 would be classified as normal weight. But, gain a bit of weight or eat a large meal and that BMI could become 25.1 and now that person is classified as overweight. They would now, statistically, be treated as equally as someone who has a BMI of 29.9. Biologically this makes no sense. So when you have continuous data, don't dichotomize it.
 
 ---
 ## Reducing levels of an already discrete variable
