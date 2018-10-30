@@ -136,7 +136,7 @@ diet %>%
 ![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/8501ad0061c59bb5f1757a2ad99652fd11f70952/ch2-v1-boxplot.png) 
 
 `@script`
-Univariate visualizations are great, but don't forget that we should look at plots of exposures by outcome. For categorical outcome variables, boxplots are great tools. Boxplots show the general distribution of the data, with the median, the 25%tile and the 75%tile, giving you a great sense of what your data looks like. Here, it is fairly straight forward to put the outcome, which is coronary heart disease in this case, on the x-axis and an exposure like weight on the y-axis. Using colours help distinguish the two groups more easily.
+Univariate visualizations are great, but don't forget that we should look at plots of exposures by outcome. For categorical outcome variables, boxplots are great tools. Boxplots show the general distribution of the data, with the median, the 25%tile and the 75%tile, and a measure of the extreme values of the data. This gives a great overview of how your data looks. Here, it is fairly straight forward to put the outcome, which is coronary heart disease in this case, on the x-axis and an exposure like weight on the y-axis. Using colours help distinguish the two groups more easily.
 
 ---
 ## Exploring time!
