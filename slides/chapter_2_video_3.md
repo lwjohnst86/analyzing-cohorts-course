@@ -86,20 +86,19 @@ transformed <- diet %>%
 ``` {{1}}
 
 ```{r}
+invert <- function(x) 1 / x
 transformed <- diet %>%
-    select(height, weight) %>% 
-    mutate_at(vars(weight, height), 
-              funs(scale, log))
+    select(weight, height) %>%
+    mutate_at(vars(weight, height), funs(scale, log, invert))
 
 names(transformed)
-#> [1] "height"       "weight"       "weight_scale"
-#> [4] "height_scale" "weight_log"   "height_log"  
+#> [1] "weight"        "height"        "weight_scale"  "height_scale" 
+#> [5] "weight_log"    "height_log"    "weight_invert" "height_invert"
 ``` {{2}}
 
 
 `@script`
-With the mutate function from dplyr, transforming is easy! A typical way of adding a column is shown here. You create the new column with the log of the original values. If you have many variables and many transformations, this gets tedious. A faster way is to use the mutate_at function. It takes two arguments: the variables with the vars function, and the transformation functions with the funs function. Mutate_at appends the transformation function name to the end of the variable name. You now have transformed all these variables!
-
+With the mutate function from dplyr, transforming is easy! A typical way of adding a column is shown here. You create the new column with the log of the original values. If you have many variables and many transformations, this gets tedious. A faster way is to use the mutate_at function. It takes two arguments: the variables with the vars function, and the transformation functions with the funs function. Mutate_at appends the transformation function name to the end of the variable name. This is the reason why you should create a transformation function if one doesn't already exist and use that function in mutate... which is what we done with invert here. With only one or two lines of code, you now have transformed all these variables!
 
 ---
 ## Visualizing the transformations
