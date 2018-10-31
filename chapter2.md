@@ -670,6 +670,7 @@ success_msg("Great! Compare how the transformations affect the cigarettes data c
 ```yaml
 type: MultipleChoiceExercise
 xp: 50
+key: ca708dca27
 ```
 
 Understanding how each transformation influences the units and the distribution of the data is an important step in properly applying these transformations. Try answering these questions about the shape of the data after each transformation.
