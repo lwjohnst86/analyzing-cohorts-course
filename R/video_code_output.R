@@ -158,9 +158,9 @@ library(ggplot2)
 library(Epi)
 data("diet")
 
-ggplot(diet, aes(x = weight)) +
+p <- ggplot(diet, aes(x = weight)) +
     geom_histogram()
-ggsave("datasets/ch2-v1-histogram.png", dpi = 120, width = 5, height = 5)
+ggsave("datasets/ch2-v1-histogram.png", p, height = 2.5, width = 2.5)
 
 wide_form <- diet %>%
     head(4) %>%
