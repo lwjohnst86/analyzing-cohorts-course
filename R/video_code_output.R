@@ -208,6 +208,12 @@ reduced_job <- diet %>%
     ))
 count(reduced_job, bank_worker)
 
+library(forcats)
+diet %>%
+    mutate(job = fct_recode(
+        job, "Banker" = "Bank worker"
+    )) %>%
+    count(job)
 
 # Chapter 2 video 3 -------------------------------------------------------
 
