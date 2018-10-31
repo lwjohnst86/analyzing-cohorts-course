@@ -68,9 +68,9 @@ tidier_framingham %>%
 tidier_framingham %>%
     select(
         followup_visit_number,
-        total_cholesterol, 
-        contains("lipoprotein"),
-        ends_with("blood_pressure"),
+        # Select the six blood measure variables
+        total_cholesterol, high_density_lipoprotein, low_density_lipoprotein,
+        systolic_blood_pressure, diastolic_blood_pressure,
         fasting_blood_glucose
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
@@ -150,9 +150,13 @@ xp: 30
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # 
+        # Select the six cardiovascular variables
         ___
     ) %>% 
+    ___(variable, value, -followup_visit_number) %>%
+    ___(aes(x = value)) +
+    ___() +
+    ___(followup_visit_number ~ variable, scales = "free")
 ```
 
 `@solution`
@@ -160,8 +164,9 @@ tidier_framingham %>%
 tidier_framingham %>%
     select(
         followup_visit_number,
-        contains("prevalent"),
-        got_cvd
+        # Select the six cardiovascular variables
+        prevalent_hypertension, prevalent_mi, prevalent_stroke,
+        prevalent_chd, prevalent_angina, got_cvd
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
