@@ -165,6 +165,36 @@ count(reduced_job, bank_worker)
 Since there are a large number of bank workers, we could, for later interpretation, reduce the categories to either a job as a bank worker or not. One way to do this is to use the case_when function, which is useful when you have more complicated categories. The case_when function takes a condition on the left side of the tilde and the value on the right side. Each condition follows the comma. The final condition for missing values should be formatted as shown here for character data. Now, when we use count to check that the new variable has been successfully changed.
 
 ---
+## Tidying up a discrete variable
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+```{r}
+library(forcats)
+diet %>%
+    mutate(job = fct_recode(job, 
+        # new name = old name
+        "Banker" = "Bank worker"
+    )) %>%
+    count(job)
+
+#> # A tibble: 3 x 2
+#>   job           n
+#>   <fct>     <int>
+#> 1 Driver      102
+#> 2 Conductor    84
+#> 3 Banker      151
+```
+
+`@script`
+
+While case_when is very useful for many situations, for tidying up discrete variables is to use the forcats package, to specifically work with factors. The fct_recode function allows you to directly edit a level and rename it. Here, you give the new level name and then the old level name. This is a very quick way to work with factors!
+
+---
 ## A short comment on outliers
 
 ```yaml
