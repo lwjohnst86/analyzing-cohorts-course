@@ -232,6 +232,11 @@ transformed <- diet %>%
     mutate_at(vars(weight, height),
               funs(scale, log, invert))
 
+ggplot(transformed, aes(x = weight, # And another for each transform
+                        y = stat(density))) +
+    geom_histogram(colour = "black", fill = "lightyellow", size = 0.25) +
+    geom_density()
+
 histo_density <- function(.data, x) {
     xvar <- enquo(x)
     ggplot(transformed, aes(x = !!xvar, y = stat(density))) +
