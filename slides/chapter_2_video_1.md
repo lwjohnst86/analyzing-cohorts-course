@@ -109,7 +109,7 @@ long_form %>%
 
 `@part2`
 
-![facetted histograms](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/c386000b62449e65e45d4465ddc2aac280c7d167/ch2-v1-two-histograms.png) {{2}}
+![facetted histograms](http://assets.datacamp.com/production/repositories/2079/datasets/edb95d0a706c2f986b55f4755a01a6df3a17178d/ch2-v1-two-histograms.png) {{2}}
 
 `@script`
 
