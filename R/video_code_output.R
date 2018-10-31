@@ -208,6 +208,7 @@ reduced_job <- diet %>%
     ))
 count(reduced_job, bank_worker)
 
+
 # Chapter 2 video 3 -------------------------------------------------------
 
 # summary(diet)
@@ -215,14 +216,21 @@ count(reduced_job, bank_worker)
 diet <- as_tibble(diet)
 invert <- function(x) 1 / x
 transformed <- diet %>%
-    mutate_at(vars(weight, height), funs(scale, log, invert))
+    select(weight, height) %>%
+    mutate_at(vars(weight, height),
+              funs(scale, log, invert))
 
 ## Variable names
 transformed %>%
-    select(matches("weight|height"), -contains("invert")) %>%
+    select(matches("weight|height")) %>%
     names()
 
 ## Histogram and density
+
+invert <- function(x) 1 / x
+transformed <- diet %>%
+    mutate_at(vars(weight, height),
+              funs(scale, log, invert))
 
 histo_density <- function(.data, x) {
     xvar <- enquo(x)
