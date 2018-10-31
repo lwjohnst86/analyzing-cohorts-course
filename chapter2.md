@@ -668,12 +668,13 @@ success_msg("Great! Compare how the transformations affect the cigarettes data c
 ## How does the distribution change?
 
 ```yaml
-type: TabExercise
-key: ca708dca27
-xp: 100
+type: MultipleChoiceExercise
+xp: 50
 ```
 
 Understanding how each transformation influences the units and the distribution of the data is an important step in properly applying these transformations. Try answering these questions about the shape of the data after each transformation.
+
+Looking at the graph, observe how each transformation influences the distribution of body mass index and think about how these new distributions might influence later analyses. Which statement is true?
 
 `@pre_exercise_code`
 ```{r}
@@ -697,17 +698,6 @@ transformed_framingham %>%
     facet_wrap( ~ variables, scale = "free", ncol = 3)
 ```
 
-***
-
-```yaml
-type: MultipleChoiceExercise
-key: 58373c7c64
-xp: 50
-```
-
-`@question`
-Looking at the graph, observe how each transformation influences the distribution of body mass index and think about how these new distributions might influence later analyses. Which statement is true?
-
 `@possible_answers`
 - Taking the square root and scaling doesn't change the distribution but does change the unit.
 - Taking the logarthm changes the distribution and the unit.
@@ -728,34 +718,3 @@ msg5 <- "Yes! Which type of and when you might transform really depends on the r
 ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
 
-***
-
-```yaml
-type: MultipleChoiceExercise
-key: 3c5705a42e
-xp: 50
-```
-
-`@question`
-The cigarettes per day variable contains count data with a large number of zero values. Because of this, there are some problems and other considerations to think about. Look at the distribution of the data and at the warning messages. Which of following statements is true?
-
-`@possible_answers`
-- Some transformations aren't appropriate. For instance, the log of 0 doesn't work (`log(0)` = `-Inf`), so there will be many missing values.
-- There seems to be two "peaks", one at zero and one at 20. Depending on the research question, you could convert this variable to a categorical variable.
-- Most values seem to be zero. Depending on the research question, you could dichotomize this variable.
-- All of the above. 
-- None of the above.
-
-`@hint`
-- Notice the warning message and check the summary of the transformed data.
-- Look at the distribution of each transformation on cigarettes per day.
-
-`@sct`
-```{r}
-msg1 <- "Almost. While this is true, it's not the only true answer."
-msg2 <- "Almost. While this is true, it's not the only true answer."
-msg3 <- "Almost. While this is true, it's not the only true answer."
-msg4 <- "That's right! Some transformations won't work with this data. One way of dealing with zeros is by adding 0.5 to all the values. However, you'll also notice that there are two peaks in the data, so it has a bimodal distribution. Because of this, most transformations won't fix this. Generally it's a bad idea to convert continuous variables to discrete variables. However, depending on the data and the research questions, this can sometimes be appropriate to do. Especially considering that this is 'memory recall' data, and not directly measured, so there will be more noise in the data."
-msg5 <- "Incorrect. One of the above has the right answer."
-ex() %>% check_mc(4, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
-```
