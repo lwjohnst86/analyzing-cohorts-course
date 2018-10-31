@@ -104,6 +104,27 @@ With the mutate function from dplyr, transforming is easy! A typical way of addi
 ## Visualizing the transformations
 
 ```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+```{r}
+# One plot for each transformation
+ggplot(transformed, aes(x = weight, y = stat(density))) +
+    geom_histogram(colour = "black", fill = "lightyellow", size = 0.25) +
+    geom_density()
+```
+
+`@script`
+
+Let's take a look at what the transformations do. Here we'll show both the histogram and a density curve. Because both geoms are used, we need to use stat density on the y argument. I've added some colouring and made the lines smaller in the histogram. We do this for each transformation.
+
+
+---
+## Visualizing the transformations
+
+```yaml
 type: "FullImageSlide"
 key: "f1d0ec80d5"
 ```
@@ -113,7 +134,7 @@ key: "f1d0ec80d5"
 
 
 `@script`
-Let's take a look at what the transformations do. First, check how scaling doesn't really change the distribution, but now the middle is more or less at zero and the units are interpreted as "standard deviations from the mean". Compare this to the logarithm. In this particular example it doesn't change the distribution, however in general it can strongly shrink the distribution. Finally, see how the inverse literally inverts the distribution. But notice the units and consider how this influences the interpretation in later analyses.
+The plot then looks like this. Check how scaling doesn't really change the distribution, but now the middle is more or less at zero and the units are interpreted as "standard deviations from the mean". Compare this to the logarithm. In this particular example it doesn't change the distribution, but in general it can strongly shrink the distribution. Finally, see how the inverse literally inverts the distribution. But notice the units for each and consider how this influences the interpretation in later analyses.
 
 
 ---
