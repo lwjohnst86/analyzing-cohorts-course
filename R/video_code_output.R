@@ -175,22 +175,18 @@ long_form
 long_form <- diet %>%
     select(id, weight, energy_intake = energy) %>%
     gather(variable, value, -id)
-long_form %>%
+p <- long_form %>%
     ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_wrap(
-        vars(variable),
-        scale = "free",
-        ncol = 1
-    )
-ggsave("datasets/ch2-v1-two-histograms.png", dpi = 120, width = 5, height = 7)
+    facet_wrap(vars(variable), scale = "free", nrow = 1)
+ggsave("datasets/ch2-v1-two-histograms.png", p, dpi = 72, width = 7.5, height = 4)
 
-diet %>%
+p <- diet %>%
     mutate(chd = as.character(chd)) %>%
     ggplot(aes(x = chd, y = weight,
                colour = chd)) +
     geom_boxplot()
-ggsave("datasets/ch2-v1-boxplot.png", dpi = 120, width = 5, height = 5)
+ggsave("datasets/ch2-v1-boxplot.png", p, dpi = 90, width = 4, height = 4, device = "png")
 
 # Chapter 2 video 2 -------------------------------------------------------
 
