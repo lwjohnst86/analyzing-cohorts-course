@@ -669,13 +669,23 @@ success_msg("Great! Compare how the transformations affect the cigarettes data c
 
 ```yaml
 type: MultipleChoiceExercise
-xp: 50
 key: ca708dca27
+xp: 50
 ```
 
 Understanding how each transformation influences the units and the distribution of the data is an important step in properly applying these transformations. Try answering these questions about the shape of the data after each transformation.
 
 Looking at the graph, observe how each transformation influences the distribution of body mass index and think about how these new distributions might influence later analyses. Which statement is true?
+
+`@possible_answers`
+- Taking the square root and scaling doesn't change the distribution but does change the unit.
+- Taking the logarthm changes the distribution and the unit.
+- For later analyses, body mass index already has a good distribution and has the original unit, so interpretation will be easier if no transformations are used.
+- For later analyses, taking the scale can make interpretation easy since one unit is equal to one standard deviation of the original unit.
+- All of the above.
+
+`@hint`
+- Look at the distribution of each transformation on body mass index, compared to the original distribution.
 
 `@pre_exercise_code`
 ```{r}
@@ -689,26 +699,6 @@ transformed_framingham <- tidier_framingham %>%
               funs(invert, log, log10, sqrt))
 ```
 
-`@sample_code`
-```{r}
-# Plot body mass index or cigarettes per day transforms
-transformed_framingham %>% 
-    gather(variables, values, contains("___")) %>% 
-    ggplot(aes(x = values)) +
-    geom_histogram() +
-    facet_wrap( ~ variables, scale = "free", ncol = 3)
-```
-
-`@possible_answers`
-- Taking the square root and scaling doesn't change the distribution but does change the unit.
-- Taking the logarthm changes the distribution and the unit.
-- For later analyses, body mass index already has a good distribution and has the original unit, so interpretation will be easier if no transformations are used.
-- For later analyses, taking the scale can make interpretation easy since one unit is equal to one standard deviation of the original unit.
-- All of the above.
-
-`@hint`
-- Look at the distribution of each transformation on body mass index, compared to the original distribution.
-
 `@sct`
 ```{r}
 msg1 <- "Almost. While this is true, it's not the only true answer."
@@ -718,4 +708,3 @@ msg4 <- "Almost. While this is true, it's not the only true answer."
 msg5 <- "Yes! Which type of and when you might transform really depends on the research question, the data values, and how you will want the results from your analyses to be interpreted. This means you need to carefully think about and have justifications for what you do to the data."
 ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
-
