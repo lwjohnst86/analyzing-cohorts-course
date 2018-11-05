@@ -308,15 +308,12 @@ library(dplyr)
 
 `@sample_code`
 ```{r}
-# convert to be human-readable
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = ___(
             # use the format: variable == number ~ "string"
-            ___ == ___ ~ ___, # do this for the four levels
-            TRUE ~ NA_character_ # need this as last value
-            ),
-        # do the same thing with sex
+            ___ == ___ ~ ___, 
+            TRUE ~ NA_character_),
         sex = ___
         )
 
@@ -327,7 +324,6 @@ ___
 
 `@solution`
 ```{r}
-# convert to be human-readable
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = case_when(
@@ -336,8 +332,7 @@ tidier2_framingham <- tidier_framingham %>%
             education == 2 ~ "High School",
             education == 3 ~ "Vocational",
             education == 4 ~ "College",
-            TRUE ~ NA_character_), # need this as last value
-        # do the same thing with sex
+            TRUE ~ NA_character_),
         sex = case_when(
             sex == 1 ~ "Man",
             sex == 2 ~ "Woman",
