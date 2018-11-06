@@ -718,7 +718,7 @@ transformed_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Amazing! Check out how each transformation influences the distribution of body mass index.")
+success_msg("Amazing!")
 ```
 
 ***
@@ -743,7 +743,7 @@ transformed_framingham %>%
     ggplot(aes(x = values)) +
     geom_histogram() +
     # Facets show all histograms
-    facet_wrap( ~ variables, scale = "free", ncol = 3)
+    facet_wrap( ~ variables, scale = "free")
 ```
 
 `@solution`
@@ -754,12 +754,12 @@ transformed_framingham %>%
     ggplot(aes(x = values)) +
     geom_histogram() +
     # Facets show all histograms
-    facet_wrap( ~ variables, scale = "free", ncol = 3)
+    facet_wrap( ~ variables, scale = "free")
 ```
 
 `@sct`
 ```{r}
-success_msg("Great! Compare how the transformations affect the cigarettes data compared to the body mass index data.")
+success_msg("Great! Check out how each transformation influences the distribution of body mass index and of number of cigarettes. Compare how the transformations affect the two variables differently.")
 ```
 
 ---
