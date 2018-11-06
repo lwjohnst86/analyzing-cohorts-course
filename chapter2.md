@@ -564,11 +564,11 @@ xp: 100
 There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses.
 
 `@instructions`
-- Log, log10, square root, and invert the values of body mass index and cigarettes per day.
+- Log, square root, and invert the values of body mass index and cigarettes per day.
 
 `@hint`
 - Use the `body_mass_index` and the `cigarettes_per_day` variables.
-- Use `log`, `log10`, and `sqrt` to transform the values.
+- Use `log` and `sqrt` to transform the values.
 
 `@pre_exercise_code`
 ```{r}
@@ -603,10 +603,10 @@ tidier2_framingham <- tidier_framingham %>%
 # Function so invert name is appended to variable
 invert <- function(x) 1 / x
 
-# Use four transformations on body mass index
+# Use three transformations on body mass index
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(___, ___), 
-              funs(___, ___, ___, invert))
+              funs(___, ___, invert))
 
 # Confirm created variables
 summary(___)
@@ -617,10 +617,10 @@ summary(___)
 # Function so invert name is appended to variable
 invert <- function(x) 1 / x
 
-# Use four transformations on body mass index
+# Use three transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(log, log10, sqrt, invert))
+              funs(log, sqrt, invert))
 
 # Confirm created variables
 summary(transformed_framingham)
