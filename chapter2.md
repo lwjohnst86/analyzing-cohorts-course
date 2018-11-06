@@ -43,10 +43,10 @@ xp: 35
 ```
 
 `@instructions`
-- Select the blood measure variables (e.g. cholesterol, lipoprotein, glucose, blood pressure) and create histograms.
+- Select the cholesterol based variables (i.e. total and lipoproteins) and create histograms.
 
 `@hint`
-- The six variables are total cholesterol, systolic and diastolic blood pressure, fasting glucose, and high and low density lipoprotein.
+- The six variables are total cholesterol, and high and low density lipoprotein.
 - Use `geom_histogram()`.
 
 `@sample_code`
@@ -54,7 +54,7 @@ xp: 35
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the six blood measure variables
+        # select the three cholesterol-based variables
         ___
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
@@ -69,10 +69,8 @@ tidier_framingham %>%
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the six blood measure variables
-        total_cholesterol, high_density_lipoprotein, low_density_lipoprotein,
-        systolic_blood_pressure, diastolic_blood_pressure,
-        fasting_blood_glucose
+        # select the three cholesterol-based variables
+        total_cholesterol, high_density_lipoprotein, low_density_lipoprotein
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
@@ -83,7 +81,7 @@ tidier_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Great! Notice the right skew to the blood pressure variables and the empty data for the lipoprotein variables at visits 1 and 2. These will be important to keep in mind.")
+success_msg("Great! Notice the empty data for the lipoprotein variables at visits 1 and 2. These will be important to keep in mind.")
 ```
 
 ***
@@ -95,17 +93,17 @@ xp: 35
 ```
 
 `@instructions`
-- Select the 5 overall participant characteristic (age, body mass, education, smoking status) and plot them.
+- Select the 3 overall participant characteristic (age, body mass, cigarettes smoked) and plot them.
 
 `@hint`
-- Use participant age, body mass index, education, currently smoking, and number of cigarettes per day.
+- Use participant age, body mass index, and number of cigarettes per day.
 
 `@sample_code`
 ```{r}
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the 5 charactistics
+        # select the three charactistics
         ___
     ) %>%
     # convert to long form
@@ -121,9 +119,8 @@ tidier_framingham %>%
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the 5 charactistics
-        body_mass_index, participant_age,
-        education, currently_smokes, cigarettes_per_day
+        # select the three charactistics
+        body_mass_index, participant_age, cigarettes_per_day
     ) %>%
     # convert to long form
     gather(variable, value, -followup_visit_number) %>%
@@ -147,17 +144,17 @@ xp: 30
 ```
 
 `@instructions`
-- Now do the same with for all the 5 prevalent cardiovascular events as well as the main outcome.
+- Now do the same with for prevalent hypertension and CHD events as well as the main outcome.
 
 `@hint`
-- Select the `got_cvd` as well as the prevalent MI, angina, CHD, hypertension, and stroke.
+- Select the `got_cvd` as well as the prevalent MI and CHD.
 
 `@sample_code`
 ```{r}
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the six cardiovascular variables
+        # select the three cardiovascular variables
         ___
     ) %>% 
     # convert to long form
@@ -173,9 +170,8 @@ tidier_framingham %>%
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the six cardiovascular variables
-        prevalent_hypertension, prevalent_mi, prevalent_stroke,
-        prevalent_chd, prevalent_angina, got_cvd
+        # select the three cardiovascular variables
+        prevalent_hypertension, prevalent_chd, got_cvd
     ) %>%
     # convert to long form
     gather(variable, value, -followup_visit_number) %>%
@@ -187,7 +183,7 @@ tidier_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Amazing! Did you notice how there is a high prevalence of hypertension and that it increases over time? Anyway, you've now visually checked nearly all of the more interesting variables!")
+success_msg("Amazing! Did you notice how there is a high prevalence of hypertension and that it increases over time? Anyway, you've now visually checked many of the more interesting variables!")
 ```
 
 ---
