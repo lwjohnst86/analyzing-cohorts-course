@@ -695,10 +695,10 @@ transformed_framingham %>%
 ```
 
 `@possible_answers`
-- Taking the square root and scaling doesn't change the distribution but does change the unit.
-- Taking the logarthm changes the distribution and the unit.
-- For later analyses, body mass index already has a good distribution and has the original unit, so interpretation will be easier if no transformations are used.
-- For later analyses, taking the scale can make interpretation easy since one unit is equal to one standard deviation of the original unit.
+- The square root and scaling don't change the distribution but do change the unit.
+- The logarthm changes the distribution and unit.
+- The original body mass index has a good distribution and the original unit, so don't need to transform.
+- Scaling can make interpreting easier as 1 unit equals 1 standard deviation of the original unit.
 - All of the above.
 
 `@hint`
