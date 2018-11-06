@@ -334,7 +334,7 @@ tidier2_framingham <- tidier_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Excellent! You've tidied up the education variable.")
+success_msg("Excellent!")
 ```
 
 ***
@@ -383,12 +383,13 @@ tidier2_framingham <- tidier_framingham %>%
         sex = case_when(
             sex == 1 ~ "Man",
             sex == 2 ~ "Woman",
-            TRUE ~ NA_character_))
+            TRUE ~ NA_character_)
+    )
 ```
 
 `@sct`
 ```{r}
-success_msg("Excellent! You've tidied up the sex variable.")
+success_msg("Excellent!")
 ```
 
 ***
@@ -418,7 +419,8 @@ tidier2_framingham <- tidier_framingham %>%
         sex = case_when(
             sex == 1 ~ "Man",
             sex == 2 ~ "Woman",
-            TRUE ~ NA_character_))
+            TRUE ~ NA_character_)
+    )
 
 # Confirm changes to the two variables
 ___(tidier2_framingham, ___)
@@ -440,7 +442,7 @@ tidier2_framingham <- tidier_framingham %>%
             sex == 2 ~ "Woman",
             TRUE ~ NA_character_))
 
-# confirm changes to the two variables
+# Confirm changes to the two variables
 count(tidier2_framingham, education)
 count(tidier2_framingham, sex)
 ```
