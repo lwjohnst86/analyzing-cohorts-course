@@ -53,15 +53,13 @@ key: "cb8a52378a"
 - Think carefully about which to use {{1}}
 - Depends on data, analysis, and eventual interpretation {{2}}
 
-&nbsp;
-
 | Type | R code | When to use |
 |:-----|:-------|:------------|
-| natural logarithm | `log(x)` | If highly right skewed, positive data |
-| mean-center | `scale(x, scale = FALSE)` | So zero is the mean, use for easier interpretation |
-| scaling | `scale(x)` | For same unit scale, not good for longitudinal data |
+| natural log | `log(x)` | Highly-right skewed, positive data |
+| mean-center | `scale(x, scale = FALSE)` | Zero is the mean, use for easier interpretation |
+| scaling | `scale(x)` | Same unit, not for longitudinal data |
 | square root | `sqrt(x)` | Great for count data, handles zeros |
-| multiplicative inverse |`1 / x`| To invert values/unit, but no zeros | {{3}}
+| inverse |`1 / x`| To invert values/unit, but no zeros | {{3}}
 
 
 `@script`
