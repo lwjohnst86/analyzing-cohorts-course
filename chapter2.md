@@ -571,7 +571,7 @@ tidier2_framingham <- tidier_framingham %>%
 invert <- function(x) 1 / x
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(invert, log, log10, sqrt))
+              funs(invert, log, sqrt))
 ```
 
 ***
