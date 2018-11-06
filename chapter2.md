@@ -690,16 +690,6 @@ transformed_framingham <- tidier_framingham %>%
               funs(invert, log, log10, sqrt))
 ```
 
-`@sample_code`
-```{r}
-# Plot body mass index or cigarettes per day transforms
-transformed_framingham %>% 
-    gather(variables, values, contains("___")) %>% 
-    ggplot(aes(x = values)) +
-    geom_histogram() +
-    facet_wrap( ~ variables, scale = "free", ncol = 3)
-```
-
 `@sct`
 ```{r}
 msg1 <- "Almost. While this is true, it's not the only true answer."
