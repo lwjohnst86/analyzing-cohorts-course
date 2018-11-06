@@ -100,15 +100,16 @@ names(transformed)
 `@script`
 With the mutate function from dplyr, transforming is easy! A typical way of adding a column is shown here. You create the new column with the log of the original values. If you have many variables and many transformations, this gets tedious. A faster way is to use the mutate_at function. It takes two arguments: the variables with the vars function, and the transformation functions with the funs function. Mutate_at appends the transformation function name to the end of the variable name. This is the reason why you should create a transformation function if one doesn't already exist and use that function in mutate... which is what we done with invert here. With only one or two lines of code, you now have transformed all these variables!
 
+
 ---
 ## Visualizing the transformations
 
 ```yaml
 type: "FullSlide"
+key: "222e77d41e"
 ```
 
 `@part1`
-
 ```{r}
 # One plot for each transformation
 ggplot(transformed, aes(x = weight, y = stat(density))) +
@@ -116,8 +117,8 @@ ggplot(transformed, aes(x = weight, y = stat(density))) +
     geom_density()
 ```
 
-`@script`
 
+`@script`
 Let's take a look at what the transformations do. Here we'll show both the histogram and a density curve. Because both geoms are used, we need to use stat density on the y argument. I've added some colouring and made the lines smaller in the histogram. We do this for each transformation.
 
 

@@ -304,15 +304,12 @@ library(dplyr)
 
 `@sample_code`
 ```{r}
-# convert to be human-readable
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = ___(
             # use the format: variable == number ~ "string"
-            ___ == ___ ~ ___, # do this for the four levels
-            TRUE ~ NA_character_ # need this as last value
-            ),
-        # do the same thing with sex
+            ___ == ___ ~ ___, 
+            TRUE ~ NA_character_),
         sex = ___
         )
 
@@ -323,7 +320,6 @@ ___
 
 `@solution`
 ```{r}
-# convert to be human-readable
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = case_when(
@@ -332,8 +328,7 @@ tidier2_framingham <- tidier_framingham %>%
             education == 2 ~ "High School",
             education == 3 ~ "Vocational",
             education == 4 ~ "College",
-            TRUE ~ NA_character_), # need this as last value
-        # do the same thing with sex
+            TRUE ~ NA_character_),
         sex = case_when(
             sex == 1 ~ "Man",
             sex == 2 ~ "Woman",
@@ -665,12 +660,23 @@ success_msg("Great! Compare how the transformations affect the cigarettes data c
 
 ```yaml
 type: MultipleChoiceExercise
+key: ca708dca27
 xp: 50
 ```
 
 Understanding how each transformation influences the units and the distribution of the data is an important step in properly applying these transformations. Try answering these questions about the shape of the data after each transformation.
 
 Looking at the graph, observe how each transformation influences the distribution of body mass index and think about how these new distributions might influence later analyses. Which statement is true?
+
+`@possible_answers`
+- The square root and scaling don't change the distribution but do change the unit.
+- The logarthm changes the distribution and unit.
+- The original body mass index has a good distribution and the original unit, so don't need to transform.
+- Scaling can make interpreting easier as 1 unit equals 1 standard deviation of the original unit.
+- All of the above.
+
+`@hint`
+- Look at the distribution of each transformation on body mass index, compared to the original distribution.
 
 `@pre_exercise_code`
 ```{r}
@@ -694,16 +700,6 @@ transformed_framingham %>%
     facet_wrap( ~ variables, scale = "free", ncol = 3)
 ```
 
-`@possible_answers`
-- The square root and scaling don't change the distribution but do change the unit.
-- The logarthm changes the distribution and unit.
-- The original body mass index has a good distribution and the original unit, so don't need to transform.
-- Scaling can make interpreting easier as 1 unit equals 1 standard deviation of the original unit.
-- All of the above.
-
-`@hint`
-- Look at the distribution of each transformation on body mass index, compared to the original distribution.
-
 `@sct`
 ```{r}
 msg1 <- "Almost. While this is true, it's not the only true answer."
@@ -713,4 +709,3 @@ msg4 <- "Almost. While this is true, it's not the only true answer."
 msg5 <- "Yes! Which type of and when you might transform really depends on the research question, the data values, and how you will want the results from your analyses to be interpreted. This means you need to carefully think about and have justifications for what you do to the data."
 ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
-
