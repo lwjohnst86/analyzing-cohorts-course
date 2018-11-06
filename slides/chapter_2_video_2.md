@@ -203,11 +203,14 @@ type: "FullSlide"
 
 `@part1`
 
-> Short answer: Do *not* remove outliers unless the data itself is wrong. {{1}}
+> Short answer: Do *not* remove outliers (unless data itself is wrong) {{1}}
 
 &nbsp;
 
-> Longer answer: Outliers contain valuable scientific information. How they influence statistical results needs to be considered and analyzed. {{2}}
+Longer answer: {{2}}
+
+- Outliers contain valuable scientific information {{2}}
+- Influence on statistical results, needs consideration and analysis {{2}}
 
 `@script`
 
@@ -222,9 +225,11 @@ type: "FullSlide"
 
 `@part1`
 
-- Don't discretise. Keep continuous data continuous.
-- Use `count` to check categorical data and `case_when` to reduce levels.
-- Don't remove outliers (unless they are wrong).
+- Don't discretise
+- Keep continuous data continuous
+- Use `count` to check categorical data 
+- Use `case_when` to reduce levels
+- Don't remove outliers (unless they are wrong)
 
 `@script`
 

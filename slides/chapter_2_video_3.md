@@ -29,7 +29,7 @@ key: "5dcb3a9bee"
 ```
 
 `@part1`
-- Transformation: The act of applying a mathematical function to data, often to change its distribution {{1}}
+- Transformation: Applying mathematical function to data, often to change its distribution {{1}}
 - Multiple reasons to transform variables: {{2}}
     - To fit with statistical assumptions
     - To convert to shared variable unit
