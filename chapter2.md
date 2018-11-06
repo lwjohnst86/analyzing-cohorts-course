@@ -54,12 +54,12 @@ xp: 35
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the three cholesterol-based variables
+        # Select the three cholesterol-based variables
         ___
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
-    # add histogram layer
+    # Add histogram layer
     ___() +
     facet_grid(followup_visit_number ~ variable, scales = "free")
 ```
@@ -69,12 +69,12 @@ tidier_framingham %>%
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the three cholesterol-based variables
+        # Select the three cholesterol-based variables
         total_cholesterol, high_density_lipoprotein, low_density_lipoprotein
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
-    # add histogram layer
+    # Add histogram layer
     geom_histogram() +
     facet_grid(followup_visit_number ~ variable, scales = "free")
 ```
@@ -103,12 +103,12 @@ xp: 35
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the three charactistics
+        # Select the three charactistics
         ___
     ) %>%
-    # convert to long form
+    # Convert to long form
     ___(variable, value, -followup_visit_number) %>%
-    # plot histograms
+    # Plot histograms
     ___(aes(x = value)) +
     ___() +
     ___(followup_visit_number ~ variable, scales = "free")
@@ -119,12 +119,12 @@ tidier_framingham %>%
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the three charactistics
+        # Select the three charactistics
         body_mass_index, participant_age, cigarettes_per_day
     ) %>%
-    # convert to long form
+    # Convert to long form
     gather(variable, value, -followup_visit_number) %>%
-    # plot histograms
+    # Plot histograms
     ggplot(aes(x = value)) +
     geom_histogram() +
     facet_grid(followup_visit_number ~ variable, scales = "free")
@@ -154,12 +154,12 @@ xp: 30
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the three cardiovascular variables
+        # Select the three cardiovascular variables
         ___
     ) %>% 
-    # convert to long form
+    # Convert to long form
     ___(variable, value, -followup_visit_number) %>%
-    # plot histograms
+    # Plot histograms
     ___(aes(x = value)) +
     ___() +
     ___(followup_visit_number ~ variable, scales = "free")
@@ -170,12 +170,12 @@ tidier_framingham %>%
 tidier_framingham %>%
     select(
         followup_visit_number,
-        # select the three cardiovascular variables
+        # Select the three cardiovascular variables
         prevalent_hypertension, prevalent_chd, got_cvd
     ) %>%
-    # convert to long form
+    # Convert to long form
     gather(variable, value, -followup_visit_number) %>%
-    # plot histograms
+    # Plot histograms
     ggplot(aes(x = value)) +
     geom_histogram() +
     facet_grid(followup_visit_number ~ variable, scales = "free")
@@ -222,36 +222,36 @@ tidier_framingham <- tidier_framingham %>%
 
 `@sample_code`
 ```{r}
-# convert to long form and make multiple box plots over time
+# Convert to long form and make multiple box plots over time
 tidier_framingham %>% 
     select(followup_visit_number, got_cvd, 
-           # select the 5 continuous variables
+           # Select the 5 continuous variables
            ___) %>% 
-    # convert to long form
+    # Convert to long form
     ___(variable, value, -___, -___) %>% 
     ggplot(aes(y = value, x = variable, colour = ___)) +
-    # plot boxplots
+    # Plot boxplots
     ___() +
     facet_grid(rows = ___) +
-    # to have horizontal boxplots
+    # To have horizontal boxplots
     coord_flip()
 ```
 
 `@solution`
 ```{r}
-# convert to long form and make multiple box plots over time
+# Convert to long form and make multiple box plots over time
 tidier_framingham %>% 
     select(followup_visit_number, got_cvd, 
-           # select the 5 continuous variables
+           # Select the 5 continuous variables
            total_cholesterol, participant_age, body_mass_index,
            systolic_blood_pressure, diastolic_blood_pressure) %>% 
-    # convert to long form
+    # Convert to long form
     gather(variable, value, -followup_visit_number, -got_cvd) %>% 
     ggplot(aes(y = value, x = variable, colour = got_cvd)) +
-    # plot boxplots
+    # Plot boxplots
     geom_boxplot() +
     facet_grid(rows = vars(followup_visit_number)) +
-    # to have horizontal boxplots
+    # To have horizontal boxplots
     coord_flip()
 ```
 
@@ -394,38 +394,38 @@ tidier2_framingham <- tidier_framingham %>%
 
 `@sample_code`
 ```{r}
-# merge college and vocational levels
+# Merge college and vocational levels
 tidier2_framingham <- tidier2_framingham %>% 
     mutate(education_combined = ___(
         education, 
-        # form is: "new" = "old"
+        # Form is: "new" = "old"
         ___ = ___,
         ___ = ___
         ))
 
-# confirm changes to variable
+# Confirm changes to variable
 ___(tidier2_framingham, ___)
 
-# compare counts of original and merged by visit
+# Compare counts of original and merged by visit
 ___
 ___
 ```
 
 `@solution`
 ```{r}
-# merge college and vocational levels
+# Merge college and vocational levels
 tidier2_framingham <- tidier2_framingham %>% 
     mutate(education_combined = fct_recode(
         education, 
-        # form is: "new" = "old"
+        # Form is: "new" = "old"
         "Post-Secondary" = "College",
         "Post-Secondary" = "Vocational"
         ))
 
-# confirm changes to variable
+# Confirm changes to variable
 count(tidier2_framingham, education_combined)
 
-# compare counts of original and merged by visit
+# Compare counts of original and merged by visit
 count(tidier2_framingham, followup_visit_number, education)
 count(tidier2_framingham, followup_visit_number, education_combined)
 ```
@@ -497,29 +497,29 @@ tidier2_framingham <- tidier_framingham %>%
 
 `@sample_code`
 ```{r}
-# function so invert name is appended to variable
+# Function so invert name is appended to variable
 invert <- function(x) 1 / x
 
-# use four transformations on body mass index
+# Use four transformations on body mass index
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(___, ___), 
               funs(___, ___, ___, invert))
 
-# confirm created variables
+# Confirm created variables
 summary(___)
 ```
 
 `@solution`
 ```{r}
-# function so invert name is appended to variable
+# Function so invert name is appended to variable
 invert <- function(x) 1 / x
 
-# use four transformations on body mass index
+# Use four transformations on body mass index
 transformed_framingham <- tidier_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
               funs(log, log10, sqrt, invert))
 
-# confirm created variables
+# Confirm created variables
 summary(transformed_framingham)
 ```
 
@@ -593,23 +593,23 @@ xp: 50
 
 `@sample_code`
 ```{r}
-# plot body mass index transforms
+# Plot body mass index transforms
 transformed_framingham %>% 
     ___(variables, values, contains("___")) %>% 
     ___(___(x = values)) +
     ___ +
-    # facets show all histograms
+    # Facets show all histograms
     facet_wrap( ~ variables, scale = "free")
 ```
 
 `@solution`
 ```{r}
-# plot body mass index transforms
+# Plot body mass index transforms
 transformed_framingham %>% 
     gather(variables, values, contains("body_mass_index")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    # facets show all histograms
+    # Facets show all histograms
     facet_wrap( ~ variables, scale = "free")
 ```
 
@@ -634,23 +634,23 @@ xp: 50
 
 `@sample_code`
 ```{r}
-# plot cigarettes per day transforms
+# Plot cigarettes per day transforms
 transformed_framingham %>% 
     gather(variables, values, contains("___")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    # facets show all histograms
+    # Facets show all histograms
     facet_wrap( ~ variables, scale = "free", ncol = 3)
 ```
 
 `@solution`
 ```{r}
-# plot cigarettes per day transforms
+# Plot cigarettes per day transforms
 transformed_framingham %>% 
     gather(variables, values, contains("cigarettes_per_day")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    # facets show all histograms
+    # Facets show all histograms
     facet_wrap( ~ variables, scale = "free", ncol = 3)
 ```
 
