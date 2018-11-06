@@ -278,22 +278,12 @@ xp: 50
 ## Make discrete variables human-readable
 
 ```yaml
-type: NormalExercise
-key: d905b3eee0
+type: TabExercise
+key: e916c33326
 xp: 100
 ```
 
 As you will have noticed, there are several discrete variables with ambiguous values. For instance, with sex the values are either 1 or 2. Often you will encounter discrete data as integers rather than human understandable strings. But what exactly does that mean? With data like this, you need to have a data dictionary to review to find out.  Let's fix that problem and tidy up the data a bit more so it is human-readable.
-
-`@instructions`
-- Convert the education and sex values to human readable format using `case_when`.
-- The original education numbers should correspond to the following strings: 1 = "0-11 years"; 2 = "High School"; 3 = "Vocational"; 4 = "College".
-- The original sex numbers should correspond to the following strings: 1 = "Man"; 2 = "Woman".
-- Confirm that the education and sex values have properly changed.
-
-`@hint`
-- The form for the `case_when` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
-- Use `count` with the `education` variable.
 
 `@pre_exercise_code`
 ```{r}
@@ -302,20 +292,30 @@ library(forcats)
 library(dplyr)
 ```
 
+***
+
+```yaml
+type: NormalExercise
+key: cbc1123965
+xp: 35
+```
+
+`@instructions`
+- Convert the education values to human readable format using `case_when`.
+- The original education numbers should correspond to the following strings: 1 = "0-11 years"; 2 = "High School"; 3 = "Vocational"; 4 = "College".
+
+`@hint`
+- The form for the `case_when` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
+
 `@sample_code`
 ```{r}
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = ___(
-            # use the format: variable == number ~ "string"
+            # Use the format: variable == number ~ "string"
             ___ == ___ ~ ___, 
-            TRUE ~ NA_character_),
-        sex = ___
-        )
-
-# confirm changes to variables
-___(tidier2_framingham, ___)
-___
+            TRUE ~ NA_character_)
+      )
 ```
 
 `@solution`
@@ -323,7 +323,93 @@ ___
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = case_when(
-            # use the format: variable == number ~ "string"
+            # Use the format: variable == number ~ "string"
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_)
+      )
+```
+
+`@sct`
+```{r}
+success_msg("Excellent! You've tidied up the education variable.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 93db7dd67f
+xp: 35
+```
+
+`@instructions`
+- Convert the sex values to human readable format using `case_when`.
+- The original sex numbers should correspond to the following strings: 1 = "Man"; 2 = "Woman".
+
+`@hint`
+- The form for the `case_when` should look like `sex == 1 ~ "Man"`, for each number-string pairing.
+
+`@sample_code`
+```{r}
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            # Use the format: variable == number ~ "string"
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_),
+        # Do the same thing for sex
+        sex = ___
+        )
+```
+
+`@solution`
+```{r}
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            # Use the format: variable == number ~ "string"
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_),
+        # Do the same thing for sex  
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_))
+```
+
+`@sct`
+```{r}
+success_msg("Excellent! You've tidied up the sex variable.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 41077e061c
+xp: 30
+```
+
+`@instructions`
+- Confirm that the education and sex values have properly changed.
+
+`@hint`
+- Use `count` with the `education` and `sex` variables.
+
+`@sample_code`
+```{r}
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
             education == 1 ~ "0-11 years",
             education == 2 ~ "High School",
             education == 3 ~ "Vocational",
@@ -334,14 +420,34 @@ tidier2_framingham <- tidier_framingham %>%
             sex == 2 ~ "Woman",
             TRUE ~ NA_character_))
 
-# confirm changes to variables
+# Confirm changes to the two variables
+___(tidier2_framingham, ___)
+___
+```
+
+`@solution`
+```{r}
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_))
+
+# confirm changes to the two variables
 count(tidier2_framingham, education)
 count(tidier2_framingham, sex)
 ```
 
 `@sct`
 ```{r}
-success_msg("Awesome! You've tidied up discrete values to be understandable to humans.")
+success_msg("Awesome! You've tidied up discrete values to be understandable to humans!")
 ```
 
 ---
