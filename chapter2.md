@@ -81,7 +81,7 @@ tidier_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Great! Notice the empty data for the lipoprotein variables at visits 1 and 2. These will be important to keep in mind.")
+success_msg("Great!")
 ```
 
 ***
@@ -132,7 +132,7 @@ tidier_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Nice! Pay attention to the highest number of cigarettes smoked or how age has a jagged distribution. These are good things to keep in mind for later analyses.")
+success_msg("Nice!")
 ```
 
 ***
@@ -183,7 +183,7 @@ tidier_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Amazing! Did you notice how there is a high prevalence of hypertension and that it increases over time? Anyway, you've now visually checked many of the more interesting variables!")
+success_msg("Amazing! Did you notice a few things? The empty data for the lipoprotein variables at visits 1 and 2. The high number of zero cigarettes smoked. How age has a jagged distribution. The high prevalence of hypertension and that it increases over time. These are all important things to keep in mind for later analyses. Anyway, you've now visually checked many of the more interesting variables!")
 ```
 
 ---
