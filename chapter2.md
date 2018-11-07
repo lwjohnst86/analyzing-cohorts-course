@@ -201,13 +201,13 @@ Create multiple boxplots of several exposures with the outcome. Use a combinatio
 `@instructions`
 - Select participant age, total cholesterol, body mass, and systolic and diastolic blood pressure.
 - Convert to long data form, excluding visit number and the outcome.
-- Create boxplots, coloured by the outcome.
+- Create boxplots, colored by the outcome.
 - Facet by visit number.
 
 `@hint`
 - Select `total_cholesterol`, `participant_age`, `body_mass_index`, `systolic_blood_pressure`, and `diastolic_blood_pressure`.
 - Use `gather` and exclude the followup visit number and the `got_cvd` outcome.
-- Create `geom_boxplots`, coloured by `got_cvd`.
+- Create `geom_boxplots`, colored by `got_cvd`.
 - Use the `vars()` function to wrap the variable name in `facet_grid`.
 
 `@pre_exercise_code`
@@ -229,7 +229,7 @@ tidier_framingham %>%
            ___) %>% 
     # Convert to long form
     ___(variable, value, -___, -___) %>% 
-    ggplot(aes(y = value, x = variable, colour = ___)) +
+    ggplot(aes(y = value, x = variable, color = ___)) +
     # Plot boxplots
     ___() +
     facet_grid(rows = ___) +
@@ -247,7 +247,7 @@ tidier_framingham %>%
            systolic_blood_pressure, diastolic_blood_pressure) %>% 
     # Convert to long form
     gather(variable, value, -followup_visit_number, -got_cvd) %>% 
-    ggplot(aes(y = value, x = variable, colour = got_cvd)) +
+    ggplot(aes(y = value, x = variable, color = got_cvd)) +
     # Plot boxplots
     geom_boxplot() +
     facet_grid(rows = vars(followup_visit_number)) +
