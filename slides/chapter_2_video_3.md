@@ -63,7 +63,7 @@ key: "cb8a52378a"
 
 
 `@script`
-There are many types of transformations. The one you should use depends on your data, choice of statistics, and how you want the results to be interpreted. Here is a table of a few common transformations. A common transformation is the natural logarithm. You use it when your data is heavily right-skewed or when you want your regression results to be interpreted as a percent change. Another common transformation is mean-centering, which is when the values are subtracted by the mean so zero represents the mean. Scaling is also fairly common, which is mean-centering and then dividing by the standard deviation. The square root is great for count data since it can handle zeros, unlike the natural logarithm or the inverse.
+There are many types of transformations. The one you should use depends on your data, choice of statistics, and how you want the results to be interpreted. Here is a table of a few common transformations. A common transformation is the natural logarithm. You use it when your data is heavily right-skewed or when you want your regression results to be interpreted as a percent change. Another common transformation is mean-centering, which is when the values are subtracted by the mean so zero represents the mean. Scaling is also fairly common, which is mean-centering and then dividing by the standard deviation. The square root is great for count data since it can handle zeros, unlike the natural logarithm or the inverse. The inverse, also called the reciprocal, is useful for several purposes, such as for reversing the unit. For instance, if a variable has the unit persons per doctor, the inverse is doctors per person.
 
 
 ---
@@ -78,8 +78,8 @@ key: "80913fa973"
 ```{r}
 transformed <- diet %>%
     mutate(weight_log = log(weight),
-           ...,
            height_log = log(height)
+           # Or more transformations
            )
 ``` {{1}}
 
@@ -117,7 +117,7 @@ ggplot(transformed, aes(x = weight, y = stat(density))) +
 
 
 `@script`
-Let's look at what the transformations do. Here we'll show both the histogram and a density curve. Since both geoms are used, we need to use stat density as the y argument. This histogram also has added coloring and smaller lines. We do this for each transformation.
+Let's look at what the transformations do. Here we'll show both the histogram and a density curve. Since both geoms are used, we need to use stat density as the y argument. We repeat these code for each transformation. Here, I am only modifying colour, fill, and line size to improve the visual of the plot on the next slide.
 
 
 ---
@@ -133,7 +133,7 @@ key: "f1d0ec80d5"
 
 
 `@script`
-The plot looks like this. Notice how scaling doesn't really change the distribution, but now the middle is more or less at zero and the units are interpreted as standard deviations from the mean. Compare this to the logarithm. In this particular example it doesn't change the distribution, but in general, it can strongly shrink the distribution. Finally, see how the inverse literally inverts the distribution. But notice the units for each and consider how this influences the interpretation in later analyses.
+Here are the plotted transforms. Notice how scaling doesn't change the distribution, but now the middle is approximately at zero and the units are interpreted as standard deviations. Compare this to the logarithm, which shrinks the range of the distribution, so more extreme values are closer to the middle. Finally, see how the inverse literally inverts the distribution. A large BMI is now small and small is large. Consider how the units change for all transforms and how interpretation will change in later analyses.
 
 
 ---

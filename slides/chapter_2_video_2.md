@@ -106,7 +106,7 @@ key: "3b16cf3f48"
 
 
 `@script`
-Here we see that BMI smooths passes each category. Someone with a BMI of 24 point 9 would be classified as normal weight. If they gain a bit of weight and their BMI becomes 25 point 1, they would be classified as overweight. They are statistically treated as equal to someone with a BMI of 29 point 9. Biologically, this makes no sense. So, when you have continuous data, don't dichotomize it.
+Here we see how continuous BMI smoothly passes through each discrete category. Someone with a BMI of 24 point 9 would be classified as normal weight. If they gain a bit of weight and their BMI becomes 25 point 1, they would be classified as overweight. They are statistically treated as equal to someone with a BMI of 29 point 9. Biologically, this makes no sense. So, when you have continuous data, don't dichotomize it.
 
 
 ---
@@ -137,9 +137,9 @@ count(diet, job)
 
 
 `@script`
-While converting a continuous variable to a discrete one is almost always discouraged, for variables that are already discrete, it may make sense to reduce their levels. There may already be too many levels in the variable, and doing so could simplify the interpretation. 
+While converting a continuous variable to a discrete one is almost always discouraged, for variables that are already discrete, it may make sense to reduce their levels. There may already be too many levels in the variable, or doing so could simplify the interpretation. 
 
-Let's look at job titles in the diet dataset. Using the count function on the variable, we can see there are three levels with more or less similar numbers between each level.
+Let's look at job titles in the diet dataset. Using the count function on the variable, we can see there are three levels with a similar number of participants within each.
 
 
 ---
@@ -171,7 +171,7 @@ count(reduced_job, bank_worker)
 
 
 `@script`
-Since there are a large number of bank workers, we could reduce the job categories to either bank worker or not. Using the case underscore when function is one way to do this and is useful with more complicated categories. Case underscore when takes a condition on the left side of the tilde and the value on the right side. Each condition follows the comma. The final condition for missing values should be formatted as shown here for character data. Now, we use count to check that the new variable was successfully changed.
+Since there are a large number of bank workers, we could reduce the job categories to either bank worker or not. Using the case underscore when function is one way to do this and is useful with more complicated categories. Case underscore when takes a condition on the left side of the tilde and the value on the right side. Here, exclamation mark equals means not equal to. Each condition follows the comma. The final condition for missing values should be formatted as shown here for character data. Now, we use count to check that the new variable was successfully changed.
 
 
 ---
@@ -240,12 +240,12 @@ key: "d972cd44df"
 - Don't discretize
 - Keep continuous data continuous
 - Use `count` to check categorical data 
-- Use `case_when` to reduce levels
+- Use `case_when` or `fct_recode` to reduce levels
 - Don't remove outliers, unless they are wrong
 
 
 `@script`
-In summary, keep continuous data continuous. Use count and case underscore when functions to check and reduce categorical data. And lastly, keep outliers in your data.
+In summary, keep continuous data continuous. Use count, case underscore when, and fct underscore recode functions to check and reduce categorical data. And lastly, keep outliers in your data.
 
 
 ---
