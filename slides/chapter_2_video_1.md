@@ -44,7 +44,7 @@ ggplot(diet, aes(x = weight)) +
 
 
 `@script`
-A useful way of looking at the data is to create a histogram of the distribution. With ggplot2, this is easy! We can use the geom_histogram function. Here we are using the diet cohort dataset from the Epi package. With this code, we can plot the distribution of one variable, in this case weight. The output looks like this. We can see here that histograms count the number of values at each bin or rectangle. What if we want to look at many variables? This approach will take a while...
+A useful way of looking at the data is to create a histogram of the distribution. With ggplot2, this is easy! We can use the geom underscore histogram function. Here we are using the diet cohort dataset from the Epi package. With this code, we can plot the distribution of one variable, in this case, weight. From the output, we can see that histograms count the number of values at each bin or rectangle. What if we want to look at many variables? This approach will take a while.
 
 
 ---
@@ -90,7 +90,7 @@ long_form
 
 
 `@script`
-So instead of doing histograms one at a time, we can make use of using a different form of data and taking full advantage of ggplot2's features.  Let's take a few variables from the diet dataset. Remember that the x axis for ggplot2 took the weight values. So what if we could get all the values for weight as well as, for instance, energy intake in one column and split the plot by the two columns? This is known as the "long data format". And we can create this format very easily with the gather function from the tidyr package. The first two arguments provide the name of the two new columns, while the other arguments tell gather which variables to convert or to not convert. In this case, we are excluding id from being "gathered". With this data format we can plot multiple histograms very easily.
+Instead of creating histograms one at a time, we can make use of using a different form of data and take full advantage of ggplot2's features.  Let's take a few variables from the diet dataset. Remember that the x axis for ggplot2 took the weight values. So what if we could get all the values for weight, including variables like energy intake, in one column and split the plot by the two columns? This is known as the long data format. We can easily create this format with the gather function from the tidyr package. The first two arguments provide the name of the two new columns, while the other arguments tell gather which variables to convert. In this example, we are excluding id from being gathered. With this data format, we can easily plot multiple histograms.
 
 
 ---
@@ -113,7 +113,7 @@ long_form %>%
 
 
 `@script`
-Here, we combine the long data form with ggplot2's facet_wrap, by facetting on the variable column. To specify the variable, you need to wrap the variable name with the vars function. Setting scale to free allows the axis range to fit the variable's own value range. From the previous use of geom_histograms, the only difference is the data source, the x axis column, and the use of the facet_wrap. We see here that it shows multiple histograms on one single plot, which let's us explore the data faster and more efficiently! This approach is powerful not only for visualizing, but also for other exploring and analyzing tasks such as creating summary tables or running simple statistics.
+Here, we combine the long data form with ggplot2's facet underscore wrap, by facetting on the variable column. To specify the variable, you need to wrap the variable name with the vars function. Setting scale to free allows the axis range to fit the variable's own value range. From the previous use of geom underscore histograms, the only differences are the data source, the x axis column, and the use of facet underscore wrap. We see here that we obtain multiple histograms on a single plot, which lets us explore the data faster and more efficiently! This approach is not only powerful for visualizing, but also for other exploring and analyzing tasks, such as creating summary tables or running simple statistics.
 
 
 ---
@@ -128,7 +128,7 @@ key: "b4c84874a5"
 ```{r}
 diet %>%
     ggplot(aes(x = chd, y = weight,
-               colour = chd)) +
+               color = chd)) +
     geom_boxplot()
 ```
 
@@ -138,7 +138,7 @@ diet %>%
 
 
 `@script`
-Univariate visualizations are great, but don't forget that we should look at plots of exposures by outcome. For categorical outcome variables, boxplots are great tools. Boxplots show the general distribution of the data, with the median, the 25%tile and the 75%tile, and a measure of the extreme values of the data. This gives a great overview of how your data looks. Here, it is fairly straight forward to put the outcome, which is coronary heart disease in this case, on the x-axis and an exposure like weight on the y-axis. Using colours help distinguish the two groups more easily. You can also use the function coord_flip to make the boxplots horizontal instead of vertical.
+Univariate visualizations are great but don't forget that we should look at plots of exposures by outcome. For categorical outcome variables, boxplots are great tools. Boxplots show the general distribution of the data, with the median, the 25 percent and 75 percent tiles, and a measure of the extreme values of the data. This gives a great overview of how your data looks. Here, it is fairly straight-forward to put the outcome, which is coronary heart disease in this case, on the x-axis and an exposure like weight on the y-axis. Using colors helps distinguish the two groups more easily. You can also use the coord underscore flip function to make the boxplots horizontal instead of vertical.
 
 
 ---
