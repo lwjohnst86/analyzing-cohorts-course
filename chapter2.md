@@ -43,7 +43,7 @@ xp: 35
 ```
 
 `@instructions`
-- Select the cholesterol based variables, including total and lipoproteins, and create histograms.
+Select the cholesterol based variables, including total and lipoproteins, and create histograms.
 
 `@hint`
 - The three variables are total cholesterol and high and low-density lipoprotein.
@@ -93,7 +93,7 @@ xp: 35
 ```
 
 `@instructions`
-- Select and plot the following three overall participant characteristics: age, body mass, and cigarettes smoked.
+Select and plot the following three overall participant characteristics: age, body mass, and cigarettes smoked.
 
 `@hint`
 - Use participant age, body mass index, and number of cigarettes per day.
@@ -144,7 +144,7 @@ xp: 30
 ```
 
 `@instructions`
-- Select and plot prevalent hypertension and CHD events, as well as the main outcome.
+Select and plot prevalent hypertension and CHD events, as well as the main outcome.
 
 `@hint`
 - Select the `got_cvd` variable, as well as prevalent MI and CHD.
