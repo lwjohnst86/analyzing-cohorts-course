@@ -283,7 +283,7 @@ key: e916c33326
 xp: 100
 ```
 
-As you will have noticed, there are several discrete variables with ambiguous values. For instance, with sex the values are either 1 or 2. Often you will encounter discrete data as integers rather than human understandable strings. But what exactly does that mean? With data like this, you need to have a data dictionary to review to find out.  Let's fix that problem and tidy up the data a bit more so it is human-readable.
+As you will have noticed, there are several discrete variables with ambiguous values. For instance, with sex the values are either 1 or 2. Often, you will encounter discrete data as integers rather than human-readable strings. But what exactly does that mean? With data like this, you need to have a data dictionary to review to find out.  Let's fix that problem and tidy up the data a bit more so it is human-readable.
 
 `@pre_exercise_code`
 ```{r}
@@ -419,8 +419,7 @@ tidier2_framingham <- tidier_framingham %>%
         sex = case_when(
             sex == 1 ~ "Man",
             sex == 2 ~ "Woman",
-            TRUE ~ NA_character_)
-    )
+            TRUE ~ NA_character_))
 
 # Confirm changes to the two variables
 ___(tidier2_framingham, ___)
