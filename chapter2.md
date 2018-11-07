@@ -463,7 +463,7 @@ xp: 100
 
 Sometimes, categorical variables, like factor or character, have many levels but only a few observations in one or more levels. It might make sense to combine categories together for some analyses or particular questions. This is especially useful if we only want to interpret one level compared to the other levels. 
 
-The `forcats` package has been preloaded. 
+The `forcats` package has been preloaded.
 
 `@instructions`
 - Recode the levels of Vocational and College education to be Post-Secondary.
