@@ -562,6 +562,7 @@ There are several types of transformations you can choose from. Which one you ch
 
 `@instructions`
 - Log, square root, and invert the values of body mass index and cigarettes per day.
+- Confirm that the transformed variables were created.
 
 `@hint`
 - Use the `body_mass_index` and the `cigarettes_per_day` variables.
@@ -597,7 +598,6 @@ tidier2_framingham <- tidier_framingham %>%
 
 `@sample_code`
 ```{r}
-# Function so invert name is appended to variable
 invert <- function(x) 1 / x
 
 # Use three transformations on body mass index
@@ -611,7 +611,6 @@ summary(___)
 
 `@solution`
 ```{r}
-# Function so invert name is appended to variable
 invert <- function(x) 1 / x
 
 # Use three transformations on body mass index
