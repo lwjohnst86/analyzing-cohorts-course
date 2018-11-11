@@ -355,13 +355,12 @@ xp: 35
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = case_when(
-            # Use the format: variable == number ~ "string"
             education == 1 ~ "0-11 years",
             education == 2 ~ "High School",
             education == 3 ~ "Vocational",
             education == 4 ~ "College",
             TRUE ~ NA_character_),
-        # Do the same thing for sex
+        # Convert the values for sex
         sex = ___
         )
 ```
@@ -371,13 +370,12 @@ tidier2_framingham <- tidier_framingham %>%
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = case_when(
-            # Use the format: variable == number ~ "string"
             education == 1 ~ "0-11 years",
             education == 2 ~ "High School",
             education == 3 ~ "Vocational",
             education == 4 ~ "College",
             TRUE ~ NA_character_),
-        # Do the same thing for sex  
+        # Convert the values for sex
         sex = case_when(
             sex == 1 ~ "Man",
             sex == 2 ~ "Woman",
