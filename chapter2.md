@@ -769,7 +769,7 @@ Understanding how each transformation influences the units and the distribution 
 Looking at the graph, observe how each transformation influences the distribution of body mass index and think about how these new distributions might influence later analyses. Which statement is true?
 
 `@possible_answers`
-- Square root and scale don't change the distribution but do to the unit.
+- Square root and scale don't change the distribution but do change the unit.
 - Logarithm changes the distribution and unit.
 - Body mass already has a good distribution and the original unit.
 - Scale can make interpreting easier as 1 unit = 1 standard deviation of the original unit.
