@@ -682,11 +682,11 @@ xp: 50
 ```
 
 `@instructions`
-- Convert the dataset into the long form for the body mass index variables. Then create a ggplot histogram.
+- Convert the dataset into the long form for the body mass index variables and create a ggplot histogram.
 
 `@hint`
 - Use `gather` to convert to long form.
-- Name the key argument  `variables` and the value argument `values`.
+- Name the key argument `variables` and the value argument `values`.
 - Use `geom_histogram` as a ggplot layer.
 - Have `x = values` as the aesthetic.
 
@@ -697,7 +697,6 @@ transformed_framingham %>%
     ___(variables, values, contains("___")) %>% 
     ___(___(x = values)) +
     ___ +
-    # Facets show all histograms
     facet_wrap( ~ variables, scale = "free")
 ```
 
@@ -708,7 +707,6 @@ transformed_framingham %>%
     gather(variables, values, contains("body_mass_index")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    # Facets show all histograms
     facet_wrap( ~ variables, scale = "free")
 ```
 
@@ -738,7 +736,6 @@ transformed_framingham %>%
     gather(variables, values, contains("___")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    # Facets show all histograms
     facet_wrap( ~ variables, scale = "free")
 ```
 
@@ -749,7 +746,6 @@ transformed_framingham %>%
     gather(variables, values, contains("cigarettes_per_day")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    # Facets show all histograms
     facet_wrap( ~ variables, scale = "free")
 ```
 
