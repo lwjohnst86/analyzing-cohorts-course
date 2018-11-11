@@ -117,7 +117,7 @@ ggplot(transformed, aes(x = weight, y = stat(density))) +
 
 
 `@script`
-Let's look at what the transformations do. Here we'll show both the histogram and a density curve. Since both geoms are used, we need to use stat density as the y argument. We repeat these code for each transformation. Here, I am only modifying colour, fill, and line size to improve the visual of the plot on the next slide.
+Let's look at what the transformations do. Here we'll show both the histogram and a density curve. Since both geoms are used, we need to use stat density as the y argument. We repeat this code for each transformation. Here, we are modifying color, fill, and line size to improve the visual of the plot on the next slide.
 
 
 ---
