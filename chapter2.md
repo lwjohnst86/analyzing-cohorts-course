@@ -1,9 +1,9 @@
 ---
-title: 'Data wrangling, exploration, and formatting'
+title: 'Exploring, wrangling, and transforming cohort data'
 description: ""
 ---
 
-## Pre-wrangling exploration
+## Exploring before wrangling
 
 ```yaml
 type: VideoExercise
@@ -16,6 +16,178 @@ xp: 50
 
 ---
 
+## Visualize variables at each visit
+
+```yaml
+type: BulletExercise
+key: c6f4be6cde
+xp: 100
+```
+
+Visually examining the data is an incredibly important early step in any data analysis project. In these series of exercises, you can visualize what the distribution of the data are for each variable. As we did in the previous chapter, you will be making heavy use of the `gather()` function to convert to long form in order to plot the data.
+
+`@pre_exercise_code`
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 2a85bae775
+xp: 35
+```
+
+`@instructions`
+Select the cholesterol based variables, including total and lipoproteins, and create histograms.
+
+`@hint`
+- The three variables are total cholesterol and high and low-density lipoprotein.
+- Use `geom_histogram()` to create the histograms.
+
+`@sample_code`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three cholesterol-based variables
+        ___
+    ) %>%
+    gather(variable, value, -followup_visit_number) %>%
+    ggplot(aes(x = value)) +
+    # Add histogram layer
+    ___() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
+```
+
+`@solution`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three cholesterol-based variables
+        total_cholesterol, high_density_lipoprotein, low_density_lipoprotein
+    ) %>%
+    gather(variable, value, -followup_visit_number) %>%
+    ggplot(aes(x = value)) +
+    # Add histogram layer
+    geom_histogram() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
+```
+
+`@sct`
+```{r}
+success_msg("Great!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 7b93354589
+xp: 35
+```
+
+`@instructions`
+Select and plot the following three overall participant characteristics: age, body mass, and cigarettes smoked.
+
+`@hint`
+- Use participant age, body mass index, and number of cigarettes per day.
+
+`@sample_code`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three charactistics
+        ___
+    ) %>%
+    # Convert to long form
+    ___(variable, value, -followup_visit_number) %>%
+    # Plot histograms
+    ___(aes(x = value)) +
+    ___() +
+    ___(followup_visit_number ~ variable, scales = "free")
+```
+
+`@solution`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three charactistics
+        body_mass_index, participant_age, cigarettes_per_day
+    ) %>%
+    # Convert to long form
+    gather(variable, value, -followup_visit_number) %>%
+    # Plot histograms
+    ggplot(aes(x = value)) +
+    geom_histogram() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
+```
+
+`@sct`
+```{r}
+success_msg("Nice!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: d6a3c7d607
+xp: 30
+```
+
+`@instructions`
+Select and plot prevalent hypertension and CHD events, as well as the main outcome.
+
+`@hint`
+- Select the `got_cvd` variable, as well as prevalent MI and CHD.
+
+`@sample_code`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three cardiovascular variables
+        ___
+    ) %>% 
+    # Convert to long form
+    ___(variable, value, -followup_visit_number) %>%
+    # Plot histograms
+    ___(aes(x = value)) +
+    ___() +
+    ___(followup_visit_number ~ variable, scales = "free")
+```
+
+`@solution`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three cardiovascular variables
+        prevalent_hypertension, prevalent_chd, got_cvd
+    ) %>%
+    # Convert to long form
+    gather(variable, value, -followup_visit_number) %>%
+    # Plot histograms
+    ggplot(aes(x = value)) +
+    geom_histogram() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
+```
+
+`@sct`
+```{r}
+success_msg("Amazing! Did you notice a few things? The empty data for the lipoprotein variables at visits 1 and 2. The high number of zero cigarettes smoked. How age has a jagged distribution. The high prevalence of hypertension and that it increases over time. These are all important things to keep in mind for later analyses. Anyway, you've now visually checked many of the more interesting variables!")
+```
+
+---
+
 ## Visually examine the outcomes with the exposures
 
 ```yaml
@@ -24,170 +196,71 @@ key: e50ea375f8
 xp: 100
 ```
 
-{{convert to tab exercise}}
-
-Create a simple visual comparing the outcome with the exposures.
+Create multiple boxplots of several exposures with the outcome. Use a combination of converting to long data form, grouping to show the outcome, and facetting by year to show temporal changes.
 
 `@instructions`
-
+- Select participant age, total cholesterol, body mass, and systolic and diastolic blood pressure.
+- Convert to long data form, excluding visit number and the outcome.
+- Create boxplots, colored by the outcome.
+- Facet by visit number.
 
 `@hint`
-
+- Select `total_cholesterol`, `participant_age`, `body_mass_index`, `systolic_blood_pressure`, and `diastolic_blood_pressure`.
+- Use `gather` and exclude the followup visit number and the `got_cvd` outcome.
+- Create `geom_boxplots`, colored by `got_cvd`.
+- Use the `vars()` function to wrap the variable name in `facet_grid`.
 
 `@pre_exercise_code`
-```{r setup}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-
-framingham <- framingham %>%
-    rename(
-        got_cvd = cvd,
-        total_cholesterol = totchol,
-        body_mass_index = bmi,
-        participant_age = age,
-        currently_smokes = cursmoke,
-        followup_visit_number = period
-    )
+tidier_framingham <- tidier_framingham %>% 
+    mutate(got_cvd = as.character(got_cvd))
 ```
 
 `@sample_code`
 ```{r}
-
+# Convert to long form and make multiple box plots over time
+tidier_framingham %>% 
+    select(followup_visit_number, got_cvd, 
+           # Select the 5 continuous variables
+           ___) %>% 
+    # Convert to long form
+    ___(variable, value, -___, -___) %>% 
+    ggplot(aes(y = value, x = variable, color = ___)) +
+    # Plot boxplots
+    ___() +
+    facet_grid(rows = ___) +
+    coord_flip()
 ```
 
 `@solution`
 ```{r}
-framingham %>% 
-    select(time, got_cvd, total_cholesterol, participant_age, body_mass_index,
-           currently_smokes) %>% 
-    mutate(cvd = as.factor(cvd)) %>% 
-    gather(Variable, Value, -time, -cvd) %>% 
-    ggplot(aes(x = Value, group = cvd, fill = cvd)) +
-    geom_density(alpha = 0.6) +
-    facet_grid(~ Variable, scales = "free")
+# Convert to long form and make multiple box plots over time
+tidier_framingham %>% 
+    select(followup_visit_number, got_cvd, 
+           # Select the 5 continuous variables
+           total_cholesterol, participant_age, body_mass_index,
+           systolic_blood_pressure, diastolic_blood_pressure) %>% 
+    # Convert to long form
+    gather(variable, value, -followup_visit_number, -got_cvd) %>% 
+    ggplot(aes(y = value, x = variable, color = got_cvd)) +
+    # Plot boxplots
+    geom_boxplot() +
+    facet_grid(rows = vars(followup_visit_number)) +
+    coord_flip()
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Excellent! You quickly created a figure showing several continuous variables by the outcome, and over time! Notice how some variables are a bit higher in the `got_cvd` group and that over time these differences decreased?")
 ```
 
 ---
 
-## Inspect graphically all variables of interest individually
-
-```yaml
-type: TabExercise
-key: aec12c0d13
-xp: 100
-```
-
-Create a box and jitter plot of all the variables of interest, at the baseline visit:
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-fh_long <- framingham %>% 
-    filter(time == 0) %>% 
-    select(cvd, totchol, bmi, age) %>% 
-    gather(Variable, Value)
-    
-fh_long
-
-ggplot(fh_long, aes(x = Value)) +
-    geom_histogram() +
-    facet_grid(~ Variable, scales = "free")
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 101226608c
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-fh_long <- framingham %>% 
-    filter(time == 0) %>% 
-    select(cvd, totchol, bmi, age) %>% 
-    gather(Variable, Value)
-    
-fh_long
-
-ggplot(fh_long, aes(x = Value)) +
-    geom_histogram() +
-    facet_grid(~ Variable, scales = "free")
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 16fbde9ec8
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-fh_long <- framingham %>% 
-    filter(time == 0) %>% 
-    select(cvd, totchol, bmi, age) %>% 
-    gather(Variable, Value)
-    
-fh_long
-
-ggplot(fh_long, aes(x = Value)) +
-    geom_histogram() +
-    facet_grid(~ Variable, scales = "free")
-
-
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
-## Tidy cohort data and wrangling into analyzable form.
+## Tidying discrete data for later analysis
 
 ```yaml
 type: VideoExercise
@@ -203,57 +276,268 @@ xp: 50
 ## Make discrete variables human-readable
 
 ```yaml
-type: NormalExercise
-key: d905b3eee0
+type: TabExercise
+key: e916c33326
 xp: 100
 ```
 
-{{Convert to tab exercise}}
-
-`@instructions`
-
-
-`@hint`
-
+As you will have noticed, there are several discrete variables with ambiguous values. For instance, with sex the values are either 1 or 2. Often, you will encounter discrete data as integers rather than human-readable strings. But what exactly does that mean? With data like this, you need to have a data dictionary to review to find out.  Let's fix that problem and tidy up the data a bit more so it is human-readable.
 
 `@pre_exercise_code`
 ```{r}
-library(dplyr)
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
 library(forcats)
+library(dplyr)
 ```
+
+***
+
+```yaml
+type: NormalExercise
+key: cbc1123965
+xp: 35
+```
+
+`@instructions`
+- Convert the education values to human readable format using `case_when`.
+- The original education numbers should correspond to the following strings: 1 = "0-11 years"; 2 = "High School"; 3 = "Vocational"; 4 = "College".
+
+`@hint`
+- The form for the `case_when` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
 
 `@sample_code`
 ```{r}
-
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = ___(
+            # Use the format: variable == number ~ "string"
+            ___ == ___ ~ ___, 
+            TRUE ~ NA_character_)
+      )
 ```
 
 `@solution`
 ```{r}
-framingham %>% 
+tidier2_framingham <- tidier_framingham %>% 
     mutate(
+        education = case_when(
+            # Use the format: variable == number ~ "string"
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_)
+      )
+```
+
+`@sct`
+```{r}
+success_msg("Excellent!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 93db7dd67f
+xp: 35
+```
+
+`@instructions`
+- Convert the sex values to human readable format using `case_when`.
+- The original sex numbers should correspond to the following strings: 1 = "Man"; 2 = "Woman".
+
+`@hint`
+- The form for the `case_when` should look like `sex == 1 ~ "Man"`, for each number-string pairing.
+
+`@sample_code`
+```{r}
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_),
+        # Convert the values for sex
+        sex = ___
+        )
+```
+
+`@solution`
+```{r}
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_),
+        # Convert the values for sex
         sex = case_when(
-            sex == 1 ~ "Male",
-            sex == 2 ~ "Female",
-            TRUE ~ NA_character_
-        ), 
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_)
+    )
+```
+
+`@sct`
+```{r}
+success_msg("Excellent!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 41077e061c
+xp: 30
+```
+
+`@instructions`
+- Confirm that the education and sex values have properly changed.
+
+`@hint`
+- Use `count` with the `education` and `sex` variables.
+
+`@sample_code`
+```{r}
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_))
+
+# Confirm changes to the two variables
+___(tidier2_framingham, ___)
+___
+```
+
+`@solution`
+```{r}
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_))
+
+# Confirm changes to the two variables
+count(tidier2_framingham, education)
+count(tidier2_framingham, sex)
+```
+
+`@sct`
+```{r}
+success_msg("Awesome! You've tidied up discrete values to be understandable to humans!")
+```
+
+---
+
+## Merge factor categories together
+
+```yaml
+type: NormalExercise
+key: 62bcf49a5e
+xp: 100
+```
+
+Sometimes, categorical variables, like factor or character, have many levels but only a few observations in one or more levels. It might make sense to combine categories together for some analyses or particular questions. This is especially useful if we only want to interpret one level compared to the other levels. 
+
+The `forcats` package has been preloaded.
+
+`@instructions`
+- Recode the levels of Vocational and College education to be Post-Secondary.
+- Confirm that the education values have been correctly merged by counting the new education variable.
+
+`@hint`
+- Use the `fct_recode` function to recode the levels. 
+- Use `count` on the `education_combined` variable.
+- Compare how the numbers differ between the original and the new education variable over each follow-up visit.
+
+`@pre_exercise_code`
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(forcats)
+library(dplyr)
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
         education = case_when(
             education == 1 ~ "0-11 years",
             education == 2 ~ "High School",
             education == 3 ~ "Vocational",
             education == 4 ~ "College",
             TRUE ~ NA_character_
+            ),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_
             )
         )
 ```
 
+`@sample_code`
+```{r}
+# Merge college and vocational levels
+tidier2_framingham <- tidier2_framingham %>% 
+    mutate(education_combined = ___(
+        education, 
+        # Form is: "new" = "old"
+        ___ = ___,
+        ___ = ___
+        ))
+
+# Confirm changes to variable
+___(tidier2_framingham, ___)
+
+# Compare counts of original and merged by visit
+___
+___
+```
+
+`@solution`
+```{r}
+# Merge college and vocational levels
+tidier2_framingham <- tidier2_framingham %>% 
+    mutate(education_combined = fct_recode(
+        education, 
+        # Form is: "new" = "old"
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+# Confirm changes to variable
+count(tidier2_framingham, education_combined)
+
+# Compare counts of original and merged by visit
+count(tidier2_framingham, followup_visit_number, education)
+count(tidier2_framingham, followup_visit_number, education_combined)
+```
+
 `@sct`
 ```{r}
-
+success_msg("Great! You've combined two factor levels together into a new level.")
 ```
 
 ---
 
-## Transforming and modifying variables
+## Variable transformations
 
 ```yaml
 type: VideoExercise
@@ -266,201 +550,252 @@ xp: 50
 
 ---
 
-## Reduce number of categories in these datasets
+## Apply several transformations
 
 ```yaml
 type: NormalExercise
-key: a721377679
+key: c812627e90
 xp: 100
 ```
 
-{{Convert to tab exercise}}
-
-Sometimes, categorical (i.e. factor or character) variables have many levels,
-but only a few observations in one or more levels. For many analyses, this is
-not ideal as small sample sizes in some groups make it difficult to ...
-{{complete this}}. So, it can be useful to reduce the number of categories by
-merging levels together. This can be especially useful if we only want to
-interpret one level compared to the other levels.
-
-But first, let's make the values of education understandable, rather than just
-numbers.
-
-Reduce the levels of education by using the `fct_recode` function from the
-`forcats` package.
+There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses.
 
 `@instructions`
-
+- Log, square root, and invert the values of body mass index and cigarettes per day.
+- Confirm that the transformed variables were created.
 
 `@hint`
-
+- Use the `body_mass_index` and the `cigarettes_per_day` variables.
+- Use `log` and `sqrt` to transform the values.
 
 `@pre_exercise_code`
 ```{r}
-library(forcats)
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            ),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_
+            )
+        ) %>% 
+    mutate(education_combined = forcats::fct_recode(
+        education, 
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
 ```
 
 `@sample_code`
 ```{r}
+invert <- function(x) 1 / x
 
+# Use three transformations on body mass index
+transformed_framingham <- tidier2_framingham %>% 
+    mutate_at(vars(___, ___), 
+              funs(___, ___, invert))
+
+# Confirm created variables
+summary(___)
 ```
 
 `@solution`
 ```{r}
-# Count levels of education
-count(framingham, education)
+invert <- function(x) 1 / x
 
-# Merge levels together
-fh_educ <- framingham %>% 
-    mutate(education_combined = fct_recode(
-        education, 
-        "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational",
-        ...
-        ))
+# Use three transformations on body mass index
+transformed_framingham <- tidier_framingham %>% 
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(log, sqrt, invert))
 
-# Check levels of new variable
-count(framingham, education_combined)
-# or this? fct_count(framingham$education)
+# Confirm created variables
+summary(transformed_framingham)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Excellent! You've used several transformation types on two variables.")
 ```
 
 ---
 
-## Comparison between different transformations
+## Compare the different transformations
 
 ```yaml
-type: TabExercise
-key: ca708dca27
+type: BulletExercise
+key: a4867af13b
 xp: 100
 ```
 
-There are many different types of transformations to use. Which to choose is
-dependent on the specific research question, how the data looks, and how you
-want your results to be interpreted. Let's see how each transformation changes the data.
+Visualize how each transformation influences the distribution of the data. Graphing these transformations is useful in helping to guide you to choosing a certain transformation.
+
+We want to plot all transformation types on one plot. As we've done several times throughout the course, we need to have a long data format to do this.
 
 `@pre_exercise_code`
 ```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
 library(dplyr)
-```
-
-`@sample_code`
-```{r}
-fh_transformed <- framingham %>% 
-    mutate(scale_bmi = scale(bmi),
-           log_bmi = log(bmi),
-           log10_bmi = log10(bmi),
-           exp_bmi = bmi^2)
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 0255ca16ff
-xp: 35
-```
-
-`@instructions`
--
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-fh_transformed <- framingham %>% 
-    mutate(scale_bmi = scale(bmi),
-           log_bmi = log(bmi),
-           log10_bmi = log10(bmi),
-           exp_bmi = bmi^2)
-```
-
-`@solution`
-```{r}
-fh_transformed <- framingham %>% 
-    mutate(scale_bmi = scale(bmi),
-           log_bmi = log(bmi),
-           log10_bmi = log10(bmi),
-           exp_bmi = bmi^2)
-```
-
-`@sct`
-```{r}
-
+library(tidyr)
+library(ggplot2)
+tidier2_framingham <- tidier_framingham %>% 
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            ),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_
+            )
+        ) %>% 
+    mutate(education_combined = forcats::fct_recode(
+        education, 
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+invert <- function(x) 1 / x
+transformed_framingham <- tidier2_framingham %>% 
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(invert, log, sqrt))
 ```
 
 ***
 
 ```yaml
 type: NormalExercise
-key: 2422f8318a
-xp: 35
+key: e0ccd581d4
+xp: 50
 ```
 
 `@instructions`
-
+- Convert the dataset into the long form for the body mass index variables and create a ggplot histogram.
 
 `@hint`
-
+- Use `gather` to convert to long form.
+- Name the key argument `variables` and the value argument `values`.
+- Use `geom_histogram` as a ggplot layer.
+- Have `x = values` as the aesthetic.
 
 `@sample_code`
 ```{r}
-
+# Plot body mass index transforms
+transformed_framingham %>% 
+    ___(variables, values, contains("___")) %>% 
+    ___(___(x = values)) +
+    ___ +
+    facet_wrap( ~ variables, scale = "free")
 ```
 
 `@solution`
 ```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: f4dfabce02
-xp: 30
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-# TODO: show a cohort with continuous outcome, and log that
-fh_transformed <- framingham %>% 
-    mutate(scale_bmi = as.numeric(scale(bmi)),
-           log_bmi = log(bmi),
-           log10_bmi = log10(bmi),
-           exp_bmi = bmi^2)
-
-fh_transformed %>% 
-    select(contains("bmi")) %>% 
-    gather(bmi_variable, bmi_value) %>% 
-    ggplot(aes(x = bmi_value)) +
+# Plot body mass index transforms
+transformed_framingham %>% 
+    gather(variables, values, contains("body_mass_index")) %>% 
+    ggplot(aes(x = values)) +
     geom_histogram() +
-    facet_grid( ~ bmi_variable, scale = "free")
-
+    facet_wrap( ~ variables, scale = "free")
 ```
 
 `@sct`
 ```{r}
+success_msg("Amazing!")
+```
 
+***
+
+```yaml
+type: NormalExercise
+key: 8588b94514
+xp: 50
+```
+
+`@instructions`
+- Now do the same thing for cigarettes per day as you did for body mass index.
+
+`@hint`
+- Use the same code as you did for the body mass index, but for `cigarettes_per_day`.
+
+`@sample_code`
+```{r}
+# Plot cigarettes per day transforms
+transformed_framingham %>% 
+    gather(variables, values, contains("___")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    facet_wrap( ~ variables, scale = "free")
+```
+
+`@solution`
+```{r}
+# Plot cigarettes per day transforms
+transformed_framingham %>% 
+    gather(variables, values, contains("cigarettes_per_day")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    facet_wrap( ~ variables, scale = "free")
+```
+
+`@sct`
+```{r}
+success_msg("Great! Check out how each transformation influences the distribution of body mass index and of number of cigarettes. Compare how the transformations affect the two variables differently.")
+```
+
+---
+
+## How does the distribution change?
+
+```yaml
+type: MultipleChoiceExercise
+key: ca708dca27
+xp: 50
+```
+
+Understanding how each transformation influences the units and the distribution of the data is an important step in properly applying these transformations. Try answering these questions about the shape of the data after each transformation.
+
+Looking at the graph, observe how each transformation influences the distribution of body mass index and think about how these new distributions might influence later analyses. Which statement is true?
+
+`@possible_answers`
+- Square root and scale don't change the distribution but do change the unit.
+- Logarithm changes the distribution and unit.
+- Body mass already has a good distribution and the original unit.
+- Scale can make interpreting easier as 1 unit = 1 standard deviation of the original unit.
+- All of the above.
+
+`@hint`
+- Look at the distribution of each transformation on body mass index, compared to the original distribution.
+
+`@pre_exercise_code`
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+invert <- function(x) 1 / x
+transformed_framingham <- tidier_framingham %>% 
+    mutate_at(vars(body_mass_index, cigarettes_per_day), 
+              funs(invert, log, log10, sqrt))
+```
+
+`@sct`
+```{r}
+msg1 <- "Almost. While this is true, it's not the only true answer."
+msg2 <- "Almost. While this is true, it's not the only true answer."
+msg3 <- "Almost. While this is true, it's not the only true answer."
+msg4 <- "Almost. While this is true, it's not the only true answer."
+msg5 <- "Yes! Which type of and when you might transform really depends on the research question, the data values, and how you will want the results from your analyses to be interpreted. This means you need to carefully think about and have justifications for what you do to the data."
+ex() %>% check_mc(5, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
