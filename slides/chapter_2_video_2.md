@@ -31,7 +31,9 @@ key: "f3f4f626e0"
 `@part1`
 > Dichotomania: The obsession to convert continuous data into discrete or binary data, also known as discretizing or dichotomizing. {{1}}
 
-- Example: obesity = body mass index >30, overweight = between 25-30 {{2}}
+- Example: {{2}}
+  - obese = body mass index > 30 {{2}}
+  - overweight = body mass index between 25-30 {{2}}
 
 
 `@script`
