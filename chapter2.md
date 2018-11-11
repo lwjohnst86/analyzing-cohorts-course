@@ -233,7 +233,6 @@ tidier_framingham %>%
     # Plot boxplots
     ___() +
     facet_grid(rows = ___) +
-    # To have horizontal boxplots
     coord_flip()
 ```
 
@@ -251,7 +250,6 @@ tidier_framingham %>%
     # Plot boxplots
     geom_boxplot() +
     facet_grid(rows = vars(followup_visit_number)) +
-    # To have horizontal boxplots
     coord_flip()
 ```
 
