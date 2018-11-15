@@ -21,6 +21,7 @@ xp: 50
 ```yaml
 type: MultipleChoiceExercise
 xp: 50
+key: aa53930250
 ```
 
 Because the Framingham study is a prospective cohort, with certain limits to the data and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of Framingham data.
@@ -163,7 +164,7 @@ model.sel(m1, m2, m3)
 
 ```yaml
 type: NormalExercise
-key: dc6191ab98
+key: c318aa084c
 xp: 100
 ```
 
