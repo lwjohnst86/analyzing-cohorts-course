@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-Transforming your variables is a common activity when analyzing cohorts. In this lesson we will cover the why, what, and how of variable transformations.
+Transforming your variables is a common activity when analyzing cohorts. In this lesson we will cover the what, why, and how of variable transformations.
 
 
 ---
@@ -29,7 +29,7 @@ key: "5dcb3a9bee"
 ```
 
 `@part1`
-- Transformation: The act of applying a mathematical function to data, often to change its distribution {{1}}
+- Transformation: Applying mathematical function to data, often to change its distribution {{1}}
 - Multiple reasons to transform variables: {{2}}
     - To fit with statistical assumptions
     - To convert to shared variable unit
@@ -38,7 +38,7 @@ key: "5dcb3a9bee"
 
 
 `@script`
-Transforming a variable is the act of applying some mathematical function to the variable, for instance, by dividing a variable by 10. There are many reasons to transform a variable. We transform to fit the variable distribution to some assumptions for a statistical technique. Or when you want several variables to have a common unit for easier comparison. Or when you want to examine linear relationships between two or more variables. Ultimately, you use transformations to make it easier to interpret the results of your analyses. In health research this is really important, as your results could be used to improve people's health.
+Transforming a variable is the act of applying a mathematical function to the variable, for instance, dividing a variable by 10. There are many reasons to transform a variable. We transform to fit the variable distribution to assumptions for a statistical technique, examine linear relationships between variables, or create a common unit among variables for easier comparison. Ultimately, you use transformations to make it easier to interpret analyses. This is particularly important in health research since your results could be used to improve people's health.
 
 
 ---
@@ -53,18 +53,17 @@ key: "cb8a52378a"
 - Think carefully about which to use {{1}}
 - Depends on data, analysis, and eventual interpretation {{2}}
 
-&nbsp;
-
 | Type | R code | When to use |
 |:-----|:-------|:------------|
-| natural logarithm | `log(x)` | If highly right skewed, positive data |
-| scaling | `scale(x)` | For same unit scale, but not great for longitudinal data |
+| natural log | `log(x)` | Highly-right skewed, positive data |
+| mean-center | `scale(x, scale = FALSE)` | Zero is the mean, use for easier interpretation |
+| scaling | `scale(x)` | Same unit, not for longitudinal data |
 | square root | `sqrt(x)` | Great for count data, handles zeros |
-| multiplicative inverse |`1 / x`| To invert values/unit, but no zeros | {{3}}
+| inverse |`1 / x`| To invert values/unit, but no zeros | {{3}}
 
 
 `@script`
-There are many types of transformations. Which one to use depends on your data, on your choice of statistics, and how you want the results to be interpreted. Here is a table of some common transformations. A common transformation is the natural logarithm. You use it when your data is highly right-skewed or when you want your regression results to be interpreted as a percent change. Another common transformation is scaling, which is when the values are substracted by the mean and divided by the standard deviation. This results in a value of, for instance, +1 being a "1 SD increase". This is useful when you have variables with different units (kilogram or meters) or different sizes of a unit (meters of a person vs an elephant). After scaling, you can compare these variables more easily. But, scaling is not a good option with repeated measurements, since it removes the change over time information.
+There are many types of transformations. The one you should use depends on your data, choice of statistics, and how you want the results to be interpreted. Here is a table of a few common transformations. A common transformation is the natural logarithm. You use it when your data is heavily right-skewed or when you want your regression results to be interpreted as a percent change. Another common transformation is mean-centering, which is when the values are subtracted by the mean so zero represents the mean. Scaling is also fairly common, which is mean-centering and then dividing by the standard deviation. The square root is great for count data since it can handle zeros, unlike the natural logarithm or the inverse. The inverse, also called the reciprocal, is useful for several purposes, such as for reversing the unit. For instance, if a variable has the unit persons per doctor, the inverse is doctors per person.
 
 
 ---
@@ -79,25 +78,46 @@ key: "80913fa973"
 ```{r}
 transformed <- diet %>%
     mutate(weight_log = log(weight),
-           ...,
            height_log = log(height)
+           # Or more transformations
            )
 ``` {{1}}
 
 ```{r}
+invert <- function(x) 1 / x
 transformed <- diet %>%
-    select(height, weight) %>% 
-    mutate_at(vars(weight, height), 
-              funs(scale, log))
+    select(weight, height) %>%
+    mutate_at(vars(weight, height), funs(scale, log, invert))
 
 names(transformed)
-#> [1] "height"       "weight"       "weight_scale"
-#> [4] "height_scale" "weight_log"   "height_log"  
+#> [1] "weight"        "height"        "weight_scale"  "height_scale" 
+#> [5] "weight_log"    "height_log"    "weight_invert" "height_invert"
 ``` {{2}}
 
 
 `@script`
-With the mutate function from dplyr, transforming is easy! A typical way of adding a column is shown here. You create the new column with the log of the original values. If you have many variables and many transformations, this gets tedious. A faster way is to use the mutate_at function. It takes two arguments: the variables with the vars function, and the transformation functions with the funs function. Mutate_at appends the transformation function name to the end of the variable name. You now have transformed all these variables!
+With the mutate function from dplyr, transforming is easy! The example here shows adding a column. You create the new column with the log of the original values. This can get tedious if you have many variables and many transformations. A faster way is to use the mutate underscore at function. It takes two arguments, the variables specified by the vars function, and the transformation functions specified by the funs function. Mutate underscore at appends the transformation function name to the end of the variable name. This is why you should create a transformation function if one doesn't already exist and use that function as the argument in mutate, which is what we did with invert here. With only one or two lines of code, you have now transformed all these variables!
+
+
+---
+## Visualizing the transformations
+
+```yaml
+type: "FullSlide"
+key: "222e77d41e"
+```
+
+`@part1`
+```{r}
+# One plot for each transformation
+ggplot(transformed, aes(x = weight, y = stat(density))) +
+    geom_histogram(color = "black", fill = "lightyellow", size = 0.25) +
+    geom_density()
+```
+
+
+`@script`
+Let's look at what the transformations do. Here we'll show both the histogram and a density curve. Since both geoms are used, we need to use stat density as the y argument. We repeat this code for each transformation. Here, we are modifying color, fill, and line size to improve the visual of the plot on the next slide.
 
 
 ---
@@ -113,7 +133,7 @@ key: "f1d0ec80d5"
 
 
 `@script`
-Let's take a look at what the transformations do. First, check how scaling doesn't really change the distribution, but now the middle is more or less at zero and the units are interpreted as "standard deviations from the mean". Compare this to the logarithm. In this particular example it doesn't change the distribution, however in general it can strongly shrink the distribution. Finally, see how the inverse literally inverts the distribution. But notice the units and consider how this influences the interpretation in later analyses.
+Here are the plotted transforms. Notice how scaling doesn't change the distribution, but now the middle is approximately at zero and the units are interpreted as standard deviations. Compare this to the logarithm, which shrinks the range of the distribution, so more extreme values are closer to the middle. Finally, see how the inverse literally inverts the distribution. A large BMI is now small and small is large. Consider how the units change for all transforms and how interpretation will change in later analyses.
 
 
 ---
@@ -132,7 +152,7 @@ key: "cadb2ff612"
 
 
 `@script`
-In this lesson we covered some of the reasons to use transformations and some common types, such as the log or scaling. As always, be careful and thoughtful about using transformations. Your findings may influence health of real humans... and if you aren't careful, you could end up causing harm because of unintented miscommunication.
+In this lesson, we covered some of the reasons to use transformations and some common types, such as the log or scaling. As always, be careful and thoughtful about using transformations. Your findings may influence human health, so you must be sure to avoid possible miscommunication.
 
 
 ---
@@ -144,5 +164,5 @@ key: "9da01b4e1a"
 ```
 
 `@script`
-Alright, let's get started with practicing these transformations!
+Let's practice these transformations!
 

@@ -158,9 +158,9 @@ library(ggplot2)
 library(Epi)
 data("diet")
 
-ggplot(diet, aes(x = weight)) +
+p <- ggplot(diet, aes(x = weight)) +
     geom_histogram()
-ggsave("datasets/ch2-v1-histogram.png", dpi = 120, width = 5, height = 5)
+ggsave("datasets/ch2-v1-histogram.png", p, height = 2.5, width = 2.5)
 
 wide_form <- diet %>%
     head(4) %>%
@@ -175,22 +175,18 @@ long_form
 long_form <- diet %>%
     select(id, weight, energy_intake = energy) %>%
     gather(variable, value, -id)
-long_form %>%
+p <- long_form %>%
     ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_wrap(
-        vars(variable),
-        scale = "free",
-        ncol = 1
-    )
-ggsave("datasets/ch2-v1-two-histograms.png", dpi = 120, width = 5, height = 7)
+    facet_wrap(vars(variable), scale = "free", nrow = 1)
+ggsave("datasets/ch2-v1-two-histograms.png", p, dpi = 72, width = 7.5, height = 4)
 
-diet %>%
+p <- diet %>%
     mutate(chd = as.character(chd)) %>%
     ggplot(aes(x = chd, y = weight,
                colour = chd)) +
     geom_boxplot()
-ggsave("datasets/ch2-v1-boxplot.png", dpi = 120, width = 5, height = 5)
+ggsave("datasets/ch2-v1-boxplot.png", p, dpi = 90, width = 4, height = 4, device = "png")
 
 # Chapter 2 video 2 -------------------------------------------------------
 
@@ -212,6 +208,13 @@ reduced_job <- diet %>%
     ))
 count(reduced_job, bank_worker)
 
+library(forcats)
+diet %>%
+    mutate(job = fct_recode(
+        job, "Banker" = "Bank worker"
+    )) %>%
+    count(job)
+
 # Chapter 2 video 3 -------------------------------------------------------
 
 # summary(diet)
@@ -219,14 +222,26 @@ count(reduced_job, bank_worker)
 diet <- as_tibble(diet)
 invert <- function(x) 1 / x
 transformed <- diet %>%
-    mutate_at(vars(weight, height), funs(scale, log, invert))
+    select(weight, height) %>%
+    mutate_at(vars(weight, height),
+              funs(scale, log, invert))
 
 ## Variable names
 transformed %>%
-    select(matches("weight|height"), -contains("invert")) %>%
+    select(matches("weight|height")) %>%
     names()
 
 ## Histogram and density
+
+invert <- function(x) 1 / x
+transformed <- diet %>%
+    mutate_at(vars(weight, height),
+              funs(scale, log, invert))
+
+ggplot(transformed, aes(x = weight, # And another for each transform
+                        y = stat(density))) +
+    geom_histogram(colour = "black", fill = "lightyellow", size = 0.25) +
+    geom_density()
 
 histo_density <- function(.data, x) {
     xvar <- enquo(x)
