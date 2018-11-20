@@ -23,6 +23,19 @@ cox model
 logistic regression
 poisson regression
 
+- Statistics (more of a review, expect them to know what they are doing):
+    - Logistic regression
+    - Mixed effects modelling
+- Choice of statistic is dependent on question asked.
+- In general, cohorts try to address questions such as:
+    - "what type of exposures increase the risk of disease?"
+    - "how much and how long do individuals need to be exposured to a risk factor
+    to develop the disease?"
+    - "For those that have a disease, how do they differ from those without?"
+    - "Those that have more exposure over time, are they more likely to develop a disease?"
+- These questions generally require some type of regression modelling in order to
+estimate magnitude of association and the uncertainty around that association.
+
 
 ---
 ## Design type can restrict questions and analysis

@@ -68,7 +68,7 @@ xp: 50
 
 ---
 
-## Insert exercise title here
+## MCQ: Understanding confounding pathways
 
 ```yaml
 type: MultipleChoiceExercise
@@ -76,7 +76,38 @@ key: e2e756d56e
 xp: 50
 ```
 
+{{Have this exercise before video? }}
 
+
+- MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
+following (or write out which) are the important variables to consider/adjust for.
+
+- Options: {{likely all answers will be correct.. or maybe rank them ...}}
+    - Since sex influences testosterone and since both sex and testosterone
+    are confounders, only need to adjust for either of these variables to control
+    for the confounding pathway.
+    - Adjust for both 
+    - Add others {{finish}}
+    
+Using the pathway below, which variables, at a minimum, should you adjust for to
+control maximally for potential bias in the model?
+
+- Options:
+    - All of them {{possible}}
+    - Only sex {{posible}}
+    - Only testosterone
+    - Only exercise type
+    - Either sex and testosterone or sex and exercise type {{possible}}
+    
+Consider the below graph. Which variables, at a minimum, should you adjust for?
+
+- Options:
+    - All of them
+    - Only sex {{possible}}
+    - Only testosterone
+    - Only exercise type
+    - Either sex and testosterone or sex and exercise type or exercise and
+    testosterone. {{definite}}
 
 `@possible_answers`
 

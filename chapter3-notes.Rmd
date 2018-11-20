@@ -80,118 +80,6 @@ How does that change the interpretation? How can this influence the health impac
 if inappropriately published? (or in lesson 4)
 - MCQ/text: What does it mean to adjust? (how does it change interpretation)
 
-### Exercise: Understanding confounding pathways
-
-{{MCQ, probably as a Bullet/TabExercise}}
-
-- MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
-following (or write out which) are the important variables to consider/adjust for.
-
-The below diagram is a classic example of what confouding is. When a variable is 
-linked in some way, either directly or indirectly, to both the exposure and the 
-outcome, it is considered a confounder.
-
-```{r simple_confounding}
-grViz("
-digraph {
-    node [style = filled fillcolor = none]
-    {
-        rank = same
-        Exposure [fillcolor = 'LightBlue'] 
-        Outcome [fillcolor = 'OrangeRed']
-    }
-    Exposure -> Outcome
-    Confounder -> {Exposure Outcome}
-}")
-```
-
-This simple confounding example shows how each variable relates to each other in
-hypothesized pathways. Understanding how variables confounded the relationship
-between the exposure and the outcome is essential to drawing more accurate
-inferences about the associations. Creating these DAGs of the hypothesized
-pathways is a powerful tool to understanding what could be confounders, what
-could be colliders, and what needs to be adjusted for. Which are more
-appropriate choices:
-
-```{r confouding_example}
-grViz("
-digraph {
-    node [style = filled fillcolor = none]
-    {
-        rank = same
-        BodyFat [fillcolor = 'LightBlue'] 
-        CVD [fillcolor = 'OrangeRed']
-    }
-    BodyFat -> CVD
-    Sex -> {BodyFat CVD Testosterone}
-    Testosterone -> {BodyFat CVD}
-}")
-```
-
-- Options: {{likely all answers will be correct.. or maybe rank them ...}}
-    - Since sex influences testosterone and since both sex and testosterone
-    are confounders, only need to adjust for either of these variables to control
-    for the confounding pathway.
-    - Adjust for both 
-    - Add others {{finish}}
-    
-Using the pathway below, which variables, at a minimum, should you adjust for to
-control maximally for potential bias in the model?
-
-```{r confounder_complex}
-grViz("
-digraph {
-    node [style = filled fillcolor = none]
-    {
-        rank = same
-        BodyFat [fillcolor = 'LightBlue'] 
-        CVD [fillcolor = 'OrangeRed']
-    }
-    BodyFat -> CVD
-    Sex -> {BodyFat CVD Testosterone ExerciseType}
-    Testosterone -> {BodyFat CVD}
-    ExerciseType -> {BodyFat CVD}
-}")
-```
-
-- Options:
-    - All of them {{possible}}
-    - Only sex {{posible}}
-    - Only testosterone
-    - Only exercise type
-    - Either sex and testosterone or sex and exercise type {{possible}}
-    
-Consider the below graph. Which variables, at a minimum, should you adjust for?
-
-```{r confounding_collider}
-grViz("
-digraph {
-    node [style = filled fillcolor = none]
-    {
-        rank = same
-        BodyFat [fillcolor = 'LightBlue'] 
-        CVD [fillcolor = 'OrangeRed']
-    }
-    BodyFat -> CVD
-    Sex -> {BodyFat CVD Testosterone ExerciseType}
-    Testosterone -> {BodyFat CVD}
-    ExerciseType -> {Testosterone BodyFat CVD}
-}")
-```
-
-- Options:
-    - All of them
-    - Only sex {{possible}}
-    - Only testosterone
-    - Only exercise type
-    - Either sex and testosterone or sex and exercise type or exercise and
-    testosterone. {{definite}}
-    
-### Video explaining exercise above?
-
-Go a bit into the math of why the answers for the above exercise.
-
-
 ## Lesson 3
 
 *Exercises*:
@@ -199,33 +87,11 @@ Go a bit into the math of why the answers for the above exercise.
 - NE: Maybe exercise where some observations are removed and show how that impacts
 the p-value...? to highlight how unreliable it is?
 
-
-
-
-
-
-
-*Content*:
-
 ## Lesson 4
-
-
 
 
 # Notes:
 
-- Statistics (more of a review, expect them to know what they are doing):
-    - Logistic regression
-    - Mixed effects modelling
-- Choice of statistic is dependent on question asked.
-- In general, cohorts try to address questions such as:
-    - "what type of exposures increase the risk of disease?"
-    - "how much and how long do individuals need to be exposured to a risk factor
-    to develop the disease?"
-    - "For those that have a disease, how do they differ from those without?"
-    - "Those that have more exposure over time, are they more likely to develop a disease?"
-- These questions generally require some type of regression modelling in order to
-estimate magnitude of association and the uncertainty around that association.
 
 
 
