@@ -217,31 +217,39 @@ the "best" of those compared.
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(MuMIn)
+library(dplyr)
 ```
 
 `@sample_code`
 ```{r}
-
 ```
 
 `@solution`
 ```{r}
 # TODO: Make more appropriate models (more typically seen in real analyses).
-# TODO: Confirm that MuMIn is the best package for learners to use.
 # TODO: Switch over to use glmer and random effects.
-library(MuMIn)
-model_sel_df <- framingham %>% 
-    select(cvd, totchol, sex, bmi) %>% 
+model_sel_df <- tidier_framingham %>% 
+    select(got_cvd, systolic_blood_pressure, sex, body_mass_index, 
+           currently_smokes, fasting_blood_glucose) %>% 
     na.omit()
-m1 <- glm(cvd ~ totchol, data = model_sel_df, family = binomial)
-m2 <- glm(cvd ~ totchol + sex, data = model_sel_df, family = binomial)
-m3 <- glm(cvd ~ totchol + sex + bmi, data = model_sel_df, family = binomial)
 
-model.sel(m1, m2, m3)
+# Build four models to compare
+m1 <- glm(got_cvd ~ systolic_blood_pressure, data = model_sel_df, family = binomial)
+m2 <- update(m1, . ~ . + sex)
+m3 <- update(m2, . ~ . + body_mass_index)
+m4 <- update(m3, . ~ . + currently_smokes)
+m5 <- update(m3, . ~ . + fasting_blood_glucose)
+m_dag <- glm(got_cvd ~ systolic_blood_pressure + body_mass_index + currently_smokes,
+             data = model_sel_df, family = binomial)
+
+model.sel(m1, m2, m3, m4, m5, m_dag)
+    
+    select()
 
 # Which is the "best" model from these three?
-"m3"
+summary(m3)
 ```
 
 `@sct`
