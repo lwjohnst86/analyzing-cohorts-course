@@ -134,17 +134,9 @@ type: NormalExercise
 xp: 100
 ```
 
-Building an appropriate DAG that reasonably close to the underlying biology is
-very very difficult. It requires domain specific knowledge, and experts in the
-mechanisms and biology of the research area should be consulted as you build the
-DAG. As stated in the video, you are guaranteed to build an incomplete DAG.
-That's why you take a few approaches to model selection. 
+Building an appropriate DAG that reasonably close to the underlying biology is very very difficult. It requires domain specific knowledge, and experts in the mechanisms and biology of the research area should be consulted as you build the DAG. As stated in the video, you are guaranteed to build an incomplete DAG. That's why you take a few approaches to model selection. 
 
-Let's find which variables to adjust for when blood pressure (BP) is the
-exposure and CVD is the outcome. Keeping things simple, assume that: sex
-influences BP and smoking; smoking influences BP and CVD; BMI influences CVD, 
-BP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty` 
-model to find out possible variables to adjust for.
+Let's find which variables to adjust for when blood pressure (BP) is the exposure and CVD is the outcome. Keeping things simple, assume that: sex influences BP and smoking; smoking influences BP and CVD; BMI influences CVD,  BP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out possible variables to adjust for.
 
 `@instructions`
 - Convert the above links between variables into a DAG format, in the form `variable -> {one or more variables}`. Recall that `->` means "influences" or "effects".
