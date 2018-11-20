@@ -127,6 +127,77 @@ Consider the below graph. Which variables, at a minimum, should you adjust for?
 
 ---
 
+## CE Model selection using DAGs
+
+```yaml
+type: NormalExercise
+xp: 100
+```
+
+Building an appropriate DAG that reasonably close to the underlying biology is
+very very difficult. It requires domain specific knowledge, and experts in the
+mechanisms and biology of the research area should be consulted as you build the
+DAG. As stated in the video, you are guaranteed to build an incomplete DAG.
+That's why you take a few approaches to model selection. 
+
+Let's find which variables to adjust for when blood pressure (BP) is the
+exposure and CVD is the outcome. Keeping things simple, assume that: sex
+influences BP and smoking; smoking influences BP and CVD; BMI influences CVD, 
+BP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty` 
+model to find out possible variables to adjust for.
+
+`@instructions`
+- Convert the above links between variables into a DAG format, in the form `variable -> {one or more variables}`. Recall that `->` means "influences" or "effects".
+- Visually inspect the plot of the `variables_pathway` graph.
+- Identify which variables to potentially adjust for from the `variable_pathways` graph, selecting the exposure and the outcome 'nodes'.
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(dagitty)
+```
+
+`@sample_code`
+```{r}
+variable_pathways <- dagitty("dag {
+    SBP -> CVD
+    ___ -> {___ ___}
+}")
+
+# Plot potential confounding pathways
+plot(graphLayout(___))
+
+# Identify potential confounders
+adjustmentSets(___, exposure = ___, outcome = ___)
+```
+
+`@solution`
+```{r}
+variable_pathways <- dagitty( "dag {
+    SBP -> CVD
+    Sex -> {SBP Smoking}
+    Smoking -> {SBP CVD}
+    BMI -> {SBP CVD FastingGlucose}
+    FastingGlucose -> CVD
+}")
+
+# Plot potential confounding pathways
+plot(graphLayout(variable_pathways))
+
+# Identify potential confounders
+adjustmentSets(variable_pathways, exposure = "SBP", outcome = "CVD")
+```
+
+`@sct`
+```{r}
+success_msg("Amazing! You identified that at least BMI and smoking should be adjusted for.")
+```
+
+---
+
 ## CE Model selection using Information Criterion
 
 ```yaml
