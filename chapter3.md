@@ -268,6 +268,7 @@ key: dc6191ab98
 xp: 100
 ```
 
+{{Or switch to unadjusted and adjusted models}}
 {{Maybe a Tab/BulletExercise}}
 
 Run model without adjusting, with adjusting, and lastly with adjusting for an inappropriate variable (how that changes things). Notice how that may change the results. (Don't worry about what the numbers mean just yet, focus on the differences of the estimates between models.)
@@ -739,6 +740,45 @@ xp: 100
 ```
 
 how small changes to data can influence p-value.
+
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## CE Post-processing of model results
+
+```yaml
+type: NormalExercise
+key: b4486ed7d2
+xp: 100
+```
+
+{{NE: to show post log transforming}}
 
 
 `@instructions`
