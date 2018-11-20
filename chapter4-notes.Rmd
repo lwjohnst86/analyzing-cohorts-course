@@ -15,6 +15,8 @@ have meaningful clinical implications.
     - Especially with "causal" language
 - Discuss STROBE guidelines in context of longitudinal study.
 
+- Extract model results?
+
 ## Lesson 1: Language and information to use when communicating the findings
 
 - Danger of not showing all results or proper cautious interpretation, because
