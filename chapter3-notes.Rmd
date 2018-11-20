@@ -18,8 +18,6 @@ fully), and how this can inform what is going on in the relationship.
 
 - Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
 
-- Comment about staying away from p-values... or maybe for chapter 4...?
-
 ## Lesson 1: Common statistical techniques used for analyzing cohorts
 
 *Content*:
