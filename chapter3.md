@@ -133,6 +133,7 @@ Consider the below graph. Which variables, at a minimum, should you adjust for?
 ```yaml
 type: NormalExercise
 xp: 100
+key: 74eb8858a3
 ```
 
 Building an appropriate DAG that reasonably close to the underlying biology is very very difficult. It requires domain specific knowledge, and experts in the mechanisms and biology of the research area should be consulted as you build the DAG. As stated in the video, you are guaranteed to build an incomplete DAG. That's why you take a few approaches to model selection. 
@@ -793,7 +794,7 @@ how small changes to data can influence p-value.
 
 ```yaml
 type: NormalExercise
-key: b4486ed7d2
+key: a625d95ded
 xp: 100
 ```
 
