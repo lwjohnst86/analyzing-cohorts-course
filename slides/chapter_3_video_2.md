@@ -20,18 +20,6 @@ title: Instructor
 *Content*:
 
 
-This simple confounding example shows how each variable relates to each other in
-hypothesized pathways. Understanding how variables confounded the relationship
-between the exposure and the outcome is essential to drawing more accurate
-inferences about the associations. Creating these DAGs of the hypothesized
-pathways is a powerful tool to understanding what could be confounders, what
-could be colliders, and what needs to be adjusted for. Which are more
-appropriate choices:
-
-The below diagram is a classic example of what confouding is. When a variable is 
-linked in some way, either directly or indirectly, to both the exposure and the 
-outcome, it is considered a confounder.
-
 ideas:
 This is one of the trickiest part of the analysis... building a model to control
 for potential confounders. 
@@ -52,9 +40,9 @@ type: "FullSlide"
 
 `@part1`
 
+- **Very difficult** to completely control for confounding
 - Danger of not adjusting: Simpson's Paradox
     - Could lead to actual harm if not consider confounding
-- **Very difficult** to completely control for confounding
 - Three common empirical and systematic approaches to identifying confounders:
     - Literature, biological rationale, background knowledge
     - Causal pathways: Directed acyclic graphs (DAG)
@@ -63,11 +51,9 @@ type: "FullSlide"
 
 `@script`
 
-What it means to "adjust" for confounders? What is a confounder? (probably explained 
-in one of the other epi courses, so be brief here).
-What does adjustment mean when time is included? Gets trickier. This is why
-    cross+sectional analyses are simpler analytically.
+What does it mean to "adjust" for confounders? What is a confounder? You will have likely encountered confounding in one of the other epidemiology courses, so I won't cover it too much here. For cross-sectional analyses, adjusting for confounding is fairly easy, since there is no time-component. But in cohort datasets, confounding get a bit trickier and a little bit more thought needs to go into what to adjust for. And you are guaranteed to miss or not know about potential confounders. As the saying goes "All models are wrong, but some are useful".
 
+Like all health research, considering confounders is very important. If you don't you may encounter a problem known as Simpson's Paradox, which we will cover in the next slide. There are several ways of identifying confounders. Some common and more appropriate methods include using previous knowledge of biology and of the problem, and using more formal mathematical methods such as directed acyclic graphs and information criterion techniques.
 
 ---
 ## What is confounding? An example using Simpson's Paradox
@@ -78,7 +64,7 @@ type: "FullSlide"
 
 `@part1`
 
-![DAG](datasets/ch3-v2-classic-confounder.png)
+
 
 `@script`
 
@@ -98,6 +84,19 @@ type: "FullSlide"
 - This graphic is called a *directed acyclic graph*
 
 `@script`
+
+This simple confounding example shows how each variable relates to each other in
+hypothesized pathways. Understanding how variables confounded the relationship
+between the exposure and the outcome is essential to drawing more accurate
+inferences about the associations. Creating these DAGs of the hypothesized
+pathways is a powerful tool to understanding what could be confounders, what
+could be colliders, and what needs to be adjusted for. Which are more
+appropriate choices:
+
+The below diagram is a classic example of what confouding is. When a variable is 
+linked in some way, either directly or indirectly, to both the exposure and the 
+outcome, it is considered a confounder.
+
 
 
 ---
