@@ -199,21 +199,18 @@ key: dc6191ab98
 xp: 100
 ```
 
-
-When you are unsure of which variables may provide a better fit and maybe
-explain the model and results more, using model information criterion methods
-can help narrow the possible models down. For instance when deciding on
-appropriate covariates to adjust for, using this technique combined with other 
-techniques such as literature based or DAG based can provide more information on
-what to best adjust for. Information criterion such as Akaike Information
-Criterion (AIC) are used to balance good model fit with low model complexity
-(i.e. less variables adjusted for). Run this command to identify which model is
-the "best" of those compared.
+It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for  identifying and choosing the variables to control for. Using the functions from the MuMIn package shown in the video, determine which model has the best fit of the models being compared. For the purposes of this exercise, we will only use  the baseline data from the Framingham dataset (through `filter()`).
 
 `@instructions`
-
+- Select ... {{include or move into pre-exercise code?}}
+- Using the model formula, set the outcome variable in the `glm` model, as well as the dataset.
+- "Dredge" through the combinations of variables in the model using the AICc technique.
+- Keep only rows with the `delta` variable less than 15.
+- Finally, print the results to see which variables are best to include (based on AICc).
 
 `@hint`
+- Use the formula interface `got_cvd ~ .`.
+- The filter condition should be `delta < 15`.
 
 
 `@pre_exercise_code`
@@ -225,37 +222,58 @@ library(dplyr)
 
 `@sample_code`
 ```{r}
+# TODO: Put this wrangling into pre-exercise chunk?
+# Select the predictors from the baseline data
+model_sel_df <- tidier_framingham %>% 
+    filter(followup_visit_number == 1) %>% 
+    select(got_cvd, ___) %>% 
+    # Need to remove all NA values.
+    na.omit()
+
+# Set the outcome and the data
+model <- glm(___ ~ ., data = ___,
+             family = binomial, na.action = "na.fail")
+
+# Set the ranking method
+selection <- dredge(___, rank = ___)
+
+# Keep models with low delta
+top_models <- selection %>% 
+    filter(___)
+
+# Print the object
+___
 ```
 
 `@solution`
 ```{r}
-# TODO: Make more appropriate models (more typically seen in real analyses).
-# TODO: Switch over to use glmer and random effects.
+# TODO: Put this wrangling into pre-exercise chunk?
+# Select the predictors from the baseline data
 model_sel_df <- tidier_framingham %>% 
-    select(got_cvd, systolic_blood_pressure, sex, body_mass_index, 
-           currently_smokes, fasting_blood_glucose) %>% 
+    filter(followup_visit_number == 1) %>% 
+    select(got_cvd, systolic_blood_pressure, body_mass_index, sex, 
+           currently_smokes, fasting_blood_glucose, total_cholesterol) %>% 
+    # Need to remove all NA values.
     na.omit()
 
-# Build four models to compare
-m1 <- glm(got_cvd ~ systolic_blood_pressure, data = model_sel_df, family = binomial)
-m2 <- update(m1, . ~ . + sex)
-m3 <- update(m2, . ~ . + body_mass_index)
-m4 <- update(m3, . ~ . + currently_smokes)
-m5 <- update(m3, . ~ . + fasting_blood_glucose)
-m_dag <- glm(got_cvd ~ systolic_blood_pressure + body_mass_index + currently_smokes,
-             data = model_sel_df, family = binomial)
+# Set the outcome and the data
+model <- glm(got_cvd ~ ., data = model_sel_df,
+             family = binomial, na.action = "na.fail")
 
-model.sel(m1, m2, m3, m4, m5, m_dag)
-    
-    select()
+# Set the ranking method
+selection <- dredge(model, rank = "AICc")
 
-# Which is the "best" model from these three?
-summary(m3)
+# Keep only models with low delta
+top_models <- selection %>% 
+    filter(delta < 15)
+
+# Print the object
+top_models
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great job! You've identified the model that has the best fit (of those compared). Now, using the knowledge you've gained from the DAG and the AIC suggestions, you can make a more informed decision on which variables to adjust for!")
 ```
 
 
