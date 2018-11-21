@@ -152,6 +152,14 @@ type: "FullSlide"
 
 `@script`
 
+Note: be careful using this dredge function with too many variables
+
+also, don't rely on this function
+
+Information criterion such as Akaike Information
+Criterion (AIC) are used to balance good model fit with low model complexity
+(i.e. less variables adjusted for). 
+
 ---
 ## Adhering to guidelines: STROBE
 
