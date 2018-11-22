@@ -29,8 +29,6 @@ do to control for confounding and to consult with people who have a strong biolo
 
 quote about : all models are wrong.. some are useful. ... ?
 
-Show daggity?
-
 ---
 ## Creating models: Controlling for confounding
 
@@ -85,19 +83,7 @@ type: "FullSlide"
 
 `@script`
 
-This simple confounding example shows how each variable relates to each other in
-hypothesized pathways. Understanding how variables confounded the relationship
-between the exposure and the outcome is essential to drawing more accurate
-inferences about the associations. Creating these DAGs of the hypothesized
-pathways is a powerful tool to understanding what could be confounders, what
-could be colliders, and what needs to be adjusted for. Which are more
-appropriate choices:
-
-The below diagram is a classic example of what confouding is. When a variable is 
-linked in some way, either directly or indirectly, to both the exposure and the 
-outcome, it is considered a confounder.
-
-
+This simple graphic illustrates the classic definition of what a confounder is. In this case, a confounder is some variable that can influence both the outcome and the exposure, either hypothetically, biologically, or informed from data exploration. Understanding confounded relationships between variables is essential to making more accurate inferences about the association of investigation. Creating these causal graphs, known as directed acyclic graphs or DAGs, is a powerful method to confounder identification.
 
 ---
 ## What is a directed acyclic graph?
@@ -108,25 +94,57 @@ type: "FullSlide"
 
 `@part1`
 
-
+{{image of a dag with nodes and edges}}
 
 `@script`
+
+So, what is a DAG? 
 
 ---
 ## Identifying adjustment with the dagitty package
 
 ```yaml
-type: "FullSlide"
+type: "TwoColumns"
 ```
 
-`@part1`
+`@part2`
 
+Height with colon cancer. But: {{1}}
+
+- Men are taller {{2}}
+- Men more likely to get cancer {{3}}
+- Men tend to eat more meat {{4}}
+- More meat, more likely to get colon cancer {{5}}
+
+... Let's draw a DAG of this. {{6}}
+
+`@part2`
+
+```{r}
+possible_confounders <- dagitty("dag {
+    Height -> ColonCancer
+    Sex -> {Height ColonCancer}
+    Sex -> MeatIntake -> ColonCancer
+}")
+
+adjustmentSets(possible_confounders,
+               exposure = "Height",
+               outcome = "ColonCancer")
+``` 
+{{7}}
+
+```{r}
+#>  { Sex }
+```
+{{8}}
 
 
 `@script`
 
+Using the R package dagitty, you can create DAGs of possible confounders and it will suggest which variables you should adjust for. Let's take this example here. There is an association between taller height and a greater risk for cancers such as colon cancer. However, we know that men tend to be taller than women, that men tend to have a higher risk for cancer, that men tend to eat more meat, and that meat intake increases risk for colon cancer. So what do we need to adjust for? Let's draw a DAG with dagitty! The first argument for the dagitty function takes a character string of a DAG specification. We initialise with the keyword dag, and afterward list each corresponding link between variables. Here, height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. Then we use the adjustmentsets function, add the dagitty object, then we set which variable is the exposure and which is the outcome. After we run this, we get told that we need to adjust for at least sex. The dagitty package is very useful when you start getting more complicated pathways.
+
 ---
-## Assessing model fit: Akaike information criterion (AIC)
+## Assessing model fit: Information criterion methods
 
 ```yaml
 type: "FullSlide"
@@ -134,9 +152,16 @@ type: "FullSlide"
 
 `@part1`
 
-
+- Estimates relative model "quality" compared to other models. {{1}}
+- Trade-off between the goodness of fit and simplicity (number of predictors). {{2}}
+- Common method: Akaike information criterion (AIC). {{3}}
+    - For models that use maximum likelihood (most regression-based methods).
 
 `@script`
+
+While the use of DAGs is a powerful tool to identifying potential confounders, I strongly recommend against using just one method to building a model. The main reason being is that you may not know all the potential links to include in the DAG. Another useful 
+
+While using DAGs are a powerful
 
 ---
 ## Model selection using the MuMIn package
@@ -158,6 +183,8 @@ also, don't rely on this function
 Information criterion such as Akaike Information
 Criterion (AIC) are used to balance good model fit with low model complexity
 (i.e. less variables adjusted for). 
+
+lower number is better
 
 ---
 ## Adhering to guidelines: STROBE
