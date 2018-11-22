@@ -54,7 +54,7 @@ What does it mean to "adjust" for confounders? What is a confounder? You will ha
 Like all health research, considering confounders is very important. If you don't you may encounter a problem known as Simpson's Paradox, which we will cover in the next slide. There are several ways of identifying confounders. Some common and more appropriate methods include using previous knowledge of biology and of the problem, and using more formal mathematical methods such as directed acyclic graphs and information criterion techniques.
 
 ---
-## What is confounding? An example using Simpson's Paradox
+## An example of confounding using Simpson's paradox
 
 ```yaml
 type: "FullSlide"
@@ -66,7 +66,7 @@ type: "FullSlide"
 
 `@script`
 
-For detecting Simpson's paradox, see Simpsons package.
+Confounding is a tricky thin
 
 ---
 ## Classical definition of a confounder?
@@ -85,38 +85,26 @@ type: "FullSlide"
 
 This simple graphic illustrates the classic definition of what a confounder is. In this case, a confounder is some variable that can influence both the outcome and the exposure, either hypothetically, biologically, or informed from data exploration. Understanding confounded relationships between variables is essential to making more accurate inferences about the association of investigation. Creating these causal graphs, known as directed acyclic graphs or DAGs, is a powerful method to confounder identification.
 
----
-## What is a directed acyclic graph?
+DAGs are a form of graph with nodes and edges. Here, the variables are the nodes and the causal hypothetical pathway between variables is the edge. A cause and an effect.
 
-```yaml
-type: "FullSlide"
-```
-
-`@part1`
-
-{{image of a dag with nodes and edges}}
-
-`@script`
-
-So, what is a DAG? 
 
 ---
-## Identifying adjustment with the dagitty package
+## Identifying adjustment variables with dagitty
 
 ```yaml
 type: "TwoColumns"
 ```
 
-`@part2`
+`@part1`
 
-Height with colon cancer. But: {{1}}
+Use an example: Height with colon cancer. But... {{1}}
 
 - Men are taller {{2}}
 - Men more likely to get cancer {{3}}
 - Men tend to eat more meat {{4}}
 - More meat, more likely to get colon cancer {{5}}
 
-... Let's draw a DAG of this. {{6}}
+... Let's make a DAG of this. {{6}}
 
 `@part2`
 
@@ -135,7 +123,7 @@ adjustmentSets(possible_confounders,
 
 `@script`
 
-Using the R package dagitty, you can create DAGs of possible confounders and it will suggest which variables you should adjust for. Let's take this example here. There is an association between taller height and a greater risk for cancers such as colon cancer. However, we know that men tend to be taller than women, that men tend to have a higher risk for cancer, that men tend to eat more meat, and that meat intake increases risk for colon cancer. So what do we need to adjust for? Let's draw a DAG with dagitty! The first argument for the dagitty function takes a character string of a DAG specification. We initialise with the keyword dag, and afterward list each corresponding link between variables. Here, height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. Then we use the adjustmentsets function, add the dagitty object, then we set which variable is the exposure and which is the outcome. After we run this, we get told that we need to adjust for at least sex. The dagitty package is very useful when you start getting more complicated pathways.
+Using the R package dagitty, you can create DAGs of possible confounders and dagitty will suggest potential adjustment variables. Let's take this example here. We want to study the association between height and risk for colon cancer. But, we know that men tend to be taller than women, that men tend to have a higher risk for cancer, that men tend to eat more meat, and that meat intake increases risk for colon cancer. So what do we need to adjust for? Both sex and meat intake? Let's draw a DAG with dagitty to find out! The first argument for the dagitty function takes a character string of a DAG specification. We initialise with the keyword dag, and afterward list each corresponding link between variables. Here, height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. Then we use the adjustmentsets function, add the dagitty object, then we set which variable is the exposure and which is the outcome. After we run this, we get told that we need to adjust for at least sex. The dagitty package is very useful when you start getting more complicated pathways.
 
 ---
 ## Assessing model fit: Information criterion methods
