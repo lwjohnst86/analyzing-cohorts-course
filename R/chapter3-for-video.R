@@ -1,6 +1,5 @@
 source(here::here("R/setup.R"))
 
-
 # Video 2 -----------------------------------------------------------------
 
 grviz_to_png <- function(graph_viz, filename, width = NULL, height = NULL) {
@@ -54,6 +53,7 @@ tribble(
 
 
 
+
 # dag_example <-
 grViz("
 digraph {
@@ -102,3 +102,17 @@ digraph {
     Testosterone -> {BodyFat CVD}
     ExerciseType -> {Testosterone BodyFat CVD}
 }")
+
+
+# Video 2, show dagitty ---------------------------------------------------
+
+possible_confounders <- dagitty("dag {
+    Height -> ColonCancer
+    Sex -> {Height ColonCancer}
+    Sex -> MeatIntake -> ColonCancer
+}")
+
+adjustmentSets(possible_confounders, exposure = "Height", outcome = "ColonCancer")
+
+# plot(graphLayout(possible_confounders))
+
