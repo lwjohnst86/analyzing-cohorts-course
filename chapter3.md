@@ -207,7 +207,7 @@ It's best to use multiple methods to decide on which variables to include in a m
 - Using the model formula, set the outcome variable in the `glm` model, as well as the dataset.
 - "Dredge" through the combinations of variables in the model using the AICc technique.
 - Keep only rows with the `delta` variable less than 15.
-- Finally, print the results to see which variables are best to include (based on AICc).
+- Finally, print the results to see which variables are best to include (based on AIC).
 
 `@hint`
 - Use the formula interface `got_cvd ~ .`.
@@ -262,7 +262,7 @@ model <- glm(got_cvd ~ ., data = model_sel_df,
              family = binomial, na.action = "na.fail")
 
 # Set the ranking method
-selection <- dredge(model, rank = "AICc")
+selection <- dredge(model, rank = "AIC")
 
 # Keep only models with low delta
 top_models <- selection %>% 
