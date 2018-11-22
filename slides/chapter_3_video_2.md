@@ -125,19 +125,13 @@ possible_confounders <- dagitty("dag {
     Height -> ColonCancer
     Sex -> {Height ColonCancer}
     Sex -> MeatIntake -> ColonCancer
-}")
+}") {{7}}
 
 adjustmentSets(possible_confounders,
                exposure = "Height",
-               outcome = "ColonCancer")
-``` 
-{{7}}
-
-```{r}
-#>  { Sex }
+               outcome = "ColonCancer") {{8}}
+#>  { Sex } {{9}}
 ```
-{{8}}
-
 
 `@script`
 
