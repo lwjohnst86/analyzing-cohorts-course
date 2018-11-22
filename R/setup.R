@@ -1,0 +1,13 @@
+
+library(tidyverse)
+library(emojifont)
+library(ghibli)
+library(ggrepel)
+library(patchwork)
+library(rlang)
+library(Epi)
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
+data("diet")
+color_theme <- ghibli_palette("MononokeMedium")
