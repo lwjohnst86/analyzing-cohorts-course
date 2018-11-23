@@ -141,9 +141,7 @@ type: "FullSlide"
 
 `@script`
 
-While the use of DAGs is a powerful tool to identifying potential confounders, I strongly recommend against using just one method to building a model. The main reason being is that you may not know all the potential links to include in the DAG. Another useful 
-
-While using DAGs are a powerful
+While the use of DAGs is a powerful tool to identifying potential confounders, I strongly recommend against using just one method to building a model. The main reason being is that you may not know all the potential links to include in the DAG. Another useful technique is the information criterion methods, which compare which of several models is better than the others. The comparison is based on a trade-off between model fitness and the number of predictors. One commonly used method is the Akaike criterion or AIC, when comparing models that use maximum likelihood (most regression type methods).
 
 ---
 ## Model selection using the MuMIn package
