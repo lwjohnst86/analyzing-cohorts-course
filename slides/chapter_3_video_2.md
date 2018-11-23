@@ -56,7 +56,7 @@ type: "FullSlide"
 
 `@script`
 
-Confounding is a tricky thin
+Let's show a real life example of confounding and why it's important to consider them in the analysis. 
 
 ---
 ## Classical definition of a confounder
@@ -137,24 +137,67 @@ While the use of DAGs is a powerful tool to identifying potential confounders, I
 ## Model selection using the MuMIn package
 
 ```yaml
+type: "TwoRows"
+```
+
+`@part1`
+
+```{r}
+# Keep only interested predictors and no missing
+cleaned_diet <- diet %>%
+    mutate(bmi = weight / (height / 100)^2) %>%
+    select(energy, bmi, fat, fibre, chd) %>%
+    na.omit() {{1}}
+
+# Logistic regression, all predictors
+full_model <- glm(chd ~ ., data = cleaned_diet,
+                  family = binomial, na.action = "na.fail") {{2}}
+
+# Models with every combination of predictor
+model_comparison <- dredge(full_model, rank = "AIC", subset = "fibre") {{3}}
+```
+
+&nbsp;
+
+- *Caution*: Too many variables, big dataset, and/or type of model will result in long computation time {{4}}
+- **Don't** rely on *only* this method for model building {{5}}
+
+`@script`
+
+The MuMIn package implements an easy interface to model selection. There are a couple steps we need to do before comparing models. First, we need to create a dataframe with only the outcome and other variables of interest that would be in the model. Then we need to remove all missing values. Second, we create the model object with all variables included in the model, which the period after the tilde represents. We are doing a logistic regression, hence why we have a binomial family. We also have to set na dot fail, since MuMIn requires it. Third, we use the dredge function with the model object, using AIC. We can tell dredge that every model it compares must have the variable fibre.
+
+A couple of comments. Because dredge creates models of very combination of predictor, if you have many variables, a big dataset, or a complicated method R may have very long computation times. So be careful. Also, do not rely on only this method. You need to use multiple techniques to decide on what variables to adjust for.
+
+---
+## Model selection using the MuMIn package
+
+```yaml
 type: "FullSlide"
 ```
 
 `@part1`
 
+```{r}
+head(model_selection, 4)
+``` {{1}}
+
+```
+Global model call: glm(formula = chd ~ ., family = binomial, data = cleaned_diet, 
+    na.action = "na.fail")
+---
+Model selection table 
+   (Intrc)     bmi     enrgy     fat   fibre df   logLik   AIC delta weight
+14 -0.4290 0.09605           -0.1752 -0.9882  4 -120.996 250.0  0.00  0.435
+13  1.3510                   -0.1579 -0.7839  3 -122.598 251.2  1.20  0.238
+12 -0.4436 0.08922 -0.074450         -0.9432  4 -121.964 251.9  1.94  0.165
+16 -0.4920 0.09616  0.008187 -0.1861 -1.0070  5 -120.990 252.0  1.99  0.161
+Models ranked by AIC(x) 
+``` {{2}}
 
 
 `@script`
 
-Note: be careful using this dredge function with too many variables
-
-also, don't rely on this function
-
-Information criterion such as Akaike Information
-Criterion (AIC) are used to balance good model fit with low model complexity
-(i.e. less variables adjusted for). 
-
-lower number is better
+Let's see the top four models using head. We see from the AIC column that the models are all very similar, no matter what variable is included in the model. This may tell us a few things, mainly that these variables don't contribute substantially to improving model fit. So in this case, we could be fairly safe at using any of these models and still maintain a good model fit.
 
 ---
 ## Adhering to guidelines: STROBE
