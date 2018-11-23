@@ -1,9 +1,9 @@
 ---
-title: "Adjustment, confounding, and models"
+title: "Adjustment, confounding, and model building"
 key: 911feb6e308d8e7e180f7f33f32a51ed
 
 ---
-## Adjustment, confounding, and models
+## Adjustment, confounding, and model building
 
 ```yaml
 type: "TitleSlide"
