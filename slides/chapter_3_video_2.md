@@ -17,17 +17,7 @@ title: Instructor
 
 `@script`
 
-*Content*:
-
-
-ideas:
-This is one of the trickiest part of the analysis... building a model to control
-for potential confounders. 
-
-The first step to identifying variables to adjust for comes from seeing what others
-do to control for confounding and to consult with people who have a strong biological background knowledge of the area of research.
-
-quote about : all models are wrong.. some are useful. ... ?
+In this lesson we will cover one of the trickier parts of the analysis, that is identifying and adjusting for potential confounders between the exposure and outcome. There are many ways of building a model to adjust for confounders. Whichever method you use, you need to rely on what others have done in previous studies and what the underlying biology is. This requires some domain specific knowledge, so make sure to collaborate with people who have that knowledge.
 
 ---
 ## Creating models: Controlling for confounding
