@@ -69,7 +69,7 @@ type: "FullSlide"
 Confounding is a tricky thin
 
 ---
-## Classical definition of a confounder?
+## Classical definition of a confounder
 
 ```yaml
 type: "FullSlide"
