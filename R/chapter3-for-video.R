@@ -100,3 +100,4 @@ full_model <- glm(chd ~ ., data = cleaned_diet,
 
 model_selection <- dredge(full_model, rank = "AIC", subset = "fibre")
 
+head(model_selection, 4)
