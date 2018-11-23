@@ -10,5 +10,7 @@ library(DiagrammeR)
 library(DiagrammeRsvg)
 library(rsvg)
 library(dagitty)
+library(MuMIn)
+
 data("diet")
 color_theme <- ghibli_palette("MononokeMedium")
