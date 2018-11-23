@@ -87,3 +87,16 @@ adjustmentSets(possible_confounders, exposure = "Height", outcome = "ColonCancer
 
 # plot(graphLayout(possible_confounders))
 
+
+# Video 2, AIC ------------------------------------------------------------
+
+cleaned_diet <- diet %>%
+    mutate(bmi = weight / (height / 100)^2) %>%
+    select(energy, bmi, fat, fibre, chd) %>%
+    na.omit()
+
+full_model <- glm(chd ~ ., data = cleaned_diet,
+                  family = binomial, na.action = "na.fail")
+
+model_selection <- dredge(full_model, rank = "AIC", subset = "fibre")
+
