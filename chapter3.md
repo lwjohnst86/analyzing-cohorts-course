@@ -56,7 +56,7 @@ test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 
 ---
 
-## V2: Adjustment, confounding, and models
+## V2: Adjustment, confounding, and model building
 
 ```yaml
 type: VideoExercise
@@ -262,7 +262,7 @@ model <- glm(got_cvd ~ ., data = model_sel_df,
              family = binomial, na.action = "na.fail")
 
 # Set the ranking method
-selection <- dredge(model, rank = "AIC")
+selection <- dredge(model, rank = "AIC", subset = "systolic_blood_pressure")
 
 # Keep only models with low delta
 top_models <- selection %>% 
