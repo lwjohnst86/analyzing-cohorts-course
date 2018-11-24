@@ -56,7 +56,7 @@ test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 
 ---
 
-## V2: Adjustment, confounding, and model building
+## Adjustment, confounding, and model building
 
 ```yaml
 type: VideoExercise
@@ -128,7 +128,7 @@ Consider the below graph. Which variables, at a minimum, should you adjust for?
 
 ---
 
-## CE Model selection using DAGs
+## Model selection using DAGs
 
 ```yaml
 type: NormalExercise
@@ -192,7 +192,7 @@ success_msg("Amazing! You identified that at least BMI and smoking should be adj
 
 ---
 
-## CE Model selection using Information Criterion
+## Model selection using Information Criterion
 
 ```yaml
 type: NormalExercise
@@ -200,19 +200,17 @@ key: dc6191ab98
 xp: 100
 ```
 
-It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for  identifying and choosing the variables to control for. Using the functions from the MuMIn package shown in the video, determine which model has the best fit of the models being compared. For the purposes of this exercise, we will only use  the baseline data from the Framingham dataset (through `filter()`).
+It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for  identifying and choosing the variables to control for. Using the functions from the MuMIn package shown in the video, determine which model has the best fit of the models being compared. For the purposes of this exercise, we will only use the baseline data from the Framingham dataset (through `filter()`).
 
 `@instructions`
-- Select ... {{include or move into pre-exercise code?}}
-- Using the model formula, set the outcome variable in the `glm` model, as well as the dataset.
-- "Dredge" through the combinations of variables in the model using the AICc technique.
-- Keep only rows with the `delta` variable less than 15.
-- Finally, print the results to see which variables are best to include (based on AIC).
+- Select systolic blood pressure, body mass index, sex, education, current smoking status, fasting blood glucose, and total cholesterol.
+- Using the model formula, set the outcome variable in the `glm` model, as well as the dataset and family (the outcome is binary, so use logistic regression).
+- "Dredge" through the combinations of variables in the model using the AIC technique, comparing models that have systolic blood pressure.
+- Print the top 4 models.
 
 `@hint`
 - Use the formula interface `got_cvd ~ .`.
-- The filter condition should be `delta < 15`.
-
+- Subset by systolic blood pressure.
 
 `@pre_exercise_code`
 ```{r}
@@ -223,7 +221,6 @@ library(dplyr)
 
 `@sample_code`
 ```{r}
-# TODO: Put this wrangling into pre-exercise chunk?
 # Select the predictors from the baseline data
 model_sel_df <- tidier_framingham %>% 
     filter(followup_visit_number == 1) %>% 
@@ -231,19 +228,15 @@ model_sel_df <- tidier_framingham %>%
     # Need to remove all NA values.
     na.omit()
 
-# Set the outcome and the data
+# Set the outcome, data, and family
 model <- glm(___ ~ ., data = ___,
-             family = binomial, na.action = "na.fail")
+             family = ___, na.action = "na.fail")
 
-# Set the ranking method
-selection <- dredge(___, rank = ___)
+# Set the ranking method and subset
+selection <- dredge(___, rank = ___, subset = ___)
 
-# Keep models with low delta
-top_models <- selection %>% 
-    filter(___)
-
-# Print the object
-___
+# Print the top 4
+head(___, 4)
 ```
 
 `@solution`
@@ -252,24 +245,20 @@ ___
 # Select the predictors from the baseline data
 model_sel_df <- tidier_framingham %>% 
     filter(followup_visit_number == 1) %>% 
-    select(got_cvd, systolic_blood_pressure, body_mass_index, sex, 
+    select(got_cvd, systolic_blood_pressure, body_mass_index, sex, education,
            currently_smokes, fasting_blood_glucose, total_cholesterol) %>% 
     # Need to remove all NA values.
     na.omit()
 
-# Set the outcome and the data
+# Set the outcome, data, and family
 model <- glm(got_cvd ~ ., data = model_sel_df,
              family = binomial, na.action = "na.fail")
 
-# Set the ranking method
+# Set the ranking method and subset
 selection <- dredge(model, rank = "AIC", subset = "systolic_blood_pressure")
 
-# Keep only models with low delta
-top_models <- selection %>% 
-    filter(delta < 15)
-
-# Print the object
-top_models
+# Print the top 4
+head(selection, 4)
 ```
 
 `@sct`
@@ -277,100 +266,6 @@ top_models
 success_msg("Great job! You've identified the model that has the best fit (of those compared). Now, using the knowledge you've gained from the DAG and the AIC suggestions, you can make a more informed decision on which variables to adjust for!")
 ```
 
-
----
-
-## CE Inappropriate adjustment
-
-```yaml
-type: NormalExercise
-key: c318aa084c
-xp: 100
-```
-
-{{Or switch to unadjusted and adjusted models}}
-{{Maybe a Tab/BulletExercise}}
-
-Run model without adjusting, with adjusting, and lastly with adjusting for an inappropriate variable (how that changes things). Notice how that may change the results. (Don't worry about what the numbers mean just yet, focus on the differences of the estimates between models.)
-
-{{MCQ?}}
-{{Given the results, what are some possible conclusions/interpretations?}}
-{{How might the adjustment for age AND period influence the results?}}
-
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-# TODO: Confirm that period and randid are sorted properly.
-# TODO: Confirm that cvd variable is the right one (from raw data).
-unadjusted <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
-summary(unadjusted)$coef
-
-adjusted <- lmer(prevchd ~ totchol + sex + period + (1 | randid), data = framingham)
-summary(adjusted)$coef
-
-inappropriate <- lmer(prevchd ~ totchol + sex + age + period + (1 | randid), data = framingham)
-summary(inappropriate)$coef
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
-## CE Post-processing of model results
-
-```yaml
-type: NormalExercise
-key: b4486ed7d2
-xp: 100
-```
-
-{{NE: to show post log transforming}}
-
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
 
 ---
 
@@ -548,6 +443,46 @@ xp: 50
 
 `@projector_key`
 dfd73cee12b1663ba86738a4ec9a6c06
+
+---
+
+## CE Post-processing of model results
+
+```yaml
+type: NormalExercise
+key: b4486ed7d2
+xp: 100
+```
+
+{{NE: to show post log transforming}}
+
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
 
 ---
 
