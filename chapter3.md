@@ -446,6 +446,84 @@ dfd73cee12b1663ba86738a4ec9a6c06
 
 ---
 
+## CE Tidy up the results with broom
+
+```yaml
+type: NormalExercise
+key: 6c2f7f04d3
+xp: 100
+```
+
+We've created several models investigating the association between the exposure and outcome. Now we need to tidy up the model results and extract what we need from the model. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package provide that framework in a "tidy" format. 
+
+A model has been created for you already, now you need to tidy it up.
+
+{{TODO: add another exercise expanding on this to make estimate more meaningful}}
+
+
+`@instructions`
+- Using the functions from broom, tidy the model to check how the output looks.
+- Then tidy it again, but adding the confidence intervals.
+- Select only the most important results: the terms, the estimates, and the lower and upper confidence interval.
+
+`@hint`
+- Use the `tidy` function, with the `conf.int` argument.
+- Keep only the four columns from the tidied model.
+
+`@pre_exercise_code`
+```{r}
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(lme4)
+library(broom)
+library(dplyr)
+ids <- unique(tidier_framingham$subject_id)
+sampled_ids <- sample(ids, length(ids) / 4, replace = FALSE)
+tidier_framingham <- tidier_framingham %>% 
+    filter(subject_id %in% sampled_ids)
+main_model <- glmer(got_cvd ~ I(systolic_blood_pressure/10) + followup_visit_number + 
+                   (1 | subject_id), 
+              data = tidier_framingham, family = binomial, na.action = "na.omit")
+```
+
+`@sample_code`
+```{r}
+# The mixed effect model
+main_model
+
+# Tidy it up
+___(___)
+
+# Tidy but with confidence interval
+tidy_model <- ___(___, ___)
+
+# Select only the important variables
+tidy_model %>% 
+    ___(___)
+```
+
+`@solution`
+```{r}
+# The mixed effect model
+main_model
+
+# Tidy it up
+tidy(main_model)
+
+# Tidy but with confidence interval
+tidy_model <- tidy(main_model, conf.int = TRUE)
+
+# Select only the important variables
+tidy_model %>% 
+    select(term, estimate, conf.low, conf.high)
+```
+
+`@sct`
+```{r}
+success_msg("Amazing! You extracted and started tidying up the model results. Plus you now kept the most important results from the model!")
+```
+
+---
+
 ## CE Post-processing of model results
 
 ```yaml
@@ -505,65 +583,6 @@ xp: 50
 `@pre_exercise_code`
 ```{r}
 
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
-## CE Tidy up the results with broom
-
-```yaml
-type: NormalExercise
-key: 6c2f7f04d3
-xp: 100
-```
-
-
-Most methods developed into R packages in R have their own unique way of showing
-the results from the models, so there is no standard way to present the output of
-the models. So the broom package was created to make a unified interface
-(similar to the `summary` function) of the output in a "tidy" {{link}} format.
-
-Run these code to tidy up the output, using the `tidy` function. Extract only 
-relevant
-{{TODO: add another exercise expanding on this to make estimate more meaningful}}
-
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-# TODO: Add family. Use glmer, but fix the "non-convergence" issue.
-model <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
-
-# Tidy it up
-tidy(model)
-
-# Tidy but with confidence interval (CI)
-tidy_model <- tidy(model, conf.int = TRUE)
-tidy_model
-
-# Select only the important variables.
-tidy_model %>% 
-    select(term, estimate, conf.low, conf.high)
 ```
 
 `@sct`
@@ -722,46 +741,6 @@ how small changes to data can influence p-value.
 ```{r}
 
 ```
-
----
-
-## CE Post-processing of model results
-
-```yaml
-type: NormalExercise
-key: a625d95ded
-xp: 100
-```
-
-{{NE: to show post log transforming}}
-
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
 
 ---
 
