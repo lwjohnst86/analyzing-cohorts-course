@@ -74,11 +74,32 @@ type: "FullSlide"
 
 `@part1`
 
+|Treatment |Success |
+|:---------|:-------|
+|A         |78%     |
+|**B**         |**83%**     | {{1}}
 
+&nbsp;
+
+|Treatment |Kidney stone size |Success |
+|:---------|:-----------------|:-------|
+|**A**         |Large             |**73%**     |
+|**A**         |Small             |**93%**     |
+|B         |Large             |69%     |
+|B         |Small             |87%     | {{2}}
+
+&nbsp;
+
+|Treatment |Kidney stone size | Successes| Total cases|
+|:---------|:-----------------|---------:|-----------:|
+|A         |Small             |        81|          87|
+|**A**         |**Large**             |       192|         263|
+|**B**         |**Small**             |       234|         270|
+|B         |Large             |        55|          80| {{3}}
 
 `@script`
 
-Let's show a real life example of confounding and why it's important to consider them in the analysis. 
+Let's show a real life example of confounding and why it's important to consider them in the analysis. Here is a study of a two drugs on treating kidney stones. When we look at the total successes, we see that treatment B is better. But when we break it down by small and large kidney stones, we see that it reverses. Now treatment A is better for both large and small stones. How can that be? If we look at the absolute numbers, the paradox is revealed to occur because of ratios and totals. The treatment used depends on the severity of the case, which is judged and recommended by the doctor. This example highlights two things: Avoid only using percentages and the importance of searching for confounding factors.
 
 ---
 ## Classical definition of a confounder
@@ -98,7 +119,6 @@ type: "FullSlide"
 This simple graphic illustrates the classic definition of what a confounder is. In this case, a confounder is some variable that can influence both the outcome and the exposure, either hypothetically, biologically, or informed from data exploration. Understanding confounded relationships between variables is essential to making more accurate inferences about the association of investigation. Creating these causal graphs, known as directed acyclic graphs or DAGs, is a powerful method to confounder identification.
 
 DAGs are a form of graph with nodes and edges. Here, the variables are the nodes and the causal hypothetical pathway between variables is the edge. A cause and an effect.
-
 
 ---
 ## Identifying adjustment variables with dagitty
