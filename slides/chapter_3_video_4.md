@@ -18,6 +18,11 @@ title: Instructor
 `@script`
 
 - Using broom, what to take from broom, conf.int
+Most methods developed into R packages in R have their own unique way of showing
+the results from the models, so there is no standard way to present the output of
+the models. So the broom package was created to make a unified interface
+(similar to the `summary` function) of the output in a "tidy" {{link}} format.
+
 - Interpreting OR, RR, IRR (incidence risk ratio), and other forms of estimates
 - Transform estimates for better interpretability
 - Quick overview of the unreliability of p-values, the danger of using them to
