@@ -20,6 +20,28 @@ title: Instructor
 In this lesson we will cover one of the trickier parts of the analysis, that is identifying and adjusting for potential confounders between the exposure and outcome. There are many ways of building a model to adjust for confounders. Whichever method you use, you need to rely on what others have done in previous studies and what the underlying biology is. This requires some domain specific knowledge, so make sure to collaborate with people who have that knowledge.
 
 ---
+## Adhering to guidelines: STROBE Statement
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+> The STROBE Statement: STrengthening the Reporting of OBservational studies in Epidemiology. www.strobe-statement.org
+
+**Most journals require completion of STROBE checklist**, including to: {{1}}
+
+> - *Describe any efforts to address potential sources of bias* {{2}}
+> - *Describe all statistical methods, including those used to control for confounding* {{2}}
+> - *Make clear which confounders were adjusted for and why they were included* {{2}}
+> - *Give unadjusted estimates and ... confounder-adjusted estimates* {{2}}
+
+`@script`
+
+Before getting into model creating, we should touch on a key guideline for doing cohort analysis, which is the STROBE statement. STROBE stands for strengthening the reporting of observational studies in epidemiology. Your analyses and final presentation of results should be informed by this checklist. Besides it being the right thing to do to be thorough and careful during data analysis, this checklist forces you to think about specific things to at the minimum do. For instance, controlling for bias such as with confounding, why and how confounders were included and to include both unadjusted and adjusted results. Throughout the rest of the course, we will return to the STROBE checklist to help guide what we do and what we think about for doing cohort analyses.
+
+---
 ## Creating models: Controlling for confounding
 
 ```yaml
@@ -44,7 +66,7 @@ What does it mean to "adjust" for confounders? What is a confounder? You will ha
 Like all health research, considering confounders is very important. If you don't you may encounter a problem known as Simpson's Paradox, which we will cover in the next slide. There are several ways of identifying confounders. Some common and more appropriate methods include using previous knowledge of biology and of the problem, and using more formal mathematical methods such as directed acyclic graphs and information criterion techniques.
 
 ---
-## An example of confounding using Simpson's paradox
+## An example of confounding: Simpson's paradox
 
 ```yaml
 type: "FullSlide"
@@ -200,52 +222,7 @@ Models ranked by AIC(x)
 Let's see the top four models using head. We see from the AIC column that the models are all very similar, no matter what variable is included in the model. This may tell us a few things, mainly that these variables don't contribute substantially to improving model fit. So in this case, we could be fairly safe at using any of these models and still maintain a good model fit.
 
 ---
-## Adhering to guidelines: STROBE
-
-```yaml
-type: "FullSlide"
-```
-
-`@part1`
-
-> The STROBE Statement: STrengthening the Reporting of OBservational studies in Epidemiology
-
-www.strobe-statement.org
-
-
-`@script`
-
----
-## Insert title here...
-
-```yaml
-type: "FullSlide"
-```
-
-`@part1`
-
-
-
-`@script`
-
-
----
-## Insert title here...
-
-```yaml
-type: "FullSlide"
-```
-
-`@part1`
-
-
-
-`@script`
-
-
-
----
-## Final Slide
+## Let's find some confounders!
 
 ```yaml
 type: "FinalSlide"
@@ -254,4 +231,4 @@ key: "8f38e0afcc"
 
 `@script`
 
-
+Alright, let's get to identifying potential confounders!
