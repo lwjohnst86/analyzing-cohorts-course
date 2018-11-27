@@ -66,7 +66,6 @@ adjustmentSets(possible_confounders, exposure = "Height", outcome = "ColonCancer
 
 # plot(graphLayout(possible_confounders))
 
-
 # Video 2, AIC ------------------------------------------------------------
 
 cleaned_diet <- diet %>%
@@ -80,3 +79,26 @@ full_model <- glm(chd ~ ., data = cleaned_diet,
 model_selection <- dredge(full_model, rank = "AIC", subset = "fibre")
 
 head(model_selection, 4)
+
+
+# Video 4, tidy function example ------------------------------------------
+
+model <- glm(chd ~ weight + energy, data = diet, family = binomial)
+summary(model)
+
+tidy(model)
+
+tidy(model, conf.int = TRUE)
+
+
+# Video 4, backtransforming estimates -------------------------------------
+
+model <- glm(chd ~ weight + fibre + energy,
+             data = diet, family = binomial)
+
+tidied_model <- tidy(model, conf.int = TRUE) %>%
+    select(term, estimate, conf.low, conf.high)
+tidied_model
+
+tidied_model %>%
+    mutate_at(vars(-term), exp)
