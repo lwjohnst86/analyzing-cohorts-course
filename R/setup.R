@@ -13,6 +13,7 @@ library(dagitty)
 library(MuMIn)
 library(janitor)
 library(glue)
+library(broom)
 
 data("diet")
 color_theme <- ghibli_palette("MononokeMedium")
