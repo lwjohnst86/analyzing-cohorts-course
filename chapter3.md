@@ -470,7 +470,7 @@ dfd73cee12b1663ba86738a4ec9a6c06
 
 ---
 
-## CE Tidy up the results with broom
+## Tidy up the results with broom
 
 ```yaml
 type: NormalExercise
@@ -480,10 +480,7 @@ xp: 100
 
 We've created several models investigating the association between the exposure and outcome. Now we need to tidy up the model results and extract what we need from the model. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package provide that framework in a "tidy" format. 
 
-A model has been created for you already, now you need to tidy it up.
-
-{{TODO: add another exercise expanding on this to make estimate more meaningful}}
-
+A model has been created for you already, now you need to tidy it up. 
 
 `@instructions`
 - Using the functions from broom, tidy the model to check how the output looks.
