@@ -15,7 +15,8 @@ have meaningful clinical implications.
     - Especially with "causal" language
 - Discuss STROBE guidelines in context of longitudinal study.
 
-- Extract model results?
+- Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
+
 
 ## Lesson 1: Language and information to use when communicating the findings
 
