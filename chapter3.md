@@ -3,7 +3,7 @@ title: 'Statistical methods and cohort data'
 description: 'Apply statistical techniques on cohort data.'
 ---
 
-## Insert exercise title here
+## VE Common statistical analyses for cohort studies
 
 ```yaml
 type: VideoExercise
