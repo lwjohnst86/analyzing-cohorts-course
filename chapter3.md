@@ -457,7 +457,7 @@ summary(sex_time_interaction)
 
 ---
 
-## V4 Extracting results from model objects
+## Tidying and extracting results from model objects
 
 ```yaml
 type: VideoExercise
