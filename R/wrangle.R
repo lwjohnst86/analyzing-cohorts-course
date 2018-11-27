@@ -4,8 +4,7 @@ library(tidyverse, quietly = TRUE)
 # Unzip and load in the framingham dataset
 framingham <- read_csv(unz("data-raw/framingham.zip", "FRAMINGHAM_csv/frmgham2.csv"))
 
-
-# Data for chapter 1 ------------------------------------------------------
+# For chapter 1 -----------------------------------------------------------
 
 # Convert column names to lower case
 framingham <- framingham %>%
@@ -49,3 +48,6 @@ tidier_framingham <- framingham %>%
     )
 
 save(tidier_framingham, file = "datasets/framingham_tidier.rda")
+
+# For chapter 3 -----------------------------------------------------------
+
