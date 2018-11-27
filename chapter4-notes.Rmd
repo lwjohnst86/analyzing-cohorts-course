@@ -17,6 +17,8 @@ have meaningful clinical implications.
 
 - Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
 
+{{TODO: add another exercise expanding on making estimate more meaningful... maybe in Chapter 4?}}
+
 
 ## Lesson 1: Language and information to use when communicating the findings
 
