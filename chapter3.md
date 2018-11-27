@@ -555,6 +555,11 @@ xp: 100
 
 {{NE: to show post log transforming}}
 
+Exponentiate from tidy?
+
+- NE: Change variables scaling or transform them to see how the estimates change...
+what does that mean for interpretation? (or lesson 4)
+
 
 `@instructions`
 
@@ -564,7 +569,17 @@ xp: 100
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(lme4)
+library(broom)
+library(dplyr)
+ids <- unique(tidier_framingham$subject_id)
+sampled_ids <- sample(ids, length(ids) / 4, replace = FALSE)
+tidier_framingham <- tidier_framingham %>% 
+    filter(subject_id %in% sampled_ids)
+model <- glmer(got_cvd ~ I(systolic_blood_pressure/10) + followup_visit_number + 
+                   (1 | subject_id), 
+              data = tidier_framingham, family = binomial, na.action = "na.omit")
 ```
 
 `@sample_code`
@@ -574,7 +589,10 @@ xp: 100
 
 `@solution`
 ```{r}
-
+model %>% 
+    tidy(conf.int = TRUE) %>% 
+    select(term, estimate, conf.low, conf.high) %>% 
+    mutate_at(vars(-term), exp) 
 ```
 
 `@sct`
@@ -582,185 +600,39 @@ xp: 100
 
 ```
 
-
 ---
 
-## Insert exercise title here
+## "Not statistically significant"
 
 ```yaml
 type: MultipleChoiceExercise
-key: 3f30c7266d
 xp: 50
 ```
 
-
+This is a hypothetical example based on a real study: Premature babies often face severe health problems and need lots of help to ensure healthy growth. Nutrition is key and there are many infant formula and intravenous fluids designed for premature babies. A study found that babies fed a new formula had an odds ratio of 1.12 (0.94 to 1.30 95% CI, p=0.09) for reaching a healthier weight compared to currently used formula. Which is the more correct response?
 
 `@possible_answers`
-
+- No significant association was seen (p>0.05, CI passes through 1.0).
+- There was a small, but maybe clinically important improvement in weight (CI reached 1.30). More research is needed.
+- There is a higher odds of reaching healthy weight. Let's use this new formula right away.
+- Can't really say anything yet... null hypothesis was not rejected.
+- None of the above.
 
 `@hint`
-
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
 ```
 
 `@sct`
 ```{r}
-
-```
-
----
-
-## TBE "Not statistically significant" 
-
-```yaml
-type: TabExercise
-key: ece86a1406
-xp: 100
-```
-
-...does not equal "not biologically or clinically significant"
-
-
-{{MCQ; TabExercise?}}
-
-{{This may need to be shortened and/or changed... but I want to get this point
-across somehow}}
-
-There is a very strong culture within science to focus on "statistically
-significant" results, and this is no different in health research. However,
-there are some major problems with this behaviour and practice not just for
-science but also for health and disease outcomes.
-
-Let's make an example: Premature babies often face severe health problems as
-they grow and need substantial medical and nutritional assistance to ensure a
-healthier growth. Nutrition is a key component and there are infant formula and
-intravenous fluids specifically designed for premature infants. A study
-observing the role of these formula on the premature babies' health found an
-odds ratio of 1.12 (0.94 to 1.30 95% CI, p=0.09) of getting a health
-complication from current formula for premature babies born earlier compared to
-premature babies born later in gestational age. How would this be interpreted?
-
-- There was no significant association seen (p>0.05, odds ratio passes through
-the 1.0 threshold).
-- There is a small, but potentially clinically important association seen (OR
-had up to 1.30 in the CI).
-    - {{correct. Even though it is not "statistically significant", to improve
-    health outcomes in premature babies, the formula may need to change.}}
-- Can't really say anything... null hypothesis was not rejected.
-    - {{slightly true, but this shouldn't be focused}}
-    
-- MCQ/text: Which are the most appropriate interpretations for OR, RR, IRR?
-
-{{Next MCQ}}
-
-Great! It's really important to understand this concept in health research, and
-how you present your results changes based on what you "believe" is important.
-So why is this important?
-
-- This isn't important! The p-value was larger than 0.05!
-- It is important, but we can't really say anything until more research is done.
-It may be that formula needs to be changed.
-    - {{more correct, as we don't completely know yet and need to explore this more}}
-- It is important, so let's change the feeding formulas right away to target
-babies born earlier!
-    - {{almost correct, but this is also too hasty}}
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 7c09b4abd6
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: MultipleChoiceExercise
-key: 58233677a5
-xp: 50
-```
-
-`@question`
-
-
-`@possible_answers`
-
-
-`@hint`
-
-
-`@sct`
-```{r}
-
-```
-
----
-
-## CE Unreliability of p-value, importance of estimate
-
-```yaml
-type: NormalExercise
-key: ee505007b7
-xp: 100
-```
-
-how small changes to data can influence p-value.
-
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
+msg1 <- "Incorrect. While traditional p-value thresholds would say this is correct, this has the danger of discarding a new formula that could help premature babies."
+msg2 <- "Correct! While 'not statistically significant', there is evidence of some potential improvement for premature babies, which needs to be further explored."
+msg3 <- "Incorrect. This is too hasty a response. More studies are needed."
+msg4 <- "Slightly true. It is correct to say this, but the focus should be on the uncertainty of the odds ratio, rather than the null hypothesis."
+msg5 <- "Incorrect. One of the above is the more correct response."
+test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
 
 ---
