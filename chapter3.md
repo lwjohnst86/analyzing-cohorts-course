@@ -24,6 +24,30 @@ xp: 50
 key: aa53930250
 ```
 
+
+You'll notice in the model that systolic blood pressure has been divided by 10. ... convert this to exercise to highlight why transforming is important.
+
+- Interpreting OR, RR, IRR (incidence risk ratio), and other forms of estimatesl
+
+Before the development of mixed effects modeling, analyzing longitudinal data
+was fairly difficult. This was because the early methods, which typically were 
+some type of ANOVA or simple regression, had an assumption of independence in the
+data. But longitudinal data is not independent... A single individual can have 
+multiple measures done over time and are thus dependent.
+
+Take a look at the difference between using a logistic regression model compared
+to a mixed effect model.
+
+```
+# TODO: Check to confirm exponentiating of output.
+logistic_model <- glm(prevchd ~ totchol + period, data = framingham, family = binomial)
+summary(logistic_model)$coef
+
+# TODO: This doesn't seem to converge, so need to look into it.
+mixed_model <- glmer(prevchd ~ totchol + period + (1 | randid), data = framingham, family = binomial)
+summary(mixed_model)$coef
+```
+
 Because the Framingham study is a prospective cohort, with certain limits to the data and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of Framingham data.
 
 The unchanged `framingham` dataset is loaded in case you want to look through it.
