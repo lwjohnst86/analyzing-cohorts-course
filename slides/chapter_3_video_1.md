@@ -11,17 +11,19 @@ key: "0d2a8f7826"
 ```
 
 `@lower_third`
-name: Name Surname
+name: Luke Johnston
 title: Instructor
 
 
 `@script`
 
 Don't go into detail too much, just "here is the code, here are the resources"
- mixed effect
-cox model
+mixed effect
 logistic regression
-poisson regression
+
+- Know how to understand and interpret the results (we'll get to knowing what
+exactly is most useful to present and show for higher impact) Or move to chapter 4?
+
 
 - Statistics (more of a review, expect them to know what they are doing):
     - Logistic regression
@@ -35,6 +37,8 @@ poisson regression
     - "Those that have more exposure over time, are they more likely to develop a disease?"
 - These questions generally require some type of regression modelling in order to
 estimate magnitude of association and the uncertainty around that association.
+
+*Content*:
 
 
 ---
@@ -81,7 +85,7 @@ Some questions we can't ask are often obvious, such as when you don't have the d
 
 
 ---
-## Insert title here...
+## Common analyses for cohorts
 
 ```yaml
 type: "FullSlide"
@@ -90,7 +94,15 @@ key: "9e89aca17a"
 
 `@part1`
 
+- For prospective and/or longitudinal:
+    - *Mixed effects modeling*
+    - Generalized estimating equations
+    - Cox proportional hazard models
 
+- For other types:
+    - Linear regression
+    - Logistic regression
+    - Poisson regression
 
 `@script`
 
