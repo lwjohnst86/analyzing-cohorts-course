@@ -246,7 +246,6 @@ Let's see the top four models using head. We see from the AIC column that the mo
 
 ```yaml
 type: "FinalSlide"
-key: "8f38e0afcc"
 ```
 
 `@script`
