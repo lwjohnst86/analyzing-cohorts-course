@@ -804,6 +804,7 @@ model %>%
 ```yaml
 type: MultipleChoiceExercise
 xp: 50
+key: 9eee53c6f6
 ```
 
 This is a hypothetical example based on a real study: Premature babies often face severe health problems and need lots of help to ensure healthy growth. Nutrition is key and there are many infant formula and intravenous fluids designed for premature babies. A study found that babies fed a new formula had an odds ratio of 1.12 (0.94 to 1.30 95% CI, p=0.09) for reaching a healthier weight compared to currently used formula. Which is the more correct response?
