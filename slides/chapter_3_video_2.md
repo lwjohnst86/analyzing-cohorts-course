@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-In this lesson we will cover one of the trickier parts of the analysis, that is identifying and adjusting for potential confounders between the exposure and outcome. There are many ways of building a model to adjust for confounders. Whichever method you use, you need to rely on what others have done in previous studies and what the underlying biology is. This requires some domain specific knowledge, so make sure to collaborate with people who have that knowledge.
+One of the trickier parts of the analysis is identifying and adjusting for potential confounders. There are many ways of finding and adjusting for confounders. Regardless of what you use, you need to at least review what other studies have done and what the underlying biology is. This requires domain specific knowledge, so collaborate with people who have that knowledge.
 
 
 ---
@@ -29,18 +29,16 @@ key: "a46da48b7d"
 ```
 
 `@part1`
-> The STROBE Statement: STrengthening the Reporting of OBservational studies in Epidemiology. www.strobe-statement.org
+- **STrengthening the Reporting of OBservational studies in Epidemiology.** (www.strobe-statement.org)
 
-**Most journals require completion of STROBE checklist**, including to: {{1}}
-
-> - *Describe any efforts to address potential sources of bias* {{2}}
-> - *Describe all statistical methods, including those used to control for confounding* {{2}}
-> - *Make clear which confounders were adjusted for and why they were included* {{2}}
-> - *Give unadjusted estimates and ... confounder-adjusted estimates* {{2}}
+- **Most journals require completion of STROBE checklist**, including to: {{1}}
+    - *"Describe ... methods ... used to control for confounding"* {{2}}
+    - *"Make clear which confounders were adjusted for and why they were included"* {{2}}
+    - *"Give unadjusted estimates and ... confounder-adjusted estimates"* {{2}}
 
 
 `@script`
-Before getting into model creating, we should touch on a key guideline for doing cohort analysis, which is the STROBE statement. STROBE stands for strengthening the reporting of observational studies in epidemiology. Your analyses and final presentation of results should be informed by this checklist. Besides it being the right thing to do to be thorough and careful during data analysis, this checklist forces you to think about specific things to at the minimum do. For instance, controlling for bias such as with confounding, why and how confounders were included and to include both unadjusted and adjusted results. Throughout the rest of the course, we will return to the STROBE checklist to help guide what we do and what we think about for doing cohort analyses.
+Before going further, let's talk about the key guideline for cohort analyses, which is STROBE, or strengthening the reporting of observational studies in epidemiology. Use this checklist to guide your analyses and final presentation of results. This checklist forces you to think about at least the minimum thing to do. For instance, why and how confounders were chosen and included. We'll be returning to STROBE many times.
 
 
 ---
