@@ -20,8 +20,8 @@ xp: 50
 
 ```yaml
 type: MultipleChoiceExercise
-xp: 50
 key: 846ad549f8
+xp: 50
 ```
 
 Because the Framingham study is a prospective cohort, with certain limits to the data, and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of Framingham data.
@@ -129,7 +129,7 @@ xp: 35
 - Models try to calculate predictors with zero, but it may not make sense biologically. Take a look at the mean centered total cholesterol and use that in the model instead. You'll still get a warning.
 
 `@hint`
- - The model formula should be `got_cvd ~ centered_total_cholesterol + (1 | subject_id)`.
+- The model formula should be `got_cvd ~ centered_total_cholesterol + (1 | subject_id)`.
 
 `@sample_code`
 ```{r}
@@ -166,8 +166,8 @@ success_msg("Amazing job! But still a problem.")
 
 ```yaml
 type: NormalExercise
-xp: 30
 key: f5444213d6
+xp: 30
 ```
 
 `@instructions`
@@ -217,8 +217,8 @@ success_msg("Amazing! You've solved the warnings about non-convergence and the r
 
 ```yaml
 type: NormalExercise
-xp: 100
 key: a69b4ea141
+xp: 100
 ```
 
 Before the development of mixed effects modelling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations (rows). This time component is a key strength of longitudinal data. But to use that strength you need to, well, including time in the model!
@@ -357,8 +357,8 @@ Consider the below graph. Which variables, at a minimum, should you adjust for?
 
 ```yaml
 type: NormalExercise
-xp: 100
 key: 74eb8858a3
+xp: 100
 ```
 
 Building an appropriate DAG that reasonably close to the underlying biology is very very difficult. It requires domain specific knowledge, and experts in the mechanisms and biology of the research area should be consulted as you build the DAG. As stated in the video, you are guaranteed to build an incomplete DAG. That's why you take a few approaches to model selection. 
@@ -496,7 +496,6 @@ head(selection, 4)
 success_msg("Great job! You've identified the model that has the best fit (of those compared). Now, using the knowledge you've gained from the DAG and the AIC suggestions, you can make a more informed decision on which variables to adjust for!")
 ```
 
-
 ---
 
 ## V3 Interaction testing and sensitivity analyses
@@ -528,7 +527,6 @@ it can be useful to identify which exact variable (or variables) most strongly
 change the estimate. This is one example of a sensitivity analysis.
 
 So identify which variable is influencing the estimates the most:
-
 
 `@instructions`
 
@@ -573,8 +571,6 @@ change the results and why that may be.
 
 So, visualize the relationship with these variables and remove those observations
 from the model. How do the two model results compare?
-
-
 
 `@instructions`
 
@@ -623,7 +619,6 @@ or have harmful side effects in women. As a result, most journals and funding
 agencies *require* that sex and ethnicity be tested or studied.
 
 Compare models without and with interactions for sex.
-
 
 `@instructions`
 
@@ -686,7 +681,7 @@ xp: 100
 
 We've created several models investigating the association between the exposure and outcome. Now we need to tidy up the model results and extract what we need from the model. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package provide that framework in a "tidy" format. 
 
-A model has been created for you already, now you need to tidy it up. 
+A model has been created for you already, now you need to tidy it up.
 
 `@instructions`
 - Using the functions from broom, tidy the model to check how the output looks.
@@ -763,7 +758,6 @@ Exponentiate from tidy?
 - NE: Change variables scaling or transform them to see how the estimates change...
 what does that mean for interpretation? (or lesson 4)
 
-
 `@instructions`
 
 
@@ -806,8 +800,8 @@ model %>%
 
 ```yaml
 type: MultipleChoiceExercise
-xp: 50
 key: 9eee53c6f6
+xp: 50
 ```
 
 This is a hypothetical example based on a real study: Premature babies often face severe health problems and need lots of help to ensure healthy growth. Nutrition is key and there are many infant formula and intravenous fluids designed for premature babies. A study found that babies fed a new formula had an odds ratio of 1.12 (0.94 to 1.30 95% CI, p=0.09) for reaching a healthier weight compared to currently used formula. Which is the more correct response?
@@ -820,6 +814,7 @@ This is a hypothetical example based on a real study: Premature babies often fac
 - None of the above.
 
 `@hint`
+
 
 `@pre_exercise_code`
 ```{r}
