@@ -829,7 +829,7 @@ msg2 <- "Correct! While 'not statistically significant', there is evidence of so
 msg3 <- "Incorrect. This is too hasty a response. More studies are needed."
 msg4 <- "Slightly true. It is correct to say this, but the focus should be on the uncertainty of the odds ratio, rather than the null hypothesis."
 msg5 <- "Incorrect. One of the above is the more correct response."
-test_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```
 
 ---
