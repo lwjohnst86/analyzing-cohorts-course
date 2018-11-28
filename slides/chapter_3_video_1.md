@@ -106,6 +106,8 @@ The two techniques we will briefly describe here. Logistic regression is similar
 
 Mixed effects models, which have many other names, contain multiple levels, a fixed term and a random term. You use this method when data has been collected on, for example, each person many times. To use mixed effects models, you need to use the lme4 package, which contains the glmer function. This function is very similar to the glm function, except you add a random term by using brackets and a bar. Here, the one indicates that each random unit have its own intercept, which makes sense since each person will start at their own level in a study. The random id here is the random unit to use, for instance subject id.
 
+Like many regression models, the specific values of the predictors can influence whether the model runs or not. In this case, you will likely need to make some transformations to the predictors before a model runs without problems. One function, called I for inhibit, lets you make changes within the formula, which you will try in the exercises.
+
 ---
 ## Keep in mind: Question affected by design and data
 
