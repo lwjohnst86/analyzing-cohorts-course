@@ -41,7 +41,7 @@ The `tidied_framingham` dataset has been loaded in case you want to look through
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
 ```
 
 `@sct`
@@ -70,8 +70,7 @@ Most of these exercises will lead to either warnings or errors, which are due to
 
 `@pre_exercise_code`
 ```{r}
-# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-load("datasets/tidied_framingham.rda")
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
 library(lme4)
 ```
 
@@ -235,8 +234,7 @@ Include followup visit number in the `glmer` formula as well as the random term 
 
 `@pre_exercise_code`
 ```{r}
-# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-load("datasets/tidied_framingham.rda")
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
 library(lme4)
 ```
 
@@ -376,8 +374,7 @@ Let's find which variables to adjust for when blood pressure (BP) is the exposur
 
 `@pre_exercise_code`
 ```{r}
-# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-load("datasets/tidied_framingham.rda")
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
 library(dagitty)
 ```
 
@@ -444,7 +441,7 @@ It's best to use multiple methods to decide on which variables to include in a m
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
 library(MuMIn)
 library(dplyr)
 ```
@@ -694,8 +691,7 @@ A model has been created for you already, now you need to tidy it up.
 
 `@pre_exercise_code`
 ```{r}
-# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-load("datasets/tidied_framingham.rda")
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
 library(lme4)
 library(broom)
 library(dplyr)
@@ -766,8 +762,7 @@ what does that mean for interpretation? (or lesson 4)
 
 `@pre_exercise_code`
 ```{r}
-# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-load("datasets/tidied_framingham.rda")
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
 library(lme4)
 library(broom)
 library(dplyr)
@@ -818,7 +813,7 @@ This is a hypothetical example based on a real study: Premature babies often fac
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
 ```
 
 `@sct`
@@ -829,79 +824,4 @@ msg3 <- "Incorrect. This is too hasty a response. More studies are needed."
 msg4 <- "Slightly true. It is correct to say this, but the focus should be on the uncertainty of the odds ratio, rather than the null hypothesis."
 msg5 <- "Incorrect. One of the above is the more correct response."
 ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
-```
-
----
-
-## Iterative exercise
-
-```yaml
-type: BulletExercise
-key: c37305e479
-xp: 100
-```
-
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: ff01138a3e
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 1b193b0049
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
 ```
