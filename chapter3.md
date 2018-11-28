@@ -430,21 +430,24 @@ key: dc6191ab98
 xp: 100
 ```
 
+{{fix to use glmer}}
+
 It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for  identifying and choosing the variables to control for. Using the functions from the MuMIn package shown in the video, determine which model has the best fit of the models being compared. For the purposes of this exercise, we will only use the baseline data from the Framingham dataset (through `filter()`).
 
 `@instructions`
-- Select systolic blood pressure, body mass index, sex, education, current smoking status, fasting blood glucose, and total cholesterol.
+- Select centered systolic blood pressure, centered body mass index, sex, education, current smoking status, fasting blood glucose, and total cholesterol.
 - Using the model formula, set the outcome variable in the `glm` model, as well as the dataset and family (the outcome is binary, so use logistic regression).
-- "Dredge" through the combinations of variables in the model using the AIC technique, comparing models that have systolic blood pressure.
+- "Dredge" through the combinations of variables in the model using the AIC technique, comparing models that have centered systolic blood pressure.
 - Print the top 4 models.
 
 `@hint`
 - Use the formula interface `got_cvd ~ .`.
-- Subset by systolic blood pressure.
+- Subset by centered systolic blood pressure.
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+load("datasets/tidied_framingham.rda")
 library(MuMIn)
 library(dplyr)
 ```
@@ -452,7 +455,7 @@ library(dplyr)
 `@sample_code`
 ```{r}
 # Select the predictors from the baseline data
-model_sel_df <- tidier_framingham %>% 
+model_sel_df <- tidied_framingham %>% 
     filter(followup_visit_number == 1) %>% 
     select(got_cvd, ___) %>% 
     # Need to remove all NA values.
@@ -463,7 +466,8 @@ model <- glm(___ ~ ., data = ___,
              family = ___, na.action = "na.fail")
 
 # Set the ranking method and subset
-selection <- dredge(___, rank = ___, subset = ___)
+selection <- dredge(___, rank = ___, 
+                       subset = ___)
 
 # Print the top 4
 head(___, 4)
@@ -473,10 +477,11 @@ head(___, 4)
 ```{r}
 # TODO: Put this wrangling into pre-exercise chunk?
 # Select the predictors from the baseline data
-model_sel_df <- tidier_framingham %>% 
+model_sel_df <- tidied_framingham %>% 
     filter(followup_visit_number == 1) %>% 
-    select(got_cvd, systolic_blood_pressure, body_mass_index, sex, education,
-           currently_smokes, fasting_blood_glucose, total_cholesterol) %>% 
+    select(got_cvd, centered_systolic_blood_pressure, sex, education,
+           centered_body_mass_index, currently_smokes, centered_total_cholesterol,
+           centered_fasting_blood_glucose) %>% 
     # Need to remove all NA values.
     na.omit()
 
@@ -485,7 +490,8 @@ model <- glm(got_cvd ~ ., data = model_sel_df,
              family = binomial, na.action = "na.fail")
 
 # Set the ranking method and subset
-selection <- dredge(model, rank = "AIC", subset = "systolic_blood_pressure")
+selection <- dredge(model, rank = "AIC", 
+                    subset = "centered_systolic_blood_pressure")
 
 # Print the top 4
 head(selection, 4)
@@ -792,7 +798,7 @@ model <- glmer(got_cvd ~ I(systolic_blood_pressure/10) + followup_visit_number +
 model %>% 
     tidy(conf.int = TRUE) %>% 
     select(term, estimate, conf.low, conf.high) %>% 
-    mutate_at(vars(-term), exp) 
+    mutate_at(vars(-term), funs(scales::number(exp(.), accuracy = 0.01))) 
 ```
 
 `@sct`
