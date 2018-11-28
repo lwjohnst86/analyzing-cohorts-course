@@ -368,11 +368,13 @@ Let's find which variables to adjust for when blood pressure (BP) is the exposur
 - Identify which variables to potentially adjust for from the `variable_pathways` graph, selecting the exposure and the outcome 'nodes'.
 
 `@hint`
-
+- The `graphLayout()` requires the DAG object as the first argument.
+- The `adjustmentSets()` requires the DAG object and the outcome (CVD) and the predictor (SBP).
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+load("datasets/tidied_framingham.rda")
 library(dagitty)
 ```
 
@@ -381,6 +383,9 @@ library(dagitty)
 variable_pathways <- dagitty("dag {
     SBP -> CVD
     ___ -> {___ ___}
+    ___ -> {___ ___}
+    ___ -> {___ ___ ___}
+    ___ -> ___
 }")
 
 # Plot potential confounding pathways
