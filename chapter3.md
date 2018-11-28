@@ -21,6 +21,7 @@ xp: 50
 ```yaml
 type: MultipleChoiceExercise
 xp: 50
+key: 846ad549f8
 ```
 
 Because the Framingham study is a prospective cohort, with certain limits to the data, and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of Framingham data.
@@ -166,6 +167,7 @@ success_msg("Amazing job! But still a problem.")
 ```yaml
 type: NormalExercise
 xp: 30
+key: f5444213d6
 ```
 
 `@instructions`
@@ -216,6 +218,7 @@ success_msg("Amazing! You've solved the warnings about non-convergence and the r
 ```yaml
 type: NormalExercise
 xp: 100
+key: a69b4ea141
 ```
 
 Before the development of mixed effects modelling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations (rows). This time component is a key strength of longitudinal data. But to use that strength you need to, well, including time in the model!
@@ -839,7 +842,7 @@ ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 
 ```yaml
 type: BulletExercise
-key: 84d96a58a8
+key: c37305e479
 xp: 100
 ```
 
@@ -854,7 +857,7 @@ xp: 100
 
 ```yaml
 type: NormalExercise
-key: e5bd052e2a
+key: ff01138a3e
 xp: 50
 ```
 
@@ -883,7 +886,7 @@ xp: 50
 
 ```yaml
 type: NormalExercise
-key: 182639f25f
+key: 1b193b0049
 xp: 50
 ```
 
