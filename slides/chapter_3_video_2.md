@@ -224,16 +224,16 @@ head(model_selection, 4)
 ``` {{1}}
 
 ```
-Global model call: glm(formula = chd ~ ., family = binomial, data = cleaned_diet, 
-    na.action = "na.fail")
----
-Model selection table 
-   (Intrc)     bmi     enrgy     fat   fibre df   logLik   AIC delta weight
-14 -0.4290 0.09605           -0.1752 -0.9882  4 -120.996 250.0  0.00  0.435
-13  1.3510                   -0.1579 -0.7839  3 -122.598 251.2  1.20  0.238
-12 -0.4436 0.08922 -0.074450         -0.9432  4 -121.964 251.9  1.94  0.165
-16 -0.4920 0.09616  0.008187 -0.1861 -1.0070  5 -120.990 252.0  1.99  0.161
-Models ranked by AIC(x) 
+#> Global model call: glm(formula = chd ~ ., family = binomial, data = cleaned_diet, 
+#>     na.action = "na.fail")
+#> ---
+#> Model selection table 
+#>    (Intrc)     bmi     enrgy     fat   fibre df   logLik   AIC delta weight
+#> 14 -0.4290 0.09605           -0.1752 -0.9882  4 -120.996 250.0  0.00  0.435
+#> 13  1.3510                   -0.1579 -0.7839  3 -122.598 251.2  1.20  0.238
+#> 12 -0.4436 0.08922 -0.074450         -0.9432  4 -121.964 251.9  1.94  0.165
+#> 16 -0.4920 0.09616  0.008187 -0.1861 -1.0070  5 -120.990 252.0  1.99  0.161
+#> Models ranked by AIC(x) 
 ``` {{2}}
 
 
