@@ -696,17 +696,14 @@ A model has been created for you already, now you need to tidy it up.
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+load("datasets/tidied_framingham.rda")
 library(lme4)
 library(broom)
 library(dplyr)
-ids <- unique(tidier_framingham$subject_id)
-sampled_ids <- sample(ids, length(ids) / 4, replace = FALSE)
-tidier_framingham <- tidier_framingham %>% 
-    filter(subject_id %in% sampled_ids)
-main_model <- glmer(got_cvd ~ I(systolic_blood_pressure/10) + followup_visit_number + 
+main_model <- glmer(got_cvd ~ I(centered_total_cholesterol/100) + followup_visit_number + 
                    (1 | subject_id), 
-              data = tidier_framingham, family = binomial, na.action = "na.omit")
+              data = sample_tidied_framingham, family = binomial, na.action = "na.omit")
 ```
 
 `@sample_code`
@@ -772,17 +769,14 @@ what does that mean for interpretation? (or lesson 4)
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+load("datasets/tidied_framingham.rda")
 library(lme4)
 library(broom)
 library(dplyr)
-ids <- unique(tidier_framingham$subject_id)
-sampled_ids <- sample(ids, length(ids) / 4, replace = FALSE)
-tidier_framingham <- tidier_framingham %>% 
-    filter(subject_id %in% sampled_ids)
 model <- glmer(got_cvd ~ I(systolic_blood_pressure/10) + followup_visit_number + 
                    (1 | subject_id), 
-              data = tidier_framingham, family = binomial, na.action = "na.omit")
+              data = sample_tidier_framingham, family = binomial, na.action = "na.omit")
 ```
 
 `@sample_code`
