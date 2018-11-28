@@ -19,6 +19,9 @@ have meaningful clinical implications.
 
 {{TODO: add another exercise expanding on making estimate more meaningful... maybe in Chapter 4?}}
 
+- Know how to understand and interpret the results (we'll get to knowing what
+exactly is most useful to present and show for higher impact) Or move to chapter 4?
+
 
 ## Lesson 1: Language and information to use when communicating the findings
 
