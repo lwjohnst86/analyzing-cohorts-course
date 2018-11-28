@@ -50,7 +50,230 @@ msg2 <- "Incorrect. While cohorts could answer this question, Framingham partici
 msg3 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
 msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
 msg5 <- "Incorrect. One of the above is a valid question."
-test_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+```
+
+---
+
+## Get familiar with mixed effects models
+
+```yaml
+type: BulletExercise
+key: 84d96a58a8
+xp: 100
+```
+
+Let's practice using `glmer` and seeing what it outputs. There are several things you need to consider and be aware of when running `glmer` models. This is were your knowledge of transforming variables comes into use, since the numerical value of the predictors can make a big impact on whether the model works or not.
+
+Most of these exercises will lead to either warnings or errors, which are due to what the predictor's values are. Because running `glmer` can be computational expensive, the Framingham dataset has been reduced in size and is found in the `sample_tidied_framingham` dataset.
+
+`@pre_exercise_code`
+```{r}
+# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+load("datasets/tidied_framingham.rda")
+library(lme4)
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: e5bd052e2a
+xp: 35
+```
+
+`@instructions`
+- Take a quick look at the sampled dataset. Then run the model with total cholesterol and subject ID as the random variable. Don't forget to set the family as binomial. You'll get a warning.
+
+`@hint`
+- The formula should look like `got_cvd ~ total_cholesterol + (1 | subject_id)`.
+
+`@sample_code`
+```{r}
+# Have a quick look at the sampled data
+summary(___)
+
+# Run a basic, unadjusted model
+glmer(got_cvd ~ ___ + (1 | ___), 
+      data = sample_tidied_framingham, family = ___) 
+```
+
+`@solution`
+```{r}
+# Have a quick look at the sampled data
+summary(sample_tidied_framingham)
+
+# Run a basic, unadjusted model
+model <- glmer(got_cvd ~ total_cholesterol + (1 | subject_id), 
+      data = sample_tidied_framingham, family = binomial) 
+
+# View the model output
+summary(model)
+```
+
+`@sct`
+```{r}
+success_msg("Great! Let's try to fix this.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 182639f25f
+xp: 35
+```
+
+`@instructions`
+- Models try to calculate predictors with zero, but it may not make sense biologically. Take a look at the mean centered total cholesterol and use that in the model instead. You'll still get a warning.
+
+`@hint`
+ - The model formula should be `got_cvd ~ centered_total_cholesterol + (1 | subject_id)`.
+
+`@sample_code`
+```{r}
+# Take a look at centered cholesterol
+summary(sample_tidied_framingham$___)
+
+# Run with centered variable
+model <- glmer(___ ~ ___ + (___), 
+      data = sample_tidied_framingham, family = ___) 
+
+# View the model output
+___
+```
+
+`@solution`
+```{r}
+# Take a look at centered cholesterol
+summary(sample_tidied_framingham$centered_total_cholesterol)
+
+# Run with centered variable
+model <- glmer(got_cvd ~ centered_total_cholesterol + (1 | subject_id), 
+      data = sample_tidied_framingham, family = binomial) 
+
+# View the model output
+summary(model)
+```
+
+`@sct`
+```{r}
+success_msg("Amazing job! But still a problem.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+xp: 30
+```
+
+`@instructions`
+- Often the number size is a problem. Use the `I()` function to divide centered cholesterol by 100. Check what happens. Keeping all else the same in the formula, wrap centered cholesterol with the `I()`.
+
+`@hint`
+- The formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + (1 | subject_id)`.
+
+`@sample_code`
+```{r}
+# Check centered cholesterol after dividing it
+summary(I(___ / 100))
+
+# Run with centered variable, divided by 100 with I()
+model <- glmer(
+    ___ ~ ___,
+    data = sample_tidied_framingham, family = ___
+    )
+
+# View the model output
+___
+```
+
+`@solution`
+```{r}
+# Check centered cholesterol after dividing it
+summary(I(sample_tidied_framingham$centered_total_cholesterol / 100))
+
+# Run with centered variable, divided by 100 with I()
+model <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) + (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial
+    )
+
+# View the model output
+summary(model)
+```
+
+`@sct`
+```{r}
+success_msg("Amazing! You've solved the warnings about non-convergence and the rescaling issue.")
+```
+
+---
+
+## Including time and comparing to logistic regression
+
+```yaml
+type: NormalExercise
+xp: 100
+```
+
+Before the development of mixed effects modelling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations (rows). This time component is a key strength of longitudinal data. But to use that strength you need to, well, including time in the model!
+
+Include followup visit number in the `glmer` formula as well as the random term and the choleterol predictor (as in the previous exercise). Then run the same model with logistic regression (without the random term of course) and compare the results with the mixed effect model. Pay attention to the differences in the estimates and standard errors.
+
+`@instructions`
+- Run a `glmer` analysis using the same formula as the previous exercise (with the `I()` around cholesterol), but include followup visit number.
+- Do the same thing with the logistic regression in `glm()` (without the random term).
+- Compare the results of each model.
+
+`@hint`
+- The `glmer` formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number + (1 | subject_id)`.
+
+`@pre_exercise_code`
+```{r}
+# load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+load("datasets/tidied_framingham.rda")
+library(lme4)
+```
+
+`@sample_code`
+```{r}
+# Include followup visit number
+glmer_model <- glmer(
+    ___ ~ ___ + ___ +
+        (___),
+    data = sample_tidied_framingham, family = ___
+    )
+summary(___)
+
+# Compare with logistic regression
+glm_model <- glm(
+    ___ ~ ___ + ___,
+    data = sample_tidied_framingham, family = ___)
+summary(___)
+```
+
+`@solution`
+```{r}
+# Include followup visit number
+glmer_model <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number +
+        (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial
+    )
+summary(glmer_model)
+
+# Compare with logistic regression
+glm_model <- glm(
+    got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number,
+    data = sample_tidied_framingham, family = binomial)
+summary(glm_model)
+```
+
+`@sct`
+```{r}
+success_msg("Awesome! Notice how the estimate for total choleterol is the same between mixed effect and logistic models, but the standard error is very different? The estimate is biased in the logistic regression, so is smaller than it should be because it is assuming all the data come from different people, which is not true.")
 ```
 
 ---
