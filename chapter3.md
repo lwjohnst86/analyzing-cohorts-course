@@ -24,7 +24,7 @@ key: 846ad549f8
 xp: 50
 ```
 
-Because the Framingham study is a prospective cohort, with certain limits to the data, and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of Framingham data.
+Because the Framingham study is a prospective cohort, with certain limits to the data and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of Framingham data.
 
 The `tidied_framingham` dataset has been loaded in case you want to look through it.
 
