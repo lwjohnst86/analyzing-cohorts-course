@@ -1,9 +1,9 @@
 ---
-title: Insert title here
+title: Statistical analyses for cohort studies
 key: 5ab6b9af44fc27034571fab5f10ca3ef
 
 ---
-## Title Slide
+## Statistical analyses for cohort studies
 
 ```yaml
 type: "TitleSlide"
@@ -17,99 +17,126 @@ title: Instructor
 
 `@script`
 
-Don't go into detail too much, just "here is the code, here are the resources"
-mixed effect
-logistic regression
-
-- Know how to understand and interpret the results (we'll get to knowing what
-exactly is most useful to present and show for higher impact) Or move to chapter 4?
-
-
-- Statistics (more of a review, expect them to know what they are doing):
-    - Logistic regression
-    - Mixed effects modelling
-- Choice of statistic is dependent on question asked.
-- In general, cohorts try to address questions such as:
-    - "what type of exposures increase the risk of disease?"
-    - "how much and how long do individuals need to be exposured to a risk factor
-    to develop the disease?"
-    - "For those that have a disease, how do they differ from those without?"
-    - "Those that have more exposure over time, are they more likely to develop a disease?"
-- These questions generally require some type of regression modelling in order to
-estimate magnitude of association and the uncertainty around that association.
-
-*Content*:
-
+In this chapter we will be covering how and what statistical techniques to apply. But, this is a very tricky thing to teach, for reasons that we will cover in this lesson. So, this chapter will focus on more general concepts that can be used regardless of the statistical method you use. We also won't cover interpretation too much in this chapter, we'll do that more in chapter 4. 
 
 ---
-## Design type can restrict questions and analysis
-
-```yaml
-type: "TwoRows"
-```
-
-`@part1`
-#### Cohorts in general
-
-- Are observational, and can't directly find causes
-- Participants have a shared characteristic - can't answer questions outside of the group
-
-
-`@part2`
-#### Prospective cohorts specifically
-
-- Allow you to assess risk over a defined time, but not outside that time
-- Answer questions about risk of those exposed and not exposed
-
-
-`@script`
-Knowing the difference between prevalence vs incidence, we can see that some questions can't be asked of retrospective cohorts since it only has prevalent cases. There are several other restrictions on questions to ask. Cohorts are observational studies, so questions on causes are difficult, or impossible, to answer. Questions about people or characteristics outside the cohort can't be answered. For instance, for a cohort of older adults, you can't ask questions about younger age groups. Or, more commonly, if the cohort is mainly those with European ancestry, you can't answer questions about other ethnic groups or ancestries. For prospective cohorts we can answer questions that include some time aspect and can also ask about risk in unexposed vs exposed.
-
----
-## Impossible or difficult to answer questions
+## Many data, many questions, many analyses
 
 ```yaml
 type: "FullSlide"
-key: "ab1164f998"
 ```
 
 `@part1`
-- Related to causes and effects
-- Exposures that are very unreliably measured
-- Inconsistently measured exposures or outcomes
 
+- Analysis depends on the:
+    - Data
+    - Research question
+    - Study design
+
+- Each also depends on the other: {{1}}
+    - Some questions restricted by data and design
+    - Data restricted by design
 
 `@script`
-Some questions we can't ask are often obvious, such as when you don't have the data to answer your question. Other questions are more nuanced. Causes are difficult to study because of confounding, which we'll cover later. For instance, does alcohol cause cancer? This is difficult because people often do many other things when they drink, like smoke. Some data are too unreliable to use. For instance, whether vitamin D intake influences some diseases is tricky to answer because measuring diet is very hard, and measuring nutrient intake from diet is even harder. Or assume vitamin D was measured in the blood... another level to consider is that vitamin D can be measured in several ways, that each gives slightly different values. Some measurements of data are prone to error or noise, which can limit how much we trust answers to some questions.
 
-
+There are dozens of ways to analyze cohort datasets. How you analyze the data depends on what data you have available, what research questions you want to ask, and what the study design is. And each of these also depends on the others, so you can only ask certain questions based on the data and study design. Likewise, the type of data is restricted by the study design. This is the main reason why this course is designed to cover more general concepts, as only you can come up with questions to research that then dictates your analysis plan.
 
 ---
 ## Common analyses for cohorts
 
 ```yaml
 type: "FullSlide"
-key: "9e89aca17a"
 ```
 
 `@part1`
 
-- For prospective and/or longitudinal:
+- For prospective with multiple measures:
     - *Mixed effects modeling*
     - Generalized estimating equations
-    - Cox proportional hazard models
 
-- For other types:
+- For other study types/single measure:
+    - Cox proportional hazard models
     - Linear regression
-    - Logistic regression
+    - *Logistic regression*
     - Poisson regression
 
 `@script`
 
+So, even though there are many possible analyses you could do, most often the statistical technique is some form of regression modelling. That way, you can estimate the magnitude of an association and its uncertainty. So a prospective cohort with multiple measures often would use, for example, mixed effects models, while other studies designs or with single measures tend to use linear or logistic regression. Cohorts also often study a disease state, which is likely a binary variable, so a simple or mixed effects logistic regression would be used.
 
+For this chapter, we will mainly use logistic regression in the video exercises and mixed effect models in the exercises, so none of the other techniques will be discussed further. Also, this course is not meant to teach these techniques in much detail. We assume you will have taken the other courses that cover those topics in more depth.
 
 ---
-## Final Slide
+## Logistic regression and mixed effects models
+
+```yaml
+type: "TwoColumns"
+```
+
+`@part1`
+
+- **Logistic regression**: 
+    - Similar to linear regression, but with a binary outcome
+    - Used when data is at one timepoint, especially the predictors
+
+```{r}
+# Example syntax:
+glm(outcome ~ predictor1 + predictor2, 
+    data = dataset, family = binomial)
+```{{1}}
+
+`@part2`
+
+- **Mixed effects**: {{2}}
+    - Contains "fixed" and "random" terms
+    - Used when multiple measures on same individual (e.g. over time) or other clustering (e.g. by family unit, hospital, city, etc)
+
+```{r}
+# Example syntax:
+library(lme4)
+glmer(outcome ~ predictor1 + predictor2 + 
+          (1 | random_id), # e.g. subject_id
+      data = dataset, family = binomial)
+```{{3}}
+
+
+`@script`
+
+The two techniques we will briefly describe here. Logistic regression is similar to linear regression, except you have a binary outcome. Usually used when your, for example, predictor variables are only measured at one time point. The syntax uses glm, with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. For logistic regression, you need to set the family to binomial.
+
+Mixed effects models, which have many other names, contain multiple levels, a fixed term and a random term. You use this method when data has been collected on, for example, each person many times. To use mixed effects models, you need to use the lme4 package, which contains the glmer function. This function is very similar to the glm function, except you add a random term by using brackets and a bar. Here, the one indicates that each random unit have its own intercept, which makes sense since each person will start at their own level in a study. The random id here is the random unit to use, for instance subject id.
+
+---
+## Keep in mind: Question affected by design and data
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+**Cohorts in general**
+
+- Are observational, can't answer "causes" {{1}}
+- Shared characteristics, can't answer outside this {{1}}
+
+**Prospective cohorts** {{2}}
+
+- Risk over a defined time, can't answer outside it {{2}}
+
+**Data in general** {{3}}
+
+- If exposure is unreliably measured, can't trust answers {{3}}
+- If variable is inconsistently measured, can't trust answers {{3}}
+
+`@script`
+
+Some things to keep in mind when thinking of questions to research. Cohorts are observational studies, so questions on causes are difficult, or impossible, to answer. Since cohorts are about people with a common characteristics, you can't answer questions outside this group. For instance, and very common, cohorts with mostly persons of European ancestry can't provide answers about non-European ancestries. 
+
+For prospective cohorts, because there is a defined timeframe of the study, we can't answer questions outside this time. Finally, for data in general, if the measurement for an exposure is unreliable or full of error, any answer you do obtain you can't trust. Or if many participants come to the data collection visit inconsistently or not at all, your answers will likely be biased. These are all things to keep in mind when deciding what to ask and how to get at the answer.
+
+---
+## Let's practice with mixed effects models!
 
 ```yaml
 type: "FinalSlide"
@@ -118,4 +145,4 @@ key: "38e4caa8be"
 
 `@script`
 
-
+Ok, let's get to practicing now!
