@@ -70,14 +70,12 @@ For this chapter, we will mainly use logistic regression in the video exercises 
 ## Logistic regression and mixed effects models
 
 ```yaml
-type: "TwoColumns"
+type: "FullSlide"
 ```
 
 `@part1`
 
-- **Logistic regression**: 
-    - Similar to linear regression, but with a binary outcome
-    - Used when data is at one timepoint, especially the predictors
+- **Logistic regression**: Similar to linear regression, used when only one timepoint
 
 ```{r}
 # Example syntax:
@@ -85,11 +83,7 @@ glm(outcome ~ predictor1 + predictor2,
     data = dataset, family = binomial)
 ```{{1}}
 
-`@part2`
-
-- **Mixed effects**: {{2}}
-    - Contains "fixed" and "random" terms
-    - Used when multiple measures on same individual (e.g. over time) or other clustering (e.g. by family unit, hospital, city, etc)
+- **Mixed effects**: Has "fixed" and "random" terms, used with multiple measures on same "unit" (e.g. one person over time) {{2}}
 
 ```{r}
 # Example syntax:
