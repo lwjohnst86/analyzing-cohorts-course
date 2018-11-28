@@ -179,7 +179,7 @@ While the use of DAGs is a powerful tool to identifying potential confounders, I
 ## Model selection using the MuMIn package
 
 ```yaml
-type: "TwoRows"
+type: "FullSlide"
 ```
 
 `@part1`
