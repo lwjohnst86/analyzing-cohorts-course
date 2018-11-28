@@ -1,9 +1,9 @@
 ---
-title: 'Statistical methods and cohort data'
+title: 'Statistical methods for cohort data'
 description: 'Apply statistical techniques on cohort data.'
 ---
 
-## VE Common statistical analyses for cohort studies
+## Statistical analyses for cohort studies
 
 ```yaml
 type: VideoExercise
