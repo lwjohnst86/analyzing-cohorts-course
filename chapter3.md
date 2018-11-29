@@ -449,6 +449,78 @@ db8d5c421cb76b9e5a85f8e22cd5dcb0
 
 ---
 
+## Testing for interactions of important variables
+
+```yaml
+type: NormalExercise
+key: fe5694d9fc
+xp: 100
+```
+
+In the past (and still fairly common), most research was done only on males. Clinical trials, experimental animal models, and observational studies tended  to either explicitly only study males, or to disregard the role that biological sex had on the study. This had disasterous results, especially when it came to drugs. Now, most journals and funding agencies *require* that differences in sex and ethnicity are investigated or tested.
+
+The Framingham study was almost entirely those of European-ancestry, so we will only test sex interactions. Compare models without and with interactions for sex.
+
+`@instructions`
+- Run `glmer` models with centered total cholesterol (divided by 100), sex, followup visit, and the random term. Don't include an interaction.
+- Create the same formula, but this time with an interaction between sex and cholesterol.
+- Compare each using the `model.sel` function based on AIC.
+
+`@hint`
+- The interaction formula should look like `got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id)`.
+- Include both models, with and without interaction, in the `model.sel` function.
+
+`@pre_exercise_code`
+```{r}
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
+library(lme4)
+library(MuMIn)
+```
+
+`@sample_code`
+```{r}
+# Model without interaction
+no_interaction <- glmer(
+    ___ ~ ___ + ___ + ___ + (___), 
+    data = sample_tidied_framingham, family = ___)
+summary(___)
+
+# Model with sex interaction
+sex_interaction <- glmer(
+    ___ ~ ___ * ___ + (___), 
+    data = sample_tidied_framingham, family = ___)
+summary(___)
+
+# Test that sex doesn't add to model
+model.sel(___, ___, rank = ___)
+
+```
+
+`@solution`
+```{r}
+# Model without interaction
+no_interaction <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+    data = sample_tidied_framingham, family = binomial)
+summary(no_interaction)
+
+# Model with sex interaction
+sex_interaction <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id), 
+    data = sample_tidied_framingham, family = binomial)
+summary(sex_interaction)
+
+# Test that sex doesn't add to model
+model.sel(no_interaction, sex_interaction, rank = "AIC")
+```
+
+`@sct`
+```{r}
+success_msg("Wonderful! You've checked and confirmed that sex doesn't seem to influence the results. You don't need to include the interaction or report any differences.")
+```
+
+---
+
 ## CE Removing observations that strongly influence model
 
 ```yaml
@@ -492,64 +564,6 @@ So identify which variable is influencing the estimates the most:
 
 `@solution`
 ```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
-## CE Testing for interactions of important variables
-
-```yaml
-type: NormalExercise
-key: fe5694d9fc
-xp: 100
-```
-
-In the past (and still fairly common now), most research was done only on males.
-Clinical trials, experimental animal models, and observational studies tended 
-to either explicitly only study males, or to disregard the role that biological
-sex had on the object of study. This had disasterous results, especially when it
-came to drugs. In clinical trials, a drug appeared to work amazingly and was
-passed for public use {{wording}}. Afterward, with observational studies tracking
-the impact of drugs in the population, often times the drug would not work at all
-or have harmful side effects in women. As a result, most journals and funding 
-agencies *require* that sex and ethnicity be tested or studied.
-
-Compare models without and with interactions for sex.
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-no_interaction <- lmer(prevchd ~ totchol + period + (1 | randid), data = framingham)
-summary(no_interaction)
-
-sex_interaction <- lmer(prevchd ~ totchol * sex + period + (1 | randid), data = framingham)
-summary(sex_interaction)
-
-sex_time_interaction <- lmer(prevchd ~ totchol * sex * period + (1 | randid), data = framingham)
-summary(sex_time_interaction)
-
-# TODO: confirm if ethnicity is in framingham
 
 ```
 
