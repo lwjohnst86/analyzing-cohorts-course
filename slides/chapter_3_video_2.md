@@ -52,7 +52,7 @@ key: "b0f88227c7"
 `@part1`
 - **Very difficult** to completely control for confounding
 - Danger of not adjusting
-    - Could lead to actual harm if don't consider confounding
+    - Could lead to actual harm
 - Three common empirical and systematic approaches to identifying confounders:
     - Literature, biological rationale, background knowledge
     - Causal pathways: Directed acyclic graphs (DAG)
@@ -94,29 +94,35 @@ key: "22d8c21829"
 ```
 
 `@part1`
-Use an example: Height with colon cancer. But... {{1}}
+An example: Height with colon cancer. But... {{1}}
 
 - Men are taller {{2}}
-- Men more likely to get cancer {{3}}
-- Men tend to eat more meat {{4}}
-- More meat, more likely to get colon cancer {{5}}
+- Men more likely to get cancer {{2}}
+- Men tend to eat more meat {{2}}
+- More meat, more likely to get colon cancer {{2}}
 
-... Let's make a DAG of this. {{6}}
+... Let's make a DAG of this. {{3}}
 
 
 `@part2`
-```{r}
-possible_confounders <- dagitty("dag {
-    Height -> ColonCancer
-    Sex -> {Height ColonCancer}
-    Sex -> MeatIntake -> ColonCancer
-}") {{7}}
+&nbsp;
 
-adjustmentSets(possible_confounders,
-               exposure = "Height",
-               outcome = "ColonCancer") {{8}}
-#>  { Sex } {{9}}
-```
+```{r}
+possible_confounders <- dagitty(
+"dag {
+  Height -> ColonCancer
+  Sex -> {Height ColonCancer}
+  Sex -> MeatIntake -> ColonCancer
+}") 
+``` {{3}}
+
+```{r}
+adjustmentSets(
+    possible_confounders,
+    exposure = "Height",
+    outcome = "ColonCancer") 
+#>  { Sex }
+``` {{4}}
 
 
 `@script`
