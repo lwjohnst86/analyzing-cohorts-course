@@ -51,8 +51,8 @@ key: "b0f88227c7"
 
 `@part1`
 - **Very difficult** to completely control for confounding
-- Danger of not adjusting: Simpson's Paradox
-    - Could lead to actual harm if not consider confounding
+- Danger of not adjusting
+    - Could lead to actual harm if don't consider confounding
 - Three common empirical and systematic approaches to identifying confounders:
     - Literature, biological rationale, background knowledge
     - Causal pathways: Directed acyclic graphs (DAG)
@@ -60,46 +60,9 @@ key: "b0f88227c7"
 
 
 `@script`
-What does it mean to "adjust" for confounders? What is a confounder? You will have likely encountered confounding in one of the other epidemiology courses, so I won't cover it too much here. For cross-sectional analyses, adjusting for confounding is fairly easy, since there is no time-component. But in cohort datasets, confounding get a bit trickier and a little bit more thought needs to go into what to adjust for. And you are guaranteed to miss or not know about potential confounders. As the saying goes "All models are wrong, but some are useful".
+What does it mean to adjust for confounders? What is a confounder? You'll likely encounter confounding in other epidemiology courses, so I won't cover it much here. For cross-sectional analyses, adjusting for confounding is fairly easy, since there is no time-component. But in cohorts, confounding gets trickier and more thought must go into what to adjust for. Do the best you can, but be aware you are guaranteed to not include or to not know about all confounders.
 
-Like all health research, considering confounders is very important. If you don't you may encounter a problem known as Simpson's Paradox, which we will cover in the next slide. There are several ways of identifying confounders. Some common and more appropriate methods include using previous knowledge of biology and of the problem, and using more formal mathematical methods such as directed acyclic graphs and information criterion techniques.
-
-
----
-## An example of confounding: Simpson's paradox
-
-```yaml
-type: "FullSlide"
-key: "bcb392207c"
-```
-
-`@part1`
-|Treatment |Success |
-|:---------|:-------|
-|A         |78%     |
-|**B**         |**83%**     | {{1}}
-
-&nbsp;
-
-|Treatment |Kidney stone size |Success |
-|:---------|:-----------------|:-------|
-|**A**         |Large             |**73%**     |
-|**A**         |Small             |**93%**     |
-|B         |Large             |69%     |
-|B         |Small             |87%     | {{2}}
-
-&nbsp;
-
-|Treatment |Kidney stone size | Successes| Total cases|
-|:---------|:-----------------|---------:|-----------:|
-|A         |Small             |        81|          87|
-|**A**         |**Large**             |       192|         263|
-|**B**         |**Small**             |       234|         270|
-|B         |Large             |        55|          80| {{3}}
-
-
-`@script`
-Let's show a real life example of confounding and why it's important to consider them in the analysis. Here is a study of a two drugs on treating kidney stones. When we look at the total successes, we see that treatment B is better. But when we break it down by small and large kidney stones, we see that it reverses. Now treatment A is better for both large and small stones. How can that be? If we look at the absolute numbers, the paradox is revealed to occur because of ratios and totals. The treatment used depends on the severity of the case, which is judged and recommended by the doctor. This example highlights two things: Avoid only using percentages and the importance of searching for confounding factors.
+Confounding is very very important to consider in health research. There are several ways to identify confounders. Using previous knowledge of biology and of the problem and using formal methods such as directed acyclic graphs and information criterion techniques are common approaches.
 
 
 ---
