@@ -295,65 +295,6 @@ xp: 50
 
 ---
 
-## MCQ: Understanding confounding pathways
-
-```yaml
-type: MultipleChoiceExercise
-key: e2e756d56e
-xp: 50
-```
-
-{{Have this exercise before video? }}
-
-
-- MCQ/text: Present a DAG of hypothesized variables and pathways. Which of the
-following (or write out which) are the important variables to consider/adjust for.
-
-- Options: {{likely all answers will be correct.. or maybe rank them ...}}
-    - Since sex influences testosterone and since both sex and testosterone
-    are confounders, only need to adjust for either of these variables to control
-    for the confounding pathway.
-    - Adjust for both 
-    - Add others {{finish}}
-    
-Using the pathway below, which variables, at a minimum, should you adjust for to
-control maximally for potential bias in the model?
-
-- Options:
-    - All of them {{possible}}
-    - Only sex {{posible}}
-    - Only testosterone
-    - Only exercise type
-    - Either sex and testosterone or sex and exercise type {{possible}}
-    
-Consider the below graph. Which variables, at a minimum, should you adjust for?
-
-- Options:
-    - All of them
-    - Only sex {{possible}}
-    - Only testosterone
-    - Only exercise type
-    - Either sex and testosterone or sex and exercise type or exercise and
-    testosterone. {{definite}}
-
-`@possible_answers`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
 ## Model selection using DAGs
 
 ```yaml
@@ -362,14 +303,14 @@ key: 74eb8858a3
 xp: 100
 ```
 
-Building an appropriate DAG that reasonably close to the underlying biology is very very difficult. It requires domain specific knowledge, and experts in the mechanisms and biology of the research area should be consulted as you build the DAG. As stated in the video, you are guaranteed to build an incomplete DAG. That's why you take a few approaches to model selection. 
+Building an appropriate DAG that is reasonably close to the underlying biology is very very difficult. It requires domain specific knowledge, and experts in the mechanisms and biology of the research area should be consulted as you build the DAG. As stated in the video, you are guaranteed to build an incomplete DAG. That's why you take a few approaches to model selection. 
 
-Let's find which variables to adjust for when blood pressure (BP) is the exposure and CVD is the outcome. Keeping things simple, assume that: sex influences BP and smoking; smoking influences BP and CVD; BMI influences CVD,  BP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out possible variables to adjust for.
+Let's find which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Keeping things simple, assume that: sex influences SBP and smoking; smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
 
 `@instructions`
-- Convert the above links between variables into a DAG format, in the form `variable -> {one or more variables}`. Recall that `->` means "influences" or "effects".
+- Convert the above links between variables into a DAG, in the form `variable -> {one or more variables}`. Recall that `->` means "influences" or "effects".
 - Visually inspect the plot of the `variables_pathway` graph.
-- Identify which variables to potentially adjust for from the `variable_pathways` graph, selecting the exposure and the outcome 'nodes'.
+- Identify which variables to potentially adjust for from the `variable_pathways` graph, specifying the exposure and the outcome variables.
 
 `@hint`
 - The `graphLayout()` requires the DAG object as the first argument.
@@ -430,14 +371,14 @@ key: dc6191ab98
 xp: 100
 ```
 
-{{fix to use glmer}}
+It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit of the models being compared. 
 
-It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for  identifying and choosing the variables to control for. Using the functions from the MuMIn package shown in the video, determine which model has the best fit of the models being compared. For the purposes of this exercise, we will only use the baseline data from the Framingham dataset (through `filter()`).
+To keep the computation runtime quick, for this exercise we will use logistic regression rather than mixed effects models. Therefore, we will only use the baseline data from the Framingham dataset (through `filter()`) to fit the model assumptions.
 
 `@instructions`
-- Select centered systolic blood pressure, centered body mass index, sex, education, current smoking status, fasting blood glucose, and total cholesterol.
-- Using the model formula, set the outcome variable in the `glm` model, as well as the dataset and family (the outcome is binary, so use logistic regression).
-- "Dredge" through the combinations of variables in the model using the AIC technique, comparing models that have centered systolic blood pressure.
+- Select the centered variables systolic blood pressure, body mass index, fasting blood glucose, and total cholesterol, as well as sex, education, and current smoking status. 
+- Set the outcome in the `glm` formula, the dataset, and the family (the outcome is binary).
+- "Dredge" through the combinations of variables in the model using AIC, comparing models that have centered systolic blood pressure.
 - Print the top 4 models.
 
 `@hint`
@@ -457,16 +398,13 @@ library(dplyr)
 model_sel_df <- tidied_framingham %>% 
     filter(followup_visit_number == 1) %>% 
     select(got_cvd, ___) %>% 
-    # Need to remove all NA values.
     na.omit()
 
 # Set the outcome, data, and family
-model <- glm(___ ~ ., data = ___,
-             family = ___, na.action = "na.fail")
+model <- glm(___ ~ ., data = ___, family = ___, na.action = "na.fail")
 
 # Set the ranking method and subset
-selection <- dredge(___, rank = ___, 
-                       subset = ___)
+selection <- dredge(___, rank = ___, subset = ___)
 
 # Print the top 4
 head(___, 4)
@@ -474,23 +412,18 @@ head(___, 4)
 
 `@solution`
 ```{r}
-# TODO: Put this wrangling into pre-exercise chunk?
 # Select the predictors from the baseline data
 model_sel_df <- tidied_framingham %>% 
     filter(followup_visit_number == 1) %>% 
-    select(got_cvd, centered_systolic_blood_pressure, sex, education,
-           centered_body_mass_index, currently_smokes, centered_total_cholesterol,
-           centered_fasting_blood_glucose) %>% 
-    # Need to remove all NA values.
+    select(got_cvd, centered_systolic_blood_pressure, sex, education, centered_body_mass_index, 
+           currently_smokes, centered_total_cholesterol, centered_fasting_blood_glucose) %>% 
     na.omit()
 
 # Set the outcome, data, and family
-model <- glm(got_cvd ~ ., data = model_sel_df,
-             family = binomial, na.action = "na.fail")
+model <- glm(got_cvd ~ ., data = model_sel_df, family = binomial, na.action = "na.fail")
 
 # Set the ranking method and subset
-selection <- dredge(model, rank = "AIC", 
-                    subset = "centered_systolic_blood_pressure")
+selection <- dredge(model, rank = "AIC", subset = "centered_systolic_blood_pressure")
 
 # Print the top 4
 head(selection, 4)
@@ -516,51 +449,6 @@ db8d5c421cb76b9e5a85f8e22cd5dcb0
 
 ---
 
-## CE Identifying strongly influential variables
-
-```yaml
-type: NormalExercise
-key: 5fd9e209dc
-xp: 100
-```
-
-Often when creating statistical models to analyze a cohort dataset, there are some
-confounders that strongly change the estimate of the primary exposure with the outcome.
-But building models is often done in larger steps (i.e. adding multiple covariates
-at a time). For understanding the underlying relationships between variables, 
-it can be useful to identify which exact variable (or variables) most strongly 
-change the estimate. This is one example of a sensitivity analysis.
-
-So identify which variable is influencing the estimates the most:
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
 ## CE Removing observations that strongly influence model
 
 ```yaml
@@ -576,6 +464,15 @@ change the results and why that may be.
 
 So, visualize the relationship with these variables and remove those observations
 from the model. How do the two model results compare?
+
+Often when creating statistical models to analyze a cohort dataset, there are some
+confounders that strongly change the estimate of the primary exposure with the outcome.
+But building models is often done in larger steps (i.e. adding multiple covariates
+at a time). For understanding the underlying relationships between variables, 
+it can be useful to identify which exact variable (or variables) most strongly 
+change the estimate. This is one example of a sensitivity analysis.
+
+So identify which variable is influencing the estimates the most:
 
 `@instructions`
 
@@ -810,14 +707,13 @@ xp: 50
 This is a hypothetical example based on a real study: Premature babies often face severe health problems and need lots of help to ensure healthy growth. Nutrition is key and there are many infant formula and intravenous fluids designed for premature babies. A study found that babies fed a new formula had an odds ratio of 1.12 (0.94 to 1.30 95% CI, p=0.09) for reaching a healthier weight compared to currently used formula. Which is the more correct response?
 
 `@possible_answers`
-- No significant association was seen (p>0.05, CI passes through 1.0).
-- There was a small, but maybe clinically important improvement in weight (CI reached 1.30). More research is needed.
-- There is a higher odds of reaching healthy weight. Let's use this new formula right away.
-- Can't really say anything yet... null hypothesis was not rejected.
-- None of the above.
+- No significant association (p>0.05, CI passes through 1.0).
+- The small weight improvement could be meaningful (CI reached 1.30). More research is needed.
+- There is a higher odds of improving weight. Let's use this formula right away.
+- Can't say anything yet... null hypothesis was not rejected.
 
 `@hint`
-
+- The upper bound of the confidence interval reaches an odds ratio of 1.30.
 
 `@pre_exercise_code`
 ```{r}
@@ -830,6 +726,5 @@ msg1 <- "Incorrect. While traditional p-value thresholds would say this is corre
 msg2 <- "Correct! While 'not statistically significant', there is evidence of some potential improvement for premature babies, which needs to be further explored."
 msg3 <- "Incorrect. This is too hasty a response. More studies are needed."
 msg4 <- "Slightly true. It is correct to say this, but the focus should be on the uncertainty of the odds ratio, rather than the null hypothesis."
-msg5 <- "Incorrect. One of the above is the more correct response."
-ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
