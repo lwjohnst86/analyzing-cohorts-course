@@ -80,6 +80,29 @@ model_selection <- dredge(full_model, rank = "AIC", subset = "fibre")
 
 head(model_selection, 4)
 
+# Video 3, interaction form -----------------------------------------------
+
+with_interaction <- glm(chd ~ weight * energy.grp,
+                        data = diet, family = binomial)
+summary(with_interaction)
+
+# Video 3, interaction form -----------------------------------------------
+
+no_interaction <- glm(chd ~ weight + energy.grp,
+                      data = diet, family = binomial)
+with_interaction <- glm(chd ~ weight * energy.grp,
+                        data = diet, family = binomial)
+model.sel(no_interaction, with_interaction, rank = "AIC")
+
+# Video 3, sensitivity analysis -------------------------------------------
+
+remove_diet_misreporting <- diet %>%
+    filter(between(energy, 20, 40))
+
+summary(glm(chd ~ weight + energy, data = diet,
+            family = binomial))$coef
+summary(glm(chd ~ weight + energy, data = remove_diet_misreporting,
+            family = binomial))$coef
 
 # Video 4, tidy function example ------------------------------------------
 
