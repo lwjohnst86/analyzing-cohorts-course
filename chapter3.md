@@ -436,7 +436,7 @@ success_msg("Great job! You've identified the model that has the best fit (of th
 
 ---
 
-## V3 Testing for interactions and sensitivity analyses
+## Testing for interactions and sensitivity analyses
 
 ```yaml
 type: VideoExercise
@@ -449,7 +449,7 @@ db8d5c421cb76b9e5a85f8e22cd5dcb0
 
 ---
 
-## Testing for interactions of important variables
+## Determining sex interaction with the predictor
 
 ```yaml
 type: NormalExercise
@@ -521,7 +521,7 @@ success_msg("Wonderful! You've checked and confirmed that sex doesn't seem to in
 
 ---
 
-## CE Removing observations that strongly influence model
+## Running sensitivity analyses with body mass index
 
 ```yaml
 type: NormalExercise
@@ -529,47 +529,64 @@ key: 591d29108e
 xp: 100
 ```
 
-While some variables can strongly influence the results, there are often specific
-observations that can do the same. This is much more tricky to identify, since 
-generally you need to visualize the results to see what observations could 
-change the results and why that may be.
-
-So, visualize the relationship with these variables and remove those observations
-from the model. How do the two model results compare?
-
-Often when creating statistical models to analyze a cohort dataset, there are some
-confounders that strongly change the estimate of the primary exposure with the outcome.
-But building models is often done in larger steps (i.e. adding multiple covariates
-at a time). For understanding the underlying relationships between variables, 
-it can be useful to identify which exact variable (or variables) most strongly 
-change the estimate. This is one example of a sensitivity analysis.
-
-So identify which variable is influencing the estimates the most:
+Often times we make assumptions about our data and the participants that make up that data. For instance, with body mass index (BMI), we assume that the value represents a person regardless of how sick or healthy they are. However, usually if someone's BMI is really low (below around 18.5) or really high (for instance, above 45), this could indicate a serious health problem that they have. For example, people who are very ill usually lose a lot of weight. So if we include them in the model, we might get a biased estimate for the association of BMI on CVD. Run a sensitivity analysis removing these observations and compare the results.
 
 `@instructions`
-
+- Filter out those people with body mass index (not centered) below 18.5 and above 45.
+- Run the model using the original sampled dataset and another model with the excluded BMI values. Include centered body mass index, followup visit, and the random term.
+- Compare the results. What do you notice?
 
 `@hint`
-
+- Use `between(body_mass_index, 18.5, 45)`.
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
+library(lme4)
+library(dplyr)
 ```
 
 `@sample_code`
 ```{r}
+# Remove low and high body masses
+bmi_check_data <- sample_tidied_framingham %>% 
+    filter(between(___, ___, ___))
 
+# Run model with original dataset
+original_model <- glmer(___ ~ ___ + ___ + (___),
+                        data = ___, family = binomial)
+
+# Run model with the body mass checking
+bmi_check_model <- glmer(___ ~ ___ + ___ + (___),
+                        data = ___, family = binomial)
+
+# Compare the two model outputs
+summary(___)$coef
+___(___)$___
 ```
 
 `@solution`
 ```{r}
+# Remove low and high body masses
+bmi_check_data <- sample_tidied_framingham %>% 
+    filter(between(body_mass_index, 18.5, 45))
 
+# Run model with original dataset
+original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
+                        data = sample_tidied_framingham, family = binomial)
+
+# Run model with the body mass checking
+bmi_check_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
+                        data = bmi_check_data, family = binomial)
+
+# Compare the two model outputs
+summary(original_model)$coef
+summary(bmi_check_model)$coef
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Amazing! Notice how the estimate increases and the standard error decreases. However, the change is not much, so it tells us there may be differences in those below or above a certain BMI. But we need to explore it more.")
 ```
 
 ---
