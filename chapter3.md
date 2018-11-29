@@ -223,12 +223,12 @@ key: a69b4ea141
 xp: 100
 ```
 
-Before the development of mixed effects modelling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations (rows). This time component is a key strength of longitudinal data. But to use that strength you need to, well, including time in the model!
+Before the development of mixed effects modelling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
-Include followup visit number in the `glmer` formula as well as the random term and the choleterol predictor (as in the previous exercise). Then run the same model with logistic regression (without the random term of course) and compare the results with the mixed effect model. Pay attention to the differences in the estimates and standard errors.
+Include followup visit number in the `glmer` formula as well as the random term and the choleterol predictor (as in the previous exercise with `I()`). Then run the same model with logistic regression (without the random term of course) and compare the results with the mixed effect model. Pay attention to the differences in the estimates and standard errors.
 
 `@instructions`
-- Run a `glmer` analysis using the same formula as the previous exercise (with the `I()` around cholesterol), but include followup visit number.
+- Run a `glmer` analysis using the same formula as the previous exercise (with the `I()` around cholesterol), but also include followup visit number.
 - Do the same thing with the logistic regression in `glm()` (without the random term).
 - Compare the results of each model.
 
@@ -277,7 +277,7 @@ summary(glm_model)
 
 `@sct`
 ```{r}
-success_msg("Awesome! Notice how the estimate for total choleterol is the same between mixed effect and logistic models, but the standard error is very different? The estimate is biased in the logistic regression, so is smaller than it should be because it is assuming all the data come from different people, which is not true.")
+success_msg("Awesome! Notice how the estimate for total choleterol is the same between mixed effect and logistic models, but the standard error is very different? The estimate is biased in the logistic regression, so the error is smaller because it is assuming all the data come from different people, which is not true.")
 ```
 
 ---
