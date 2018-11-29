@@ -215,7 +215,7 @@ success_msg("Amazing! You've solved the warnings about non-convergence and the r
 
 ---
 
-## Including time and comparing to logistic regression
+## Include time and compare to logistic regression
 
 ```yaml
 type: NormalExercise
