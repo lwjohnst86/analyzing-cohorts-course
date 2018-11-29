@@ -80,9 +80,7 @@ key: "061e68225d"
 
 
 `@script`
-This simple graphic illustrates the classic definition of what a confounder is. In this case, a confounder is some variable that can influence both the outcome and the exposure, either hypothetically, biologically, or informed from data exploration. Understanding confounded relationships between variables is essential to making more accurate inferences about the association of investigation. Creating these causal graphs, known as directed acyclic graphs or DAGs, is a powerful method to confounder identification.
-
-DAGs are a form of graph with nodes and edges. Here, the variables are the nodes and the causal hypothetical pathway between variables is the edge. A cause and an effect.
+The classic definition of a confounder is a variable that can influence both the outcome and the exposure. Understanding confounding is essential to making more accurate inferences about an association. This graph is called a directed acyclic graph or DAG. Creating DAGs is a powerful and insightful approach to finding confounders because they make explicit hypothetical causal pathways.
 
 
 ---
@@ -98,8 +96,8 @@ An example: Height with colon cancer. But... {{1}}
 
 - Men are taller {{2}}
 - Men more likely to get cancer {{2}}
-- Men tend to eat more meat {{2}}
 - More meat, more likely to get colon cancer {{2}}
+- Men tend to eat more meat {{2}}
 
 ... Let's make a DAG of this. {{3}}
 
@@ -126,7 +124,7 @@ adjustmentSets(
 
 
 `@script`
-Using the R package dagitty, you can create DAGs of possible confounders and dagitty will suggest potential adjustment variables. Let's take this example here. We want to study the association between height and risk for colon cancer. But, we know that men tend to be taller than women, that men tend to have a higher risk for cancer, that men tend to eat more meat, and that meat intake increases risk for colon cancer. So what do we need to adjust for? Both sex and meat intake? Let's draw a DAG with dagitty to find out! The first argument for the dagitty function takes a character string of a DAG specification. We initialise with the keyword dag, and afterward list each corresponding link between variables. Here, height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. Then we use the adjustmentsets function, add the dagitty object, then we set which variable is the exposure and which is the outcome. After we run this, we get told that we need to adjust for at least sex. The dagitty package is very useful when you start getting more complicated pathways.
+You can create DAGs using the dagitty package and dagitty will suggest possible adjustment variables. Here's an example. We will study how height associates with risk for colon cancer. But, we know that men tend to be taller than women, that men tend to have a higher risk for cancer, that meat intake increases risk for colon cancer, and that men tend to eat more meat. Given this information, what do we adjust for? Let's find out with dagitty! The first argument for the dagitty function takes a character string of a DAG specification. We initialise with the keyword dag, and afterward list each link between variables. Height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. We use the adjustmentsets function on the DAG, set the exposure and the outcome, and then are informed that we should adjust for at least sex. Dagitty is very useful especially with more complicated pathways.
 
 
 ---
@@ -138,14 +136,14 @@ key: "fdb2dfd109"
 ```
 
 `@part1`
-- Estimates relative model "quality" compared to other models. {{1}}
+- Estimates relative model "quality" over other models. {{1}}
 - Trade-off between the goodness of fit and simplicity (number of predictors). {{2}}
 - Common method: Akaike information criterion (AIC). {{3}}
     - For models that use maximum likelihood (most regression-based methods).
 
 
 `@script`
-While the use of DAGs is a powerful tool to identifying potential confounders, I strongly recommend against using just one method to building a model. The main reason being is that you may not know all the potential links to include in the DAG. Another useful technique is the information criterion methods, which compare which of several models is better than the others. The comparison is based on a trade-off between model fitness and the number of predictors. One commonly used method is the Akaike criterion or AIC, when comparing models that use maximum likelihood (most regression type methods).
+You should never rely on only one method for deciding what to adjust for. So useful technique is the information criterion methods, which compare several models to find which is better. The method balances model fitness and the number of predictors. Use the Akaike criterion or AIC for models that use maximum likelihood.
 
 
 ---
@@ -162,26 +160,28 @@ key: "51eddc42eb"
 cleaned_diet <- diet %>%
     mutate(bmi = weight / (height / 100)^2) %>%
     select(energy, bmi, fat, fibre, chd) %>%
-    na.omit() {{1}}
+    na.omit() 
+``` {{1}}
 
+```{r}
 # Logistic regression, all predictors
 full_model <- glm(chd ~ ., data = cleaned_diet,
-                  family = binomial, na.action = "na.fail") {{2}}
+                  family = binomial, na.action = "na.fail") 
+``` {{2}}
 
+```{r}
 # Models with every combination of predictor
-model_comparison <- dredge(full_model, rank = "AIC", subset = "fibre") {{3}}
-```
+model_comparison <- dredge(full_model, rank = "AIC", subset = "fibre")
+``` {{3}}
 
-&nbsp;
-
-- *Caution*: Too many variables, big dataset, and/or type of model will result in long computation time {{4}}
+- *Caution*: Too many variables, a big dataset, and/or type of model will lead to long computation times {{4}}
 - **Don't** rely on *only* this method for model building {{5}}
 
 
 `@script`
-The MuMIn package implements an easy interface to model selection. There are a couple steps we need to do before comparing models. First, we need to create a dataframe with only the outcome and other variables of interest that would be in the model. Then we need to remove all missing values. Second, we create the model object with all variables included in the model, which the period after the tilde represents. We are doing a logistic regression, hence why we have a binomial family. We also have to set na dot fail, since MuMIn requires it. Third, we use the dredge function with the model object, using AIC. We can tell dredge that every model it compares must have the variable fibre.
+The MuMIn package implements an easy interface to model selection. But first, we need to create a dataframe with only the outcome and predictors of interest, with no missingness. Then we create the model with all variables included by using a dot. We set a binomial family as this is logistic regression. MuMIn requires we set na dot fail. Next we use dredge on the model using AIC. In this example, our main exposure is fibre, so we set it in subset.
 
-A couple of comments. Because dredge creates models of very combination of predictor, if you have many variables, a big dataset, or a complicated method R may have very long computation times. So be careful. Also, do not rely on only this method. You need to use multiple techniques to decide on what variables to adjust for.
+A comment about dredge. It compares models with every possible combination of variables... so be careful as R may run for a long time. Also, as I said, use different methods to decide on what to adjust for.
 
 
 ---
@@ -212,7 +212,7 @@ head(model_selection, 4)
 
 
 `@script`
-Let's see the top four models using head. We see from the AIC column that the models are all very similar, no matter what variable is included in the model. This may tell us a few things, mainly that these variables don't contribute substantially to improving model fit. So in this case, we could be fairly safe at using any of these models and still maintain a good model fit.
+Use head to see the top four models. The AIC column shows the models are all very similar. This tell us a few things, such as these variables may not contribute substantially to model fit. We could be fairly safe with using any of these models.
 
 
 ---
@@ -224,5 +224,5 @@ key: "56b0010ae1"
 ```
 
 `@script`
-Alright, let's get to identifying potential confounders!
+Alright, let's identify confounders!
 
