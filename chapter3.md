@@ -436,7 +436,7 @@ success_msg("Great job! You've identified the model that has the best fit (of th
 
 ---
 
-## V3 Interaction testing and sensitivity analyses
+## V3 Testing for interactions and sensitivity analyses
 
 ```yaml
 type: VideoExercise
