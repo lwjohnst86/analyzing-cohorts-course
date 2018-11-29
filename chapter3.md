@@ -743,14 +743,13 @@ xp: 50
 This is a hypothetical example based on a real study: Premature babies often face severe health problems and need lots of help to ensure healthy growth. Nutrition is key and there are many infant formula and intravenous fluids designed for premature babies. A study found that babies fed a new formula had an odds ratio of 1.12 (0.94 to 1.30 95% CI, p=0.09) for reaching a healthier weight compared to currently used formula. Which is the more correct response?
 
 `@possible_answers`
-- No significant association was seen (p>0.05, CI passes through 1.0).
-- There was a small, but maybe clinically important improvement in weight (CI reached 1.30). More research is needed.
-- There is a higher odds of reaching healthy weight. Let's use this new formula right away.
-- Can't really say anything yet... null hypothesis was not rejected.
-- None of the above.
+- No significant association (p>0.05, CI passes through 1.0).
+- The small weight improvement could be meaningful (CI reached 1.30). More research is needed.
+- There is a higher odds of improving weight. Let's use this formula right away.
+- Can't say anything yet... null hypothesis was not rejected.
 
 `@hint`
-
+- The upper bound of the confidence interval reaches an odds ratio of 1.30.
 
 `@pre_exercise_code`
 ```{r}
@@ -763,6 +762,5 @@ msg1 <- "Incorrect. While traditional p-value thresholds would say this is corre
 msg2 <- "Correct! While 'not statistically significant', there is evidence of some potential improvement for premature babies, which needs to be further explored."
 msg3 <- "Incorrect. This is too hasty a response. More studies are needed."
 msg4 <- "Slightly true. It is correct to say this, but the focus should be on the uncertainty of the odds ratio, rather than the null hypothesis."
-msg5 <- "Incorrect. One of the above is the more correct response."
-ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
