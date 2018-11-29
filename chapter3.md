@@ -449,51 +449,6 @@ db8d5c421cb76b9e5a85f8e22cd5dcb0
 
 ---
 
-## CE Identifying strongly influential variables
-
-```yaml
-type: NormalExercise
-key: 5fd9e209dc
-xp: 100
-```
-
-Often when creating statistical models to analyze a cohort dataset, there are some
-confounders that strongly change the estimate of the primary exposure with the outcome.
-But building models is often done in larger steps (i.e. adding multiple covariates
-at a time). For understanding the underlying relationships between variables, 
-it can be useful to identify which exact variable (or variables) most strongly 
-change the estimate. This is one example of a sensitivity analysis.
-
-So identify which variable is influencing the estimates the most:
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
 ## CE Removing observations that strongly influence model
 
 ```yaml
@@ -509,6 +464,15 @@ change the results and why that may be.
 
 So, visualize the relationship with these variables and remove those observations
 from the model. How do the two model results compare?
+
+Often when creating statistical models to analyze a cohort dataset, there are some
+confounders that strongly change the estimate of the primary exposure with the outcome.
+But building models is often done in larger steps (i.e. adding multiple covariates
+at a time). For understanding the underlying relationships between variables, 
+it can be useful to identify which exact variable (or variables) most strongly 
+change the estimate. This is one example of a sensitivity analysis.
+
+So identify which variable is influencing the estimates the most:
 
 `@instructions`
 
