@@ -64,7 +64,7 @@ key: 84d96a58a8
 xp: 100
 ```
 
-Let's practice using `glmer` and seeing what it outputs. There are several things you need to consider and be aware of when running `glmer` models. This is were your knowledge of transforming variables comes into use, since the numerical value of the predictors can make a big impact on whether the model works or not.
+Let's practice using `glmer` and see what it outputs. There are several things you need to consider and be aware of when running `glmer` models. This is were your knowledge of transforming variables comes into use, since the numerical value of the predictors can make a big impact on whether the model works or not.
 
 Most of these exercises will lead to either warnings or errors, which are due to what the predictor's values are. Because running `glmer` can be computational expensive, the Framingham dataset has been reduced in size and is found in the `sample_tidied_framingham` dataset.
 
@@ -83,7 +83,7 @@ xp: 35
 ```
 
 `@instructions`
-- Take a quick look at the sampled dataset. Then run the model with total cholesterol and subject ID as the random variable. Don't forget to set the family as binomial. You'll get a warning.
+- Look at the sample data. Add cholesterol as an $x$, subject ID as the random term, and a binomial family.
 
 `@hint`
 - The formula should look like `got_cvd ~ total_cholesterol + (1 | subject_id)`.
@@ -94,8 +94,11 @@ xp: 35
 summary(___)
 
 # Run a basic, unadjusted model
-glmer(got_cvd ~ ___ + (1 | ___), 
+model <- glmer(got_cvd ~ ___ + (1 | ___), 
       data = sample_tidied_framingham, family = ___) 
+
+# View the model output
+summary(___)
 ```
 
 `@solution`
@@ -113,7 +116,7 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Great! Let's try to fix this.")
+success_msg("Great! Let's try to fix this warning.")
 ```
 
 ***
@@ -125,7 +128,7 @@ xp: 35
 ```
 
 `@instructions`
-- Models try to calculate predictors with zero, but it may not make sense biologically. Take a look at the mean centered total cholesterol and use that in the model instead. You'll still get a warning.
+- It's often better to set your own zero. View the centered cholesterol and use that in the model instead.
 
 `@hint`
 - The model formula should be `got_cvd ~ centered_total_cholesterol + (1 | subject_id)`.
@@ -158,7 +161,7 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Amazing job! But still a problem.")
+success_msg("Amazing job! But there's still a problem about needing to rescale.")
 ```
 
 ***
@@ -170,7 +173,7 @@ xp: 30
 ```
 
 `@instructions`
-- Often the number size is a problem. Use the `I()` function to divide centered cholesterol by 100. Check what happens. Keeping all else the same in the formula, wrap centered cholesterol with the `I()`.
+- The number size can be a problem. Use `I()` to divide centered cholesterol by 100. But that in the formula.
 
 `@hint`
 - The formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + (1 | subject_id)`.
@@ -180,7 +183,7 @@ xp: 30
 # Check centered cholesterol after dividing it
 summary(I(___ / 100))
 
-# Run with centered variable, divided by 100 with I()
+# Wrap centered cholesterol with I()
 model <- glmer(
     ___ ~ ___,
     data = sample_tidied_framingham, family = ___
