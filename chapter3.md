@@ -671,20 +671,13 @@ success_msg("Wonderful! You've checked and confirmed that sex doesn't seem to in
 ## Running sensitivity analyses with body mass index
 
 ```yaml
-type: NormalExercise
-key: 591d29108e
+type: TabExercise
+key: b3558d44ca
 xp: 100
 ```
 
 Often times we make assumptions about our data and the participants that make up that data. For instance, with body mass index (BMI), we assume that the value represents a person regardless of how sick or healthy they are. However, usually if someone's BMI is really low (below around 18.5) or really high (for instance, above 45), this could indicate a serious health problem that they have. For example, people who are very ill usually lose a lot of weight. So if we include them in the model, we might get a biased estimate for the association of BMI on CVD. Run a sensitivity analysis removing these observations and compare the results.
 
-`@instructions`
-- Filter out those people with body mass index (not centered) below 18.5 and above 45.
-- Run the model using the original sampled dataset and another model with the excluded BMI values. Include centered body mass index, followup visit, and the random term.
-- Compare the results. What do you notice?
-
-`@hint`
-- Use `between(body_mass_index, 18.5, 45)`.
 
 `@pre_exercise_code`
 ```{r}
@@ -693,22 +686,110 @@ library(lme4)
 library(dplyr)
 ```
 
+***
+
+```yaml
+type: NormalExercise
+xp: 20
+```
+
+`@instructions`
+- Filter out those people with body mass index (not centered) below 18.5 and above 45.
+
+
+`@hint`
+- Use `between(body_mass_index, 18.5, 45)`.
+
+
 `@sample_code`
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
     filter(between(___, ___, ___))
+```
 
-# Run model with original dataset
+`@solution`
+```{r}
+# Remove low and high body masses
+bmi_check_data <- sample_tidied_framingham %>% 
+    filter(between(body_mass_index, 18.5, 45))
+```
+
+`@sct`
+```{r}
+success_msg("Excellent! Next step.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+xp: 40
+```
+
+`@instructions`
+- Run the model using the original sampled dataset and another model with the excluded BMI values. Include centered body mass index, followup visit, and the random term.
+
+`@hint`
+- Use the `sample_tidied_framingham` dataset, with subject ID as the random term.
+
+`@sample_code`
+```{r}
+# Remove low and high body masses
+bmi_check_data <- sample_tidied_framingham %>% 
+    filter(between(body_mass_index, 18.5, 45))
+
+# Run and check model with original dataset
 original_model <- glmer(___ ~ ___ + ___ + (___),
                         data = ___, family = binomial)
+summary(___)$coef
+```
 
-# Run model with the body mass checking
+`@solution`
+```{r}
+# Remove low and high body masses
+bmi_check_data <- sample_tidied_framingham %>% 
+    filter(between(body_mass_index, 18.5, 45))
+
+# Run and check model with original dataset
+original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
+                        data = sample_tidied_framingham, family = binomial)
+summary(original_model)$coef
+```
+
+`@sct`
+```{r}
+success_msg("Excellent! Next step.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+xp: 40
+```
+
+`@instructions`
+- Now run the model with the BMI check data. Notice how or if they change.
+
+`@hint`
+- Use the `bmi_check_data`.
+
+
+`@sample_code`
+```{r}
+# Remove low and high body masses
+bmi_check_data <- sample_tidied_framingham %>% 
+    filter(between(body_mass_index, 18.5, 45))
+
+# Run and check model with original dataset
+original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
+                        data = sample_tidied_framingham, family = binomial)
+summary(original_model)$coef
+
+# Run and check model with the body mass checking
 bmi_check_model <- glmer(___ ~ ___ + ___ + (___),
                         data = ___, family = binomial)
-
-# Compare the two model outputs
-summary(___)$coef
 ___(___)$___
 ```
 
@@ -718,96 +799,20 @@ ___(___)$___
 bmi_check_data <- sample_tidied_framingham %>% 
     filter(between(body_mass_index, 18.5, 45))
 
-# Run model with original dataset
+# Run and check model with original dataset
 original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
                         data = sample_tidied_framingham, family = binomial)
+summary(original_model)$coef
 
-# Run model with the body mass checking
+# Run and check model with the body mass checking
 bmi_check_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
                         data = bmi_check_data, family = binomial)
-
-# Compare the two model outputs
-summary(original_model)$coef
 summary(bmi_check_model)$coef
 ```
 
 `@sct`
 ```{r}
 success_msg("Amazing! Notice how the estimate increases and the standard error decreases. However, the change is not much, so it tells us there may be differences in those below or above a certain BMI. But we need to explore it more.")
-```
-
----
-
-## Insert exercise title here
-
-```yaml
-type: TabExercise
-key: b3558d44ca
-xp: 100
-```
-
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: ae6f42326a
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 39643c60f3
-xp: 50
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
 
 ```
 
