@@ -691,6 +691,7 @@ library(dplyr)
 ```yaml
 type: NormalExercise
 xp: 20
+key: 18db3cb9bd
 ```
 
 `@instructions`
@@ -725,6 +726,7 @@ success_msg("Excellent! Next step.")
 ```yaml
 type: NormalExercise
 xp: 40
+key: 2adddd58a9
 ```
 
 `@instructions`
@@ -767,6 +769,7 @@ success_msg("Excellent! Next step.")
 ```yaml
 type: NormalExercise
 xp: 40
+key: f9dec391b0
 ```
 
 `@instructions`
