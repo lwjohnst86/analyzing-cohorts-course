@@ -499,8 +499,8 @@ db8d5c421cb76b9e5a85f8e22cd5dcb0
 ## Determining sex interaction with the predictor
 
 ```yaml
-type: NormalExercise
-key: fe5694d9fc
+type: TabExercise
+key: 6ed7e200c3
 xp: 100
 ```
 
@@ -508,14 +508,6 @@ In the past (and still fairly common), most research was done only on males. Cli
 
 The Framingham study was almost entirely those of European-ancestry, so we will only test sex interactions. Compare models without and with interactions for sex.
 
-`@instructions`
-- Run `glmer` models with centered total cholesterol (divided by 100), sex, followup visit, and the random term. Don't include an interaction.
-- Create the same formula, but this time with an interaction between sex and cholesterol.
-- Compare each using the `model.sel` function based on AIC.
-
-`@hint`
-- The interaction formula should look like `got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id)`.
-- Include both models, with and without interaction, in the `model.sel` function.
 
 `@pre_exercise_code`
 ```{r}
@@ -524,6 +516,22 @@ library(lme4)
 library(MuMIn)
 ```
 
+***
+
+```yaml
+type: NormalExercise
+key: 7c2789a651
+xp: 40
+```
+
+`@instructions`
+- Run `glmer` models with centered total cholesterol (divided by 100), sex, followup visit, and the random term. Don't include an interaction.
+
+
+`@hint`
+- Use the `I()` to divide centered cholesterol by 100.
+
+
 `@sample_code`
 ```{r}
 # Model without interaction
@@ -531,12 +539,103 @@ no_interaction <- glmer(
     ___ ~ ___ + ___ + ___ + (___), 
     data = sample_tidied_framingham, family = ___)
 summary(___)
+```
+
+`@solution`
+```{r}
+
+# Model without interaction
+no_interaction <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+    data = sample_tidied_framingham, family = binomial)
+summary(no_interaction)
+```
+
+`@sct`
+```{r}
+success_msg("Great! Next step.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 5f9ee35506
+xp: 40
+```
+
+`@instructions`
+- Create the same formula, but this time with an interaction between sex and cholesterol.
+
+
+`@hint`
+- The interaction formula should look like `got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id)`.
+
+
+`@sample_code`
+```{r}
+# Model without interaction
+no_interaction <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+    data = sample_tidied_framingham, family = binomial)
+summary(no_interaction)
 
 # Model with sex interaction
 sex_interaction <- glmer(
     ___ ~ ___ * ___ + (___), 
     data = sample_tidied_framingham, family = ___)
 summary(___)
+```
+
+`@solution`
+```{r}
+# Model without interaction
+no_interaction <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+    data = sample_tidied_framingham, family = binomial)
+summary(no_interaction)
+
+# Model with sex interaction
+sex_interaction <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id), 
+    data = sample_tidied_framingham, family = binomial)
+summary(sex_interaction)
+```
+
+`@sct`
+```{r}
+success_msg("Great! Next step.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: a142eaf9e5
+xp: 20
+```
+
+`@instructions`
+- Compare each using the `model.sel` function based on AIC.
+
+
+`@hint`
+- Include both models, with and without interaction, in the `model.sel` function.
+
+
+`@sample_code`
+```{r}
+# Model without interaction
+no_interaction <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+    data = sample_tidied_framingham, family = binomial)
+summary(no_interaction)
+
+# Model with sex interaction
+sex_interaction <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id), 
+    data = sample_tidied_framingham, family = binomial)
+summary(sex_interaction)
 
 # Test that sex doesn't add to model
 model.sel(___, ___, rank = ___)
@@ -559,115 +658,12 @@ summary(sex_interaction)
 
 # Test that sex doesn't add to model
 model.sel(no_interaction, sex_interaction, rank = "AIC")
+
 ```
 
 `@sct`
 ```{r}
 success_msg("Wonderful! You've checked and confirmed that sex doesn't seem to influence the results. You don't need to include the interaction or report any differences.")
-```
-
----
-
-## Insert exercise title here
-
-```yaml
-type: TabExercise
-key: 6ed7e200c3
-xp: 100
-```
-
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 7c2789a651
-xp: 35
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 5f9ee35506
-xp: 35
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: a142eaf9e5
-xp: 30
-```
-
-`@instructions`
-
-
-`@hint`
-
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
 ```
 
 ---
