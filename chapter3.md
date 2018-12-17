@@ -508,7 +508,6 @@ In the past (and still fairly common), most research was done only on males. Cli
 
 The Framingham study was almost entirely those of European-ancestry, so we will only test sex interactions. Compare models without and with interactions for sex.
 
-
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
@@ -527,10 +526,8 @@ xp: 40
 `@instructions`
 - Run `glmer` models with centered total cholesterol (divided by 100), sex, followup visit, and the random term. Don't include an interaction.
 
-
 `@hint`
 - Use the `I()` to divide centered cholesterol by 100.
-
 
 `@sample_code`
 ```{r}
@@ -567,10 +564,8 @@ xp: 40
 `@instructions`
 - Create the same formula, but this time with an interaction between sex and cholesterol.
 
-
 `@hint`
 - The interaction formula should look like `got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id)`.
-
 
 `@sample_code`
 ```{r}
@@ -618,10 +613,8 @@ xp: 20
 `@instructions`
 - Compare each using the `model.sel` function based on AIC.
 
-
 `@hint`
 - Include both models, with and without interaction, in the `model.sel` function.
-
 
 `@sample_code`
 ```{r}
@@ -678,7 +671,6 @@ xp: 100
 
 Often times we make assumptions about our data and the participants that make up that data. For instance, with body mass index (BMI), we assume that the value represents a person regardless of how sick or healthy they are. However, usually if someone's BMI is really low (below around 18.5) or really high (for instance, above 45), this could indicate a serious health problem that they have. For example, people who are very ill usually lose a lot of weight. So if we include them in the model, we might get a biased estimate for the association of BMI on CVD. Run a sensitivity analysis removing these observations and compare the results.
 
-
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
@@ -690,17 +682,15 @@ library(dplyr)
 
 ```yaml
 type: NormalExercise
-xp: 20
 key: 18db3cb9bd
+xp: 20
 ```
 
 `@instructions`
 - Filter out those people with body mass index (not centered) below 18.5 and above 45.
 
-
 `@hint`
 - Use `between(body_mass_index, 18.5, 45)`.
-
 
 `@sample_code`
 ```{r}
@@ -725,8 +715,8 @@ success_msg("Excellent! Next step.")
 
 ```yaml
 type: NormalExercise
-xp: 40
 key: 2adddd58a9
+xp: 40
 ```
 
 `@instructions`
@@ -768,8 +758,8 @@ success_msg("Excellent! Next step.")
 
 ```yaml
 type: NormalExercise
-xp: 40
 key: f9dec391b0
+xp: 40
 ```
 
 `@instructions`
@@ -777,7 +767,6 @@ key: f9dec391b0
 
 `@hint`
 - Use the `bmi_check_data`.
-
 
 `@sample_code`
 ```{r}
