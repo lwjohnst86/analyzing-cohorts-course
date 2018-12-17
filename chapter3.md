@@ -728,7 +728,7 @@ xp: 40
 ```
 
 `@instructions`
-- Run the model using the original sampled dataset and another model with the excluded BMI values. Include centered body mass index, followup visit, and the random term.
+- Run the model using the original sampled dataset. Include centered body mass index, followup visit, and the random term.
 
 `@hint`
 - Use the `sample_tidied_framingham` dataset, with subject ID as the random term.
@@ -770,7 +770,7 @@ xp: 40
 ```
 
 `@instructions`
-- Now run the model with the BMI check data. Notice how or if they change.
+- Now run the model with the data that excluded some BMI values. Notice how or if they change.
 
 `@hint`
 - Use the `bmi_check_data`.
@@ -847,7 +847,7 @@ A model has been created for you already, now you need to tidy it up.
 - Using the functions from broom, tidy the model to check how the output looks.
 - Then tidy it again, but adding the confidence intervals.
 - Select only the most important results: the terms, the estimates, and the lower and upper confidence interval.
-- Exponentiate (`exp`) by mutating at all but the terms.
+- Exponentiate (`exp`) by mutating all but the terms.
 
 `@hint`
 - Use the `tidy` function, with the `conf.int` argument.
@@ -866,7 +866,7 @@ main_model <- glmer(got_cvd ~ I(centered_total_cholesterol/100) + followup_visit
 
 `@sample_code`
 ```{r}
-# The mixed effect model
+# Check mixed effect model
 main_model
 
 # Tidy it up
@@ -883,7 +883,7 @@ tidy_model %>%
 
 `@solution`
 ```{r}
-# The mixed effect model
+# Check mixed effect model
 main_model
 
 # Tidy it up
