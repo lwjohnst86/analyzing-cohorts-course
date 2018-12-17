@@ -37,7 +37,6 @@ The `tidied_framingham` dataset has been loaded in case you want to look through
 
 `@hint`
 - Remember, these are questions to ask *of the Framingham study*... the variables in the question must exist in the dataset.
-- We cannot directly determine "causes" from cohort studies.
 
 `@pre_exercise_code`
 ```{r}
@@ -83,7 +82,7 @@ xp: 35
 ```
 
 `@instructions`
-- Look at the sample data. Add cholesterol as an $x$, subject ID as the random term, and a binomial family.
+- Look at the sample data. Add cholesterol as an $x$, subject ID as the random term, and use a binomial family.
 
 `@hint`
 - The formula should look like `got_cvd ~ total_cholesterol + (1 | subject_id)`.
@@ -173,7 +172,7 @@ xp: 30
 ```
 
 `@instructions`
-- The number size can be a problem. Use `I()` to divide centered cholesterol by 100. But that in the formula.
+- The number size can be a problem. Use `I()` to divide centered cholesterol by 100, and use in the formula.
 
 `@hint`
 - The formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + (1 | subject_id)`.
@@ -218,8 +217,8 @@ success_msg("Amazing! You've solved the warnings about non-convergence and the r
 ## Include time and compare to logistic regression
 
 ```yaml
-type: NormalExercise
-key: a69b4ea141
+type: TabExercise
+key: ee91386423
 xp: 100
 ```
 
@@ -227,19 +226,25 @@ Before the development of mixed effects modelling, analyzing longitudinal data w
 
 Include followup visit number in the `glmer` formula as well as the random term and the choleterol predictor (as in the previous exercise with `I()`). Then run the same model with logistic regression (without the random term of course) and compare the results with the mixed effect model. Pay attention to the differences in the estimates and standard errors.
 
-`@instructions`
-- Run a `glmer` analysis using the same formula as the previous exercise (with the `I()` around cholesterol), but also include followup visit number.
-- Do the same thing with the logistic regression in `glm()` (without the random term).
-- Compare the results of each model.
-
-`@hint`
-- The `glmer` formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number + (1 | subject_id)`.
-
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/b09caa27d08aee9f95f2f6894d0b9ac48e9c8bbd/tidied_framingham.rda"))
 library(lme4)
 ```
+
+***
+
+```yaml
+type: NormalExercise
+key: 6324cefad8
+xp: 50
+```
+
+`@instructions`
+- Run a `glmer` analysis using the same formula as the previous exercise (with the `I()` around cholesterol), but also include followup visit number.
+
+`@hint`
+- The `glmer` formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number + (1 | subject_id)`.
 
 `@sample_code`
 ```{r}
@@ -250,6 +255,47 @@ glmer_model <- glmer(
     data = sample_tidied_framingham, family = ___
     )
 summary(___)
+```
+
+`@solution`
+```{r}
+# Include followup visit number
+glmer_model <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number +
+        (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial
+    )
+summary(glmer_model)
+```
+
+`@sct`
+```{r}
+success_msg("Great! Next step.")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: a50714fbc4
+xp: 50
+```
+
+`@instructions`
+- Do the same thing with the logistic regression in `glm()` (without the random term). How do the results differ?
+
+`@hint`
+- The `glmer` formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number + (1 | subject_id)`.
+
+`@sample_code`
+```{r}
+# Include followup visit number
+glmer_model <- glmer(
+    got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number +
+        (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial
+    )
+summary(glmer_model)
 
 # Compare with logistic regression
 glm_model <- glm(
