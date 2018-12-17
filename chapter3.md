@@ -349,7 +349,7 @@ key: 74eb8858a3
 xp: 100
 ```
 
-Building an appropriate DAG that is reasonably close to the underlying biology is very very difficult. It requires domain specific knowledge, and experts in the mechanisms and biology of the research area should be consulted as you build the DAG. As stated in the video, you are guaranteed to build an incomplete DAG. That's why you take a few approaches to model selection. 
+Building an appropriate DAG that is reasonably close to the underlying biology is very very difficult. It requires domain specific knowledge, consult experts familiar with the mechanisms and biology as you build the DAG. As stated in the video, you are guaranteed to build an incomplete DAG. That's why you take a few approaches to model selection. 
 
 Let's find which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Keeping things simple, assume that: sex influences SBP and smoking; smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
 
@@ -359,7 +359,6 @@ Let's find which variables to adjust for when systolic blood pressure (SBP) is t
 - Identify which variables to potentially adjust for from the `variable_pathways` graph, specifying the exposure and the outcome variables.
 
 `@hint`
-- The `graphLayout()` requires the DAG object as the first argument.
 - The `adjustmentSets()` requires the DAG object and the outcome (CVD) and the predictor (SBP).
 
 `@pre_exercise_code`
@@ -370,6 +369,7 @@ library(dagitty)
 
 `@sample_code`
 ```{r}
+# Include the links between variables
 variable_pathways <- dagitty("dag {
     SBP -> CVD
     ___ -> {___ ___}
@@ -387,6 +387,7 @@ adjustmentSets(___, exposure = ___, outcome = ___)
 
 `@solution`
 ```{r}
+# Include the links between variables
 variable_pathways <- dagitty( "dag {
     SBP -> CVD
     Sex -> {SBP Smoking}
@@ -417,9 +418,9 @@ key: dc6191ab98
 xp: 100
 ```
 
-It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit of the models being compared. 
+It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared. 
 
-To keep the computation runtime quick, for this exercise we will use logistic regression rather than mixed effects models. Therefore, we will only use the baseline data from the Framingham dataset (through `filter()`) to fit the model assumptions.
+To keep the computation run time quick, for this exercise we will use logistic regression rather than mixed effects models. Therefore, we will only use the baseline data from the Framingham dataset (through `filter()`) to fit the model assumptions.
 
 `@instructions`
 - Select the centered variables systolic blood pressure, body mass index, fasting blood glucose, and total cholesterol, as well as sex, education, and current smoking status. 
@@ -567,6 +568,110 @@ success_msg("Wonderful! You've checked and confirmed that sex doesn't seem to in
 
 ---
 
+## Insert exercise title here
+
+```yaml
+type: TabExercise
+key: 6ed7e200c3
+xp: 100
+```
+
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 7c2789a651
+xp: 35
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 5f9ee35506
+xp: 35
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: a142eaf9e5
+xp: 30
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Running sensitivity analyses with body mass index
 
 ```yaml
@@ -637,6 +742,81 @@ success_msg("Amazing! Notice how the estimate increases and the standard error d
 
 ---
 
+## Insert exercise title here
+
+```yaml
+type: TabExercise
+key: b3558d44ca
+xp: 100
+```
+
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: ae6f42326a
+xp: 50
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 39643c60f3
+xp: 50
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Tidying and extracting results from model objects
 
 ```yaml
@@ -658,7 +838,7 @@ key: 6c2f7f04d3
 xp: 100
 ```
 
-We've created several models investigating the association between the exposure and outcome. Now we need to tidy up the model results and extract what we need from the model. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package provide that framework in a "tidy" format. 
+We've created several models investigating the association between the exposure and outcome. Now we need to tidy up the model results and extract what we need from the model. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package to provide that framework in a "tidy" format. 
 
 A model has been created for you already, now you need to tidy it up.
 
