@@ -29,12 +29,12 @@ key: "44ebb0b342"
 ```
 
 `@part1`
-- Analysis depends on the:
+- Analysis depends on:
     - Data
     - Research question
     - Study design
 
-- Each also depends on the other: {{1}}
+- Each depends on others: {{1}}
     - Some questions restricted by data and design
     - Data restricted by design
 
@@ -74,10 +74,10 @@ From now on we'll use logistic regression in the videos and mixed effects in the
 
 ```yaml
 type: "FullSlide"
+key: "f17e57faa8"
 ```
 
 `@part1`
-
 - **Logistic regression**: Similar to linear regression, used when only one timepoint
 
 ```{r}
@@ -86,7 +86,7 @@ glm(outcome ~ predictor1 + predictor2,
     data = dataset, family = binomial)
 ```{{1}}
 
-- **Mixed effects**: Has "fixed" and "random" terms, used with multiple measures on same "unit" (e.g. one person over time) {{2}}
+- **Mixed effects**: Has "fixed" and "random" terms, used with multiple measures on same "unit" {{2}}
 
 ```{r}
 # Example syntax:
@@ -106,7 +106,7 @@ Like many regression models, the specific numerical values of the predictors can
 
 
 ---
-## Keep in mind: Question is affected by design and data
+## Keep in mind: Question is restricted by design and data
 
 ```yaml
 type: "FullSlide"
@@ -116,17 +116,17 @@ key: "d4bbe2304d"
 `@part1`
 **Cohorts in general**
 
-- Are observational, can't answer "causes" {{1}}
-- Shared characteristics, can't answer outside this {{1}}
+- Are observational {{1}}
+- Shared characteristics {{1}}
 
 **Prospective cohorts** {{2}}
 
-- Over a defined time, can't answer outside it {{2}}
+- Has a defined time {{2}}
 
 **Data in general** {{3}}
 
-- If exposure is unreliably measured, can't trust answers {{3}}
-- If variable is inconsistently measured, can't trust answers {{3}}
+- Exposure may be unreliably measured {{3}}
+- Variable may be inconsistently measured {{3}}
 
 
 `@script`

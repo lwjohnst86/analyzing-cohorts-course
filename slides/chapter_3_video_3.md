@@ -30,13 +30,13 @@ key: "fe20e41d30"
 
 `@part1`
 - A bit of history on role of sex {{1}}
-    - In most studies of health, drugs, only had men
-    - Assumed women responded equally
-    - But not true, e.g. some drugs harmful in women
+    - Most health or drug studies had only men
+    - Assumed equal response in women
+    - Not true, e.g. some drugs harmful in women
 - Ethnic ancestry also influential on health {{2}}
-    - Most studies still only in European-ancestry
+    - Most studies only in European-ancestry
     - But differences exist
-- So, always, *always* consider sex and ethnic ancestry {{3}}
+- *Always* consider sex and ethnic ancestry {{3}}
 
 
 `@script`
@@ -172,7 +172,7 @@ key: "a0da496622"
 `@part1`
 > Sensitivity analysis: "assessing the robustness of an association by checking whether changing any of the assumptions might lead to different results or interpretations"
 
-- Very common in epidemiology.
+- Very common in epidemiology
 - Examples: {{1}}
     - Are people who miss data collection different from others?
     - Does the statistical technique change results?

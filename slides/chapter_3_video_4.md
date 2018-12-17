@@ -32,7 +32,7 @@ key: "a1381e11d6"
 >  "Tidy \[models\] are all alike but every messy \[model\] is messy in its own way." – Hadley Wickham
 
 - Use `tidy` from broom package {{1}}
-    - Most statistics have "tidiers"
+    - "Tidiers" for most statistics
 
 
 `@part2`
@@ -70,7 +70,7 @@ model <- glm(chd ~ weight + energy,
 summary(model)
 ```
 
-Part of the output: {{1}}
+Part of output: {{1}}
 
 ```
 Call:
@@ -219,7 +219,7 @@ key: "8823985610"
 > "Give ... estimates and ... their precision (eg, 95% confidence interval)" - STROBE guideline {{1}}
 
 - Use estimation, uncertainty, distribution of effect size {{2}}
-    - Science is about quantifying uncertainty
+    - Science is quantifying uncertainty
     - More insight, more utility for health decision making
 
 
@@ -240,7 +240,7 @@ key: "e177bf84fa"
     - Provides little to no clinical or scientific utility
     - Reliance could be harmful. 
 
-Example: Drug treatment for disease has odds ratio of 0.8 (0.59, 1.01 95% CI), p>0.05 ("not significant"). Drug not used, even though uncertainty reaches an odds of 41% less disease from drug. {{2}}
+Example: Odds ratio of 0.8 (0.59, 1.01 95% CI), p>0.05 ("not significant") for drug treatment, uncertainty could reach odds of 41% less disease from drug {{2}}
 
 
 `@script`

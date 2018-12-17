@@ -31,9 +31,9 @@ key: "a46da48b7d"
 `@part1`
 - **STrengthening the Reporting of OBservational studies in Epidemiology.** (www.strobe-statement.org)
 
-- **Most journals require completion of STROBE checklist**, including to: {{1}}
+- **Completion of STROBE checklist required for most journals**, such as: {{1}}
     - *"Describe ... methods ... used to control for confounding"* {{2}}
-    - *"Make clear which confounders were adjusted for and why they were included"* {{2}}
+    - *"... which confounders were adjusted for and why ..."* {{2}}
     - *"Give unadjusted estimates and ... confounder-adjusted estimates"* {{2}}
 
 
@@ -50,10 +50,10 @@ key: "b0f88227c7"
 ```
 
 `@part1`
-- **Very difficult** to completely control for confounding
+- **Very difficult** to completely control confounding
 - Danger of not adjusting
-    - Could lead to actual harm
-- Three common empirical and systematic approaches to identifying confounders:
+    - Lead to actual harm
+- Three common approaches:
     - Literature, biological rationale, background knowledge
     - Causal pathways: Directed acyclic graphs (DAG)
     - Model selection: Information criterion methods
@@ -76,7 +76,7 @@ key: "061e68225d"
 `@part1`
 ![DAG](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
 
-- This graphic is called a *directed acyclic graph*
+- Graphic called a *directed acyclic graph*
 
 
 `@script`
@@ -99,7 +99,7 @@ An example: Height with colon cancer. But... {{1}}
 - More meat, more likely to get colon cancer {{2}}
 - Men tend to eat more meat {{2}}
 
-... Let's make a DAG of this. {{3}}
+... Let's make a DAG of this {{3}}
 
 
 `@part2`
@@ -136,10 +136,10 @@ key: "fdb2dfd109"
 ```
 
 `@part1`
-- Estimates relative model "quality" over other models. {{1}}
-- Trade-off between the goodness of fit and simplicity (number of predictors). {{2}}
-- Common method: Akaike information criterion (AIC). {{3}}
-    - For models that use maximum likelihood (most regression-based methods).
+- Estimates relative model "quality" over others {{1}}
+- Trade-off between goodness of fit and number of predictors {{2}}
+- Common method: Akaike information criterion (AIC) {{3}}
+    - For maximum likelihood models
 
 
 `@script`
@@ -174,8 +174,8 @@ full_model <- glm(chd ~ ., data = cleaned_diet,
 model_comparison <- dredge(full_model, rank = "AIC", subset = "fibre")
 ``` {{3}}
 
-- *Caution*: Too many variables, a big dataset, and/or type of model will lead to long computation times {{4}}
-- **Don't** rely on *only* this method for model building {{5}}
+- *Caution*: Too many variables, a big dataset, and/or type of model = long computation times {{4}}
+- **Don't** rely on *only* this method {{5}}
 
 
 `@script`
