@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-A very common activity in epidemiology is testing for interactions and running sensitivity analyses.
+Let's discuss testing for interactions and running sensitivity analyses.
 
 
 ---
@@ -40,7 +40,7 @@ key: "fe20e41d30"
 
 
 `@script`
-First, a bit of history. In the past many studies only include men, but not women. At the time, women were thought to respond equally to men for health and drug interventions. But, that's not true. In fact some drugs were harmful to women but not to men. Likewise, ethnic ancestry can have very strong influences on whether an intervention will help or harm. Even still, most studies are done on European-ancestries. But we know differences exist between ancestries that could lead to major differences in reaction to treatments. So you always always need to think about and analyze for differences between sex and ethnicity.
+First, a bit of history. In the past many studies only include men, but not women. At the time, women were thought to respond equally to men for health and drug interventions, which isn't the case. In fact, some drugs were harmful to women but not to men. Likewise, ethnic ancestry can have very strong influences on whether an intervention will help or harm. Even still, most studies are done on European-ancestries. But we know differences exist between ancestries that could lead to major differences in reaction to treatments. So you always need to think about and analyze for differences between sex and ethnicity.
 
 
 ---
