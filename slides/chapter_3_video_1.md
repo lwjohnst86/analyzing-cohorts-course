@@ -60,7 +60,20 @@ glm(outcome ~ predictor1 + predictor2,
     data = dataset, family = binomial)
 ```{{1}}
 
-- **Mixed effects**: Has "fixed" and "random" terms, used with multiple measures on same "unit" {{2}}
+
+`@script`
+Briefly, logistic regression is similar to linear regression, but with a binary outcome. Usually we use this if your, for example, predictor variables are only measured at one time point. The syntax uses glm, with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. You need to set the family to binomial since the outcome is binary.
+
+---
+## Mixed effects models
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+- **Mixed effects**: Has "fixed" and "random" terms, used with multiple measures on same "unit"
 
 ```{r}
 # Example syntax:
@@ -68,15 +81,43 @@ library(lme4)
 glmer(outcome ~ predictor1 + predictor2 + 
           (1 | random_id), # e.g. subject_id
       data = dataset, family = binomial)
-```{{3}}
-
+```
 
 `@script`
-Briefly, logistic regression is similar to linear regression, but with a binary outcome. Usually use use this if your, for example, predictor variables are only measured at one time point. The syntax uses glm, with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. You need to set the family to binomial.
-
 Mixed effects models contain a fixed term and a random term. You use this method when data has been collected on, for example, each person many times. You need to use the lme4 package, which contains the glmer function. This function is very similar to glm, except you add a random term by using brackets and a bar. Here, the one indicates that each random unit should have its own intercept. This makes sense as each person will start at their own level in a study. The random id here is the random unit to use, for instance subject id.
 
-Like many regression models, the specific numerical values of the predictors can influence whether the model runs or not. In this case, you will likely need to transform the predictors so the model runs without problems. One function, called I for inhibit, lets you make changes to the predictor within the formula. You'll use it in the exercises.
+Like many regression models, the specific numerical values of the predictors can influence whether the model runs or not. For instance, if some variables values are extremely large, with higher variance compared to other variables, this can cause some computational problems. In this case, you will likely need to transform the predictors so the model runs without problems. One function, called I for inhibit, lets you make changes to the predictor within the formula. You'll use it in the exercises.
+
+---
+## Transforming variables for modelling
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+```{r}
+# Example:
+library(lme4)
+
+# Before modelling
+changed_dataset <- dataset %>% 
+    mutate(center_predictor = scale(predictor1, scale = FALSE),
+           predictor_divided_100 = predictor2 / 100)
+glmer(outcome ~ center_predictor + predictor_divided_100 + 
+          (1 | random_id), # e.g. subject_id
+      data = changed_dataset, family = binomial)
+
+# During modelling
+glmer(outcome ~ scale(predictor1, scale = FALSE) + # mean center
+        I(predictor2 / 100) + # Divide by 100
+        (1 | random_id), # e.g. subject_id
+      data = dataset, family = binomial)
+```
+
+`@script`
+Like many regression models, the specific numerical values of the predictors can influence whether the model runs or not. For instance, if some variables values are extremely large, with higher variance compared to other variables, this can cause some computational problems. In this case, you will likely need to transform the predictors so the model runs without problems. One function, called I for inhibit, lets you make changes to the predictor within the formula. You'll use it in the exercises.
 
 
 ---
