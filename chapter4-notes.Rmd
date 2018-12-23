@@ -206,6 +206,10 @@ single format is challenging for figure, which is usually the case with descript
 tables. In fact, including this descriptive information is part of the STROBE
 guidelines.
 
+{{tabbed?}}
+
+also baseline table, and another one of over time.
+
 ```{r}
 framingham %>% 
     outline_table(header = "period") %>% 
