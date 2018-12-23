@@ -19,27 +19,22 @@ title: Instructor
 `@script`
 One of the trickier parts of the analysis is identifying and adjusting for potential confounders. There are many ways of finding and adjusting for confounders. Regardless of what you use, you need to at least review what other studies have done and what the underlying biology is. This requires domain specific knowledge, so collaborate with people who have that knowledge.
 
-
 ---
-## Adhering to guidelines: STROBE Statement
+## Classical definition of a confounder
 
 ```yaml
 type: "FullSlide"
-key: "a46da48b7d"
+key: "061e68225d"
 ```
 
 `@part1`
-- **STrengthening the Reporting of OBservational studies in Epidemiology.** (www.strobe-statement.org)
+![DAG](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
 
-- **Completion of STROBE checklist required for most journals**, such as: {{1}}
-    - *"Describe ... methods ... used to control for confounding"* {{2}}
-    - *"... which confounders were adjusted for and why ..."* {{2}}
-    - *"Give unadjusted estimates and ... confounder-adjusted estimates"* {{2}}
+- Graphic called a *directed acyclic graph*
 
 
 `@script`
-Before going further, let's talk about the key guideline for cohort analyses, which is STROBE, or strengthening the reporting of observational studies in epidemiology. Use this checklist to guide your analyses and final presentation of results. This checklist forces you to think about at least the minimum thing to do. For instance, why and how confounders were chosen and included. We'll be returning to STROBE many times.
-
+The classic definition of a confounder is a variable that can influence both the outcome and the exposure. You'll likely have encountered the concept of confounding in the other epidemiology courses. Understanding confounding is essential to making more accurate inferences about an association. In order to control for confounding, you need to adjust for it in your models.
 
 ---
 ## Creating models: Controlling for confounding
@@ -60,13 +55,12 @@ key: "b0f88227c7"
 
 
 `@script`
-What does it mean to adjust for confounders? What is a confounder? You'll likely encounter confounding in other epidemiology courses, so I won't cover it much here. For cross-sectional analyses, adjusting for confounding is fairly easy, since there is no time-component. But in cohorts, confounding gets trickier and more thought must go into what to adjust for. Do the best you can, but be aware you are guaranteed to not include or to not know about all confounders.
+What does it actually mean to adjust for confounders? In cohorts, confounding gets trickier and more thought must go into what to adjust for. Do the best you can, but be aware you are guaranteed to not include or to not know about all confounders.
 
 Confounding is very very important to consider in health research. There are several ways to identify confounders. Using previous knowledge of biology and of the problem and using formal methods such as directed acyclic graphs and information criterion techniques are common approaches.
 
-
 ---
-## Classical definition of a confounder
+## Confounder identification with DAGs
 
 ```yaml
 type: "FullSlide"
@@ -74,14 +68,13 @@ key: "061e68225d"
 ```
 
 `@part1`
+
+#### Directed Acyclic Graph (DAG)
+
 ![DAG](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
 
-- Graphic called a *directed acyclic graph*
-
-
 `@script`
-The classic definition of a confounder is a variable that can influence both the outcome and the exposure. Understanding confounding is essential to making more accurate inferences about an association. This graph is called a directed acyclic graph or DAG. Creating DAGs is a powerful and insightful approach to finding confounders because they make explicit hypothetical causal pathways.
-
+One powerful approach to identifying confounding is to draw graphs such as this one. This type of graph is called a directed acyclic graph or DAG. Creating DAGs help by making hypothetical causal pathways explicit and linked.
 
 ---
 ## Identifying adjustment variables with dagitty
@@ -214,6 +207,25 @@ head(model_selection, 4)
 `@script`
 Use head to see the top four models. The AIC column shows the models are all very similar. This tell us a few things, such as these variables may not contribute substantially to model fit. We could be fairly safe with using any of these models.
 
+---
+## Adhering to the STROBE Statement
+
+```yaml
+type: "FullSlide"
+key: "a46da48b7d"
+```
+
+`@part1`
+- **STrengthening the Reporting of OBservational studies in Epidemiology.** (www.strobe-statement.org)
+
+- **Completion of STROBE checklist required for most journals**, such as: {{1}}
+    - *"Describe ... methods ... used to control for confounding"* {{2}}
+    - *"... which confounders were adjusted for and why ..."* {{2}}
+    - *"Give unadjusted estimates and ... confounder-adjusted estimates"* {{2}}
+
+
+`@script`
+While considering confounding is critical to doing rigorous science, another reason is that doing so is required as part of the STROBE checklist. STROBE stands for strengthening the reporting of observational studies in epidemiology and is endorsed internationally by researchers who work with cohort datasets. Use this checklist to focus your analyses and presentation of results and to ensure to adhere to standards of high quality research.
 
 ---
 ## Let's find some confounders!
