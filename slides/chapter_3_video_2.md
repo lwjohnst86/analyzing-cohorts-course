@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-One of the trickier parts of the analysis is identifying and adjusting for potential confounders. There are many ways of finding and adjusting for confounders. Regardless of what you use, you need to at least review what other studies have done and what the underlying biology is. This requires domain specific knowledge, so collaborate with people who have that knowledge.
+A difficult part of analysis is identifying and adjusting for potential confounders. Regardless of how you find and adjust for confounders, you need to review other studies and understand the underlying biology.
 
 ---
 ## Classical definition of a confounder
@@ -57,7 +57,7 @@ key: "b0f88227c7"
 `@script`
 What does it actually mean to adjust for confounders? In cohorts, confounding gets trickier and more thought must go into what to adjust for. Do the best you can, but be aware you are guaranteed to not include or to not know about all confounders.
 
-Confounding is very very important to consider in health research. There are several ways to identify confounders. Using previous knowledge of biology and of the problem and using formal methods such as directed acyclic graphs and information criterion techniques are common approaches.
+Confounding is very important to consider in health research. There are several ways to identify confounders. Using previous knowledge of biology and of the problem and using formal methods such as directed acyclic graphs and information criterion techniques are common approaches.
 
 ---
 ## Confounder identification with DAGs
@@ -117,7 +117,7 @@ adjustmentSets(
 
 
 `@script`
-You can create DAGs using the dagitty package and dagitty will suggest possible adjustment variables. Here's an example. We will study how height associates with risk for colon cancer. But, we know that men tend to be taller than women, that men tend to have a higher risk for cancer, that meat intake increases risk for colon cancer, and that men tend to eat more meat. Given this information, what do we adjust for? Let's find out with dagitty! The first argument for the dagitty function takes a character string of a DAG specification. We initialise with the keyword dag, and afterward list each link between variables. Height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. We use the adjustmentsets function on the DAG, set the exposure and the outcome, and then are informed that we should adjust for at least sex. Dagitty is very useful especially with more complicated pathways.
+You can create DAGs using the dagitty package and dagitty will suggest possible adjustment variables. For example, let's study how height is associated with risk for colon cancer. We know men tend to be taller than women, that men have a higher risk for cancer, that meat intake increases risk for colon cancer, and that men tend to eat more meat. Given this information, what do we adjust for? Let's find out with dagitty! The first argument for the dagitty function takes a character string of a DAG specification. We initialize with the keyword dag, and afterward list each link between variables. In this example, height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. We use the adjustmentSets function on the DAG, set the exposure and the outcome, and then are informed that we should adjust for at least sex. Dagitty especially useful with more complicated pathways.
 
 
 ---
@@ -136,7 +136,7 @@ key: "fdb2dfd109"
 
 
 `@script`
-You should never rely on only one method for deciding what to adjust for. So useful technique is the information criterion methods, which compare several models to find which is better. The method balances model fitness and the number of predictors. Use the Akaike criterion or AIC for models that use maximum likelihood.
+It is best practice to not rely on a single method when deciding what you should adjust for in a DAG. Another method, the information criterion methods, compares several models to find which is better. The method balances model fitness and the number of predictors. Use the Akaike criterion or AIC for models that use maximum likelihood.
 
 
 ---
@@ -172,7 +172,7 @@ model_comparison <- dredge(full_model, rank = "AIC", subset = "fibre")
 
 
 `@script`
-The MuMIn package implements an easy interface to model selection. But first, we need to create a dataframe with only the outcome and predictors of interest, with no missingness. Then we create the model with all variables included by using a dot. We set a binomial family as this is logistic regression. MuMIn requires we set na dot fail. Next we use dredge on the model using AIC. In this example, our main exposure is fibre, so we set it in subset.
+The MuMIn package implements an easy interface to model selection. First, we need to create a dataframe with only the outcome and predictors of interest, with no missingness. Then we create the model with all variables included by using a dot. We set a binomial family as this is logistic regression. MuMIn requires we set na dot fail. Next we use dredge on the model using AIC. In this example, our main exposure is fibre, so we set it in subset.
 
 A comment about dredge. It compares models with every possible combination of variables... so be careful as R may run for a long time. Also, as I said, use different methods to decide on what to adjust for.
 

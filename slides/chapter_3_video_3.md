@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-A very common activity in epidemiology is testing for interactions and running sensitivity analyses.
+Let's discuss testing for interactions and running sensitivity analyses.
 
 
 ---
@@ -40,7 +40,7 @@ key: "fe20e41d30"
 
 
 `@script`
-First, a bit of history. In the past many studies only include men, but not women. At the time, women were thought to respond equally to men for health and drug interventions. But, that's not true. In fact some drugs were harmful to women but not to men. Likewise, ethnic ancestry can have very strong influences on whether an intervention will help or harm. Even still, most studies are done on European-ancestries. But we know differences exist between ancestries that could lead to major differences in reaction to treatments. So you always always need to think about and analyze for differences between sex and ethnicity.
+First, a bit of history. In the past many studies only include men, but not women. At the time, women were thought to respond equally to men for health and drug interventions, which isn't the case. In fact, some drugs were harmful to women but not to men. Likewise, ethnic ancestry can have very strong influences on whether an intervention will help or harm. Even still, most studies are done on European-ancestries. But we know differences exist between ancestries that could lead to major differences in reaction to treatments. So you always need to think about and analyze for differences between sex and ethnicity.
 
 
 ---
@@ -158,7 +158,7 @@ Models ranked by AIC(x)
 
 
 `@script`
-Great, we've ran a model with an interaction. But how do we know whether an interaction exists or not. We can test it by seeing if the model fitness improves. Here we use the model dot sel function from MuMIn. Run two models, one with and one without the interaction. Then compare the two models for their AIC. You'll see in the output that in this case the two models are equivalent. That tells us that since including an interaction doesn't give more information, we can say there is no interaction.
+Great, we've ran a model with an interaction. But how do we know whether an interaction exists or not. We can test it by seeing if the model fitness improves. Here we use the model dot sel function from MuMIn. Run two models, one with and one without the interaction. Then compare the two models for their AIC. Here, the output shows the two models are equivalent. Since the interaction doesn't give more information, there is no interaction.
 
 
 ---
@@ -179,9 +179,9 @@ key: "a0da496622"
 
 
 `@script`
-In epidemiology we also often do sensitivity analyses, which is a series of additional analyses assessing the robustness of your results by checking different assumptions that may change your results.
+Sensitivity analysis is a way to determine the robustness of your results by checking different assumptions that may change your results.
 
-For example, maybe you want to determine whether people who miss the data collection visit are somehow different. Or maybe the result is due to the specific statistical technique, so you redo the analysis with a slightly different technique.
+Examples of this include whether people who miss the data collection visit are different or if the results you obtain differ because of a statistical technique.
 
 
 ---
@@ -220,7 +220,7 @@ summary(glm(chd ~ weight + energy, data = remove_diet_misreporting,
 
 
 `@script`
-Let's do an example. Often in nutritional studies, people unconsciously over or under estimate how much food they ate. This can lead to inflated estimates as there may be more variability in the data than there actually is in real life. So let's keep only data with energy intakes between 2000 and 4000 kilocalories, in this case 20 and 40. Now we redo the analyses and compare the results. You'll notice the estimate for energy drops and the standard error increases. This is expected and shows us we were right that there many be some misreporting of energy intake. Notice also that the p value changes quite a bit, highlighting now unreliable it is.
+For example, participants in nutritional studies often unconsciously over or under estimate how much food they ate. This can lead to inflated estimates as there may be more variability in the data than there actually is in real life. Let's keep only data with energy intakes between 2000 and 4000 kilocalories, in this case 20 and 40. Now we redo the analyses and compare the results. You'll notice the estimate for energy drops and the standard error increases. This is expected and shows us there may be some misreporting of energy intake. Notice also that the p value changes quite a bit, highlighting now unreliable it is.
 
 
 ---
