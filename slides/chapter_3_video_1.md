@@ -19,30 +19,6 @@ title: Instructor
 `@script`
 In this chapter we'll be covering how and what statistics to apply. But, this gets tricky to teach, which I'll explain shortly. We'll be focusing on general concepts rather than details of a method. We also won't cover interpretation just yet.
 
-
----
-## Many data, many questions, many analyses
-
-```yaml
-type: "FullSlide"
-key: "44ebb0b342"
-```
-
-`@part1`
-- Analysis depends on:
-    - Data
-    - Research question
-    - Study design
-
-- Each depends on others: {{1}}
-    - Some questions restricted by data and design
-    - Data restricted by design
-
-
-`@script`
-There are many ways to analyze cohorts. What and how you analyze depends on the data you have, what questions you ask, and what the study design is. They also depend on each other, for instance, what your questions are will be based on the data and study design. Likewise, the study design will restrict the data. This is the reason why we'll cover general concepts, your research questions will vary as you study different datasets, which then dictates your analysis.
-
-
 ---
 ## Common analyses for cohorts
 
@@ -52,11 +28,11 @@ key: "d7c7602043"
 ```
 
 `@part1`
-- For prospective with multiple measures:
+- For prospective with multiple measures: {{1}}
     - **Mixed effects modeling**
     - Generalized estimating equations
 
-- For other study types/single measure:
+- For other study types/single measure: {{2}}
     - Cox proportional hazard models
     - Linear regression
     - **Logistic regression**
@@ -64,17 +40,15 @@ key: "d7c7602043"
 
 
 `@script`
-While there are many possible analyses, most often will be some form of regression modelling. That lets you estimate the magnitude of an association and its uncertainty. So a prospective cohort with multiple measures would often use, for example, mixed effects models, while other designs or with single measures tend to use simpler regression. Cohorts also often study a disease state, which is generally binary, so you'd use a logistic regression form.
+There are many ways to analyze cohorts and it depends on the data, the research questions, and the study design. Most often, the analysis will be some form of regression modelling. That lets you estimate the magnitude of an association and its uncertainty. So a prospective cohort with multiple measures would often use, for example, mixed effects models, while other designs or with single measures tend to use simpler regression. Cohorts also often study a disease state, which is generally binary, so you'd use a logistic regression form.
 
-From now on we'll use logistic regression in the videos and mixed effects in the exercises. We aren't going to teach these methods in detail, there are other coursees for that.
-
+From now on we'll use logistic regression in the videos and mixed effects in the exercises. Given there are other more detailed DataCamp courses on these techniques, which we include as prerequisites, we won't cover them in much detail.
 
 ---
-## Logistic regression and mixed effects models
+## Logistic regression
 
 ```yaml
 type: "FullSlide"
-key: "f17e57faa8"
 ```
 
 `@part1`
