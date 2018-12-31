@@ -163,15 +163,12 @@ full_model <- glm(chd ~ ., data = cleaned_diet,
 model_comparison <- dredge(full_model, rank = "AIC", subset = "fibre")
 ``` {{3}}
 
-- *Caution*: Too many variables, a big dataset, and/or type of model = long computation times {{4}}
-- **Don't** rely on *only* this method {{5}}
-
+- *Caution*: Many variables, big dataset, and/or type of model = long computation times {{4}}
 
 `@script`
-The MuMIn package implements an easy interface to model selection. First, we need to create a dataframe with only the outcome and predictors of interest, with no missingness. Then we create the model with all variables included by using a dot. We set a binomial family as this is logistic regression. MuMIn requires we set na dot fail. Next we use dredge on the model using AIC. In this example, our main exposure is fibre, so we set it in subset.
+The MuMIn package implements an easy interface to model selection. First, we need to create a dataframe with only the outcome and predictors of interest, with no missingness. Then we create the model with all variables included by using a dot. We set a binomial family as this is logistic regression. MuMIn requires we set na dot fail. Next we use dredge on the model using AIC. Dredge looks in all combination of models and compares them. In this example, our main exposure is fibre, so we set it with subset.
 
-A comment about dredge. It compares models with every possible combination of variables... so be careful as R may run for a long time. Also, as I said, use different methods to decide on what to adjust for.
-
+A short comment on dredge. Since it compares many possible models be careful running it as the computational time may be quite extended.
 
 ---
 ## Model selection using the MuMIn package
