@@ -64,7 +64,9 @@ possible_confounders <- dagitty("dag {
 
 adjustmentSets(possible_confounders, exposure = "Height", outcome = "ColonCancer")
 
-# plot(graphLayout(possible_confounders))
+png(here::here("datasets/ch3-v2-dagitty.png"), width = 500, height = 750)
+plot(graphLayout(possible_confounders))
+dev.off()
 
 # Video 2, AIC ------------------------------------------------------------
 
