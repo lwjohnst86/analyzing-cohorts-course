@@ -54,14 +54,13 @@ key: "b0f88227c7"
 `@script`
 What does it actually mean to adjust for confounders? In cohorts, confounding gets trickier and more thought must go into what to adjust for. Do the best you can, but be aware you are guaranteed to not include or to not know about all confounders.
 
-Confounding is very important to consider in health research. There are several ways to identify confounders. Using previous knowledge of biology and of the problem and using formal methods such as directed acyclic graphs and information criterion techniques are common approaches.
+Confounding is very important to consider in health research. You should use several approaches to identifying confounders, as they each have strengthes and weaknesses. Using previous knowledge of biology and of the problem and using formal methods such as directed acyclic graphs and information criterion techniques are common approaches.
 
 ---
 ## Confounder identification with DAGs
 
 ```yaml
 type: "FullSlide"
-key: "061e68225d"
 ```
 
 `@part1`
@@ -71,7 +70,7 @@ key: "061e68225d"
 ![DAG](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
 
 `@script`
-One powerful approach to identifying confounding is to draw graphs such as this one. This type of graph is called a directed acyclic graph or DAG. Creating DAGs help by making hypothetical causal pathways explicit and linked.
+One powerful approach to identifying confounding is to draw graphs such as this one, which is called a directed acyclic graph or DAG. Each variable is called a node, and the causal or hypothetical link between variables is called an edge. Creating DAGs helps as it makes hypothetical causal pathways explicit.
 
 ---
 ## Identifying adjustment variables with dagitty
