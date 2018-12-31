@@ -115,6 +115,25 @@ adjustmentSets(
 `@script`
 You can create DAGs using the dagitty package and dagitty will suggest possible adjustment variables. For example, let's study how height is associated with risk for colon cancer. We know men tend to be taller than women, that men have a higher risk for cancer, that meat intake increases risk for colon cancer, and that men tend to eat more meat. Given this information, what do we adjust for? Let's find out with dagitty! The first argument for the dagitty function takes a character string of a DAG specification. We initialize with the keyword dag, and afterward list each link between variables. In this example, height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. We use the adjustmentSets function on the DAG, set the exposure and the outcome, and then are informed that we should adjust for at least sex. Dagitty especially useful with more complicated pathways.
 
+---
+## Visualizing the graph from dagitty
+
+```yaml
+type: "TwoColumns"
+```
+
+`@part1`
+
+```{r}
+plot(graphLayout(possible_confounders))
+``` {{1}}
+
+`@part2`
+
+![dagitty graph](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/9b99e7c5a4440bcd2c4a05130bf47c89d3a53dc4/ch3-v2-dagitty.png) {{2}}
+
+`@script`
+With this code, you can visualize what the graph looks like. You can see how each variable is linked as we specified. Check this plot to make sure you correctly specified the DAG.
 
 ---
 ## Assessing model fit: Information criterion methods
@@ -168,7 +187,7 @@ model_comparison <- dredge(full_model, rank = "AIC", subset = "fibre")
 `@script`
 The MuMIn package implements an easy interface to model selection. First, we need to create a dataframe with only the outcome and predictors of interest, with no missingness. Then we create the model with all variables included by using a dot. We set a binomial family as this is logistic regression. MuMIn requires we set na dot fail. Next we use dredge on the model using AIC. Dredge looks in all combination of models and compares them. In this example, our main exposure is fibre, so we set it with subset.
 
-A short comment on dredge. Since it compares many possible models be careful running it as the computational time may be quite extended.
+A short comment on dredge. Since it compares many possible models be careful running it as the computational time may be quite long.
 
 ---
 ## Model selection using the MuMIn package
