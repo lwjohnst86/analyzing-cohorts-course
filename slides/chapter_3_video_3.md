@@ -17,11 +17,10 @@ title: Instructor
 
 
 `@script`
-Let's discuss testing for interactions and running sensitivity analyses.
-
+An important part of any analysis is interaction test of specific variables and for running sensitivity analyses. 
 
 ---
-## Considering the role of sex and ethnicity
+## Interactions: Combining variables changes association with outcome
 
 ```yaml
 type: "FullSlide"
@@ -29,22 +28,17 @@ key: "fe20e41d30"
 ```
 
 `@part1`
-- A bit of history on role of sex {{1}}
-    - Most health or drug studies had only men
-    - Assumed equal response in women
-    - Not true, e.g. some drugs harmful in women
-- Ethnic ancestry also influential on health {{2}}
-    - Most studies only in European-ancestry
-    - But differences exist
-- *Always* consider sex and ethnic ancestry {{3}}
-
+- **Interaction testing**: Check if a variable modifies another variable's
+association on the outcome {{1}}
+    - E.g. A drug reduces risk of a disease in men, but not women {{1}}
+    - E.g. Greater risk for disease from obesity in some ethnicities {{1}}
+    - *Always* consider sex and ethnic ancestry {{2}}
 
 `@script`
-First, a bit of history. In the past many studies only include men, but not women. At the time, women were thought to respond equally to men for health and drug interventions, which isn't the case. In fact, some drugs were harmful to women but not to men. Likewise, ethnic ancestry can have very strong influences on whether an intervention will help or harm. Even still, most studies are done on European-ancestries. But we know differences exist between ancestries that could lead to major differences in reaction to treatments. So you always need to think about and analyze for differences between sex and ethnicity.
-
+Interaction testing is when you combine variables in a model to check if their individual values combined together modify the association with a drug. For example, some drugs reduce risk for a disease in men, but may be harmful or have no effect in women. Or that some risk factors such as obesity have a larger impact on disease in certain ethnicities. When it comes to sex and ethnicity, you always need to check for interactions, since both have such powerful impacts on health.
 
 ---
-## Several approaches to checking differences
+## Several approaches to checking interactions
 
 ```yaml
 type: "FullSlide"
