@@ -52,7 +52,7 @@ tidy(model_object,
 
 
 `@script`
-Most statistical methods in R are developed by independent researchers, so there isn't often any underlying consistency in structure, making them a bit messy. This can be frustrating when learning a new technique. Thankfully there is the tidy function from the broom package to help you tidy up! Broom can tidy a large range of statistics. Tidy allows you to also calculate the confidence interval for measures of uncertainty and, for logistic regression, can convert the estimates into odds ratio.
+Most statistical methods in R are developed by independent researchers, so there isn't often any underlying consistency in structure, making them a bit messy. This can be frustrating when learning a new technique. Thankfully there is the tidy function from the broom package to help you tidy up! Broom can tidy a large range of statistics. Tidy allows you to also calculate the confidence interval for measures of uncertainty and, for logistic regression, can convert the estimates into odds ratio. This is covered in more detail in the Logistic Regression course, but briefly, the odds ratio is the odds of an outcome occurring given a predictor's presence compared to the odds of the outcome occurring given the predictor's absense.
 
 
 ---
