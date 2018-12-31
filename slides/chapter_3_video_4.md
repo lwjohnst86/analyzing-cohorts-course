@@ -228,27 +228,7 @@ I mentioned keeping only important variables. Why were those variables important
 
 
 ---
-## The unreliable p-value
-
-```yaml
-type: "FullSlide"
-key: "e177bf84fa"
-```
-
-`@part1`
-- Avoid p-values {{1}}
-    - Provides little to no clinical or scientific utility
-    - Reliance could be harmful. 
-
-Example: Odds ratio of 0.8 (0.59, 1.01 95% CI), p>0.05 ("not significant") for drug treatment, uncertainty could reach odds of 41% less disease from drug {{2}}
-
-
-`@script`
-Why didn't I include the p value? The biggest reason is that it provides little to no clinical or public health value and it could actually be harmful! This is a lot detailed discussion on this, but let's take an example. Suppose a drug treatment for a disease has a zero point eight odds ratio, but has a p value above zero point zero five. Most studies would report this as not significant and not discuss it further. But at the lower bound of uncertainty the odds is forty one percent less disease in those taking the drug. So it could still be clinically useful!
-
-
----
-## American Statistical Association statement on p-values
+## The unreliable p-value: A statement from the American Statistical Association
 
 ```yaml
 type: "FullSlide"
@@ -262,10 +242,12 @@ key: "333093b1b3"
 
 DOI to statement: https://doi.org/10.1080/00031305.2016.1154108 {{1}}
 
+**Example**: Odds ratio of 0.8 (0.59, 1.01 95% CI), p>0.05 ("not significant") for drug treatment, uncertainty could reach odds of 41% less disease from drug {{2}}
 
 `@script`
-What does a recognized, statistical organization say about p-values? Because of its misuse, the American Statistical Association, who are a large group of statisticians, made a statement to not rely on p values in scientific studies, as it is not good evidence for a hypothesis or for the study's findings importance. So, avoid using it.
+Why didn't I include the p value? The biggest reason is that it provides little to no clinical or public health value and it can actually be harmful! One of the biggest and most influential statistical association released a statement about this problem. They provide much more detail in their statement, but briefly, they state to not rely on p values in scientific studies. P values are not good evidence for a hypothesis or for the study's findings importance.
 
+Let's take an example. Suppose a drug treatment for a disease has an odds ratio of zero point eight, but has a p value above zero point zero five. Most studies would report this as not significant and not discuss it further. But at the lower bound of uncertainty the odds is forty one percent less disease in those taking the drug. So it could still be clinically useful!
 
 ---
 ## Let's get tidying!
