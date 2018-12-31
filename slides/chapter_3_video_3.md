@@ -51,12 +51,12 @@ key: "a2abb2e2ae"
 - Stratified/subgroup analysis {{2}}
     - Split dataset based on group
     - Do separate analysis on splits
-- Test for interaction {{3}}
+- Formal test for interaction {{3}}
     - Model possible differences
 
 
 `@script`
-There are several ways to check differences. The first, and often the most effective, is to visualize the differences. More formal methods include doing stratified analyses, which is literally splitting the dataset up by group. You can also directly model differences by including interaction terms in your analyses.
+There are several ways to check for interactions. The first, and often the most effective, is to visualize the data. More formal methods include doing stratified analyses, which is literally splitting the dataset up by a group such as sex. You can also directly model interactions directly by including interaction terms in your analyses.
 
 
 ---
@@ -121,7 +121,7 @@ weight:energy.grp>2750 KCals -0.043461   0.032994  -1.317    0.188
 
 
 `@script`
-Ok, here's an example. This dataset doesn't have sex or ethnicity, so we'll use the energy group variable. You'll notice it isn't much more difficult to run an interaction test, as you just include the asterisk. But! The estimates are very different. There is now another term for weight with energy group at the bottom. Later in the course we'll get to interpretation.
+Ok, here's an example. This dataset doesn't have sex or ethnicity, so we'll use the energy group variable. You'll notice it isn't much more difficult to run an interaction test, as you just include the asterisk. But! The estimates are very different. There is now another term for weight with energy group at the bottom. Later in the course we'll get more to interpretation.
 
 
 ---
