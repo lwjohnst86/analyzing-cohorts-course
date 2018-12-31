@@ -28,10 +28,7 @@ key: "061e68225d"
 ```
 
 `@part1`
-![DAG](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
-
-- Graphic called a *directed acyclic graph*
-
+![Confounder](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
 
 `@script`
 The classic definition of a confounder is a variable that can influence both the outcome and the exposure. You'll likely have encountered the concept of confounding in the other epidemiology courses. Understanding confounding is essential to making more accurate inferences about an association. In order to control for confounding, you need to adjust for it in your models.
