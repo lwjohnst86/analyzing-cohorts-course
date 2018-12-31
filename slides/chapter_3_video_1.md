@@ -87,8 +87,6 @@ glmer(outcome ~ predictor1 + predictor2 +
 `@script`
 Mixed effects models contain a fixed term and a random term. For example, you use this method when data has been collected on each person many times. You need to use the lme4 package, which contains the glmer function. This function is very similar to glm, except you add a random term by using brackets and a bar. Here, the one indicates that each random unit should have its own intercept. This makes sense as each person will start at their own level in a study. The random id here is the random unit to use, for instance, subject id.
 
-Like many regression models, the specific numerical values of the predictors can influence whether the model runs or not. For instance, if some variables values are extremely large, with higher variance compared to other variables, this can cause some computational problems. In this case, you will likely need to transform the predictors so the model runs without problems. One function, called I for inhibit, lets you make changes to the predictor within the formula. You'll use it in the exercises.
-
 ---
 ## Transforming variables for modelling
 
@@ -109,17 +107,18 @@ changed_dataset <- dataset %>%
 glmer(outcome ~ center_predictor + predictor_divided_100 + 
           (1 | random_id), # e.g. subject_id
       data = changed_dataset, family = binomial)
+``` {{1}}
 
+```{r}
 # During modelling
 glmer(outcome ~ scale(predictor1, scale = FALSE) + # mean center
         I(predictor2 / 100) + # Divide by 100
         (1 | random_id), # e.g. subject_id
       data = dataset, family = binomial)
-```
+``` {{2}}
 
 `@script`
-Like many regression models, the specific numerical values of the predictors can influence whether the model runs or not. For instance, if some variables values are extremely large, with higher variance compared to other variables, this can cause some computational problems. In this case, you will likely need to transform the predictors so the model runs without problems. One function, called I for inhibit, lets you make changes to the predictor within the formula. You'll use it in the exercises.
-
+Many regression models can be strongly influenced by large differences in numerical values between predictors. The reasons are due to the underlying mathematics of the model. For our purposes, you only need to know that you may need to change the values, for instance by making smaller by dividing by 100. Usually the model will let you know there is a problem. If changes are needed, you will have to transform the variables, as you learned in chapter 2. Here, you can transform the variables beforehand and use the transformed variables in the model. You can also directly transform variables in the model formula. For transformation such as addition or division, you need to use the I function around the transformation.
 
 ---
 ## Keep in mind: Question is restricted by design and data
