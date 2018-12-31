@@ -188,9 +188,11 @@ key: "3fbf27f005"
 
 `@part1`
 - Run analysis with more plausible dietary energy intake
+    - Min and max energy intake (per 100 kilocalorie): 17.5 to 44.0
 
 ```{r}
 remove_diet_misreporting <- diet %>%
+    # energy is per hundred kilocalorie
     filter(between(energy, 20, 40))
 
 summary(glm(chd ~ weight + energy, data = diet,
@@ -214,7 +216,7 @@ summary(glm(chd ~ weight + energy, data = remove_diet_misreporting,
 
 
 `@script`
-For example, participants in nutritional studies often unconsciously over or under estimate how much food they ate. This can lead to inflated estimates as there may be more variability in the data than there actually is in real life. Let's keep only data with energy intakes between 2000 and 4000 kilocalories, in this case 20 and 40. Now we redo the analyses and compare the results. You'll notice the estimate for energy drops and the standard error increases. This is expected and shows us there may be some misreporting of energy intake. Notice also that the p value changes quite a bit, highlighting now unreliable it is.
+For example, in studies on diet, participants often unconsciously over or under estimate how much food they eat. Most people don't regularly consume, for instance, less than two thousand kilocalories per day, so when there are kilocalorie values less than that, there is the potential for error in reporting. These values in the data can lead to inflated estimates as the data has more variability than there may be in real life. We can run a sensitivity analysis by dropping all observations less than two thousand and more than four thousand kilocalories, so in this case twenty and forty since the values were recorded as per hundred kilocalorie. Now we redo the analyses and compare the results. You'll notice the estimate for energy drops and the standard error increases. This is expected and shows us there may be some misreporting of energy intake. Notice also that the p value changes quite a bit, highlighting now unreliable it is.
 
 
 ---
