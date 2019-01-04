@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-We've now ran several models, checking the models and adjusting for variables. Now let's learn to tidy these model objects and extract the relevant results.
+We've now ran several models, checked them, and adjusted for variables. Now let's tidy these model objects up and extract the relevant results.
 
 
 ---
@@ -45,14 +45,14 @@ tidy(model_object,
      conf.int = TRUE)
 
 # Compute odds ratio 
-# (only for some models)
+# (not available for all models)
 tidy(model_object, 
      exponentiate = TRUE)
 ``` {{2}}
 
 
 `@script`
-Most statistical methods in R are developed by independent researchers, so there isn't often any underlying consistency in structure, making them a bit messy. This can be frustrating when learning a new technique. Thankfully there is the tidy function from the broom package to help you tidy up! Broom can tidy a large range of statistics. Tidy allows you to also calculate the confidence interval for measures of uncertainty and, for logistic regression, can convert the estimates into odds ratio. This is covered in more detail in the Logistic Regression course, but briefly, the odds ratio is the odds of an outcome occurring given a predictor's presence compared to the odds of the outcome occurring given the predictor's absense.
+Most statistical methods in R are developed by independent researchers, so there isn't often an underlying consistency between methods, so they can be messy and can be a frustrating experience when learning a new technique. Thankfully there is the tidy function from the broom package to help out! Tidy allows you to tidy up many types of analyses and also can calculate the confidence interval for measures of uncertainty and, for logistic regression, can give the odds ratio. Odds ratios are covered in more detail in the Logistic Regression course, but briefly, it is the odds of an outcome occurring given a predictor's presence compared to the odds of the outcome occurring given the predictor's absence.
 
 
 ---
@@ -68,9 +68,7 @@ key: "a62fb7015b"
 model <- glm(chd ~ weight + energy, 
              data = diet, family = binomial)
 summary(model)
-```
-
-Part of output: {{1}}
+``` {{1}}
 
 ```
 Call:
@@ -86,11 +84,11 @@ Coefficients:
 weight      -0.007173   0.015157  -0.473  0.63604   
 energy      -0.113894   0.041976  -2.713  0.00666 **
 ...
-``` {{1}}
+``` {{2}}
 
 
 `@script`
-We've already encountered the traditional way of trying to clean up the model results using summary. Here we have a logistic regression model with the diet dataset. Summary shows a lot of information that isn't easy to extract.
+We've already encountered cleaning up the model by using summary. Here we run a logistic regression model using the diet dataset. Summary shows a lot of information, which isn't easy to extract.
 
 
 ---
@@ -118,7 +116,7 @@ tidy(model)
 
 
 `@script`
-The tidyverse way of cleaning up with the tidy function will take the model and convert it to a data frame, technically a tibble, so you can continue on wrangling with dplyr functions or to plot them. The information extracted is much easier to read and to use.
+Using the tidy function to clean up will take the model, extract the important parts, and create a dataframe, technically a tibble, so you can continue wrangling the results with dplyr or plotting them.
 
 
 ---
@@ -145,7 +143,7 @@ tidy(model, conf.int = TRUE)
 
 
 `@script`
-In base R it requires extra work to extract the confidence intervals and combine them with the estimates. Confidence intervals are, very simply, a possible range of uncertainties in the value of the estimate. Here, tidy has the conf dot int argument, letting you add confidence intervals directly to the results tibble.
+In base R, extracting the confidence interval requires extra work to extract and to combine them with the estimates. Confidence intervals are, very simply, a possible range of uncertainties in the value of the estimate. Here, tidy has the conf dot int argument, letting you add confidence intervals directly to the results.
 
 
 ---
@@ -202,9 +200,9 @@ tidied_model %>%
 
 
 `@script`
-Wrangling is easy now since the model is a tibble. For instance, if you run a logistic regression, you need to exponentiate the results to get odds ratios. We can pipe the model and select only the important variables. Check how the estimates look right now. It's hard to understand what the numbers mean. That's because we need to convert the estimates to odds ratios first.
+Wrangling after tidying is easy as the model is a tibble. So, if you run a logistic regression, you need to exponentiate the results to get odds ratios. Here we only select the important variables. Check how the estimates look right now. It's harder to understand what the numbers mean as they aren't as odds ratios.
 
-To do that, we apply the exp function to exponentiate each variable except the term variable by using mutate at. Now the results look maybe a bit more familiar. We'll cover interpretation in the next chapter.
+To get them, we apply the exp function to exponentiate each variable, except the term variable, by using mutate at. Now the results maybe look a bit more familiar. We'll cover interpretation in the next chapter.
 
 
 ---
@@ -224,7 +222,7 @@ key: "8823985610"
 
 
 `@script`
-I mentioned keeping only important variables. Why were those variables important? Looking to STROBE, it says to provide the estimates with the 95 percent confidence interval. For science and health research, the estimate, also called the effect size, is much more useful when judging how import an exposure is on an outcome. Combined with the uncertainty, which gives a possible distribution to the effect size, you are able to gain more insight into your research question.
+I mentioned keeping only important variables. Why were those variables important? Looking to STROBE, it says to provide the estimates with the 95 percent confidence interval. For science and health research, the estimate, also called the effect size, is much more useful when judging how important an exposure is on an outcome. Combined with the uncertainty, which gives a possible distribution to the effect size, you are able to gain more insight into your research question.
 
 
 ---
@@ -236,18 +234,19 @@ key: "333093b1b3"
 ```
 
 `@part1`
-> "Scientific conclusions and business or policy decisions should not be based only on whether a p-value passes a specific threshold."  {{1}}
-
-> "p-value does not provide a good measure of evidence regarding a model or hypothesis ... does not measure the size of an effect or the importance of a result" {{1}}
+> "Scientific conclusions and business or policy decisions should not be based on whether a p-value passes a threshold."  ...
+> "p-value does not provide a good measure of evidence regarding a model or hypothesis ... does not measure the size of an effect or the importance of a result"
 
 DOI to statement: https://doi.org/10.1080/00031305.2016.1154108 {{1}}
 
 **Example**: Odds ratio of 0.8 (0.59, 1.01 95% CI), p>0.05 ("not significant") for drug treatment, uncertainty could reach odds of 41% less disease from drug {{2}}
 
+
 `@script`
-Why didn't I include the p value? The biggest reason is that it provides little to no clinical or public health value and it can actually be harmful! One of the biggest and most influential statistical association released a statement about this problem. They provide much more detail in their statement, but briefly, they state to not rely on p values in scientific studies. P values are not good evidence for a hypothesis or for the study's findings importance.
+Why didn't I include the p value? The biggest reason is that it provides little to no clinical or public health value and it can actually be harmful! One of the biggest and most influential statistical associations released a statement about this problem. They provide much more detail in their statement, but briefly, they state to not rely on p values in scientific studies. P values are not good evidence for a hypothesis or for the importance of a study's findings.
 
 Let's take an example. Suppose a drug treatment for a disease has an odds ratio of zero point eight, but has a p value above zero point zero five. Most studies would report this as not significant and not discuss it further. But at the lower bound of uncertainty the odds is forty one percent less disease in those taking the drug. So it could still be clinically useful!
+
 
 ---
 ## Let's get tidying!
