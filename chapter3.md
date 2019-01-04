@@ -24,9 +24,9 @@ key: 846ad549f8
 xp: 50
 ```
 
-Because the Framingham study is a prospective cohort, with certain limits to the data and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of Framingham data.
+Because the Framingham study is a prospective cohort, with certain limits to the data and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of the Framingham data.
 
-The `tidied_framingham` dataset has been loaded in case you want to look through it.
+The `tidied_framingham` dataset is loaded in case you want to look through it.
 
 `@possible_answers`
 - Does higher cholesterol cause cardiovascular disease (CVD)?
@@ -36,7 +36,7 @@ The `tidied_framingham` dataset has been loaded in case you want to look through
 - All of the above.
 
 `@hint`
-- Remember, these are questions to ask *of the Framingham study*... the variables in the question must exist in the dataset.
+- Remember, these are questions to ask *of the Framingham study*. The variables in the question must exist in the dataset.
 
 `@pre_exercise_code`
 ```{r}
@@ -65,7 +65,7 @@ xp: 100
 
 Let's practice using `glmer` and see what it outputs. There are several things you need to consider and be aware of when running `glmer` models. This is were your knowledge of transforming variables comes into use, since the numerical value of the predictors can make a big impact on whether the model works or not.
 
-Most of these exercises will lead to either warnings or errors, which are due to what the predictor's values are. Because running `glmer` can be computational expensive, the Framingham dataset has been reduced in size and is found in the `sample_tidied_framingham` dataset.
+Most of these exercises will lead to either warnings or errors, which are due to what the predictor's values are. Because running `glmer` can be computationally expensive, the Framingham dataset has been reduced in size and is found in the `sample_tidied_framingham` dataset.
 
 `@pre_exercise_code`
 ```{r}
@@ -222,7 +222,7 @@ key: ee91386423
 xp: 100
 ```
 
-Before the development of mixed effects modelling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
+Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
 Include followup visit number in the `glmer` formula as well as the random term and the choleterol predictor (as in the previous exercise with `I()`). Then run the same model with logistic regression (without the random term of course) and compare the results with the mixed effect model. Pay attention to the differences in the estimates and standard errors.
 

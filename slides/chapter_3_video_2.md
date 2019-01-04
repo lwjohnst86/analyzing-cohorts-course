@@ -17,7 +17,8 @@ title: Instructor
 
 
 `@script`
-A difficult part of analysis is identifying and adjusting for potential confounders. Regardless of how you find and adjust for confounders, you need to review other studies and understand the underlying biology.
+A difficult part of the analysis is controlling for potential confounders.
+
 
 ---
 ## Classical definition of a confounder
@@ -30,8 +31,10 @@ key: "061e68225d"
 `@part1`
 ![Confounder](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
 
+
 `@script`
-The classic definition of a confounder is a variable that can influence both the outcome and the exposure. You'll likely have encountered the concept of confounding in the other epidemiology courses. Understanding confounding is essential to making more accurate inferences about an association. In order to control for confounding, you need to adjust for it in your models.
+A confounder is a variable that can influence both the outcome and the exposure. You'll likely have encountered the concept of confounding in the other courses. Understanding confounding is essential in making valid inferences. To control for confounding, you need to include it in your models.
+
 
 ---
 ## Creating models: Controlling for confounding
@@ -42,9 +45,7 @@ key: "b0f88227c7"
 ```
 
 `@part1`
-- **Very difficult** to completely control confounding
-- Danger of not adjusting
-    - Lead to actual harm
+- **Very difficult** to completely control/adjust for confounding
 - Three common approaches:
     - Literature, biological rationale, background knowledge
     - Causal pathways: Directed acyclic graphs (DAG)
@@ -52,25 +53,28 @@ key: "b0f88227c7"
 
 
 `@script`
-What does it actually mean to adjust for confounders? In cohorts, confounding gets trickier and more thought must go into what to adjust for. Do the best you can, but be aware you are guaranteed to not include or to not know about all confounders.
+What does it mean to adjust for confounders? Confounding is tricky in cohorts and requires substantial consideration. Do the best you can, but be aware you are guaranteed to not include or to not know about all confounders.
 
-Confounding is very important to consider in health research. You should use several approaches to identifying confounders, as they each have strengthes and weaknesses. Using previous knowledge of biology and of the problem and using formal methods such as directed acyclic graphs and information criterion techniques are common approaches.
+Considering confounding is vital in health research. You should use several approaches when identifying confounders, as they each have strengths and weaknesses. Use previous biological and domain knowledge and formal methods such as directed acyclic graphs, or DAGs, and information criterion techniques.
+
 
 ---
 ## Confounder identification with DAGs
 
 ```yaml
 type: "FullSlide"
+key: "669761f7ba"
 ```
 
 `@part1`
-
-#### Directed Acyclic Graph (DAG)
+### Directed Acyclic Graph (DAG)
 
 ![DAG](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
 
+
 `@script`
-One powerful approach to identifying confounding is to draw graphs such as this one, which is called a directed acyclic graph or DAG. Each variable is called a node, and the causal or hypothetical link between variables is called an edge. Creating DAGs helps as it makes hypothetical causal pathways explicit.
+Drawing graphs like this DAG is a powerful approach to finding confounders. Each variable is called a node, and the causal or hypothetical link between variables is called an edge. Creating DAGs makes hypothetical confounding pathways explicit.
+
 
 ---
 ## Identifying adjustment variables with dagitty
@@ -95,8 +99,7 @@ An example: Height with colon cancer. But... {{1}}
 &nbsp;
 
 ```{r}
-possible_confounders <- dagitty(
-"dag {
+confounders <- dagitty("dag {
   Height -> ColonCancer
   Sex -> {Height ColonCancer}
   Sex -> MeatIntake -> ColonCancer
@@ -105,35 +108,41 @@ possible_confounders <- dagitty(
 
 ```{r}
 adjustmentSets(
-    possible_confounders,
+    confounders,
     exposure = "Height",
     outcome = "ColonCancer") 
+``` {{4}}
+
+```{r}
 #>  { Sex }
 ``` {{4}}
 
 
 `@script`
-You can create DAGs using the dagitty package and dagitty will suggest possible adjustment variables. For example, let's study how height is associated with risk for colon cancer. We know men tend to be taller than women, that men have a higher risk for cancer, that meat intake increases risk for colon cancer, and that men tend to eat more meat. Given this information, what do we adjust for? Let's find out with dagitty! The first argument for the dagitty function takes a character string of a DAG specification. We initialize with the keyword dag, and afterward list each link between variables. In this example, height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. We use the adjustmentSets function on the DAG, set the exposure and the outcome, and then are informed that we should adjust for at least sex. Dagitty especially useful with more complicated pathways.
+You can create DAGs with the dagitty package, which will then suggest possible adjustment variables. For example, let's study how height associates with risk for colon cancer. We know men tend to be taller than women, that men have a higher risk for cancer, that meat intake increases risk for colon cancer, and that men tend to eat more meat. So, what do we adjust for? Let's use dagitty! The dagitty function takes a DAG specification as a character string. Starting with the keyword dag, we list each link between variables. Here, height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. We then use the adjustmentSets function on the DAG, set the exposure and the outcome, and are told that sex should at least be adjusted for.
+
 
 ---
 ## Visualizing the graph from dagitty
 
 ```yaml
 type: "TwoColumns"
+key: "405cdb3b00"
 ```
 
 `@part1`
-
 ```{r}
-plot(graphLayout(possible_confounders))
+plot(graphLayout(confounders))
 ``` {{1}}
 
-`@part2`
 
+`@part2`
 ![dagitty graph](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/9b99e7c5a4440bcd2c4a05130bf47c89d3a53dc4/ch3-v2-dagitty.png) {{2}}
 
+
 `@script`
-With this code, you can visualize what the graph looks like. You can see how each variable is linked as we specified. Check this plot to make sure you correctly specified the DAG.
+You can visualize what the graph looks like using this code to see how each variable is linked, as specified. Check this plot to confirm the DAG was correctly specified.
+
 
 ---
 ## Assessing model fit: Information criterion methods
@@ -151,7 +160,7 @@ key: "fdb2dfd109"
 
 
 `@script`
-It is best practice to not rely on a single method when deciding what you should adjust for in a DAG. Another method, the information criterion methods, compares several models to find which is better. The method balances model fitness and the number of predictors. Use the Akaike criterion or AIC for models that use maximum likelihood.
+It is good practice to use multiple methods to decide what you should adjust. The information criterion methods are also quite powerful and compares several models to find which is better. The method balances model fitness with the number of predictors. Use the Akaike criterion or AIC for models that use maximum likelihood.
 
 
 ---
@@ -182,12 +191,14 @@ full_model <- glm(chd ~ ., data = cleaned_diet,
 model_comparison <- dredge(full_model, rank = "AIC", subset = "fibre")
 ``` {{3}}
 
-- *Caution*: Many variables, big dataset, and/or type of model = long computation times {{4}}
+- *A caution*: With many variables, big datasets, and/or the type of model = long computation times {{4}}
+
 
 `@script`
-The MuMIn package implements an easy interface to model selection. First, we need to create a dataframe with only the outcome and predictors of interest, with no missingness. Then we create the model with all variables included by using a dot. We set a binomial family as this is logistic regression. MuMIn requires we set na dot fail. Next we use dredge on the model using AIC. Dredge looks in all combination of models and compares them. In this example, our main exposure is fibre, so we set it with subset.
+You can use MuMIn as an interface to model selection. First, we must create a dataframe with the outcome and predictors, with no missingness. Then we create the model with all variables by using a dot after the tilde. MuMIn requires we set na dot fail. Next we use dredge on the model using AIC. Dredge runs all combination of models and compares them. In this example, our main exposure is fibre, so we set it with subset.
 
-A short comment on dredge. Since it compares many possible models be careful running it as the computational time may be quite long.
+Be careful when running dredge. Since it compares many models, the computation time can be very long.
+
 
 ---
 ## Model selection using the MuMIn package
@@ -217,7 +228,8 @@ head(model_selection, 4)
 
 
 `@script`
-Use head to see the top four models. The AIC column shows the models are all very similar. This tell us a few things, such as these variables may not contribute substantially to model fit. We could be fairly safe with using any of these models.
+To see the top four models, use head. The AIC column shows the models are all very similar. Here, we see that these variables may not contribute substantially to model fitness. We could be safe using any of these models.
+
 
 ---
 ## Adhering to the STROBE Statement
@@ -237,7 +249,8 @@ key: "a46da48b7d"
 
 
 `@script`
-While considering confounding is critical to doing rigorous science, another reason is that doing so is required as part of the STROBE checklist. STROBE stands for strengthening the reporting of observational studies in epidemiology and is endorsed internationally by researchers who work with cohort datasets. Use this checklist to focus your analyses and presentation of results and to ensure to adhere to standards of high quality research.
+Considering confounding is part of rigorous science. But it's also required from the STROBE checklist. STROBE, or strengthening the reporting of observational studies in epidemiology, and is internationally embraced by researchers working on observational studies. This checklist focuses your analyses and presentation of results and ensures adherence to higher quality research.
+
 
 ---
 ## Let's find some confounders!
