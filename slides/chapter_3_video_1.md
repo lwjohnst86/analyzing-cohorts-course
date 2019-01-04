@@ -55,7 +55,10 @@ key: "3b69b894db"
 ```
 
 `@part1`
-- **Logistic regression**: Similar to linear regression, used when only one timepoint
+- **Logistic regression**: 
+    - Similar to linear regression
+    - With binary outcome 
+    - Used when only one timepoint
 
 ```{r}
 # Example syntax:
@@ -65,7 +68,7 @@ glm(outcome ~ predictor1 + predictor2,
 
 
 `@script`
-You'll have encountered logistic regression in the prerequisite course, but in simple terms, it is similar to linear regression, but with a binary outcome and used when your predictor variables are only measured at a single time point. The syntax uses glm with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. You need to set the family to binomial.
+You'll have encountered logistic regression in the prerequisite course, but in simple terms, it is similar to linear regression, but with a binary outcome and used when your predictor variables are only measured at a single time point. The syntax uses glm with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. You need to set the family to binomial since the outcome is binary.
 
 
 ---
@@ -77,7 +80,9 @@ key: "029e25b56b"
 ```
 
 `@part1`
-- **Mixed effects**: Has "fixed" and "random" terms, used with multiple measures on same "unit"
+- **Mixed effects**: 
+    - Has "fixed" and "random" terms
+    - Used with multiple measures on same "unit" (e.g. over time)
 
 ```{r}
 # Example syntax:
@@ -89,7 +94,7 @@ glmer(outcome ~ predictor1 + predictor2 +
 
 
 `@script`
-Mixed effects models contain a fixed term and a random term. For example, you use this method when data has been collected on each person many times. You need to use the lme4 package, which contains the glmer function. This function is very similar to glm, except you add a random term by using brackets and a bar. Here, the one indicates that each random unit should have its own intercept. This makes sense as each person will start at their own level in a study. The random id here is the random unit to use, for instance, subject id.
+Mixed effects models meanwhile are more powerful and contain a fixed term and a random term. For example, you use this method when data has been collected on each person multiple times. You'll need to use the lme4 package, which contains the glmer function. This function is very similar to glm, except you add a random term by using brackets and a bar. Here, the one in the brackets indicates that each random unit should have its own intercept. This makes sense as each person will start at their own level in a study. The random id here is the random unit to use, such as the subject id.
 
 
 ---
@@ -104,15 +109,18 @@ key: "d4dd5e98fc"
 ```{r}
 # Example:
 library(lme4)
+``` {{1}}
 
+```{r}
 # Before modelling
 changed_dataset <- dataset %>% 
     mutate(center_predictor = scale(predictor1, scale = FALSE),
            predictor_divided_100 = predictor2 / 100)
+
 glmer(outcome ~ center_predictor + predictor_divided_100 + 
           (1 | random_id), # e.g. subject_id
       data = changed_dataset, family = binomial)
-``` {{1}}
+``` {{2}}
 
 ```{r}
 # During modelling
@@ -120,11 +128,11 @@ glmer(outcome ~ scale(predictor1, scale = FALSE) + # mean center
         I(predictor2 / 100) + # Divide by 100
         (1 | random_id), # e.g. subject_id
       data = dataset, family = binomial)
-``` {{2}}
+``` {{3}}
 
 
 `@script`
-Many regression models can be strongly influenced by large differences in numerical values between predictors. The reasons are due to the underlying mathematics of the model. For our purposes, you only need to know that you may need to change the values, for instance by making smaller by dividing by 100. Usually the model will let you know there is a problem. If changes are needed, you will have to transform the variables, as you learned in chapter 2. Here, you can transform the variables beforehand and use the transformed variables in the model. You can also directly transform variables in the model formula. For transformation such as addition or division, you need to use the I function around the transformation.
+Many regression models can be strongly influenced by large differences in numerical values between predictors. The reasons are due to the underlying mathematics of the model. For our purposes, you only need to know that you may need to change the values, for example by making them smaller by dividing by 100. Usually the model will let you know there is a problem. If changes are needed, you will have to transform the variables, as you learned in chapter 2. You can do this two ways. Here, you can transform the variables beforehand and use the transformed variables in the model. Or, you can directly transform variables in the model formula. For transformation such as addition or division, you need to use the I function wrapped around the transformation.
 
 
 ---
@@ -149,7 +157,7 @@ key: "d4bbe2304d"
 
 
 `@script`
-Remember, research questions are restricted by both study design and the data collected. Cohorts are observational studies, so questions on causes are nearly impossible to answer. Cohorts are about people with common characteristics, so you can't answer questions outside the group that is studied. 
+Something to keep in mind. Research questions are limited by both study design and the type of data collected. Cohorts are observational studies, so questions on causes are nearly impossible to answer. Cohorts are about people with common characteristics, so you can't answer questions outside the group that is studied. 
 
 For prospective cohorts, there is a defined study timeframe, so we can't answer questions outside this time. Finally, exposure measurements may be unreliable, or participant data may not be consistently collected, which will make your answer biased.
 
@@ -163,5 +171,5 @@ key: "38e4caa8be"
 ```
 
 `@script`
-Let's practice!
+Let's do some practice!
 
