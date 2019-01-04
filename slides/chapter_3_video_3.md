@@ -17,10 +17,11 @@ title: Instructor
 
 
 `@script`
-An important part of any analysis is interaction test of specific variables and for running sensitivity analyses. 
+An important part of any analysis is testing for interactions of important variables and running sensitivity analyses.
+
 
 ---
-## Interactions: Combining variables changes association with outcome
+## Interaction: Combining variables in a model
 
 ```yaml
 type: "FullSlide"
@@ -28,14 +29,15 @@ key: "fe20e41d30"
 ```
 
 `@part1`
-- **Interaction testing**: Check if a variable modifies another variable's
-association on the outcome {{1}}
+- **Interaction testing**: Check if a variable modifies another variable's association on the outcome {{1}}
     - E.g. A drug reduces risk of a disease in men, but not women {{1}}
     - E.g. Greater risk for disease from obesity in some ethnicities {{1}}
     - *Always* consider sex and ethnic ancestry {{2}}
 
+
 `@script`
-Interaction testing is when you combine variables in a model to check if their individual values combined together modify the association with a drug. For example, some drugs reduce risk for a disease in men, but may be harmful or have no effect in women. Or that some risk factors such as obesity have a larger impact on disease in certain ethnicities. When it comes to sex and ethnicity, you always need to check for interactions, since both have such powerful impacts on health.
+Interaction testing is when you combine variables in a model to see whether their individual values together modify the association with an outcome. For example, some drugs reduce risk for a disease in men, but may be harmful or have no effect in women. Or that risk factors such as obesity have a larger effect in certain ethnicities. When it comes to sex and ethnicity, you always need to check for interactions, since both have such powerful impacts on health.
+
 
 ---
 ## Several approaches to checking interactions
@@ -56,7 +58,7 @@ key: "a2abb2e2ae"
 
 
 `@script`
-There are several ways to check for interactions. The first, and often the most effective, is to visualize the data. More formal methods include doing stratified analyses, which is literally splitting the dataset up by a group such as sex. You can also directly model interactions directly by including interaction terms in your analyses.
+There are several ways to check for interactions. The first, and often the most effective, is to visualize the data. More formal methods include doing stratified analyses, which is literally splitting the dataset up by a group such as sex. You can also directly model interactions by including interaction terms in your analyses.
 
 
 ---
@@ -84,7 +86,7 @@ outcome ~ predictor * sex
 
 
 `@script`
-There are two ways to model an interaction term. The first is similiar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can use a shorthand using the asterisk between the two terms. These two formulas are equivalent. Be careful with the estimates. You cannot interpret interaction estimates alone but only in the context of the other estimates.
+There are two ways to model an interaction term. The first is similiar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can use a shorthand using the asterisk between the two terms. These two formulas are equivalent. Be careful with the estimates, as you cannot interpret interaction estimates alone but only in the context of the other estimates.
 
 
 ---
@@ -121,11 +123,11 @@ weight:energy.grp>2750 KCals -0.043461   0.032994  -1.317    0.188
 
 
 `@script`
-Ok, here's an example. This dataset doesn't have sex or ethnicity, so we'll use the energy group variable. You'll notice it isn't much more difficult to run an interaction test, as you just include the asterisk. But! The estimates are very different. There is now another term for weight with energy group at the bottom. Later in the course we'll get more to interpretation.
+Here's an example. This dataset doesn't have sex or ethnicity, so we'll use the energy group variable. You'll notice it isn't much more difficult to run an interaction test, as you just include the asterisk. But! The estimates are very different. There is now another term for weight with energy group at the bottom. Later in the course we'll get more to interpretation.
 
 
 ---
-## Checking if interactive association exists
+## Checking if an interactive association exists
 
 ```yaml
 type: "FullSlide"
@@ -164,11 +166,11 @@ key: "a0da496622"
 ```
 
 `@part1`
-> Sensitivity analysis: "assessing the robustness of an association by checking whether changing any of the assumptions might lead to different results or interpretations"
+> Sensitivity analysis: "assess the robustness of association by checking change in results by changing assumptions"
 
 - Very common in epidemiology
 - Examples: {{1}}
-    - Are people who miss data collection different from others?
+    - Are people who miss collection visits different from others?
     - Does the statistical technique change results?
 
 
@@ -192,11 +194,8 @@ key: "3fbf27f005"
 
 ```{r}
 remove_diet_misreporting <- diet %>%
-    # energy is per hundred kilocalorie
     filter(between(energy, 20, 40))
-
-summary(glm(chd ~ weight + energy, data = diet,
-            family = binomial))$coef
+summary(glm(chd ~ weight + energy, data = diet, family = binomial))$coef
 
 #>                 Estimate Std. Error    z value    Pr(>|z|)
 #> (Intercept)  1.795997723 1.35969917  1.3208787 0.186541801

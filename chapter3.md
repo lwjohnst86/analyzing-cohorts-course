@@ -388,7 +388,7 @@ adjustmentSets(___, exposure = ___, outcome = ___)
 `@solution`
 ```{r}
 # Include the links between variables
-variable_pathways <- dagitty( "dag {
+variable_pathways <- dagitty("dag {
     SBP -> CVD
     Sex -> {SBP Smoking}
     Smoking -> {SBP CVD}
