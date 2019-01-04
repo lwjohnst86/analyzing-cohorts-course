@@ -17,7 +17,8 @@ title: Instructor
 
 
 `@script`
-In this chapter, we'll be covering statistical analyses. We'll be focusing on general concepts rather than details of a method and won't cover interpretation just yet.
+In this chapter, we'll be covering statistical analyses. We'll be focusing on general concepts rather than details of an specific method and won't cover interpretation just yet.
+
 
 ---
 ## Common analyses for cohorts
@@ -40,15 +41,17 @@ key: "d7c7602043"
 
 
 `@script`
-There are many ways to analyze cohorts and it depends on the data, the research questions, and the study design. Most often the analysis will be some form of regression modeling, which provides an estimate of the magnitude of an association and its uncertainty. A prospective cohort with multiple measures would often use mixed effects models, while other designs or with single measures tend to use simpler regression. Cohorts also often study a disease state, which is generally binary, so you'd use a logistic regression form.
+There are many ways to analyze cohorts, depending on the data, the research questions, and the study design. Most often the analysis will be some form of regression modeling, which provides an estimate of the magnitude of an association and its uncertainty. A prospective cohort with multiple measures over time would often use mixed effects models, while other designs or those with single measures such as at only one time point tend to use simpler regression techniques. Cohorts also often study a disease state, which is generally binary, so you'd likely use a logistic regression model.
 
-From now on we'll use logistic regression in the videos and mixed effects in the exercises.
+For the rest of the chapter we'll use logistic regression in the videos and mixed effects in the exercises.
+
 
 ---
 ## Logistic regression
 
 ```yaml
 type: "FullSlide"
+key: "3b69b894db"
 ```
 
 `@part1`
@@ -62,7 +65,7 @@ glm(outcome ~ predictor1 + predictor2,
 
 
 `@script`
-Briefly, logistic regression is similar to linear regression, but with a binary outcome. Usually, you use this when your predictor variables are only measured at a single time point. The syntax uses glm with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. You need to set the family to binomial.
+You'll have encountered logistic regression in the prerequisite course, but in simple terms, it is similar to linear regression, but with a binary outcome and used when your predictor variables are only measured at a single time point. The syntax uses glm with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. You need to set the family to binomial.
 
 
 ---
@@ -70,10 +73,10 @@ Briefly, logistic regression is similar to linear regression, but with a binary 
 
 ```yaml
 type: "FullSlide"
+key: "029e25b56b"
 ```
 
 `@part1`
-
 - **Mixed effects**: Has "fixed" and "random" terms, used with multiple measures on same "unit"
 
 ```{r}
@@ -84,18 +87,20 @@ glmer(outcome ~ predictor1 + predictor2 +
       data = dataset, family = binomial)
 ```
 
+
 `@script`
 Mixed effects models contain a fixed term and a random term. For example, you use this method when data has been collected on each person many times. You need to use the lme4 package, which contains the glmer function. This function is very similar to glm, except you add a random term by using brackets and a bar. Here, the one indicates that each random unit should have its own intercept. This makes sense as each person will start at their own level in a study. The random id here is the random unit to use, for instance, subject id.
+
 
 ---
 ## Transforming variables for modelling
 
 ```yaml
 type: "FullSlide"
+key: "d4dd5e98fc"
 ```
 
 `@part1`
-
 ```{r}
 # Example:
 library(lme4)
@@ -117,8 +122,10 @@ glmer(outcome ~ scale(predictor1, scale = FALSE) + # mean center
       data = dataset, family = binomial)
 ``` {{2}}
 
+
 `@script`
 Many regression models can be strongly influenced by large differences in numerical values between predictors. The reasons are due to the underlying mathematics of the model. For our purposes, you only need to know that you may need to change the values, for instance by making smaller by dividing by 100. Usually the model will let you know there is a problem. If changes are needed, you will have to transform the variables, as you learned in chapter 2. Here, you can transform the variables beforehand and use the transformed variables in the model. You can also directly transform variables in the model formula. For transformation such as addition or division, you need to use the I function around the transformation.
+
 
 ---
 ## Keep in mind: Question is restricted by design and data
