@@ -720,7 +720,7 @@ xp: 40
 ```
 
 `@instructions`
-- Including centered body mass index, followup visit, and the random term in the formula, run the model with the original dataset. 
+- Including centered body mass index, followup visit, and the random term in the formula, run the model with the original dataset.
 
 `@hint`
 - The model formula is the same as the previous exercises, but using the original dataset.
