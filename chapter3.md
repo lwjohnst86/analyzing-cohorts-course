@@ -282,7 +282,7 @@ xp: 50
 ```
 
 `@instructions`
-- Do the same thing with the logistic regression in `glm()` (without the random term). How do the results differ?
+- Do the same thing with the logistic regression in `glm()` (without the random term), paying attention to the differences in results.
 
 `@hint`
 - The `glmer` formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number + (1 | subject_id)`.
@@ -354,7 +354,7 @@ Building an appropriate DAG that is reasonably close to the underlying biology i
 Let's find which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Keeping things simple, assume that: sex influences SBP and smoking; smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
 
 `@instructions`
-- Convert the above links between variables into a DAG, in the form `variable -> {one or more variables}`. Recall that `->` means "influences" or "effects".
+- Convert the above links between variables into a DAG, in the form `variable -> {one or more variables}` (remember, `->` means "influences" or "effects").
 - Visually inspect the plot of the `variables_pathway` graph.
 - Identify which variables to potentially adjust for from the `variable_pathways` graph, specifying the exposure and the outcome variables.
 
@@ -524,7 +524,7 @@ xp: 40
 ```
 
 `@instructions`
-- Run `glmer` models with centered total cholesterol (divided by 100), sex, followup visit, and the random term. Don't include an interaction.
+- Run `glmer` models with centered total cholesterol (divided by 100), sex, followup visit, and the random term, but no interaction.
 
 `@hint`
 - Use the `I()` to divide centered cholesterol by 100.
@@ -720,7 +720,7 @@ xp: 40
 ```
 
 `@instructions`
-- Run the model using the original sampled dataset. Include centered body mass index, followup visit, and the random term.
+- Including centered body mass index, followup visit, and the random term in the formula, run the model with the original dataset. 
 
 `@hint`
 - Use the `sample_tidied_framingham` dataset, with subject ID as the random term.
@@ -763,7 +763,7 @@ xp: 40
 ```
 
 `@instructions`
-- Now run the model with the data that excluded some BMI values. Notice how or if they change.
+- Now run the model with the data that excluded some BMI values, paying attention to how or if the results differ.
 
 `@hint`
 - Use the `bmi_check_data`.
