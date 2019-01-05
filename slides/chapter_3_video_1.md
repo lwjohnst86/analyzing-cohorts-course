@@ -132,7 +132,7 @@ glmer(outcome ~ scale(predictor1, scale = FALSE) + # mean center
 
 
 `@script`
-Many regression models can be strongly influenced by large differences in numerical values between predictors. The reasons are due to the underlying mathematics of the model. For instance, one variable may have values between 100 to 1000 while another variable may be better 1 to 5. These large differences in values can sometimes cause some problems. Usually the model will inform you of a problem. If changes are needed, you'll have to transform the variables, as you learned in chapter 2. You can do this two ways. Here, you can transform the variables beforehand and use the transformed variables in the model. Or, you can directly transform variables in the model formula. For transformation such as addition or division, you need to use the I function wrapped around the transformation.
+Many regression models can be strongly influenced by large differences in numerical values between predictors. The reasons are due to the underlying mathematics of the model. For instance, one variable may have values between a hundred to a thousand while another variable may range from one to five. These large differences in values can sometimes cause some problems. Usually the model will inform you of a problem. If changes are needed, you'll have to transform the variables, as you learned in chapter two. You can do this two ways. Here, you can transform the variables beforehand and use the transformed variables in the model. Or, you can directly transform variables in the model formula. For transformation such as addition or division, you need to use the I function wrapped around the transformation.
 
 
 ---
