@@ -82,7 +82,7 @@ tidied_framingham <- tidier_framingham %>%
         )
 
 ids <- unique(tidied_framingham$subject_id)
-sampled_ids <- sample(ids, length(ids) / 4, replace = FALSE)
+sampled_ids <- sample(ids, length(ids) / 15, replace = FALSE)
 sample_tidied_framingham <- tidied_framingham %>%
     filter(subject_id %in% sampled_ids)
 
