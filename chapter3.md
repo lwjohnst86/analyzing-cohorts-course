@@ -85,7 +85,7 @@ xp: 35
 - Take a look at the sampled data, then add cholesterol as an $x$, subject ID as the random term, and use a binomial family.
 
 `@hint`
-- The formula should look like `got_cvd ~ total_cholesterol + (1 | subject_id)`.
+- The random term goes in the `(1 | ___)` portion of code.
 
 `@sample_code`
 ```{r}
@@ -130,7 +130,7 @@ xp: 35
 - Let's fix the warning by mean-centering cholesterol in the model.
 
 `@hint`
-- The model formula should be `got_cvd ~ centered_total_cholesterol + (1 | subject_id)`.
+- The mean centered cholesterol variable is found already in the dataset.
 
 `@sample_code`
 ```{r}
@@ -175,7 +175,7 @@ xp: 30
 - There's still a warning about rescaling, as the variance is too large, so use `I()` and divide cholesterol by 100.
 
 `@hint`
-- The formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + (1 | subject_id)`.
+- Use the same formula as in the previous exercises, but wrap the cholesterol variable with the `I()` function.
 
 `@sample_code`
 ```{r}
@@ -244,7 +244,7 @@ xp: 50
 - Run a `glmer` analysis using the same formula as the previous exercise (with the `I()` around cholesterol), but also include followup visit number.
 
 `@hint`
-- The `glmer` formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number + (1 | subject_id)`.
+- The formula is the exact same as the previous exercise, except there is an additional predictor.
 
 `@sample_code`
 ```{r}
@@ -285,7 +285,7 @@ xp: 50
 - Do the same thing with the logistic regression in `glm()` (without the random term), paying attention to the differences in results.
 
 `@hint`
-- The `glmer` formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number + (1 | subject_id)`.
+- Use the exact same formula as in the `glmer` function, except the random term `(1 | ___)`.
 
 `@sample_code`
 ```{r}
@@ -565,7 +565,7 @@ xp: 40
 - Create the same formula, but this time with an interaction between sex and cholesterol.
 
 `@hint`
-- The interaction formula should look like `got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id)`.
+- The variables to check for an interaction should be around the `*` in the formula.
 
 `@sample_code`
 ```{r}
@@ -690,7 +690,7 @@ xp: 20
 - Filter out those people with body mass index (not centered) below 18.5 and above 45.
 
 `@hint`
-- Use `between(body_mass_index, 18.5, 45)`.
+- The argument order of `between` is variable, lower range, upper range.
 
 `@sample_code`
 ```{r}
@@ -723,7 +723,7 @@ xp: 40
 - Including centered body mass index, followup visit, and the random term in the formula, run the model with the original dataset. 
 
 `@hint`
-- Use the `sample_tidied_framingham` dataset, with subject ID as the random term.
+- The model formula is the same as the previous exercises, but using the original dataset.
 
 `@sample_code`
 ```{r}
@@ -766,7 +766,7 @@ xp: 40
 - Now run the model with the data that excluded some BMI values, paying attention to how or if the results differ.
 
 `@hint`
-- Use the `bmi_check_data`.
+- Run the same model but use the newly created `bmi_check_data`.
 
 `@sample_code`
 ```{r}
