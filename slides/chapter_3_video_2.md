@@ -126,8 +126,7 @@ You can create DAGs with the dagitty package, which will then suggest possible a
 ## Visualizing the graph from dagitty
 
 ```yaml
-type: "TwoColumns"
-key: "405cdb3b00"
+type: "FullSlide"
 ```
 
 `@part1`
@@ -135,8 +134,6 @@ key: "405cdb3b00"
 plot(graphLayout(confounders))
 ``` {{1}}
 
-
-`@part2`
 ![dagitty graph](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/9b99e7c5a4440bcd2c4a05130bf47c89d3a53dc4/ch3-v2-dagitty.png) {{2}}
 
 
