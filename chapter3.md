@@ -82,7 +82,7 @@ xp: 35
 ```
 
 `@instructions`
-- Look at the sample data. Add cholesterol as an $x$, subject ID as the random term, and use a binomial family.
+- Take a look at the sampled data, then add cholesterol as an $x$, subject ID as the random term, and use a binomial family.
 
 `@hint`
 - The formula should look like `got_cvd ~ total_cholesterol + (1 | subject_id)`.
@@ -115,7 +115,7 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Great! Let's try to fix this warning.")
+success_msg("Great!")
 ```
 
 ***
@@ -127,7 +127,7 @@ xp: 35
 ```
 
 `@instructions`
-- It's often better to set your own zero. View the centered cholesterol and use that in the model instead.
+- Let's fix the warning by mean-centering cholesterol in the model.
 
 `@hint`
 - The model formula should be `got_cvd ~ centered_total_cholesterol + (1 | subject_id)`.
@@ -160,7 +160,7 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Amazing job! But there's still a problem about needing to rescale.")
+success_msg("Amazing job!")
 ```
 
 ***
@@ -172,7 +172,7 @@ xp: 30
 ```
 
 `@instructions`
-- The number size can be a problem. Use `I()` to divide centered cholesterol by 100, and use in the formula.
+- There's still a warning about rescaling, as the variance is too large, so use `I()` and divide cholesterol by 100.
 
 `@hint`
 - The formula should be `got_cvd ~ I(centered_total_cholesterol / 100) + (1 | subject_id)`.
@@ -209,7 +209,7 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Amazing! You've solved the warnings about non-convergence and the rescaling issue.")
+success_msg("Amazing! You've solved the warnings about non-convergence, large eigenvalues, and the rescaling issue.")
 ```
 
 ---
