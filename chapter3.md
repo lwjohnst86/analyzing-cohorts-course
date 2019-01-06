@@ -63,9 +63,9 @@ key: 84d96a58a8
 xp: 100
 ```
 
-Let's practice using `glmer` and see what it outputs. There are several things you need to consider and be aware of when running `glmer` models. For instance, large variable variances can cause computational issues or the value of zero and distribution of positive and negative values can influence non-convergence issues. This is were your knowledge of transforming variables comes into use, as the value of the predictors can effect the performance of the model. There is some amount of tweaking the values to ensure that the model runs.
+There are several things you need to consider and be aware of when running `glmer` models. For instance, large variable variances can cause computational issues. This is where your knowledge of transforming variables comes into use, as the predictors' values can effect model performance. This can involve some tweaking to transform the values so the model runs.
 
-Most of these exercises will lead to either warnings or errors, which are due to what the predictor's values are. Because running `glmer` can be computationally expensive, the Framingham dataset has been reduced in size and is found in the `sample_tidied_framingham` dataset.
+These exercises will likely result in warnings or errors, due to the predictor's values. The Framingham dataset has been reduced in size, since `glmer` is computationally expensive, and is loaded as `sample_tidied_framingham`.
 
 `@pre_exercise_code`
 ```{r}
@@ -82,7 +82,7 @@ xp: 35
 ```
 
 `@instructions`
-- Take a look at the sampled data, then add cholesterol as an $x$, subject ID as the random term, and use a binomial family.
+- Look over the sampled data, then add cholesterol as a $x$, subject ID as the random term, and use a binomial family.
 
 `@hint`
 - The random term goes in the `(1 | ___)` portion of code.
