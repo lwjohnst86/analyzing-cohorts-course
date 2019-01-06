@@ -127,6 +127,7 @@ You can create DAGs with the dagitty package, which will then suggest possible a
 
 ```yaml
 type: "FullSlide"
+key: "d5d3441a67"
 ```
 
 `@part1`
@@ -134,7 +135,7 @@ type: "FullSlide"
 plot(graphLayout(confounders))
 ``` {{1}}
 
-![dagitty graph](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/9b99e7c5a4440bcd2c4a05130bf47c89d3a53dc4/ch3-v2-dagitty.png) {{2}}
+![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/8af0f2c49f1e245a7cad1e0e19b53f1ccb987a13/ch3-v2-dagitty.png) {{2}}
 
 
 `@script`
