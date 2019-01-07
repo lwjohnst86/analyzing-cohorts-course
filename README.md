@@ -196,10 +196,11 @@ have meaningful clinical implications.
 
 ### Prerequisites
 
-- [Intro to tidyverse](https://github.com/datacamp/courses-intro-to-tidyverse)
+- [Intro to Tidyverse](https://github.com/datacamp/courses-intro-to-tidyverse)
 - [Descriptive Epidemiology in R](https://github.com/datacamp/courses-descriptive-epidemiology-in-r)
 - [Correlation and Regression](https://github.com/datacamp/courses-intro-stats-correlation-regression)
-
+- [Multiple and Logistic Regression](https://www.datacamp.com/courses/multiple-and-logistic-regression)
+- [Hierarchical and Mixed Effects Models](https://www.datacamp.com/courses/hierarchical-and-mixed-effects-models)
 
 [course-specs]: https://github.com/datacamp/example-course-specs
 [profile-site]: https://github.com/datacamp/learner-profiles

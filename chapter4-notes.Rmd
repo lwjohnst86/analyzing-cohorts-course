@@ -15,6 +15,14 @@ have meaningful clinical implications.
     - Especially with "causal" language
 - Discuss STROBE guidelines in context of longitudinal study.
 
+- Sources of bias (not at this stage) TODO: move to analysis or wrangling chapter?
+
+{{TODO: add another exercise expanding on making estimate more meaningful... maybe in Chapter 4?}}
+
+- Know how to understand and interpret the results (we'll get to knowing what
+exactly is most useful to present and show for higher impact) Or move to chapter 4?
+
+
 ## Lesson 1: Language and information to use when communicating the findings
 
 - Danger of not showing all results or proper cautious interpretation, because
@@ -197,6 +205,10 @@ This is a very common usage for tables, as presenting diverse data types in a
 single format is challenging for figure, which is usually the case with descriptive
 tables. In fact, including this descriptive information is part of the STROBE
 guidelines.
+
+{{tabbed?}}
+
+also baseline table, and another one of over time.
 
 ```{r}
 framingham %>% 
