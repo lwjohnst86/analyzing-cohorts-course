@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-In this chapter, we'll be covering statistical analyses. We'll be focusing on general concepts rather than details of an specific method and won't cover interpretation just yet.
+In this chapter, we'll be covering statistical analyses. We'll be focusing on general concepts rather than details of a specific method and won't cover interpretation just yet.
 
 
 ---
@@ -43,7 +43,7 @@ key: "d7c7602043"
 `@script`
 There are many ways to analyze cohorts, depending on the data, the research questions, and the study design. Most often the analysis will be some form of regression modeling, which provides an estimate of the magnitude of an association and its uncertainty. A prospective cohort with multiple measures over time would often use mixed effects models, while other designs or those with single measures such as at only one time point tend to use simpler regression techniques. Cohorts also often study a disease state, which is generally binary, so you'd likely use a logistic regression model.
 
-For the rest of the chapter we'll use logistic regression in the videos and mixed effects in the exercises.
+For the rest of the chapter, we'll use logistic regression in the videos and mixed effects in the exercises.
 
 
 ---
@@ -68,7 +68,7 @@ glm(outcome ~ predictor1 + predictor2,
 
 
 `@script`
-You'll have encountered logistic regression in the prerequisite course, but in simple terms, it is similar to linear regression, but with a binary outcome and used when your predictor variables are only measured at a single time point. The syntax uses glm with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. You need to set the family to binomial since the outcome is binary.
+You'll have encountered logistic regression in prerequisites, but to review, it is similar to linear regression, but with a binary outcome and used when your predictor variables are only measured at a single time point. The syntax uses glm with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. You need to set the family to binomial since the outcome is binary.
 
 
 ---
@@ -132,7 +132,7 @@ glmer(outcome ~ scale(predictor1, scale = FALSE) + # mean center
 
 
 `@script`
-Many regression models can be strongly influenced by large differences in numerical values between predictors. The reasons are due to the underlying mathematics of the model. For instance, one variable may have values between a hundred to a thousand while another variable may range from one to five. These large differences in values can sometimes cause some problems. Usually the model will inform you of a problem. If changes are needed, you'll have to transform the variables, as you learned in chapter two. You can do this two ways. Here, you can transform the variables beforehand and use the transformed variables in the model. Or, you can directly transform variables in the model formula. For transformation such as addition or division, you need to use the I function wrapped around the transformation.
+Many regression models can be strongly influenced by large differences in numerical values between predictors, due to the underlying mathematics of the model. For instance, one variable may have values between a hundred to a thousand while another variable may range from one to five. These large differences in values can sometimes cause some problems. Usually, the model will inform you of a problem. If changes are needed, you'll have to transform the variables, as you learned in chapter two. You can do this two ways. Here, you can transform the variables beforehand and use the transformed variables in the model, or, you can directly transform variables in the model formula. For transformation such as addition or division, you need to use the I function wrapped around the transformation.
 
 
 ---
