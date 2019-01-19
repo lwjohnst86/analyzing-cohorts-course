@@ -300,9 +300,10 @@ E.g. a sex or time by predictor interaction
 
 ```
 
+
 ---
 
-## Plotting interactions and subgroups
+## Plotting sensitivity analyses
 
 ```yaml
 type: NormalExercise
@@ -310,7 +311,22 @@ key: 0fd338e976
 xp: 100
 ```
 
+{{iterative? or another exericse for subgroup/sensitivity}}
 
+For subgroup.
+{{TabExercise with MCE and NE?}}
+
+You decide before hand that you will do a subgroup analysis filtering out those
+who dropped out vs those who remained. You find out there is no difference between
+these two groups. Do you:
+
+- Not show the null findings and just present your main results
+- Show your subgroup analyses in figures, either in the main report or as a supplement
+
+Based on the STROBE guidelines (and just being a good researcher), you should always
+show findings that you've done even if they are null or don't have any difference.
+    - STROBE: "Report other analyses done—eg analyses of subgroups and interactions, and
+    sensitivity analyses"
 
 `@instructions`
 
