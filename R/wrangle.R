@@ -86,5 +86,102 @@ sampled_ids <- sample(ids, length(ids) / 15, replace = FALSE)
 sample_tidied_framingham <- tidied_framingham %>%
     filter(subject_id %in% sampled_ids)
 
-save(tidied_framingham, sample_tidied_framingham,
-     file = "datasets/tidied_framingham.rda")
+save(sample_tidied_framingham, file = "datasets/sample_tidied_framingham.rda")
+save(tidied_framingham, file = "datasets/tidied_framingham.rda")
+
+# For chapter 4 -----------------------------------------------------------
+
+library(lme4)
+library(broom)
+library(furrr)
+library(glue)
+plan(multiprocess)
+
+# Prepare the data for the modeling
+tidied_framingham_v02 <- tidied_framingham %>%
+    mutate_at(
+        vars(
+            systolic_blood_pressure,
+            diastolic_blood_pressure,
+            fasting_blood_glucose,
+            total_cholesterol,
+            body_mass_index
+        ),
+        funs(as.numeric(scale(.)))
+    ) %>%
+    rename_at(
+        vars(
+            systolic_blood_pressure,
+            diastolic_blood_pressure,
+            fasting_blood_glucose,
+            total_cholesterol,
+            body_mass_index
+        ),
+        funs(str_c("scaled_", .))
+    ) %>%
+    mutate(participant_age = mean_center(participant_age))
+
+# Set predictors and covariates for model formulas.
+predictors <- tidied_framingham_v02 %>%
+    select(matches("^scaled_"), -scaled_body_mass_index) %>%
+    names()
+
+covariates <- tidied_framingham_v02 %>%
+    select(education_combined, currently_smokes, sex, participant_age) %>%
+    names() %>%
+    str_c(collapse = " + ")
+
+base_covariates <- "followup_visit_number + (1 | subject_id)"
+
+# Function to extract model results from glmer
+extract_results_lme <- function(.x) {
+        model <- glmer(.x, family = binomial, data = tidied_framingham_v02)
+        model %>%
+            tidy(conf.int = TRUE) %>%
+            mutate(outcome = as.character(model@call$formula[[2]]),
+                   predictor = term[2]) %>%
+            select(outcome, predictor, everything())
+}
+
+# Generate model results from all possible formulas.
+unadjusted_models <- predictors %>%
+    map(~ as.formula(glue("got_cvd ~ {.x} + {base_covariates}"))) %>%
+    future_map(~ extract_results_lme(.x)) %>%
+    bind_rows()
+
+adjusted_models <- predictors %>%
+    map(~ as.formula(glue("got_cvd ~ {.x} + {covariates} + {base_covariates}"))) %>%
+    future_map(~ extract_results_lme(.x)) %>%
+    bind_rows()
+
+# Combine unadjusted and adjusted models into single dataframe
+all_models <- bind_rows(
+    unadjusted_models %>% mutate(model = "Unadjusted"),
+    adjusted_models %>% mutate(model = "Adjusted")
+    ) %>%
+    mutate_at(vars(estimate, conf.low, conf.high), funs(exp(.))) %>%
+    select(model, outcome, predictor, term, estimate, conf.low, conf.high)
+
+# Save the model results
+
+# save(unadjusted_models, file = "datasets/unadjusted_models.rda")
+# save(adjusted_models, file = "datasets/adjusted_models.rda")
+save(all_models, file = "datasets/all_models.rda")
+
+
+# Function to extract interaction model results from glmer
+extract_interaction_lme <- function(.x) {
+        model <- glmer(.x, family = binomial, data = tidied_framingham_v02)
+        model %>%
+            tidy(conf.int = TRUE) %>%
+            mutate(outcome = as.character(model@call$formula[[2]]),
+                   predictor = term[2]) %>%
+            select(outcome, predictor, everything()) %>%
+            filter(str_detect(term, ":"))
+}
+
+# Generate model results for interaction by time
+interaction_by_time <- predictors %>%
+    map(~ as.formula(glue("got_cvd ~ {.x} + {base_covariates} + {.x}:followup_visit_number"))) %>%
+    future_map(~ extract_interaction_lme(.x)) %>%
+    bind_rows()
