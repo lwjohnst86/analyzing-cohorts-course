@@ -377,6 +377,14 @@ key: f293d5f02e
 xp: 100
 ```
 
+This is a very common usage for tables, as presenting diverse data types in a 
+single format is challenging for figure, which is usually the case with descriptive
+tables. In fact, including this descriptive information is part of the STROBE
+guidelines.
+
+{{tabbed?}}
+
+also baseline table, and another one of over time.
 
 
 `@instructions`
@@ -387,12 +395,17 @@ xp: 100
 
 `@pre_exercise_code`
 ```{r}
-
+library(carpenter)
 ```
 
 `@sample_code`
 ```{r}
-
+covariates <- c("participant_age", "sex", "education_combined")
+predictors <- c("total_cholesterol", "")
+tidied_framingham %>% 
+    outline_table(header = "period") %>% 
+    add_rows(, stat = stat_meanSD) %>% 
+    build_table()
 ```
 
 `@solution`
@@ -407,14 +420,95 @@ xp: 100
 
 ---
 
-## Supplemental tables for numerical results
+## Supplemental tables of raw numbers for results
 
 ```yaml
-type: NormalExercise
+type: normalexercise
 key: 15721e102b
 xp: 100
 ```
 
+{{convert to tabbed}}
+
+While the main messaging and presentation of results should emphasize figures over tables, often it is useful to other researchers (especially those doing meta-analyses) that the raw model results be given as well. Here we can use tables to give this data, as a supplement to the figure.
+
+Provide the estimates and 95% confidence intervals of the unadjusted and adjusted model results in a format that is nearly suitable for inclusion in a document.
+
+`@instructions`
+- Keeping only the predictor estimates, round the estimates and CI to one digit.
+- Using the `glue` function, create a new variable that puts the estimate and CI together in the form: `estimate (lower, upper)`.
+- Keeping only the model, predictor, and combined estimate and CI variables, spread the data so the unadjusted and adjusted model results have their own columns.
+- Convert the data frame into a Markdown table using `kable`.
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+load("datasets/tidied_framingham.rda")
+library(knitr)
+library(glue)
+library(dplyr)
+library(tidyr)
+```
+
+`@sample_code`
+```{r}
+# Prepare the results for the table
+table_model_results <- all_models %>% 
+    filter(predictor == term) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
+           predictor = predictor %>% 
+               str_replace("scaled_", "") %>% 
+               str_replace_all("_", " ")) %>%
+    select(model, predictor, estimate_ci) %>% 
+    spread(model, estimate_ci)
+table_model_results
+
+# Create a Markdown table
+kable(table_model_results, caption = "Caption here")
+```
+
+`@solution`
+```{r}
+# Prepare the results for the table
+table_model_results <- all_models %>% 
+    filter(predictor == term) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
+           predictor = predictor %>% 
+               str_replace("scaled_", "") %>% 
+               str_replace_all("_", " ")) %>%
+    select(model, predictor, estimate_ci) %>% 
+    spread(model, estimate_ci)
+table_model_results
+
+# Create a Markdown table
+kable(table_model_results, caption = "Caption here")
+```
+
+`@sct`
+```{r}
+success_msg("Amazing! You've wrangled the data and prepared it to be presented as a table! You can now easily add this to your manuscript (especially easy if you use R Markdown).")
+```
+
+---
+
+## Events over time?
+
+```yaml
+type: normalexercise
+key: 15721e102b
+xp: 100
+```
+
+Sometimes it is very useful to show the table of results, which more information,
+along side a figure of the results. This is especially useful when reporting
+the number of outcome events over time. You already created a figure of the
+outcomes over time in Lesson 3 {{show it, plus the code}}, now create a table of
+the same findings plus other useful information such as total number of events,
+total number of participants, and percent of events for each time period.
 
 
 `@instructions`
@@ -430,7 +524,12 @@ xp: 100
 
 `@sample_code`
 ```{r}
-
+framingham %>% 
+    add_count(period) %>% 
+    rename(Total = n) %>% 
+    count(period, cvd, Total) %>% 
+    rename(Events = n) %>% 
+    knitr::kable()
 ```
 
 `@solution`
