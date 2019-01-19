@@ -44,6 +44,53 @@ xp: 50
 
 ---
 
+## Backtransforming results
+
+```yaml
+type: NormalExercise
+xp: 100
+```
+
+yea?
+
+`@instructions`
+
+
+`@hint`
+
+
+`@pre_exercise_code`
+```{r}
+load(url(""))
+load(url(""))
+library(dplyr)
+```
+
+`@sample_code`
+```{r}
+# Also merge other models?
+# Combine unadjusted and adjusted model results.
+all_models <- bind_rows(
+    unadjusted_models %>% mutate(Model = "Unadjusted"),
+    adjusted_models %>% mutate(Model = "Adjusted")
+    ) %>% 
+    filter(predictor == term) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), funs(exp(.)))
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Calculating absolute and relative risk
 
 ```yaml
