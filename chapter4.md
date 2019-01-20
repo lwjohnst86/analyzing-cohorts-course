@@ -369,7 +369,7 @@ xp: 50
 
 ---
 
-## Basic characteristics of cohorts
+## Present the basic characteristics of the cohort
 
 ```yaml
 type: NormalExercise
@@ -377,17 +377,16 @@ key: f293d5f02e
 xp: 100
 ```
 
-This is a very common usage for tables, as presenting diverse data types in a 
-single format is challenging for figure, which is usually the case with descriptive
-tables. In fact, including this descriptive information is part of the STROBE
-guidelines.
-
 {{tabbed?}}
 
-also baseline table, and another one of over time.
+A classic use for tables is showing the basic characteristics of a cohort dataset, as there are diverse data types and summary statistics that need to be shown. Including a basic participant characteristics table is part of the STROBE requirements. 
 
+Using the carpenter package, create a table showing summary statistics for each data collection visit.
 
 `@instructions`
+- Convert `followup_visit_number` and `got_cvd` to factor variables.
+- Set the visit number as the header/columns of the table.
+- 
 
 
 `@hint`
@@ -395,17 +394,25 @@ also baseline table, and another one of over time.
 
 `@pre_exercise_code`
 ```{r}
+load("datasets/tidied_framingham.rda")
 library(carpenter)
+library(dplyr)
 ```
 
 `@sample_code`
 ```{r}
-covariates <- c("participant_age", "sex", "education_combined")
-predictors <- c("total_cholesterol", "")
-tidied_framingham %>% 
-    outline_table(header = "period") %>% 
-    add_rows(, stat = stat_meanSD) %>% 
-    build_table()
+predictors <- c("total_cholesterol", "systolic_blood_pressure", 
+                "diastolic_blood_pressure", "fasting_blood_glucose")
+
+characteristics_table <- tidied_framingham %>% 
+    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+    outline_table(header = "followup_visit_number") %>% 
+    add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
+    add_rows(c("participant_age", "body_mass_index"), stat = stat_medianIQR) %>% 
+    add_rows(predictors, stat = stat_medianIQR) %>% 
+    renaming("header", c("Measures", "Baseline", "Second followup", "Third followup"))
+
+build_table(characteristics_table)
 ```
 
 `@solution`
@@ -415,7 +422,7 @@ tidied_framingham %>%
 
 `@sct`
 ```{r}
-
+success_msg("Nice job! You've gotten the data formatted as a table for easy inclusion in a document or report and have provided basic participant characteristics from each cohort visit.")
 ```
 
 ---
