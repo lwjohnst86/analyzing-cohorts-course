@@ -435,7 +435,7 @@ key: 15721e102b
 xp: 100
 ```
 
-{{convert to tabbed}}
+{{convert to tabbed of 3?}}
 
 While the main messaging and presentation of results should emphasize figures over tables, often it is useful to other researchers (especially those doing meta-analyses) that the raw model results be given as well. Here we can use tables to give this data, as a supplement to the figure.
 
@@ -448,6 +448,9 @@ Provide the estimates and 95% confidence intervals of the unadjusted and adjuste
 - Convert the data frame into a Markdown table using `kable`.
 
 `@hint`
+- `mutate_at` applies a function (second argument) to a list of variables (first argument).
+- Use `{}` to pass data into the `glue` function.
+- When spreading, choose 1) the variable that will make up the name of the new columns and 2) the variable that provides the values for the new columns.
 
 
 `@pre_exercise_code`
