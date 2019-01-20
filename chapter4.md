@@ -270,9 +270,7 @@ Given that Framingham is a longitudinal prospective cohort, with repeated measur
 
 E.g. a sex or time by predictor interaction
 
-```{r}
-# TODO: Will need to confirm a time interaction (or just show it regardless...)
-```
+{{TODO: Will need to confirm a time interaction (or just show it regardless...)}}
 
 `@instructions`
 
@@ -282,7 +280,7 @@ E.g. a sex or time by predictor interaction
 
 `@pre_exercise_code`
 ```{r}
-
+load("datasets/interaction_models.rda")
 ```
 
 `@sample_code`
@@ -501,53 +499,4 @@ kable(table_model_results, caption = "Caption here")
 `@sct`
 ```{r}
 success_msg("Amazing! You've wrangled the data and prepared it to be presented as a table! You can now easily add this to your manuscript (especially easy if you use R Markdown).")
-```
-
----
-
-## Events over time?
-
-```yaml
-type: normalexercise
-key: 15721e102b
-xp: 100
-```
-
-Sometimes it is very useful to show the table of results, which more information,
-along side a figure of the results. This is especially useful when reporting
-the number of outcome events over time. You already created a figure of the
-outcomes over time in Lesson 3 {{show it, plus the code}}, now create a table of
-the same findings plus other useful information such as total number of events,
-total number of participants, and percent of events for each time period.
-
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-framingham %>% 
-    add_count(period) %>% 
-    rename(Total = n) %>% 
-    count(period, cvd, Total) %>% 
-    rename(Events = n) %>% 
-    knitr::kable()
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
 ```
