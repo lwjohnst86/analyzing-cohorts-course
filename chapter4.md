@@ -725,7 +725,6 @@ xp: 25
 
 ```
 
-
 ---
 
 ## Supplemental tables of raw numbers for results
@@ -762,7 +761,6 @@ xp: 25
 
 `@hint`
 - `mutate_at` applies a function (second argument) to a list of variables (first argument) with `vars()`.
-
 
 `@sample_code`
 ```{r}
@@ -859,7 +857,6 @@ xp: 25
 
 `@hint`
 - When spreading, choose 1) the variable that will make up the name of the new columns and 2) the variable that provides the values for the new columns.
-
 
 `@sample_code`
 ```{r}
