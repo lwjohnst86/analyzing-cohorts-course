@@ -1,9 +1,9 @@
 ---
-title: Insert title here
+title: Use tables effectively to show your results
 key: 8ecd82ad25933a2add144c7e10605b7d
 
 ---
-## Tables?
+## Use tables effectively to show your results
 
 ```yaml
 type: "TitleSlide"
@@ -27,6 +27,16 @@ title: Instructor
 - This is especially important for meta-analyses done on the topic of your results.
 - STROBE: "Cohort study—Report numbers of outcome events or summary measures over time"
 
+Outline:
+- Why tables are effective forms of communicating results
+- When to use them
+    - Use as a means of giving raw values for results
+- What to include
+    - STROBE
+- How to create them
+    - Carpenter
+    - Wrangling and kable/knitr
+
 Notice how the p-value is not included here. When trying to communicate results
 that can have health impacts, its important to focus on the important parts ... 
 the magnitude of association, not on some arbitrary p-value threshold. The
@@ -35,7 +45,6 @@ practitioners. This is currently a "controversial" stance and opinion, however,
 it is backed by evidence and fact... fact that the p-value is misused and
 misinterpreted. For matters of health, misinterpretation can lead to worse
 health, greater disease, and death... the lives of people are on the line.
-
 
 ---
 ## Insert title here...
