@@ -162,12 +162,10 @@ all_models <- bind_rows(
     mutate_at(vars(estimate, conf.low, conf.high), funs(exp(.))) %>%
     select(model, outcome, predictor, term, estimate, conf.low, conf.high)
 
-# Save the model results
-
+# Save the model results:
 # save(unadjusted_models, file = "datasets/unadjusted_models.rda")
 # save(adjusted_models, file = "datasets/adjusted_models.rda")
 save(all_models, file = "datasets/all_models.rda")
-
 
 # Function to extract interaction model results from glmer
 extract_interaction_lme <- function(.x) {
@@ -185,3 +183,25 @@ interaction_by_time <- predictors %>%
     map(~ as.formula(glue("got_cvd ~ {.x} + {base_covariates} + {.x}:followup_visit_number"))) %>%
     future_map(~ extract_interaction_lme(.x)) %>%
     bind_rows()
+
+# Generate model results for interaction by time
+interaction_by_sex <- predictors %>%
+    map(~ as.formula(glue("got_cvd ~ {.x} + {base_covariates} + {.x}*sex"))) %>%
+    future_map(~ extract_interaction_lme(.x)) %>%
+    bind_rows()
+
+interaction_models <- bind_rows(
+    interaction_by_sex %>% mutate(interaction = "sex"),
+    interaction_by_time %>% mutate(interaction = "followup_visit_number")
+    ) %>%
+    select(interaction, outcome, predictor, term, estimate, std.error,
+           conf.low, conf.high, p.value)
+
+# Save interaction results
+save(interaction_models, file = "datasets/interaction_models.rda")
+
+# int <- predictors[4] %>%
+#     map(~ as.formula(glue("got_cvd ~ {.x} + followup_visit_number*sex*{.x} + (1 | subject_id)"))) %>%
+#     future_map(~ extract_interaction_lme(.x)) %>%
+#     bind_rows()
+# save(int, file = "datasets/checkinto.rda")
