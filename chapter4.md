@@ -523,90 +523,20 @@ xp: 50
 ## Present the basic characteristics of the cohort
 
 ```yaml
-type: NormalExercise
-key: f293d5f02e
-xp: 100
-```
-
-{{tabbed? 4 steps}}
-
-A classic use for tables is showing the basic characteristics of a cohort dataset, as there are diverse data types and summary statistics that need to be shown. Including a basic participant characteristics table is part of the STROBE requirements. 
-
-Using the carpenter package, create a table showing summary statistics for each data collection visit.
-
-`@instructions`
-- Convert `followup_visit_number` and `got_cvd` to factor variables, then set the visit number as the header/columns of the table.
-- Add a row for factor variables, using `number (percent)` as a summary statistic.
-- Add a row for the predictor variables, body mass, and age using `median (interquartile range)` as the statistic.
-- Rename the table headers to "Measures", "Baseline", "Second followup", and "Third followup", then build the table into a markdown format.
-
-`@hint`
-- Select the variables using `vars()` in `mutate_at`.
-- Carpenter summary statistic functions begin with `stat_`; choose the version for number and percent.
-- The predictors are total cholesterol, systolic and diastolic blood pressure, and fasting blood glucose.
-- The new column headers should be passed as a character vector.
-
-`@pre_exercise_code`
-```{r}
-load("datasets/tidied_framingham.rda")
-library(carpenter)
-library(dplyr)
-```
-
-`@sample_code`
-```{r}
-# Create a table of summary statistics
-characteristics_table <- tidied_framingham %>% 
-    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
-    outline_table(header = "followup_visit_number") %>% 
-    add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) %>% 
-    renaming("header", c("Measures", "Baseline", "Second followup", "Third followup"))
-
-# Build the table and convert to markdown form
-build_table(characteristics_table)
-```
-
-`@solution`
-```{r}
-# Create a table of summary statistics
-characteristics_table <- tidied_framingham %>% 
-    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
-    outline_table(header = "followup_visit_number") %>% 
-    add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) %>% 
-    renaming("header", c("Measures", "Baseline", "Second followup", "Third followup"))
-
-# Build the table and convert to markdown form
-build_table(characteristics_table)
-```
-
-`@sct`
-```{r}
-success_msg("Nice job! You've gotten the data formatted as a table for easy inclusion in a document or report and have provided basic participant characteristics from each cohort visit.")
-```
-
----
-
-## Insert exercise title here
-
-```yaml
 type: TabExercise
 key: cb7b2cfe06
 xp: 100
 ```
 
+A classic use for tables is showing the basic characteristics of a cohort dataset, as there are diverse data types and summary statistics that need to be shown. Including a basic participant characteristics table is part of the STROBE requirements. This table can be quite informative for others when they interpret your analysis results.
 
+Using the carpenter package, create a table showing summary statistics for each data collection visit.
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/25722a0770c3779d3290fd5628362c56a9d7d21b/tidied_framingham.rda"))
+library(carpenter)
+library(dplyr)
 ```
 
 ***
@@ -618,24 +548,38 @@ xp: 25
 ```
 
 `@instructions`
-
+- Convert `followup_visit_number` and `got_cvd` to factor variables, then set the visit number as the header/columns of the table.
 
 `@hint`
-
+- Select the variables using `vars()` in `mutate_at`.
 
 `@sample_code`
 ```{r}
+# Create a table of summary statistics
+characteristics_table <- tidied_framingham %>% 
+    # Convert variables to factor
+    mutate_at(___, ___) %>% 
+    # Set variable as table column
+    outline_table(header = ___) 
 
+# Check the table
+___
 ```
 
 `@solution`
 ```{r}
+# Create a table of summary statistics
+characteristics_table <- tidied_framingham %>% 
+    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+    outline_table(header = "followup_visit_number") 
 
+# Check the table
+characteristics_table
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Nice!")
 ```
 
 ***
@@ -647,24 +591,40 @@ xp: 25
 ```
 
 `@instructions`
-
+- Add a row for the outcome, sex, and education (combined) variables, using `number (percent)` as a summary statistic.
 
 `@hint`
-
+- Carpenter summary statistic functions begin with `stat_`; choose the version for number and percent.
 
 `@sample_code`
 ```{r}
+# Create a table of summary statistics
+characteristics_table <- tidied_framingham %>% 
+    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+    outline_table(header = "followup_visit_number") %>% 
+    # Show n (%) for factors as rows
+    add_rows(c(___, ___, ___), stat = ___)
 
+# Check the table
+___
 ```
 
 `@solution`
 ```{r}
+# Create a table of summary statistics
+characteristics_table <- tidied_framingham %>% 
+    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+    outline_table(header = "followup_visit_number") %>% 
+    # Show n (%) for factors as rows
+    add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct)
 
+# Check the table
+characteristics_table
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ***
@@ -676,24 +636,46 @@ xp: 25
 ```
 
 `@instructions`
+- Add a row for the predictor variables, body mass, and age using `median (interquartile range)` as the statistic.
 
 
 `@hint`
-
+- The predictors are total cholesterol, systolic and diastolic blood pressure, and fasting blood glucose.
 
 `@sample_code`
 ```{r}
+# Create a table of summary statistics
+characteristics_table <- tidied_framingham %>% 
+    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+    outline_table(header = "followup_visit_number") %>% 
+    add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
+    # Show median (range) for continuous variables
+    ___(___, ___)
 
+# Check the table
+___
 ```
 
 `@solution`
 ```{r}
+# Create a table of summary statistics
+characteristics_table <- tidied_framingham %>% 
+    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+    outline_table(header = "followup_visit_number") %>% 
+    add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
+    # Show median (range) for continuous variables
+    add_rows(c("participant_age", "body_mass_index",
+               "total_cholesterol", "systolic_blood_pressure",
+               "diastolic_blood_pressure", "fasting_blood_glucose"), 
+             stat = stat_medianIQR) 
 
+# Check the table
+characteristics_table
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ***
@@ -705,24 +687,50 @@ xp: 25
 ```
 
 `@instructions`
-
+- Rename the table headers to "Measures", "Baseline", "Second followup", and "Third followup", then build the table into markdown format.
 
 `@hint`
-
+- The new column headers should be passed as a character vector.
 
 `@sample_code`
 ```{r}
+# Create a table of summary statistics
+characteristics_table <- tidied_framingham %>% 
+    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+    outline_table(header = "followup_visit_number") %>% 
+    add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
+    add_rows(c("participant_age", "body_mass_index",
+               "total_cholesterol", "systolic_blood_pressure",
+               "diastolic_blood_pressure", "fasting_blood_glucose"), 
+             stat = stat_medianIQR) %>% 
+    # Rename headers to better titles
+    renaming(___, c(___))
 
+# Build the table and convert to markdown form
+build_table(___)
 ```
 
 `@solution`
 ```{r}
+# Create a table of summary statistics
+characteristics_table <- tidied_framingham %>% 
+    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+    outline_table(header = "followup_visit_number") %>% 
+    add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
+    add_rows(c("participant_age", "body_mass_index",
+               "total_cholesterol", "systolic_blood_pressure",
+               "diastolic_blood_pressure", "fasting_blood_glucose"), 
+             stat = stat_medianIQR) %>% 
+    # Rename headers to better titles
+    renaming("header", c("Measures", "Baseline", "Second followup", "Third followup"))
 
+# Build the table and convert to markdown form
+build_table(characteristics_table)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Nice job! You've gotten the data formatted as a table for easy inclusion in a document or report and have provided basic participant characteristics from each cohort visit.")
 ```
 
 
