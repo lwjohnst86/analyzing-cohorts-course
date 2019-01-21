@@ -143,74 +143,7 @@ d22c077f314d124f7ab5f28fa0423465
 
 ---
 
-## Plotting estimate and uncertainty
-
-```yaml
-type: NormalExercise
-key: 67e1c0f751
-xp: 100
-```
-
-{{Convert to tab with 4 steps}}
-
-Statistical analysis used on cohort data usually output some time of regression estimate along with a measure of uncertainty (e.g. 95% confidence interval). Sometimes it makes sense to present these results in a table, but often the better approach is to create a graph instead. Graphs show magnitude, direction, uncertainty, and comparison of results very effectively.
-
-Create a plot of the unadjusted model results that highlights the estimate and uncertainty of the estimate. Include appropriate axis labels.
-
-`@instructions`
-- Filter out only estimates of the predictor and only keep the unadjusted results.
-- Create a point and error bar plot of the estimates and confidence intervals, with the predictors on the y axis.
-- Add a vertical line at 1 for the "null line", using a line type of `"dotted"` for appearance.
-- Create an object for the axis labels (for re-use on plots later in the lesson) and add to the plot.
-
-`@hint`
-- Filter can take multiple conditions, separated by a comma.
-- Use the geom for points and for `errorbarh` (horizontal).
-- The `xintercept` must be set when adding a vertical line.
-- Create axis labels in ggplot2 with `labs()`.
-
-`@pre_exercise_code`
-```{r}
-load("datasets/all_models.rda")
-library(dplyr)
-library(ggplot2)
-```
-
-`@sample_code`
-```{r}
-# Keep only predictor results
-predictor_results <- all_models %>% 
-    filter(predictor == term, model == "Unadjusted")
-
-# Plot the results
-model_plot <- predictor_results %>% 
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_point() +
-    geom_errorbarh(height = 0.2) +
-    geom_vline(xintercept = 1, linetype = "dotted")
-model_plot
-
-# Create a label object for re-use
-plot_labels <- labs(y = "Predictors", x = "Odds ratio (95% CI)")
-
-# Apply the labels
-model_plot +
-    plot_labels
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-success_msg("Excellent! See how this graph shows the uncertainty around individual model estimates? This is an effective way of presenting results from models.")
-```
-
----
-
-## Insert exercise title here
+## Plotting model estimate and uncertainty
 
 ```yaml
 type: TabExercise
@@ -218,11 +151,16 @@ key: 69007ab10b
 xp: 100
 ```
 
+Statistical analysis used on cohort data usually output some time of regression estimate along with a measure of uncertainty (e.g. 95% confidence interval). Sometimes it makes sense to present these results in a table, but often the better approach is to create a graph instead. Graphs show magnitude, direction, uncertainty, and comparison of results very effectively.
+
+Create a plot of the unadjusted model results that highlights the estimate and uncertainty of the estimate. Include appropriate axis labels.
 
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
+library(dplyr)
+library(ggplot2)
 ```
 
 ***
@@ -234,24 +172,35 @@ xp: 25
 ```
 
 `@instructions`
-
+- Filter out only estimates of the predictor and only keep the unadjusted results.
 
 `@hint`
+- Filter can take multiple conditions, separated by a comma.
 
 
 `@sample_code`
 ```{r}
+# Keep only predictor results
+predictor_results <- all_models %>% 
+    ___(___)
 
+# Check filtered data
+___
 ```
 
 `@solution`
 ```{r}
+# Keep only predictor results
+predictor_results <- all_models %>% 
+    filter(predictor == term, model == "Unadjusted")
 
+# Check filtered data
+predictor_results
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ***
@@ -263,24 +212,48 @@ xp: 25
 ```
 
 `@instructions`
-
+- Create a point and error bar plot of the estimates and confidence intervals, with the predictors on the y axis.
 
 `@hint`
-
+- Use the geom for points and for `errorbarh` (horizontal).
 
 `@sample_code`
 ```{r}
+# Keep only predictor results
+predictor_results <- all_models %>% 
+    filter(predictor == term, model == "Unadjusted")
 
+# Create a dot and error bar plot
+model_plot <- ___ %>% 
+    ggplot(aes(___)) +
+    ___() +
+    # height of 0.2 for aesthetics
+    ___(height = 0.2)
+
+# Check the plot
+___
 ```
 
 `@solution`
 ```{r}
+# Keep only predictor results
+predictor_results <- all_models %>% 
+    filter(predictor == term, model == "Unadjusted")
 
+# Create a dot and error bar plot
+model_plot <- predictor_results %>% 
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point() +
+    # height of 0.2 for aesthetics
+    geom_errorbarh(height = 0.2)
+
+# Check the plot
+model_plot
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ***
@@ -292,24 +265,52 @@ xp: 25
 ```
 
 `@instructions`
+- Add a vertical line at 1 for the "null line", using a line type of `"dotted"` for appearance.
 
 
 `@hint`
+- The `xintercept` must be set when adding a vertical line.
 
 
 `@sample_code`
 ```{r}
+# Keep only predictor results
+predictor_results <- all_models %>% 
+    filter(predictor == term, model == "Unadjusted")
 
+# Create a dot and error bar plot
+model_plot <- predictor_results %>% 
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point() +
+    geom_errorbarh(height = 0.2) +
+    # Add vertical line
+    ___(___, ___)
+
+# Check the plot
+___
 ```
 
 `@solution`
 ```{r}
+# Keep only predictor results
+predictor_results <- all_models %>% 
+    filter(predictor == term, model == "Unadjusted")
 
+# Create a dot and error bar plot
+model_plot <- predictor_results %>% 
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point() +
+    geom_errorbarh(height = 0.2) +
+    # Add vertical line
+    geom_vline(xintercept = 1, linetype = "dotted")
+
+# Check the plot
+model_plot
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ***
@@ -321,24 +322,58 @@ xp: 25
 ```
 
 `@instructions`
-
+- Create an object for the axis labels (for re-use on plots later in the lesson) and add to the plot.
 
 `@hint`
-
+- Create axis labels in ggplot2 with `labs()`.
 
 `@sample_code`
 ```{r}
+# Keep only predictor results
+predictor_results <- all_models %>% 
+    filter(predictor == term, model == "Unadjusted")
 
+# Create a dot and error bar plot
+model_plot <- predictor_results %>% 
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point() +
+    geom_errorbarh(height = 0.2) +
+    geom_vline(xintercept = 1, linetype = "dotted")
+
+# Create a label object for re-use
+plot_labels <- ___(___ = "Predictors", ___ = "Odds ratio (95% CI)")
+
+# Make the plot with labels
+___ +
+    # Apply labels
+    ___
 ```
 
 `@solution`
 ```{r}
+# Keep only predictor results
+predictor_results <- all_models %>% 
+    filter(predictor == term, model == "Unadjusted")
 
+# Create a dot and error bar plot
+model_plot <- predictor_results %>% 
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point() +
+    geom_errorbarh(height = 0.2) +
+    geom_vline(xintercept = 1, linetype = "dotted")
+
+# Create a label object for re-use
+plot_labels <- labs(y = "Predictors", x = "Odds ratio (95% CI)")
+
+# Make the plot with labels
+model_plot +
+    # Apply labels
+    plot_labels
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Excellent! See how this graph shows the uncertainty around individual model estimates? This is an effective way of presenting results from models.")
 ```
 
 ---
@@ -363,7 +398,7 @@ The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model
 
 `@pre_exercise_code`
 ```{r}
-load("datasets/all_models.rda")
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
 library(dplyr)
 library(ggplot2)
 plot_labels <- labs(y = "Predictors", x = "Odds ratio (95% CI)")
