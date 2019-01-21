@@ -48,8 +48,8 @@ xp: 50
 
 ```yaml
 type: NormalExercise
-xp: 100
 key: 0216e3a4ee
+xp: 100
 ```
 
 yea?
@@ -281,8 +281,8 @@ success_msg("Great job! You can see that there are large differences in some of 
 
 ```yaml
 type: NormalExercise
-xp: 100
 key: 44c0af6008
+xp: 100
 ```
 
 {{tabbed? or sequential for also sex?}}
@@ -318,7 +318,6 @@ load("datasets/interaction_models.rda")
 ```{r}
 
 ```
-
 
 ---
 
@@ -486,7 +485,6 @@ Provide the estimates and 95% confidence intervals of the unadjusted and adjuste
 - `mutate_at` applies a function (second argument) to a list of variables (first argument).
 - Use `{}` to pass data/variables into the `glue` function.
 - When spreading, choose 1) the variable that will make up the name of the new columns and 2) the variable that provides the values for the new columns.
-
 
 `@pre_exercise_code`
 ```{r}
