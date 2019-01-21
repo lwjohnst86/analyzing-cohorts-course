@@ -210,6 +210,139 @@ success_msg("Excellent! See how this graph shows the uncertainty around individu
 
 ---
 
+## Insert exercise title here
+
+```yaml
+type: TabExercise
+key: 69007ab10b
+xp: 100
+```
+
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 1bba556c19
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 66f5089420
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 0e3b13549a
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 3418387bf1
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Visualize unadjusted and adjusted model results
 
 ```yaml
@@ -461,6 +594,139 @@ success_msg("Nice job! You've gotten the data formatted as a table for easy incl
 
 ---
 
+## Insert exercise title here
+
+```yaml
+type: TabExercise
+key: cb7b2cfe06
+xp: 100
+```
+
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: c653bbf2fa
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 3f50416623
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: cf370dcbc3
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 81f9f129af
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
 ## Supplemental tables of raw numbers for results
 
 ```yaml
@@ -534,4 +800,130 @@ kable(table_model_results, caption = "Caption here")
 `@sct`
 ```{r}
 success_msg("Amazing! You've wrangled the data and prepared it to be presented as a table! You can now easily add this to your manuscript (especially easy if you use R Markdown).")
+```
+
+---
+
+## Insert exercise title here
+
+```yaml
+type: TabExercise
+key: e1034d1d86
+xp: 100
+```
+
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: f26d103841
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 3934cab889
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: f015c03292
+xp: 25
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+key: 480785a265
+xp: 25
+```
+
+`@question`
+About p-values?
+
+`@possible_answers`
+
+
+`@hint`
+
+
+`@sct`
+```{r}
+
 ```
