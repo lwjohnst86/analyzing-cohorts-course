@@ -394,20 +394,23 @@ key: f293d5f02e
 xp: 100
 ```
 
-{{tabbed?}}
+{{tabbed? 4 steps}}
 
 A classic use for tables is showing the basic characteristics of a cohort dataset, as there are diverse data types and summary statistics that need to be shown. Including a basic participant characteristics table is part of the STROBE requirements. 
 
 Using the carpenter package, create a table showing summary statistics for each data collection visit.
 
 `@instructions`
-- Convert `followup_visit_number` and `got_cvd` to factor variables.
-- Set the visit number as the header/columns of the table.
-- 
-
+- Convert `followup_visit_number` and `got_cvd` to factor variables, then set the visit number as the header/columns of the table.
+- Add a row for factor variables, using `number (percent)` as a summary statistic.
+- Add a row for the predictor variables, body mass, and age using `median (interquartile range)` as the statistic.
+- Rename the table headers to "Measures", "Baseline", "Second followup", and "Third followup", then build the table into a markdown format.
 
 `@hint`
-
+- Select the variables using `vars()` in `mutate_at`.
+- Carpenter summary statistic functions begin with `stat_`; choose the version for number and percent.
+- The predictors are total cholesterol, systolic and diastolic blood pressure, and fasting blood glucose.
+- The new column headers should be passed as a character vector.
 
 `@pre_exercise_code`
 ```{r}
@@ -418,23 +421,36 @@ library(dplyr)
 
 `@sample_code`
 ```{r}
-predictors <- c("total_cholesterol", "systolic_blood_pressure", 
-                "diastolic_blood_pressure", "fasting_blood_glucose")
-
+# Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
-    add_rows(c("participant_age", "body_mass_index"), stat = stat_medianIQR) %>% 
-    add_rows(predictors, stat = stat_medianIQR) %>% 
+    add_rows(c("participant_age", "body_mass_index",
+               "total_cholesterol", "systolic_blood_pressure",
+               "diastolic_blood_pressure", "fasting_blood_glucose"), 
+             stat = stat_medianIQR) %>% 
     renaming("header", c("Measures", "Baseline", "Second followup", "Third followup"))
 
+# Build the table and convert to markdown form
 build_table(characteristics_table)
 ```
 
 `@solution`
 ```{r}
+# Create a table of summary statistics
+characteristics_table <- tidied_framingham %>% 
+    mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+    outline_table(header = "followup_visit_number") %>% 
+    add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
+    add_rows(c("participant_age", "body_mass_index",
+               "total_cholesterol", "systolic_blood_pressure",
+               "diastolic_blood_pressure", "fasting_blood_glucose"), 
+             stat = stat_medianIQR) %>% 
+    renaming("header", c("Measures", "Baseline", "Second followup", "Third followup"))
 
+# Build the table and convert to markdown form
+build_table(characteristics_table)
 ```
 
 `@sct`
@@ -466,7 +482,7 @@ Provide the estimates and 95% confidence intervals of the unadjusted and adjuste
 
 `@hint`
 - `mutate_at` applies a function (second argument) to a list of variables (first argument).
-- Use `{}` to pass data into the `glue` function.
+- Use `{}` to pass data/variables into the `glue` function.
 - When spreading, choose 1) the variable that will make up the name of the new columns and 2) the variable that provides the values for the new columns.
 
 
