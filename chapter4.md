@@ -373,7 +373,7 @@ show findings that you've done even if they are null or don't have any differenc
 
 ---
 
-## Using tables to presenting your results
+## Use tables effectively to show your results
 
 ```yaml
 type: VideoExercise
