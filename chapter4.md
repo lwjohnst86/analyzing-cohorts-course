@@ -768,7 +768,6 @@ build_table(characteristics_table)
 success_msg("Nice job! You've gotten the data formatted as a table for easy inclusion in a document or report and have provided basic participant characteristics from each cohort visit.")
 ```
 
-
 ---
 
 ## Supplemental tables of raw numbers for results
@@ -805,7 +804,6 @@ xp: 35
 
 `@hint`
 - `mutate_at` applies a function (second argument) to a list of variables (first argument) with `vars()`.
-
 
 `@sample_code`
 ```{r}
