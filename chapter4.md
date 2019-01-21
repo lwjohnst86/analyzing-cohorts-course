@@ -217,14 +217,15 @@ key: 163d46569b
 xp: 100
 ```
 
-The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model results be shown. Showing both can be informative and insightful into the research question. Create a plot of your results showing both unadjusted and adjusted models.
+The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model results be shown. Showing both can be informative and insightful into the research question. Create a plot of your results showing both unadjusted and adjusted models. Do the same steps as in the previous exercise for creating the plot.
 
 `@instructions`
 - As in the previous exercise, create a plot of the estimates and confidence intervals of the predictors, but don't filter by model adjustment.
 - Expand on the previous exercise by splitting the plot by model using `facet_grid`.
 
 `@hint`
-
+- The vertical line should have a `linetype` of "dotted".
+- Select the facetting variable using `vars()`.
 
 `@pre_exercise_code`
 ```{r}
