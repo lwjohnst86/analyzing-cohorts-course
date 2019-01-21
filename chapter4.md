@@ -130,7 +130,7 @@ xp: 100
 
 ---
 
-## Communicating the findings through graphs
+## Communicating cohort findings through graphs
 
 ```yaml
 type: VideoExercise
@@ -410,7 +410,7 @@ plot_labels <- labs(y = "Predictors", x = "Odds ratio (95% CI)")
 plot_all_models <- all_models %>% 
     filter(___) %>% 
     ggplot(aes(___)) +
-    geom_point() +
+    ___() +
     ___(height = 0.2) +
     geom_vline(___) +
     # Split plot by model
