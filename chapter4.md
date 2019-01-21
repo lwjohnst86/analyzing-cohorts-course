@@ -463,7 +463,7 @@ success_msg("Nice job! You've gotten the data formatted as a table for easy incl
 ## Supplemental tables of raw numbers for results
 
 ```yaml
-type: normalexercise
+type: NormalExercise
 key: 15721e102b
 xp: 100
 ```
