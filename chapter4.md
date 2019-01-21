@@ -150,7 +150,7 @@ key: 67e1c0f751
 xp: 100
 ```
 
-{{Convert to tab, combine with exercise below? Or just split it up.}}
+{{Convert to tab with 4 steps}}
 
 Statistical analysis used on cohort data usually output some time of regression estimate along with a measure of uncertainty (e.g. 95% confidence interval). Sometimes it makes sense to present these results in a table, but often the better approach is to create a graph instead. Graphs show magnitude, direction, uncertainty, and comparison of results very effectively.
 
@@ -158,12 +158,15 @@ Create a plot of the unadjusted model results that highlights the estimate and u
 
 `@instructions`
 - Filter out only estimates of the predictor and only keep the unadjusted results.
-- Create a point and error bar plot of the estimates and confidence intervals, using `height = 0.2` for appearance.
+- Create a point and error bar plot of the estimates and confidence intervals, with the predictors on the y axis.
 - Add a vertical line at 1 for the "null line", using a line type of `"dotted"` for appearance.
 - Create an object for the axis labels (for re-use on plots later in the lesson) and add to the plot.
 
 `@hint`
-
+- Filter can take multiple conditions, separated by a comma.
+- Use the geom for points and for `errorbarh` (horizontal).
+- The `xintercept` must be set when adding a vertical line.
+- Create axis labels in ggplot2 with `labs()`.
 
 `@pre_exercise_code`
 ```{r}
