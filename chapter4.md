@@ -183,7 +183,7 @@ predictor_results <- all_models %>%
 
 # Plot the results
 model_plot <- predictor_results %>% 
-    ggplot(aes(y = term, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
     geom_vline(xintercept = 1, linetype = "dotted")
