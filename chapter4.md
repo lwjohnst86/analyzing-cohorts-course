@@ -754,7 +754,7 @@ library(tidyr)
 ```yaml
 type: NormalExercise
 key: f26d103841
-xp: 25
+xp: 35
 ```
 
 `@instructions`
@@ -798,7 +798,7 @@ success_msg("Great!")
 ```yaml
 type: NormalExercise
 key: 3934cab889
-xp: 25
+xp: 35
 ```
 
 `@instructions`
@@ -851,19 +851,31 @@ success_msg("Amazing!")
 ```yaml
 type: NormalExercise
 key: f015c03292
-xp: 25
+xp: 30
 ```
 
 `@instructions`
-- Keeping only the model, predictor, and combined estimate and CI variables, spread the data so the unadjusted and adjusted model results have their own columns, then build the table {{build as another step?}}.
+- Keep the model, predictor, and combined estimate and CI variables, spread the data so the unadjusted and adjusted model results have their own columns, and then create the `kable()` table.
 
 `@hint`
 - When spreading, choose 1) the variable that will make up the name of the new columns and 2) the variable that provides the values for the new columns.
 
-
 `@sample_code`
 ```{r}
+# Prepare the results for the table
+table_model_results <- all_models %>% 
+    filter(predictor == term) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
+           predictor = predictor %>% 
+               str_replace("scaled_", "") %>% 
+               str_replace_all("_", " ")) %>%
+    # Keep then spread variables for final table
+    select(___) %>% 
+    ___(___, ___)
 
+# Create a Markdown table
+___(___, caption = "Estimates and 95% CI from all models.")
 ```
 
 `@solution`
@@ -876,6 +888,7 @@ table_model_results <- all_models %>%
            predictor = predictor %>% 
                str_replace("scaled_", "") %>% 
                str_replace_all("_", " ")) %>%
+    # Keep then spread variables for final table
     select(model, predictor, estimate_ci) %>% 
     spread(model, estimate_ci)
 
@@ -886,26 +899,4 @@ kable(table_model_results, caption = "Estimates and 95% CI from all models.")
 `@sct`
 ```{r}
 success_msg("Amazing! You've wrangled the data and prepared it to be presented as a table! You can now easily add this to your manuscript (especially easy if you use R Markdown).")
-```
-
-***
-
-```yaml
-type: MultipleChoiceExercise
-key: 480785a265
-xp: 25
-```
-
-`@question`
-About p-values?
-
-`@possible_answers`
-
-
-`@hint`
-
-
-`@sct`
-```{r}
-
 ```
