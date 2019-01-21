@@ -725,86 +725,10 @@ xp: 25
 
 ```
 
+
 ---
 
 ## Supplemental tables of raw numbers for results
-
-```yaml
-type: NormalExercise
-key: 15721e102b
-xp: 100
-```
-
-{{convert to tabbed of 3?}}
-
-While the main messaging and presentation of results should emphasize figures over tables, often it is useful to other researchers (especially those doing meta-analyses) that the raw model results be given as well. Here we can use tables to give this data, as a supplement to the figure.
-
-Provide the estimates and 95% confidence intervals of the unadjusted and adjusted model results in a format that is nearly suitable for inclusion in a document.
-
-`@instructions`
-- Keeping only the predictor estimates, round the estimates and CI to one digit.
-- Using the `glue` function, create a new variable that puts the estimate and CI together in the form: `estimate (lower, upper)`.
-- Keeping only the model, predictor, and combined estimate and CI variables, spread the data so the unadjusted and adjusted model results have their own columns.
-- Convert the data frame into a Markdown table using `kable`.
-
-`@hint`
-- `mutate_at` applies a function (second argument) to a list of variables (first argument).
-- Use `{}` to pass data/variables into the `glue` function.
-- When spreading, choose 1) the variable that will make up the name of the new columns and 2) the variable that provides the values for the new columns.
-
-`@pre_exercise_code`
-```{r}
-load("datasets/tidied_framingham.rda")
-library(knitr)
-library(glue)
-library(dplyr)
-library(tidyr)
-```
-
-`@sample_code`
-```{r}
-# Prepare the results for the table
-table_model_results <- all_models %>% 
-    filter(predictor == term) %>% 
-    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
-    mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
-           predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
-               str_replace_all("_", " ")) %>%
-    select(model, predictor, estimate_ci) %>% 
-    spread(model, estimate_ci)
-table_model_results
-
-# Create a Markdown table
-kable(table_model_results, caption = "Caption here")
-```
-
-`@solution`
-```{r}
-# Prepare the results for the table
-table_model_results <- all_models %>% 
-    filter(predictor == term) %>% 
-    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
-    mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
-           predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
-               str_replace_all("_", " ")) %>%
-    select(model, predictor, estimate_ci) %>% 
-    spread(model, estimate_ci)
-table_model_results
-
-# Create a Markdown table
-kable(table_model_results, caption = "Caption here")
-```
-
-`@sct`
-```{r}
-success_msg("Amazing! You've wrangled the data and prepared it to be presented as a table! You can now easily add this to your manuscript (especially easy if you use R Markdown).")
-```
-
----
-
-## Insert exercise title here
 
 ```yaml
 type: TabExercise
@@ -812,11 +736,17 @@ key: e1034d1d86
 xp: 100
 ```
 
+While the main messaging and presentation of results should emphasize figures over tables, often it is useful to other researchers (especially those doing meta-analyses) that the raw model results be given as well. Here we can use tables to give this data, as a supplement to the figure.
 
+Provide the estimates and 95% confidence intervals of the unadjusted and adjusted model results in a format that is nearly suitable for inclusion in a document.
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/25722a0770c3779d3290fd5628362c56a9d7d21b/tidied_framingham.rda"))
+library(knitr)
+library(glue)
+library(dplyr)
+library(tidyr)
 ```
 
 ***
@@ -828,24 +758,39 @@ xp: 25
 ```
 
 `@instructions`
-
+- Keeping only the predictor estimates, round the estimates and CI to one digit.
 
 `@hint`
+- `mutate_at` applies a function (second argument) to a list of variables (first argument) with `vars()`.
 
 
 `@sample_code`
 ```{r}
+# Prepare the results for the table
+table_model_results <- all_models %>% 
+    # Keep predictors and round values
+    filter(___) %>% 
+    mutate_at(___, ___, digits = ___)
 
+# View wrangled data
+table_model_results
 ```
 
 `@solution`
 ```{r}
+# Prepare the results for the table
+table_model_results <- all_models %>% 
+    # Keep predictors and round values
+    filter(predictor == term) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1)
 
+# View wrangled data
+table_model_results
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great!")
 ```
 
 ***
@@ -857,24 +802,48 @@ xp: 25
 ```
 
 `@instructions`
-
+- Using the `glue` function, create a new variable that puts the estimate and CI together in the form: `estimate (lower, upper)`.
 
 `@hint`
-
+- Use `{}` to pass data/variables into the `glue` function.
 
 `@sample_code`
 ```{r}
+# Prepare the results for the table
+table_model_results <- all_models %>% 
+    filter(predictor == term) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    # Use glue function to combine variables
+    mutate(estimate_ci = ___("___"),
+           # Tidy up predictor
+           predictor = predictor %>% 
+               str_replace("scaled_", "") %>% 
+               str_replace_all("_", " "))
 
+# View wrangled data
+table_model_results
 ```
 
 `@solution`
 ```{r}
+# Prepare the results for the table
+table_model_results <- all_models %>% 
+    filter(predictor == term) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    # Use glue function to combine variables
+    mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
+           # Tidy up predictor
+           predictor = predictor %>% 
+               str_replace("scaled_", "") %>% 
+               str_replace_all("_", " "))
 
+# View wrangled data
+table_model_results
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Amazing!")
 ```
 
 ***
@@ -886,9 +855,10 @@ xp: 25
 ```
 
 `@instructions`
-
+- Keeping only the model, predictor, and combined estimate and CI variables, spread the data so the unadjusted and adjusted model results have their own columns, then build the table {{build as another step?}}.
 
 `@hint`
+- When spreading, choose 1) the variable that will make up the name of the new columns and 2) the variable that provides the values for the new columns.
 
 
 `@sample_code`
@@ -898,12 +868,24 @@ xp: 25
 
 `@solution`
 ```{r}
+# Prepare the results for the table
+table_model_results <- all_models %>% 
+    filter(predictor == term) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
+           predictor = predictor %>% 
+               str_replace("scaled_", "") %>% 
+               str_replace_all("_", " ")) %>%
+    select(model, predictor, estimate_ci) %>% 
+    spread(model, estimate_ci)
 
+# Create a Markdown table
+kable(table_model_results, caption = "Estimates and 95% CI from all models.")
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Amazing! You've wrangled the data and prepared it to be presented as a table! You can now easily add this to your manuscript (especially easy if you use R Markdown).")
 ```
 
 ***
