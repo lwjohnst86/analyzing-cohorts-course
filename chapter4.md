@@ -239,19 +239,34 @@ plot_labels <- labs(y = "Predictors", x = "Odds ratio (95% CI)")
 ```{r}
 # Show results of both adjusted and unadjusted
 plot_all_models <- all_models %>% 
-    filter(predictor == term) %>% 
-    ggplot(aes(y = term, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_errorbarh(aes(height = 0.2)) +
+    filter(___) %>% 
+    ggplot(aes(___)) +
     geom_point() +
-    geom_vline(xintercept = 1, linetype = "dotted") +
-    facet_grid(rows = vars(model), scales = "free") +
+    ___(height = 0.2) +
+    geom_vline(___) +
+    # Split plot by model
+    ___(rows = ___, scales = "free") +
     plot_labels
+
+# Plot the results
 plot_all_models
 ```
 
 `@solution`
 ```{r}
+# Show results of both adjusted and unadjusted
+plot_all_models <- all_models %>% 
+    filter(predictor == term) %>% 
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point() +
+    geom_errorbarh(height = 0.2) +
+    geom_vline(xintercept = 1, linetype = "dotted") +
+    # Split plot by model
+    facet_grid(rows = vars(model), scales = "free") +
+    plot_labels
 
+# Plot the results
+plot_all_models
 ```
 
 `@sct`
