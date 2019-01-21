@@ -10,3 +10,6 @@ install_version("MuMIn", "1.42.1")
 install_version("carpenter", "0.2.1")
 install_version("lme4", "1.1-19")
 install_version("Epi", "2.32")
+install_version("glue", "1.3.0")
+install_version("knitr", "1.21")
+
