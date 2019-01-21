@@ -49,6 +49,7 @@ xp: 50
 ```yaml
 type: NormalExercise
 xp: 100
+key: 0216e3a4ee
 ```
 
 yea?
@@ -281,6 +282,7 @@ success_msg("Great job! You can see that there are large differences in some of 
 ```yaml
 type: NormalExercise
 xp: 100
+key: 44c0af6008
 ```
 
 {{tabbed? or sequential for also sex?}}
