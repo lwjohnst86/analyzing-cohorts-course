@@ -155,7 +155,6 @@ Statistical analysis used on cohort data usually output some time of regression 
 
 Create a plot of the unadjusted model results that highlights the estimate and uncertainty of the estimate. Include appropriate axis labels.
 
-
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
@@ -176,7 +175,6 @@ xp: 25
 
 `@hint`
 - Filter can take multiple conditions, separated by a comma.
-
 
 `@sample_code`
 ```{r}
@@ -267,10 +265,8 @@ xp: 25
 `@instructions`
 - Add a vertical line at 1 for the "null line", using a line type of `"dotted"` for appearance.
 
-
 `@hint`
 - The `xintercept` must be set when adding a vertical line.
-
 
 `@sample_code`
 ```{r}
@@ -672,7 +668,6 @@ xp: 25
 
 `@instructions`
 - Add a row for the predictor variables, body mass, and age using `median (interquartile range)` as the statistic.
-
 
 `@hint`
 - The predictors are total cholesterol, systolic and diastolic blood pressure, and fasting blood glucose.
