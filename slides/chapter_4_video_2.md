@@ -52,11 +52,17 @@ type: "FullSlide"
 |:---------|:-----------------|
 |energy    |0.9 (0.8, 1)      |
 |fibre     |0.3 (0.1, 0.7)    |
-|fat       |0.8 (0.7, 0.9)    |
+|fat       |0.8 (0.7, 0.9)    | {{1}}
 
-![Plot of models](https://assets.datacamp.com/production/repositories/2079/datasets/a3db1948e53a0be132489e15a6a60e6134d4a202/ch4-v2-models.png) {{1}}
+![Plot of models](https://assets.datacamp.com/production/repositories/2079/datasets/a3db1948e53a0be132489e15a6a60e6134d4a202/ch4-v2-models.png) {{2}}
 
 `@script`
+
+Let's compare the same results presented in a table or in a plot. Here we have the results from three models showing estimates for the three predictors. You can probably already tell that you will have to take some time to interpret what the results mean and how they compare to each other.
+
+Now, the same results as a plot. Immediately you get a very quick sense of the results, their magnitude, direction of association, and comparison with the other findings. You don't have to work so hard to understand what the results are saying. This is the point and reason to prefer using plots over tables.
+
+If you recall from chapter 3, there are dozens of statistical techniques and approaches to analyzing cohort data. What technique you use will determine what plots you can make. However, a common output of an analysis is some type of regression-type estimate and a measure of precision such as a confidence interval. So this plot shown here is a good way of showing these types of results. So from now on, we will be covering how to create these.
 
 ---
 ## Plotting estimates and confidence intervals
@@ -66,6 +72,8 @@ type: "FullSlide"
 ```
 
 `@part1`
+
+**STROBE**: Give estimates and precision (95% CI)
 
 ```{r}
 estimate_ci_plot <- models %>%
@@ -80,7 +88,7 @@ estimate_ci_plot
 
 `@script`
 
-We can make this type of plot by using geom point, geom errorbar (the horizontal version), and geom vline. In this case, each item on the y axis is an individual model's predictor and on the x axis is the estimate, as odds ratios, and confidence interval from the model. Since the so called null line is at 1 for odds ratio values, we need to set the xintercept to 1. You may see that for showing many models, 
+We can make this type of plot by using geom point, geom errorbar (the horizontal version), and geom vline. In this case, each item on the y axis is an individual model's predictor and on the x axis is the estimate, as odds ratios, and confidence interval from the model. Since the so called null line is at 1 for odds ratio values, we need to set the xintercept to 1. When you have many more model results to show, you can see how this plot would be able to easily show all the models at once. This is important to give a bigger picture view of the findings and it makes it easy to show the magnitude and direction of associations. This plot has a few ugly things about it. Let's fix it up.
 
 ---
 ## Plotting estimates and confidence intervals
@@ -90,6 +98,10 @@ type: "FullSlide"
 ```
 
 `@part1`
+
+((Don't use smooth transition))
+
+**STROBE**: Give estimates and precision (95% CI)
 
 ```{r}
 estimate_ci_plot_nicer <- models %>%
@@ -104,6 +116,8 @@ estimate_ci_plot
 
 `@script`
 
+That's better. We reduce the height of the error bar ends and make the center line dashed so it is differentiated from the other elements of the plot.
+
 ---
 ## Unadjusted and adjusted models in a single plot
 
@@ -113,6 +127,7 @@ type: "FullSlide"
 
 `@part1`
 
+**STROBE**: Give unadjusted and adjusted estimates
 
 
 `@script`
