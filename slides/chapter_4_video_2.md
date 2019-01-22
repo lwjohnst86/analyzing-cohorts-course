@@ -19,7 +19,7 @@ title: Instructor
 
 
 ---
-## Why use figures over tables?
+## Figures should be preferred over tables
 
 ```yaml
 type: "FullSlide"
@@ -28,7 +28,9 @@ key: "ec5e4806ba"
 
 `@part1`
 
+Why? Humans are visual
 
+- Easier to interpret
 
 `@script`
 
