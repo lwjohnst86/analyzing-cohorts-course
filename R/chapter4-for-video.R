@@ -1,5 +1,28 @@
 source(here::here("R/setup.R"))
 
+# Video 1 -----------------------------------------------------------------
+
+
+# **Run (simple) models for each predictor**:
+#
+# ```{r}
+# model_energy <- glm(chd ~ energy, data = diet, family = binomial) %>%
+#     tidy(conf.int = TRUE, exponentiate = TRUE)
+#
+# model_fibre <- glm(chd ~ fibre, data = diet, family = binomial) %>%
+#     tidy(conf.int = TRUE, exponentiate = TRUE)
+# ```
+#
+# **Combine models, keep predictor results**:
+#
+# ```{r}
+# models <-
+#     bind_rows(
+#         model_energy %>% mutate(predictor = "energy"),
+#         model_fibre %>% mutate(predictor = "fibre")
+#     ) %>%
+#     filter(predictor == term)
+# ```
 
 # Video 2, compare plot vs table ------------------------------------------
 
