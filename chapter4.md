@@ -25,6 +25,23 @@ xp: 50
 ```
 
 
+- MCQ/text: Which is the most appropriate language to use when describing these
+results:
+    - {large effect size} {strong causal language}
+    - .. etc. fill out later.
+- Do coding exercise with effect size then into comment about proper language.
+    
+### Exercise: Using causal or stronger "effect" language when discussing results
+
+{{Bradford Hill *guideline* is also covered in the other epi courses... but
+worth it to repeat since it is important}}
+
+{{focus on these aspects: strength/effect size, consistency/replicability,
+temporality, biological plausibility... these also apply to all aspects of causal
+reasoning in all of science... even with all of these, may not be causal, but
+have a common causal downstream factor.}}
+
+Thinking about using stronger language
 
 `@possible_answers`
 
