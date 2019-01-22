@@ -12,7 +12,6 @@ framingham <- framingham %>%
 
 save(framingham, file = "datasets/framingham.rda")
 
-
 # For chapter 2 -----------------------------------------------------------
 
 # Rename all the variables
@@ -119,7 +118,12 @@ tidied_framingham_v02 <- tidied_framingham %>%
         ),
         funs(str_c("scaled_", .))
     ) %>%
-    mutate(participant_age = mean_center(participant_age))
+    mutate(baseline_age = if_else(followup_visit_number == 1, participant_age, NA_real_) %>%
+               mean_center()) %>%
+    arrange(subject_id, followup_visit_number) %>%
+    group_by(subject_id) %>%
+    fill(baseline_age) %>%
+    ungroup()
 
 # Set predictors and covariates for model formulas.
 predictors <- tidied_framingham_v02 %>%
@@ -127,7 +131,7 @@ predictors <- tidied_framingham_v02 %>%
     names()
 
 covariates <- tidied_framingham_v02 %>%
-    select(education_combined, currently_smokes, sex, participant_age) %>%
+    select(education_combined, currently_smokes, sex, baseline_age) %>%
     names() %>%
     str_c(collapse = " + ")
 
@@ -146,12 +150,12 @@ extract_results_lme <- function(.x) {
 # Generate model results from all possible formulas.
 unadjusted_models <- predictors %>%
     map(~ as.formula(glue("got_cvd ~ {.x} + {base_covariates}"))) %>%
-    future_map(~ extract_results_lme(.x)) %>%
+    future_map(extract_results_lme, .progress = TRUE) %>%
     bind_rows()
 
 adjusted_models <- predictors %>%
     map(~ as.formula(glue("got_cvd ~ {.x} + {covariates} + {base_covariates}"))) %>%
-    future_map(~ extract_results_lme(.x)) %>%
+    future_map(extract_results_lme, .progress = TRUE) %>%
     bind_rows()
 
 # Combine unadjusted and adjusted models into single dataframe
