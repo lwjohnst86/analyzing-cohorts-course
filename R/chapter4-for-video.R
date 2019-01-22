@@ -56,23 +56,33 @@ individual_models %>%
 
 # Video 2, creating plot --------------------------------------------------
 
+# Not for video
 model_energy <- glm(chd ~ energy, data = diet, family = binomial) %>%
     tidy(conf.int = TRUE, exponentiate = TRUE)
-
 model_fibre <- glm(chd ~ fibre, data = diet, family = binomial) %>%
     tidy(conf.int = TRUE, exponentiate = TRUE)
+models <-
+    bind_rows(
+        model_energy %>% mutate(predictor = "energy"),
+        model_fibre %>% mutate(predictor = "fibre")
+    ) %>%
+    filter(predictor == term)
 
-models <- bind_rows(
-    model_energy %>% mutate(predictor = "energy"),
-    model_fibre %>% mutate(predictor = "fibre")
-)
+# For video
+estimate_ci_plot_basic <- models %>%
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point() +
+    geom_errorbarh() +
+    geom_vline(xintercept = 1)
 
-estimate_ci_plot <- models %>%
-    filter(predictor == term) %>%
+ggsave(here::here("datasets/ch4-v2-estimate-ci-basic.png"), estimate_ci_plot_basic,
+       height = 5, width = 8, dpi = 100)
+
+estimate_ci_plot_nicer <- models %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
     geom_vline(xintercept = 1, linetype = "dashed")
 
-ggsave(here::here("datasets/ch4-v2-estimate-ci.png"), estimate_ci_plot,
+ggsave(here::here("datasets/ch4-v2-estimate-ci-nicer.png"), estimate_ci_plot_nicer,
        height = 5, width = 8, dpi = 100)
