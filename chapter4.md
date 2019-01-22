@@ -158,16 +158,16 @@ xp: 25
 ```
 
 `@instructions`
-- Filter out only estimates of the predictor and only keep the unadjusted results.
+- Keep only the unadjusted results.
 
 `@hint`
-- Filter can take multiple conditions, separated by a comma.
+- Filter takes a logic condition.
 
 
 `@sample_code`
 ```{r}
-# Keep only predictor results
-predictor_results <- all_models %>% 
+# Keep only unadjusted models
+unadjusted_results <- all_models %>% 
     ___(___)
 
 # Check filtered data
@@ -176,12 +176,12 @@ ___
 
 `@solution`
 ```{r}
-# Keep only predictor results
-predictor_results <- all_models %>% 
-    filter(predictor == term, model == "Unadjusted")
+# Keep only unadjusted models
+unadjusted_results <- all_models %>% 
+    filter(model == "Unadjusted")
 
 # Check filtered data
-predictor_results
+unadjusted_results
 ```
 
 `@sct`
@@ -205,9 +205,9 @@ xp: 25
 
 `@sample_code`
 ```{r}
-# Keep only predictor results
-predictor_results <- all_models %>% 
-    filter(predictor == term, model == "Unadjusted")
+# Keep only unadjusted models
+unadjusted_results <- all_models %>% 
+    filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
 model_plot <- ___ %>% 
@@ -222,12 +222,12 @@ ___
 
 `@solution`
 ```{r}
-# Keep only predictor results
-predictor_results <- all_models %>% 
-    filter(predictor == term, model == "Unadjusted")
+# Keep only unadjusted models
+unadjusted_results <- all_models %>% 
+    filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
-model_plot <- predictor_results %>% 
+model_plot <- unadjusted_results %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     # height of 0.2 for aesthetics
@@ -260,12 +260,12 @@ xp: 25
 
 `@sample_code`
 ```{r}
-# Keep only predictor results
-predictor_results <- all_models %>% 
-    filter(predictor == term, model == "Unadjusted")
+# Keep only unadjusted models
+unadjusted_results <- all_models %>% 
+    filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
-model_plot <- predictor_results %>% 
+model_plot <- unadjusted_results %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
@@ -278,12 +278,12 @@ ___
 
 `@solution`
 ```{r}
-# Keep only predictor results
-predictor_results <- all_models %>% 
-    filter(predictor == term, model == "Unadjusted")
+# Keep only unadjusted models
+unadjusted_results <- all_models %>% 
+    filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
-model_plot <- predictor_results %>% 
+model_plot <- unadjusted_results %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
@@ -315,12 +315,12 @@ xp: 25
 
 `@sample_code`
 ```{r}
-# Keep only predictor results
-predictor_results <- all_models %>% 
-    filter(predictor == term, model == "Unadjusted")
+# Keep only unadjusted models
+unadjusted_results <- all_models %>% 
+    filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
-model_plot <- predictor_results %>% 
+model_plot <- unadjusted_results %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
@@ -337,12 +337,12 @@ ___ +
 
 `@solution`
 ```{r}
-# Keep only predictor results
-predictor_results <- all_models %>% 
-    filter(predictor == term, model == "Unadjusted")
+# Keep only unadjusted models
+unadjusted_results <- all_models %>% 
+    filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
-model_plot <- predictor_results %>% 
+model_plot <- unadjusted_results %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
@@ -394,7 +394,6 @@ plot_labels <- labs(y = "Predictors", x = "Odds ratio (95% CI)")
 ```{r}
 # Show results of both adjusted and unadjusted
 plot_all_models <- all_models %>% 
-    filter(___) %>% 
     ggplot(aes(___)) +
     ___() +
     ___(height = 0.2) +
@@ -411,7 +410,6 @@ plot_all_models
 ```{r}
 # Show results of both adjusted and unadjusted
 plot_all_models <- all_models %>% 
-    filter(predictor == term) %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
