@@ -70,6 +70,7 @@ models <-
 
 # For video
 estimate_ci_plot_basic <- models %>%
+    # filter(model == "unadjusted") %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh() +
@@ -79,6 +80,7 @@ ggsave(here::here("datasets/ch4-v2-estimate-ci-basic.png"), estimate_ci_plot_bas
        height = 5, width = 8, dpi = 100)
 
 estimate_ci_plot_nicer <- models %>%
+    # filter(model == "unadjusted") %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
@@ -86,3 +88,36 @@ estimate_ci_plot_nicer <- models %>%
 
 ggsave(here::here("datasets/ch4-v2-estimate-ci-nicer.png"), estimate_ci_plot_nicer,
        height = 5, width = 8, dpi = 100)
+
+# Video 2, adjusted and unadjusted ----------------------------------------
+
+tidied_glm <- function(predictors) {
+    Formula <- as.formula(glue("chd ~ {predictors}"))
+    glm(Formula, data = diet, family = binomial) %>%
+        tidy(conf.int = TRUE, exponentiate = TRUE)
+}
+
+# Not for video
+model_energy <- tidied_glm("energy")
+model_fibre <- tidied_glm("fibre")
+adj_model_energy <- tidied_glm("energy + weight")
+adj_model_fibre <- tidied_glm("fibre + weight")
+
+models <-
+    bind_rows(
+        model_energy %>% mutate(predictor = "energy", model = "unadjusted"),
+        model_fibre %>% mutate(predictor = "fibre", model = "unadjusted"),
+        adj_model_energy %>% mutate(predictor = "energy", model = "adjusted"),
+        adj_model_fibre %>% mutate(predictor = "fibre", model = "adjusted")
+    ) %>%
+    filter(predictor == term)
+
+# For video
+unadjusted_adjusted <- models %>%
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point() +
+    geom_errorbarh(height = 0.2) +
+    geom_vline(xintercept = 1, linetype = "dashed") +
+    facet_grid(rows = vars(model))
+
+ggsave(here::here("datasets/ch4-v2-unadjusted-adjusted.png"), unadjusted_adjusted,
