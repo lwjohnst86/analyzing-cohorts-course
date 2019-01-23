@@ -66,7 +66,7 @@ type: "FullSlide"
 
 `@script`
 
-Let's compare the same results presented in a table or in a plot. Here we have the results from three models showing estimates for the three predictors. You can probably already tell that you will have to take some time to interpret what the results mean and how they compare to each other.
+Let's compare the same results presented as a table or as a plot. Here we have the results from three models showing estimates for the three predictors. You can probably already tell that you will have to take some time to interpret what the results mean and how they compare to each other.
 
 Now, the same results as a plot. Immediately you get a very quick sense of the results, their magnitude, direction of association, and comparison with the other findings. You don't have to work so hard to understand what the results are saying. This is the point and reason to prefer using plots over tables.
 
@@ -124,7 +124,7 @@ estimate_ci_plot
 
 `@script`
 
-That's better. We reduce the height of the error bar ends and make the center line dashed so it is differentiated from the other elements of the plot.
+If we reduce the height of the error bar ends and make the center line dashed so it is differentiated from the other elements of the plot, the plot looks much better.
 
 ---
 ## Unadjusted and adjusted models in a single plot
