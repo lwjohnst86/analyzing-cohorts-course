@@ -21,7 +21,7 @@ In the past, most results from cohort studies were presented as tables. However,
 
 
 ---
-## Figures should be *preferred* over tables
+## Figures should be preferred over tables
 
 ```yaml
 type: "FullSlide"
@@ -29,12 +29,12 @@ key: "ec5e4806ba"
 ```
 
 `@part1`
-Why? Humans are visual, graphs are visual
+*Why?* Humans are visual, graphs are visual
 
 - Easier to interpret {{1}}
 - More information per space {{1}}
 
-When? {{2}}
+*When?* {{2}}
 
 - Units are mostly same {{2}}
 - Emphasize patterns {{2}}
