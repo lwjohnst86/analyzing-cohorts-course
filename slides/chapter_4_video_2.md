@@ -85,6 +85,7 @@ type: "FullSlide"
 
 ```{r}
 estimate_ci_plot <- models %>%
+    filter(model == "unadjusted") %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh() +
@@ -113,6 +114,7 @@ type: "FullSlide"
 
 ```{r}
 estimate_ci_plot_nicer <- models %>%
+    filter(model == "unadjusted") %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) + # Reduce width of end bars
