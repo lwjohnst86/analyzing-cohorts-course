@@ -176,12 +176,9 @@ type: "FullSlide"
 
 `@part1`
 
-
+**STROBE**: Report on sensitivity analyses
 
 `@script`
-
-STROBE guidelines: "Report other analyses done—eg analyses of subgroups and interactions, and
-    sensitivity analyses"
 
 
 ---
