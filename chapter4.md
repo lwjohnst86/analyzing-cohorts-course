@@ -24,14 +24,12 @@ key: 7067db77b1
 xp: 50
 ```
 
-
 - MCQ/text: Which is the most appropriate language to use when describing these
 results:
     - {large effect size} {strong causal language}
     - .. etc. fill out later.
 - Do coding exercise with effect size then into comment about proper language.
     
-### Exercise: Using causal or stronger "effect" language when discussing results
 
 {{Bradford Hill *guideline* is also covered in the other epi courses... but
 worth it to repeat since it is important}}
