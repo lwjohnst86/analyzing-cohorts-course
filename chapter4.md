@@ -775,7 +775,7 @@ xp: 35
 ```
 
 `@instructions`
-- Keeping only the predictor estimates, round the estimates and CI to one digit.
+- Keeping only the predictor estimates, round the estimates and CI to two digits.
 
 `@hint`
 - `mutate_at` applies a function (second argument) to a list of variables (first argument) with `vars()`.
@@ -798,7 +798,7 @@ table_model_results
 table_model_results <- all_models %>% 
     # Keep predictors and round values
     filter(predictor == term) %>% 
-    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1)
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2)
 
 # View wrangled data
 table_model_results
@@ -828,7 +828,7 @@ xp: 35
 # Prepare the results for the table
 table_model_results <- all_models %>% 
     filter(predictor == term) %>% 
-    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     # Use glue function to combine variables
     mutate(estimate_ci = ___("___"),
            # Tidy up predictor
@@ -845,7 +845,7 @@ table_model_results
 # Prepare the results for the table
 table_model_results <- all_models %>% 
     filter(predictor == term) %>% 
-    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     # Use glue function to combine variables
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            # Tidy up predictor
@@ -881,7 +881,7 @@ xp: 30
 # Prepare the results for the table
 table_model_results <- all_models %>% 
     filter(predictor == term) %>% 
-    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            predictor = predictor %>% 
                str_replace("scaled_", "") %>% 
@@ -899,7 +899,7 @@ ___(___, caption = "Estimates and 95% CI from all models.")
 # Prepare the results for the table
 table_model_results <- all_models %>% 
     filter(predictor == term) %>% 
-    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 1) %>% 
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            predictor = predictor %>% 
                str_replace("scaled_", "") %>% 
