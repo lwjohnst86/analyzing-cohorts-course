@@ -14,6 +14,7 @@ library(MuMIn)
 library(janitor)
 library(glue)
 library(broom)
+library(carpenter)
 
 data("diet")
 color_theme <- ghibli_palette("MononokeMedium")
