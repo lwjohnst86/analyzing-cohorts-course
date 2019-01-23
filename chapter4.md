@@ -69,26 +69,7 @@ xp: 100
 
 You've ran several models, shown in the code chunk below, and have multiple tidied model objects. 
 
-```{r}
-# TODO: introduce in video?
-tidy_glmer <- function(predictors) {
-    # Create formula
-    model_formula <- 
-        glue("got_cvd ~ {predictors} + followup_visit_number + (1 | subject_id)") %>%
-            as.formula()
-    # Run and extract model
-    glmer(model_formula, family = binomial, data = tidied_framingham) %>% 
-        tidy(conf.int = TRUE) %>%
-        mutate_at(vars(estimate, conf.low, conf.high), exp)
-}
 
-unadj_model_chol <- tidy_glmer("scaled_total_cholesterol")
-unadj_model_sbp <- tidy_glmer("scaled_systolic_blood_pressure")
-unadj_model_dbp <- tidy_glmer("scaled_diastolic_blood_pressure")
-adj_model_chol <- tidy_glmer("scaled_total_cholesterol + sex + education_combined")
-adj_model_sbp <- tidy_glmer("scaled_systolic_blood_pressure + sex + education_combined")
-adj_model_dbp <- tidy_glmer("scaled_diastolic_blood_pressure + sex + education_combined")
-```
 
 Now is the time to prepare them for later presentation. The more efficient approach is to put them all in a single dataframe and filter out results when needed. Put the models all together and keep only the model estimates for the predictors.
 
