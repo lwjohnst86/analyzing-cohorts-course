@@ -120,5 +120,94 @@ unadjusted_adjusted <- models %>%
     geom_vline(xintercept = 1, linetype = "dashed") +
     facet_grid(rows = vars(model))
 
+unadjusted_adjusted <- unadjusted_adjusted +
+    coord_cartesian(ylim = c(1.2, 1.8), expand = FALSE)
+
 ggsave(here::here("datasets/ch4-v2-unadjusted-adjusted.png"), unadjusted_adjusted,
-       height = 5, width = 8, dpi = 100)
+       height = 3, width = 8, dpi = 90)
+
+
+# Video 2, interaction plotting -------------------------------------------
+
+# https://cran.r-project.org/web/packages/ggeffects/vignettes/marginaleffects.html
+
+# Video 3, characteristics table ------------------------------------------
+
+diet %>%
+    outline_table()
+
+diet %>%
+    outline_table() %>%
+    add_rows("job", stat = stat_nPct)
+
+diet %>%
+    outline_table() %>%
+    add_rows("job", stat = stat_nPct) %>%
+    add_rows("fibre", stat = stat_meanSD) %>%
+    add_rows(c("energy", "weight"),
+             stat = stat_medianIQR)
+
+basic_char_table <- diet %>%
+    outline_table() %>%
+    add_rows("job", stat = stat_nPct) %>%
+    add_rows("fibre", stat = stat_meanSD) %>%
+    add_rows(c("energy", "weight"),
+             stat = stat_medianIQR) %>%
+    renaming("header", c("Characteristics", "Values"))
+basic_char_table
+
+build_table(basic_char_table)
+
+
+# Video 3, wrangle model to table -----------------------------------------
+
+# Not for video
+tidied_glm <- function(predictors) {
+    Formula <- as.formula(glue("chd ~ {predictors}"))
+    glm(Formula, data = diet, family = binomial) %>%
+        tidy(conf.int = TRUE, exponentiate = TRUE)
+}
+
+# Not for video
+model_energy <- tidied_glm("energy")
+model_fibre <- tidied_glm("fibre")
+adj_model_energy <- tidied_glm("energy + weight")
+adj_model_fibre <- tidied_glm("fibre + weight")
+
+# Not for video
+models <-
+    bind_rows(
+        model_energy %>% mutate(predictor = "energy", model = "unadjusted"),
+        model_fibre %>% mutate(predictor = "fibre", model = "unadjusted"),
+        adj_model_energy %>% mutate(predictor = "energy", model = "adjusted"),
+        adj_model_fibre %>% mutate(predictor = "fibre", model = "adjusted")
+    ) %>%
+    filter(predictor == term)
+
+# Show how we want it to look
+models %>%
+    mutate_at(vars(estimate, std.error), round, digits = 2) %>%
+    mutate(estimate_se = glue("{estimate} ({std.error} SE)"),
+           predictors = str_to_title(predictor)) %>%
+    select(predictors, model, estimate_se) %>%
+    spread(model, estimate_se) %>%
+    rename_all(str_to_title) %>%
+    select(Predictors, Unadjusted, Adjusted) %>%
+    knitr::kable()
+
+# Short highlighting of glue
+x <- 3
+y <- 5
+glue("{x} ({y}%)")
+
+models %>%
+    select(model, predictor, estimate, std.error) %>%
+    mutate_at(vars(estimate, std.error), round, digits = 2) %>%
+    mutate(estimate_se = glue("{estimate} ({std.error} SE)"))
+
+models %>%
+    select(model, predictor, estimate, std.error) %>%
+    mutate_at(vars(estimate, std.error), round, digits = 2) %>%
+    mutate(estimate_se = glue("{estimate} ({std.error} SE)")) %>%
+    select(predictor, model, estimate_se) %>%
+    spread(model, estimate_se)
