@@ -139,6 +139,17 @@ type: "FullSlide"
 
 **STROBE**: Give unadjusted and adjusted estimates
 
+```{r}
+unadjusted_adjusted <- models %>%
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point() +
+    geom_errorbarh(height = 0.2) +
+    geom_vline(xintercept = 1, linetype = "dashed") +
+    facet_grid(rows = vars(model))
+unadjusted_adjusted
+```
+
+![Showing both unadjusted and adjusted results](https://assets.datacamp.com/production/repositories/2079/datasets/9863889fd3985923a46e4ec06beb37822cb83af0/ch4-v2-unadjusted-adjusted.png)
 
 `@script`
 
