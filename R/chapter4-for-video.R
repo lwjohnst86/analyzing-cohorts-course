@@ -121,3 +121,4 @@ unadjusted_adjusted <- models %>%
     facet_grid(rows = vars(model))
 
 ggsave(here::here("datasets/ch4-v2-unadjusted-adjusted.png"), unadjusted_adjusted,
+       height = 5, width = 8, dpi = 100)
