@@ -17,9 +17,10 @@ title: Instructor
 
 `@script`
 
+In the past, most results from cohort studies were presented as tables. However, for most types of data, tables are an ineffective way at communicating findings. Even now, cohort results are still presented as tables, mainly due to tradition and to lack of awareness and skill in creating effective and meaningful graphs. 
 
 ---
-## Figures should be preferred over tables
+## Figures should be *preferred* over tables
 
 ```yaml
 type: "FullSlide"
@@ -28,18 +29,23 @@ key: "ec5e4806ba"
 
 `@part1`
 
-Why? Humans are visual
+Why? Humans are visual, graphs are visual
 
-- Easier to interpret
+- Easier to interpret {{1}}
+- More information per space {{1}}
+
+When? {{2}}
+
+- Units are mostly same {{2}}
+- Emphasize patterns {{2}}
+- Items are compared {{2}}
+- Lots of data to show {{2}}
 
 `@script`
 
-STROBE, depends on statistical analysis, when and why not.
+When deciding on how you will present your results, you should first think of how to put your data as a graph. Graphs are an incredibly powerful way of communicating scientific findings. Because we as humans heavily rely on our visual system, using graphs leverages this system. Graphs are easier to interpret than tables and allow for more information per space of paper or screen. 
 
-- Table or figure? When to use either
-    - Above all, try to use a figure. They tend to show results the best,
-    quickest, and are more intuitive/understandable then tables.
-    - But not all results work in a figure.
+Graphs are especially useful when units of measure are the same or similar, when you want to focus on patterns or need to compare items, and particularly when there is a lot of data to show.
 
 ---
 ## Comparison of presentation: Figure vs table
