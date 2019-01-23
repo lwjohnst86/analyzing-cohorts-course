@@ -412,7 +412,7 @@ plot_all_models <- all_models %>%
     ___(height = 0.2) +
     geom_vline(___) +
     # Split plot by model
-    ___(rows = ___, scales = "free") +
+    ___(rows = ___) +
     plot_labels
 
 # Plot the results
@@ -428,7 +428,7 @@ plot_all_models <- all_models %>%
     geom_errorbarh(height = 0.2) +
     geom_vline(xintercept = 1, linetype = "dotted") +
     # Split plot by model
-    facet_grid(rows = vars(model), scales = "free") +
+    facet_grid(rows = vars(model)) +
     plot_labels
 
 # Plot the results
