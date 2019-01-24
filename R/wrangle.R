@@ -138,6 +138,26 @@ covariates <- tidied_framingham_v02 %>%
 base_covariates <- "followup_visit_number + (1 | subject_id)"
 
 # Function to extract model results from glmer
+extract_results_simple_lme <- function(.x) {
+        model <- glmer(.x, family = binomial, data = tidied_framingham_v02)
+        model %>%
+            tidy(conf.int = TRUE) %>%
+            mutate_at(vars(estimate, std.error, conf.low, conf.high), exp)
+}
+
+unadjusted_models_list <- predictors %>%
+    map(~ as.formula(glue("got_cvd ~ {.x} + {base_covariates}"))) %>%
+    future_map(extract_results_simple_lme, .progress = TRUE)
+
+adjusted_models_list <- predictors %>%
+    map(~ as.formula(glue("got_cvd ~ {.x} + {covariates} + {base_covariates}"))) %>%
+    future_map(extract_results_simple_lme, .progress = TRUE)
+
+# Save model lists
+save(unadjusted_models_list, file = "datasets/unadjusted_models_list.rda")
+save(adjusted_models_list, file = "datasets/adjusted_models_list.rda")
+
+# Function to extract model results from glmer
 extract_results_lme <- function(.x) {
         model <- glmer(.x, family = binomial, data = tidied_framingham_v02)
         model %>%
@@ -163,12 +183,10 @@ all_models <- bind_rows(
     unadjusted_models %>% mutate(model = "Unadjusted"),
     adjusted_models %>% mutate(model = "Adjusted")
     ) %>%
-    mutate_at(vars(estimate, conf.low, conf.high), funs(exp(.))) %>%
+    mutate_at(vars(estimate, conf.low, conf.high), exp) %>%
     select(model, outcome, predictor, term, estimate, conf.low, conf.high)
 
 # Save the model results:
-# save(unadjusted_models, file = "datasets/unadjusted_models.rda")
-# save(adjusted_models, file = "datasets/adjusted_models.rda")
 save(all_models, file = "datasets/all_models.rda")
 
 # Function to extract interaction model results from glmer
