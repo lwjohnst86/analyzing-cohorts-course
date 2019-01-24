@@ -84,13 +84,12 @@ key: "efa5ebbadc"
 
 `@part1`
 ```{r}
-estimate_ci_plot <- models %>%
+models %>%
     filter(model == "unadjusted") %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh() +
     geom_vline(xintercept = 1)
-estimate_ci_plot
 ```
 
 ![Plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/888f76bf313121b29a3fb1051bb4480c5ea9c3e8/ch4-v2-estimate-ci-basic.png)
@@ -111,13 +110,12 @@ disable_transition: true
 
 `@part1`
 ```{r}
-estimate_ci_plot_nicer <- models %>%
+models %>%
     filter(model == "unadjusted") %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
-    geom_errorbarh(height = 0.2) + # Reduce width of end bars
-    geom_vline(xintercept = 1, linetype = "dashed") # Line contrast with others
-estimate_ci_plot
+    geom_errorbarh(height = 0.2) + 
+    geom_vline(xintercept = 1, linetype = "dashed")
 ```
 
 ![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/47f4700950e9480cd25d630861b12c9efe06d21d/ch4-v2-estimate-ci-nicer.png)
@@ -136,16 +134,13 @@ key: "2769fc30b4"
 ```
 
 `@part1`
-**STROBE**: Give unadjusted and adjusted estimates
-
 ```{r}
-unadjusted_adjusted <- models %>%
+models %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
     geom_vline(xintercept = 1, linetype = "dashed") +
     facet_grid(rows = vars(model))
-unadjusted_adjusted
 ```
 
 ![Showing both unadjusted and adjusted results](https://assets.datacamp.com/production/repositories/2079/datasets/9863889fd3985923a46e4ec06beb37822cb83af0/ch4-v2-unadjusted-adjusted.png)
