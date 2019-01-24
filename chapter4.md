@@ -94,19 +94,19 @@ library(purrr)
 
 `@sample_code`
 ```{r}
+# Add predictor and model type
 unadjusted_models_list <- map(
     unadjusted_models_list,
-    ~ .x %>% 
-        mutate(predictor = term[2], model = "Unadjusted")
+    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
 )
 
+# Add predictor and model type
 unadjusted_models_list <- map(
     adjusted_models_list,
-    ~ .x %>% 
-        mutate(predictor = term[2], model = "Adjusted")
+    ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
 )
 
-# Combine unadjusted and adjusted model results
+# Combine model, add outcome, keep predictor estimates
 bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
     mutate(outcome = "got_cvd") %>% 
     filter(predictor == term)
