@@ -2,27 +2,28 @@ source(here::here("R/setup.R"))
 
 # Video 1 -----------------------------------------------------------------
 
+tidy_glm <- function(predictors) {
+    model_formula <- as.formula(glue("chd ~ {predictors}"))
+    glm(model_formula, family = binomial, data = diet) %>%
+        tidy(conf.int = TRUE, exponentiate = TRUE)
+}
 
-# **Run (simple) models for each predictor**:
-#
-# ```{r}
-# model_energy <- glm(chd ~ energy, data = diet, family = binomial) %>%
-#     tidy(conf.int = TRUE, exponentiate = TRUE)
-#
-# model_fibre <- glm(chd ~ fibre, data = diet, family = binomial) %>%
-#     tidy(conf.int = TRUE, exponentiate = TRUE)
-# ```
-#
-# **Combine models, keep predictor results**:
-#
-# ```{r}
-# models <-
-#     bind_rows(
-#         model_energy %>% mutate(predictor = "energy"),
-#         model_fibre %>% mutate(predictor = "fibre")
-#     ) %>%
-#     filter(predictor == term)
-# ```
+predictors <- c("energy", "fibre")
+predictors_with_covars <- paste(predictors, "weight", sep = " + ")
+
+unadjusted_models_list <- map(predictors, tidy_glm)
+adjusted_models_list <- map(predictors_with_covars, tidy_glm)
+
+# For video
+
+unadjusted_models_list
+
+models_df <- bind_rows(
+        map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")),
+        map(adjusted_models_list, ~ .x %>% mutate(model = "Adjusted"))
+    ) %>%
+    mutate(outcome = "chd")
+models_df
 
 # Video 2, compare plot vs table ------------------------------------------
 
@@ -211,3 +212,4 @@ models %>%
     mutate(estimate_se = glue("{estimate} ({std.error} SE)")) %>%
     select(predictor, model, estimate_se) %>%
     spread(model, estimate_se)
+
