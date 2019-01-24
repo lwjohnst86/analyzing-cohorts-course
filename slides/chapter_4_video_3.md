@@ -39,7 +39,7 @@ Basically, *whenever you can't use graphs*
 
 
 `@script`
-When is it best to use tables? Basically, whenever you can't use a graph. For example, use a table when the units of measure are too dissimilar or if you want your findings to be friendlier to use in meta-analyses.
+When is it best to use tables? Basically, whenever you can't use a graph. For example, use a table when the units of measure are too dissimilar or when comparison between items isn't as important.
 
 
 ---
@@ -105,9 +105,9 @@ diet %>%
 
 
 `@script`
-Presenting basic participant characteristics, which is suggested by STROBE, is a great example for using a table, as it is a valuable source of information. Here you can show summary statistics of the outcomes, the predictors, and other characteristics.
+Presenting basic participant characteristics, as suggested by STROBE, is a great example for using a table. Here you can show summary statistics of the outcomes, the predictors, and other characteristics.
 
-The carpenter package provides an easy way of creating these tables. To start we first outline the table based on the data. With multiple time points, you could indicate the time variable so that each time point has a column. This outputs nothing right now as we haven't added rows. 
+The carpenter package provides an easy way of creating these tables. To start we outline the table based on the data. With multiple time points, you could indicate the time variable so that each time point has a column. This outputs nothing right now as we haven't added rows. 
 
 Next we add a row for the factor variable jobs. A common summary statistic for factors are count with percentage of total. So we set the stat to n percent.
 
