@@ -67,21 +67,21 @@ key: 0216e3a4ee
 xp: 100
 ```
 
-You've ran several models as detailed below:
+Imagine you've ran several models, based on what you learned in chapter 3. You:
 
-- Predictors were scaled to compare estimates.
-- Covariates were baseline age, sex, smoking, and education.
-- Each predictor had unadjusted and adjusted models (time and subject ID were included in all).
-- Models were tidied, estimates exponentiated (as in chapter 3).
+- Scaled predictors to compare estimates.
+- Set covariates as baseline age, sex, smoking, and education.
+- Have each predictor with unadjusted and adjusted models (time and subject ID were included in all).
+- Tidied models and exponentiated estimates.
 
-You have NUMBER tidied models, stored in a list.
-
-Now is the time to prepare them for later presentation. The more efficient approach is to put them all in a single dataframe and filter out results when needed. Put the models all together and keep only the model estimates for the predictors.
+You have 8 models in total, stored as a list. The most efficient approach is to have them all as a single dataframe so you can easily create plots or tables from them. You need to wrangle the results to get them into the proper form. 
 
 `@instructions`
+- Add predictor column and model type column.
 
 
 `@hint`
+- The predictor is the second element of the term variable.
 
 
 `@pre_exercise_code`
