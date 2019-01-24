@@ -466,9 +466,10 @@ E.g. a sex or time by predictor interaction
 {{TODO: Will need to confirm a time interaction (or just show it regardless...)}}
 
 `@instructions`
-
+- Check whether any interaction has a p-value less than 0.10.
 
 `@hint`
+- Use 
 
 
 `@pre_exercise_code`
@@ -478,6 +479,11 @@ load("datasets/interaction_models.rda")
 
 `@sample_code`
 ```{r}
+View(interaction_models)
+
+interaction_models %>% 
+    filter(p.value < 0.10)
+
 
 ```
 
@@ -488,7 +494,7 @@ load("datasets/interaction_models.rda")
 
 `@sct`
 ```{r}
-
+success_msg("Amazing!")
 ```
 
 ---
