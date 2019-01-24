@@ -67,9 +67,14 @@ key: 0216e3a4ee
 xp: 100
 ```
 
-You've ran several models, shown in the code chunk below, and have multiple tidied model objects. 
+You've ran several models as detailed below:
 
+- Predictors were scaled to compare estimates.
+- Covariates were baseline age, sex, smoking, and education.
+- Each predictor had unadjusted and adjusted models (time and subject ID were included in all).
+- Models were tidied, estimates exponentiated (as in chapter 3).
 
+You have NUMBER tidied models, stored in a list.
 
 Now is the time to prepare them for later presentation. The more efficient approach is to put them all in a single dataframe and filter out results when needed. Put the models all together and keep only the model estimates for the predictors.
 
@@ -81,33 +86,56 @@ Now is the time to prepare them for later presentation. The more efficient appro
 
 `@pre_exercise_code`
 ```{r}
-load(url(""))
-load(url(""))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/2bb231430c5899236ee8b8d0af4b229036657d3a/unadjusted_models_list.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/13d5aaceecc89a74b4f323546401d409a605acc2/adjusted_models_list.rda"))
 library(dplyr)
+library(purrr)
 ```
 
 `@sample_code`
 ```{r}
-# Also merge other models?
-# Combine unadjusted and adjusted model results.
-all_models <- bind_rows(
-    model_chol %>% 
-        mutate(model = "Unadjusted"),
-    adjusted_models %>% 
-        mutate(model = "Adjusted")
-    ) %>% 
-    filter(predictor == term)
+unadjusted_models_list <- map(
+    unadjusted_models_list,
+    ~ .x %>% 
+        mutate(predictor = term[2], model = "Unadjusted")
+)
 
+unadjusted_models_list <- map(
+    adjusted_models_list,
+    ~ .x %>% 
+        mutate(predictor = term[2], model = "Adjusted")
+)
+
+# Combine unadjusted and adjusted model results
+bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
+    mutate(outcome = "got_cvd") %>% 
+    filter(predictor == term)
 ```
 
 `@solution`
 ```{r}
 
+unadjusted_models_list <- map(
+    unadjusted_models_list,
+    ~ .x %>% 
+        mutate(predictor = term[2], model = "Unadjusted")
+)
+
+unadjusted_models_list <- map(
+    adjusted_models_list,
+    ~ .x %>% 
+        mutate(predictor = term[2], model = "Adjusted")
+)
+
+# Combine unadjusted and adjusted model results
+bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
+    mutate(outcome = "got_cvd") %>% 
+    filter(predictor == term)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Well done! Using the purrr package functions is a great way of making use of R's functional programming strengths so you can wrangle each model in the list simultaneously.")
 ```
 
 ---
