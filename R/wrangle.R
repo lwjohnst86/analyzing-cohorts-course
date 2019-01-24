@@ -196,8 +196,7 @@ extract_interaction_lme <- function(.x) {
             tidy(conf.int = TRUE) %>%
             mutate(outcome = as.character(model@call$formula[[2]]),
                    predictor = term[2]) %>%
-            select(outcome, predictor, everything()) %>%
-            filter(str_detect(term, ":"))
+            select(outcome, predictor, everything())
 }
 
 # Generate model results for interaction by time
@@ -212,18 +211,19 @@ interaction_by_sex <- predictors %>%
     future_map(~ extract_interaction_lme(.x)) %>%
     bind_rows()
 
+interaction_by_sex_time <- predictors %>%
+    map(~ as.formula(glue("got_cvd ~ {.x} + followup_visit_number*sex*{.x} + (1 | subject_id)"))) %>%
+    future_map(~ extract_interaction_lme(.x)) %>%
+    bind_rows()
+
 interaction_models <- bind_rows(
     interaction_by_sex %>% mutate(interaction = "sex"),
-    interaction_by_time %>% mutate(interaction = "followup_visit_number")
+    interaction_by_time %>% mutate(interaction = "followup_visit_number"),
+    interaction_by_sex_time %>%
+        mutate(interaction = "sex and followup_visit_number")
     ) %>%
     select(interaction, outcome, predictor, term, estimate, std.error,
            conf.low, conf.high, p.value)
 
 # Save interaction results
 save(interaction_models, file = "datasets/interaction_models.rda")
-
-# int <- predictors[4] %>%
-#     map(~ as.formula(glue("got_cvd ~ {.x} + followup_visit_number*sex*{.x} + (1 | subject_id)"))) %>%
-#     future_map(~ extract_interaction_lme(.x)) %>%
-#     bind_rows()
-# save(int, file = "datasets/checkinto.rda")
