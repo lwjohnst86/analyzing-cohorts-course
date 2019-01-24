@@ -19,8 +19,8 @@ xp: 50
 ## What to emphasize when presenting results
 
 ```yaml
-type: MultipleChoiceExercise
-key: 7067db77b1
+type: PureMultipleChoiceExercise
+key: bc58bede32
 xp: 50
 ```
 
@@ -41,21 +41,14 @@ have a common causal downstream factor.}}
 
 Thinking about using stronger language
 
-`@possible_answers`
-
-
 `@hint`
 
 
-`@pre_exercise_code`
-```{r}
+`@possible_answers`
 
-```
 
-`@sct`
-```{r}
+`@feedback`
 
-```
 
 ---
 
