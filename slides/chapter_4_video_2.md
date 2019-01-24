@@ -167,22 +167,6 @@ key: "6231c20cd6"
 
 
 ---
-## Sensitivity analysis? Show it too!
-
-```yaml
-type: "FullSlide"
-key: "3d3edd3bd4"
-```
-
-`@part1`
-**STROBE**: Report on sensitivity analyses
-
-
-`@script`
-
-
-
----
 ## Final Slide
 
 ```yaml
