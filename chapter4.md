@@ -787,7 +787,7 @@ Provide the estimates and 95% confidence intervals of the unadjusted and adjuste
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/25722a0770c3779d3290fd5628362c56a9d7d21b/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
 library(knitr)
 library(glue)
 library(dplyr)
