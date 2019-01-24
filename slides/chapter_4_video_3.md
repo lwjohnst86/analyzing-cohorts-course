@@ -118,8 +118,7 @@ Now, let's add another row for fibre using the mean and standard deviation stati
 ## Showing participant characteristics
 
 ```yaml
-type: "TwoColumns"
-key: "985afd6a52"
+type: "FullSlide"
 ```
 
 `@part1`
@@ -145,10 +144,6 @@ basic_char_table
 6 energy        28.0 (25.4-31.1)
 7 weight        72.8 (64.6-79.8)
 ``` {{2}}
-
-
-`@part2`
-
 
 
 `@script`
