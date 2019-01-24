@@ -67,15 +67,13 @@ Imagine you've ran several models, based on what you learned in chapter 3. You:
 - Have each predictor with unadjusted and adjusted models (time and subject ID were included in all).
 - Tidied models and exponentiated estimates.
 
-You have 8 models in total, stored as a list. The most efficient approach is to have them all as a single dataframe so you can easily create plots or tables from them. You need to wrangle the results to get them into the proper form. 
+You have 8 models in total, stored as a list. The most efficient approach is to have them all as a single dataframe so you can easily create plots or tables from them. You need to wrangle the results to get them into the proper form.
 
 `@instructions`
 - Add predictor column and model type column.
 
-
 `@hint`
 - The predictor is the second element of the term variable.
-
 
 `@pre_exercise_code`
 ```{r}
@@ -462,8 +460,7 @@ E.g. a sex or time by predictor interaction
 - Check whether any interaction has a p-value less than 0.10.
 
 `@hint`
-- Use 
-
+- Use
 
 `@pre_exercise_code`
 ```{r}
