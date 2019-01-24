@@ -1,6 +1,7 @@
 ---
 title: 'Introduction to cohorts and to analyzing them'
 description: 'In this chapter we will cover the basics of what a cohort is, an approach to analyzing cohort data, and some first steps in exploring the data. You''ll also learn what type of data values to be aware of and to consider when dealing with cohort datasets.'
+free_preview: true
 ---
 
 ## Introduction to cohort studies
