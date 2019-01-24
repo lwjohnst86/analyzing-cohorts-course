@@ -812,8 +812,7 @@ xp: 35
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    # Keep predictors and round values
-    filter(___) %>% 
+    # Round values
     mutate_at(___, ___, digits = ___)
 
 # View wrangled data
@@ -824,8 +823,7 @@ table_model_results
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    # Keep predictors and round values
-    filter(predictor == term) %>% 
+    # Round values
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2)
 
 # View wrangled data
@@ -855,7 +853,6 @@ xp: 35
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    filter(predictor == term) %>% 
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     # Use glue function to combine variables
     mutate(estimate_ci = ___("___"),
@@ -872,7 +869,6 @@ table_model_results
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    filter(predictor == term) %>% 
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     # Use glue function to combine variables
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
@@ -908,7 +904,6 @@ xp: 30
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    filter(predictor == term) %>% 
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            predictor = predictor %>% 
@@ -926,7 +921,6 @@ ___(___, caption = "Estimates and 95% CI from all models.")
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    filter(predictor == term) %>% 
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            predictor = predictor %>% 
