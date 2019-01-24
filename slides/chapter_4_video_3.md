@@ -17,6 +17,7 @@ title: Instructor
 
 `@script`
 
+As much as we would like, we can't make all results as graphs. There are many times when tables are very effective at communicating your intention and findings. We'll cover how to get results into a table format.
 
 ---
 ## When are tables preferred?
@@ -27,7 +28,7 @@ type: "FullSlide"
 
 `@part1`
 
-*Really, whenever you can't use graphs*
+Basically, *whenever you can't use graphs*
 
 - Units are dissimilar
 - Items are distinct
@@ -37,25 +38,7 @@ type: "FullSlide"
 
 `@script`
 
-
-Disparate estimates from models or results (e.g. showing results from full 
-model, that includes both discrete and continuous exposures)
-(though arguably the data for the figure should be provided with the
-figure) This is especially important for meta-analyses done on the topic of your results.
-
----
-## Examples of effective tables
-
-```yaml
-type: "FullSlide"
-```
-
-`@part1`
-
-
-
-`@script`
-
+When should you best use tables? Basically, whenever using a graph doesn't make sense. When the units of measure are too dissimilar, if items are too distinct and don't compare well, if you want a compact presentation of results, or if you want to provide your findings in a more machine-reable format for instance for use in meta-analyses, tables are excellent forms to use in these cases.
 
 ---
 ## Showing participant characteristics
@@ -70,17 +53,17 @@ type: "TwoColumns"
 library(carpenter)
 diet %>%
     outline_table()
-```
+``` {{1}}
 
 ```
 # A tibble: 0 x 0
-```
+``` {{2}}
 
 ```{r}
 diet %>%
     outline_table() %>%
     add_rows("job", stat = stat_nPct)
-```
+``` {{3}}
 
 ```
 # A tibble: 4 x 2
@@ -90,7 +73,7 @@ diet %>%
 2 - Bank worker 151 (44.8%)
 3 - Conductor   84 (24.9%) 
 4 - Driver      102 (30.3%)
-```
+``` {{4}}
 
 `@part2`
 
@@ -101,7 +84,7 @@ diet %>%
     add_rows("fibre", stat = stat_meanSD) %>%
     add_rows(c("energy", "weight"), 
              stat = stat_medianIQR)
-```
+``` {{5}}
 
 ```
 # A tibble: 7 x 2
@@ -114,11 +97,11 @@ diet %>%
 5 fibre         1.7 (0.6)       
 6 energy        28.0 (25.4-31.1)
 7 weight        72.8 (64.6-79.8)
-```
+``` {{6}}
 
 `@script`
 
-Showing the basic participant characteristics is a valuable source of information and is stated in the STROBE guidelines. A table is an excellent form to present this data, as you can show summary statistics of the outcomes, the predictors, and other characteristics. For prospective cohorts, a column can be included for each time point. 
+A great first table is in showing the basic participant characteristics, which is a valuable source of information and is required in the STROBE guidelines. A table is an excellent form to present this data, as you can show summary statistics of the outcomes, the predictors, and other characteristics. For prospective cohorts, a column can be included for each time point. 
 
 The carpenter package provides an easy way of creating these tables. Using the diet dataset, let's start creating this table. First we outline the table. If you have multiple time points, this is where you indicate the column that has the time data in it. You see nothing is given when outlining the table, since we haven't added rows yet. 
 
@@ -144,7 +127,7 @@ basic_char_table <- diet %>%
              stat = stat_medianIQR) %>%
     renaming("header", c("", "Characteristics"))
 basic_char_table
-```
+``` {{1}}
 
 `@part2`
 
@@ -159,7 +142,7 @@ basic_char_table
 5 fibre         1.7 (0.6)       
 6 energy        28.0 (25.4-31.1)
 7 weight        72.8 (64.6-79.8)
-```
+``` {{2}}
 
 `@script`
 
@@ -229,15 +212,15 @@ type: "FullSlide"
 x <- 3
 y <- 5
 glue("{x} ({y}%)")
-```
+``` {{1}}
 
 ```
 3 (5%)
-```
+``` {{2}}
 
 ```{r}
 models
-```
+``` {{3}}
 
 ```
 # A tibble: 4 x 9
@@ -249,11 +232,11 @@ models
 4 fibre    0.346    0.412      -2.58 0.0100     0.149
 # … with 3 more variables: conf.high <dbl>,
 #   predictor <chr>, model <chr>
-```
+``` {{4}}
 
 `@script`
 
-Before we get into the wrangling, we'll need to take a quick detour to describe a function that will really help us out. This function is called glue from the glue package. Glue is really useful as you can create a character string however you desire and insert data into that string between the curly braces. So here, the five is included between the brackets... {{complete}}
+Before we get into the wrangling, we'll need to take a quick detour to describe a function that will really help us out. This function is called glue from the glue package. Glue is really useful as you can create a character string however you desire and insert data into that string between the curly braces. So here, the y in the glue string is replaced with the value 5. This will help us get the results into a nicer form.
 
 ---
 ## Wrangling model results into table format
@@ -269,7 +252,7 @@ models %>%
     select(model, predictor, estimate, std.error) %>%
     mutate_at(vars(estimate, std.error), round, digits = 2) %>%
     mutate(estimate_se = glue("{estimate} ({std.error} SE)"))
-```
+``` {{1}}
 
 ```
 # A tibble: 4 x 5
@@ -279,16 +262,20 @@ models %>%
 2 unadjusted fibre         0.33      0.38 0.33 (0.38 SE)
 3 adjusted   energy        0.89      0.04 0.89 (0.04 SE)
 4 adjusted   fibre         0.35      0.41 0.35 (0.41 SE)
-```
+``` {{2}}
 
 `@script`
 
+Alright, now to wrangling the results. Most of this could should be familiar to you already since we covered some of these commands in chapter 2. The new code here is that glue function. Here we are wanting it to be formatted so that the standard error is in the brackets.
+
+When we output the results, we see the new column with the estimate and standard error combined together.
 
 ---
 ## Wrangling model results into table format
 
 ```yaml
 type: "FullSlide"
+disable_transition: true
 ```
 
 `@part1`
@@ -308,18 +295,18 @@ models %>%
   <chr>     <S3: glue>     <S3: glue>    
 1 energy    0.89 (0.04 SE) 0.89 (0.04 SE)
 2 fibre     0.35 (0.41 SE) 0.33 (0.38 SE)
-```
+``` {{1}} 
 
 `@script`
 
-Notice how the p-value is not included here. When trying to communicate results
-that can have health impacts, its important to focus on the important parts ... 
-the magnitude and general precision of the association, which is more informative to clinicians and public health practitioners.
+The next part is to get the code so that the models are the columns. We do that with the spread function from the tidyr package. The first argument takes the variable that has groups the rows (the model variable) and the second argument takes the values that will make up the new columns (the estimate se variable). In this case, we should select only the relevant columns before hand.
 
+Great! With minimal code we've gotten the results to appear almost the same as our desired table. We can either now manually create the table or add more code to make the results appear exactly as the desired table.
 
+Notice here how we don't include the p value column as a relevant column to include. Recall from the previous chapter why we shouldn't rely on p values. In this table we have everything we need, a measure of magnitude and of its precision for the associations. These are much more informative from a health outcome perspective.
 
 ---
-## Final Slide
+## Time to create some tables!
 
 ```yaml
 type: "FinalSlide"
@@ -328,4 +315,4 @@ key: "ccbe649640"
 
 `@script`
 
-
+You now have the tools to make some tables! Time to try it out.
