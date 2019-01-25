@@ -78,7 +78,7 @@ estimate_ci_plot_basic <- models %>%
     geom_vline(xintercept = 1)
 
 ggsave(here::here("datasets/ch4-v2-estimate-ci-basic.png"), estimate_ci_plot_basic,
-       height = 5, width = 8, dpi = 100)
+       height = 2.5, width = 8, dpi = 90)
 
 estimate_ci_plot_nicer <- models %>%
     # filter(model == "unadjusted") %>%
@@ -88,7 +88,7 @@ estimate_ci_plot_nicer <- models %>%
     geom_vline(xintercept = 1, linetype = "dashed")
 
 ggsave(here::here("datasets/ch4-v2-estimate-ci-nicer.png"), estimate_ci_plot_nicer,
-       height = 5, width = 8, dpi = 100)
+       height = 2.5, width = 8, dpi = 90)
 
 # Video 2, adjusted and unadjusted ----------------------------------------
 
@@ -122,10 +122,10 @@ unadjusted_adjusted <- models %>%
     facet_grid(rows = vars(model))
 
 unadjusted_adjusted <- unadjusted_adjusted +
-    coord_cartesian(ylim = c(1.2, 1.8), expand = FALSE)
+    coord_cartesian(ylim = c(0., 2.1), expand = FALSE)
 
 ggsave(here::here("datasets/ch4-v2-unadjusted-adjusted.png"), unadjusted_adjusted,
-       height = 3, width = 8, dpi = 90)
+       height = 2.5, width = 8, dpi = 90)
 
 
 # Video 2, interaction plotting -------------------------------------------
