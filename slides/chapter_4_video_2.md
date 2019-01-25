@@ -151,10 +151,10 @@ models %>%
 
 `@script`
 
-
+As is stated in the STROBE guidelines, you should always show both unadjusted and adjusted model results. And showing both on a single plot is very easy to do, if you have your data set up properly. When you have all model adjustment type in a single dataframe, you can plot the unadjusted and adjusted models by setting them with facet grid. In this case, the argument rows indicates that the model variable grouping should be stacked on top of each other rather than as columns side by side. The vars function allows the model variable to be passed easily into ggplot.
 
 ---
-## Got an interaction? Show what it looks like!
+## Got an interaction? Definitely plot it
 
 ```yaml
 type: "FullSlide"
@@ -163,14 +163,20 @@ key: "6231c20cd6"
 
 `@part1`
 
-
+- *Any interaction should be plotted* {{1}}
+    - Simplifies interpretation
+    - Should be main focus of findings
+- **But**, interactions are hard {{2}}
+    - Easy to model, difficult to visualize
+- Found an interaction? {{3}}
+    - Get specialized training or support.
 
 `@script`
 
-
+Interactions are a source of extremely valuable scientific information and they definitely need to be plotted to simplify the often conceptually difficult interpretation. But it gets tricky very very quickly. Modelling interactions is pretty easy, as we covered in chapter three. However, visualizing it can be incredibly difficult and time consuming. Teaching interactions on their own could take nearly an entire course, let alone how to plot them. Visualizing them is also heavily dependent on the statistical technique used to model the interaction. This course is not designed to go into so much detail on a given technique. So if you do find an interaction in your data, get some specialized training or support to help you make sure you visualize it correctly.
 
 ---
-## Final Slide
+## Plotting time!
 
 ```yaml
 type: "FinalSlide"
@@ -179,4 +185,4 @@ key: "dced2a4c4a"
 
 `@script`
 
-
+Excellent, let's practice some of these skills.
