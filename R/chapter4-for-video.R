@@ -46,7 +46,7 @@ models_plot <- individual_models %>%
     geom_vline(xintercept = 1, linetype = "dotted")
 
 ggsave(here::here("datasets/ch4-v2-models.png"), models_plot,
-       height = 4, width = 8, dpi = 100)
+       height = 2.5, width = 8, dpi = 90)
 
 individual_models %>%
     filter(predictor == term) %>%
