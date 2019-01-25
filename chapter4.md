@@ -741,6 +741,8 @@ library(glue)
 library(dplyr)
 library(tidyr)
 library(stringr)
+all_models <- all_models %>% 
+    filter(predictor == term)
 ```
 
 ***
