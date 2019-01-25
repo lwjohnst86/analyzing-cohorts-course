@@ -530,55 +530,6 @@ success_msg("Great job! You can see that there are large differences in some of 
 
 ---
 
-## Plotting interactions
-
-```yaml
-type: NormalExercise
-key: 44c0af6008
-xp: 100
-```
-
-{{tabbed? or sequential for also sex?}}
-
-Given that Framingham is a longitudinal prospective cohort, with repeated measurements, testing for an interaction by time is necessity {{wording?}}.
-
-E.g. a sex or time by predictor interaction
-
-{{TODO: Will need to confirm a time interaction (or just show it regardless...)}}
-
-`@instructions`
-- Check whether any interaction has a p-value less than 0.10.
-
-`@hint`
-- Use
-
-`@pre_exercise_code`
-```{r}
-load("datasets/interaction_models.rda")
-```
-
-`@sample_code`
-```{r}
-View(interaction_models)
-
-interaction_models %>% 
-    filter(p.value < 0.10)
-
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-success_msg("Amazing!")
-```
-
----
-
 ## Use tables effectively to show your results
 
 ```yaml
