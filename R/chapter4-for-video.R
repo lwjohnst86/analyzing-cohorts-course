@@ -15,15 +15,18 @@ unadjusted_models_list <- map(predictors, tidy_glm)
 adjusted_models_list <- map(predictors_with_covars, tidy_glm)
 
 # For video
-
 unadjusted_models_list
 
-models_df <- bind_rows(
+map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted"))
+
+map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")) %>%
+    bind_rows()
+
+bind_rows(
         map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")),
         map(adjusted_models_list, ~ .x %>% mutate(model = "Adjusted"))
     ) %>%
     mutate(outcome = "chd")
-models_df
 
 # Video 2, compare plot vs table ------------------------------------------
 
