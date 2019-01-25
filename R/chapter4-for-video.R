@@ -127,11 +127,6 @@ unadjusted_adjusted <- unadjusted_adjusted +
 ggsave(here::here("datasets/ch4-v2-unadjusted-adjusted.png"), unadjusted_adjusted,
        height = 2.5, width = 8, dpi = 90)
 
-
-# Video 2, interaction plotting -------------------------------------------
-
-# https://cran.r-project.org/web/packages/ggeffects/vignettes/marginaleffects.html
-
 # Video 3, characteristics table ------------------------------------------
 
 diet %>%
