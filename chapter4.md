@@ -55,8 +55,8 @@ Thinking about using stronger language
 ## Preparing model results for presentation
 
 ```yaml
-type: NormalExercise
-key: 0216e3a4ee
+type: TabExercise
+key: a2be7c9ce5
 xp: 100
 ```
 
@@ -69,12 +69,6 @@ Imagine you've ran several models, based on what you learned in chapter 3. You:
 
 You have 8 models in total, stored as a list. The most efficient approach is to have them all as a single dataframe so you can easily create plots or tables from them. You need to wrangle the results to get them into the proper form.
 
-`@instructions`
-- Add predictor column and model type column.
-
-`@hint`
-- The predictor is the second element of the term variable.
-
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/2bb231430c5899236ee8b8d0af4b229036657d3a/unadjusted_models_list.rda"))
@@ -83,96 +77,41 @@ library(dplyr)
 library(purrr)
 ```
 
-`@sample_code`
-```{r}
-# Add predictor and model type
-unadjusted_models_list <- map(
-    unadjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
-)
-
-# Add predictor and model type
-unadjusted_models_list <- map(
-    adjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
-)
-
-# Combine model, add outcome, keep predictor estimates
-bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
-    mutate(outcome = "got_cvd") %>% 
-    filter(predictor == term)
-```
-
-`@solution`
-```{r}
-
-unadjusted_models_list <- map(
-    unadjusted_models_list,
-    ~ .x %>% 
-        mutate(predictor = term[2], model = "Unadjusted")
-)
-
-unadjusted_models_list <- map(
-    adjusted_models_list,
-    ~ .x %>% 
-        mutate(predictor = term[2], model = "Adjusted")
-)
-
-# Combine unadjusted and adjusted model results
-bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
-    mutate(outcome = "got_cvd") %>% 
-    filter(predictor == term)
-```
-
-`@sct`
-```{r}
-success_msg("Well done! Using the purrr package functions is a great way of making use of R's functional programming strengths so you can wrangle each model in the list simultaneously.")
-```
-
----
-
-## Insert exercise title here
-
-```yaml
-type: TabExercise
-key: a2be7c9ce5
-xp: 100
-```
-
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
 ***
 
 ```yaml
 type: NormalExercise
 key: ddc8c50699
-xp: 35
+xp: 30
 ```
 
 `@instructions`
-
+- Add predictor column by using `term` and add "unadjusted" as a model column to each model in the list.
 
 `@hint`
-
+- Add the predictor by selecting the element from the `term` variable with the predictor information.
 
 `@sample_code`
 ```{r}
-
+# Add predictor and model type to each list item
+unadjusted_models_list <- ___(
+    unadjusted_models_list,
+    ~ .x %>% ___(predictor = ___, model = ___)
+)
 ```
 
 `@solution`
 ```{r}
-
+# Add predictor and model type to each list item
+unadjusted_models_list <- map(
+    unadjusted_models_list,
+    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
+)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Nice!")
 ```
 
 ***
@@ -184,24 +123,41 @@ xp: 35
 ```
 
 `@instructions`
-
+- Do the same thing for the adjusted model list.
 
 `@hint`
-
+- It is the adjusted model list.
 
 `@sample_code`
 ```{r}
+# Add predictor and model type to each list item
+unadjusted_models_list <- map(
+    unadjusted_models_list,
+    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
+)
 
+# Do the same for adjusted model list
+unadjusted_models_list <- 
 ```
 
 `@solution`
 ```{r}
+# Add predictor and model type
+unadjusted_models_list <- map(
+    unadjusted_models_list,
+    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
+)
 
+# Do the same for adjusted model list
+adjusted_models_list <- map(
+    adjusted_models_list,
+    ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
+)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Nice!")
 ```
 
 ***
@@ -209,28 +165,58 @@ xp: 35
 ```yaml
 type: NormalExercise
 key: 52bf5f28da
-xp: 30
+xp: 35
 ```
 
 `@instructions`
-
+- Bind together the two model lists, add an outcome column, and then keep only the predictor estimates.
 
 `@hint`
-
+- Filter so only the predictor estimate rows remain (when predictor and term are the same).
 
 `@sample_code`
 ```{r}
+# Add predictor and model type to each list item
+unadjusted_models_list <- map(
+    unadjusted_models_list,
+    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
+)
 
+# Do the same for adjusted model list
+adjusted_models_list <- map(
+    adjusted_models_list,
+    ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
+)
+
+# Combine models, add outcome, keep predictor estimates
+bind_rows(___, ___) %>% 
+    ___ %>% 
+    ___
 ```
 
 `@solution`
 ```{r}
+# Add predictor and model type to each list item
+unadjusted_models_list <- map(
+    unadjusted_models_list,
+    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
+)
 
+# Do the same for adjusted model list
+adjusted_models_list <- map(
+    adjusted_models_list,
+    ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
+)
+
+# Combine models, add outcome, keep predictor estimates
+bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
+    mutate(outcome = "got_cvd") %>% 
+    filter(predictor == term)
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Well done! Using the purrr package functions is a great way of making use of R's functional programming strengths so you can wrangle each model in the list simultaneously.")
 ```
 
 ---
