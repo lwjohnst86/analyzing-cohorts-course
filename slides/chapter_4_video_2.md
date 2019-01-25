@@ -92,8 +92,9 @@ models %>%
     geom_errorbarh() +
     geom_vline(xintercept = 1)
 ```
+{{1}}
 
-![Plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/b8e940652d8d23203849a7d0c480df2f0637636a/ch4-v2-estimate-ci-basic.png)
+![Plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/b8e940652d8d23203849a7d0c480df2f0637636a/ch4-v2-estimate-ci-basic.png) {{2}}
 
 
 `@script`
@@ -145,8 +146,9 @@ models %>%
     geom_vline(xintercept = 1, linetype = "dashed") +
     facet_grid(rows = vars(model))
 ```
+{{1}}
 
-![Showing both unadjusted and adjusted results](https://assets.datacamp.com/production/repositories/2079/datasets/24698332a3e01046dafd90cf1dca391c3a10aa92/ch4-v2-unadjusted-adjusted.png)
+![Showing both unadjusted and adjusted results](https://assets.datacamp.com/production/repositories/2079/datasets/24698332a3e01046dafd90cf1dca391c3a10aa92/ch4-v2-unadjusted-adjusted.png) {{2}}
 
 
 `@script`
