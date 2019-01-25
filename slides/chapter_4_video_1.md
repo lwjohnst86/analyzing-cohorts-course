@@ -7,7 +7,6 @@ key: 24be66708a350c97c6e8d86a7b2f7bf4
 
 ```yaml
 type: "TitleSlide"
-key: "e6de14ec07"
 ```
 
 `@lower_third`
@@ -24,7 +23,6 @@ Because of cohort studies focus on health and disease, how results are presented
 
 ```yaml
 type: "FullSlide"
-key: "c994d91d73"
 ```
 
 `@part1`
@@ -48,7 +46,6 @@ The other thing to keep in mind is that both non-significant and significant fin
 
 ```yaml
 type: "FullSlide"
-key: "c994d91d73"
 ```
 
 `@part1`
@@ -70,7 +67,6 @@ One thing that often occurs is that observational findings are interpreted causa
 
 ```yaml
 type: "FullSlide"
-key: "c994d91d73"
 ```
 
 `@part1`
@@ -108,7 +104,6 @@ There is also the adjusted models list. Plotting or creating tables from the mod
 
 ```yaml
 type: "FullSlide"
-key: "c994d91d73"
 ```
 
 `@part1`
@@ -147,7 +142,6 @@ Here, I want to add a tag to each model indicating that the model is the unadjus
 
 ```yaml
 type: "FullSlide"
-key: "c994d91d73"
 ```
 
 `@part1`
@@ -178,7 +172,6 @@ Then, to convert that list into a single dataframe, we use dplyr's bind rows fun
 
 ```yaml
 type: "FullSlide"
-key: "c994d91d73"
 ```
 
 `@part1`
@@ -217,7 +210,6 @@ Then we do the same thing for the adjusted models list, but instead we bind rows
 
 ```yaml
 type: "FinalSlide"
-key: "79b739124c"
 ```
 
 `@script`
