@@ -189,7 +189,7 @@ adjusted_models_list <- map(
 )
 
 # Combine models, add outcome, keep predictor estimates
-bind_rows(___, ___) %>% 
+all_models <- bind_rows(___, ___) %>% 
     ___ %>% 
     ___
 ```
@@ -209,7 +209,7 @@ adjusted_models_list <- map(
 )
 
 # Combine models, add outcome, keep predictor estimates
-bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
+all_models <- bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
     mutate(outcome = "got_cvd") %>% 
     filter(predictor == term)
 ```
