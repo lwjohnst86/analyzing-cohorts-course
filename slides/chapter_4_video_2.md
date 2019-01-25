@@ -63,7 +63,7 @@ key: "a7cc464036"
 |fibre     |0.3 (0.1, 0.7)    |
 |fat       |0.8 (0.7, 0.9)    | {{1}}
 
-![Plot of models](https://assets.datacamp.com/production/repositories/2079/datasets/a3db1948e53a0be132489e15a6a60e6134d4a202/ch4-v2-models.png) {{2}}
+![Plot of models](https://assets.datacamp.com/production/repositories/2079/datasets/b3b869e4018df3d0b1d3d1fa6d09e9243014a5d7/ch4-v2-models.png) {{2}}
 
 
 `@script`
@@ -86,13 +86,14 @@ key: "efa5ebbadc"
 ```{r}
 models %>%
     filter(model == "unadjusted") %>%
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, 
+               xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh() +
     geom_vline(xintercept = 1)
 ```
 
-![Plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/888f76bf313121b29a3fb1051bb4480c5ea9c3e8/ch4-v2-estimate-ci-basic.png)
+![Plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/b8e940652d8d23203849a7d0c480df2f0637636a/ch4-v2-estimate-ci-basic.png)
 
 
 `@script`
@@ -112,13 +113,14 @@ disable_transition: true
 ```{r}
 models %>%
     filter(model == "unadjusted") %>%
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, 
+               xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) + 
     geom_vline(xintercept = 1, linetype = "dashed")
 ```
 
-![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/47f4700950e9480cd25d630861b12c9efe06d21d/ch4-v2-estimate-ci-nicer.png)
+![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/ebfbdaf24bb53af9e73b35720776d1d277fadd8e/ch4-v2-estimate-ci-nicer.png)
 
 
 `@script`
@@ -136,14 +138,15 @@ key: "2769fc30b4"
 `@part1`
 ```{r}
 models %>%
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, 
+               xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh(height = 0.2) +
     geom_vline(xintercept = 1, linetype = "dashed") +
     facet_grid(rows = vars(model))
 ```
 
-![Showing both unadjusted and adjusted results](https://assets.datacamp.com/production/repositories/2079/datasets/9863889fd3985923a46e4ec06beb37822cb83af0/ch4-v2-unadjusted-adjusted.png)
+![Showing both unadjusted and adjusted results](https://assets.datacamp.com/production/repositories/2079/datasets/24698332a3e01046dafd90cf1dca391c3a10aa92/ch4-v2-unadjusted-adjusted.png)
 
 
 `@script`
