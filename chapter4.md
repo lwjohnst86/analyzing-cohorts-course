@@ -1,6 +1,6 @@
 ---
 title: 'Presentation of results from cohort analyses'
-description: "Cohorts are important scientific sources of health and wellness information. Because of this, how results are presented needs to be carefully considered. The medium of presentation, be it plots or tables, can impact how the findings are seen and consumed. In this chapter we will cover some tips and ways of presenting cohort findings."
+description: 'Cohorts are important scientific sources of health and wellness information. Because of this, how results are presented needs to be carefully considered. The medium of presentation, be it plots or tables, can impact how the findings are seen and consumed. In this chapter we will cover some tips and ways of presenting cohort findings.'
 ---
 
 ## Presenting cohort findings is tricky, be careful
