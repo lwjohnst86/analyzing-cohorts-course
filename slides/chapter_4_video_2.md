@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-Traditionally, results from cohort studies were presented as tables. However, generally tables are not effective at communicating findings. Lack of awareness and training are the main reasons researchers continue to rely on tables for presentation.
+Traditionally, results from cohort studies were presented as tables. However, tables are not really effective at communicating findings.
 
 
 ---
@@ -36,14 +36,13 @@ key: "ec5e4806ba"
 
 *When?* {{2}}
 
-- Units are mostly same {{2}}
-- Emphasize patterns {{2}}
-- Items are compared {{2}}
+- Units are the same/similar {{2}}
+- Emphasize patterns or comparisons {{2}}
 - Lots of data to show {{2}}
 
 
 `@script`
-When deciding on how to present your results, you should first think of how to graph your data. Graphs are incredibly powerful at communicating information because they leverage our innate human reliance on our visual system. Graphs are easier to interpret than tables and allow for greater information transmission. 
+When deciding how to present your results, you should first think of how to graph your data. Graphs are incredibly powerful at communicating information because they leverage our reliance on our visual system. Graphs are easier to interpret than tables and allow for greater information transmission. 
 
 Graphs are especially useful when units of measure are the same or similar, when you want to emphasize patterns or comparisons, and when there is a lot of data to show.
 
@@ -70,9 +69,9 @@ center_content: true
 `@script`
 Let's use an example to illustrate the power of graphs. Here we have the estimates for three predictors from three models. Reading this table takes some time, as you need to conceptualize how each item compares.
 
-Now, as a plot. You can quickly get a sense of the results, their magnitude, direction of association, and comparison with the others. You don't work as hard to understand what the results are saying. This is the reason why plots are preferred over tables.
+Now, let's see the information as a plot. You can quickly get a sense of the results, the magnitude, direction of association, and how they compare. You don't work as hard to understand the results, which is why plots are preferred to tables.
 
-I mentioned in chapter 3 how there are dozens of statistical techniques for analyzing cohort data. What technique you use will determine the plots you make. However, a common analysis output is some type of regression-based estimate and measure of precision like confidence intervals, which this plot is effective at showing. So we will be covering how to create this plot.
+I mentioned in chapter 3 that there are dozens of statistical techniques for analyzing cohort data. The technique you use will determine the plots you make. A common analysis output is some type of regression-based estimate and measure of precision, like confidence intervals, which this plot shows effectively.
 
 
 ---
@@ -99,7 +98,7 @@ models %>%
 
 
 `@script`
-We can make this type of plot by using geom point, the horizontal geom errorbar, and geom vline. Each item on the y axis is a single model's predictor and associated estimate, as an odds ratio, and confidence interval. Since the null line is at one for odds ratios, we need to set the xintercept to one. When you have many model results, this plot is able to easily show all the models at once. This gives a bigger picture view of the findings and makes it easy to compare predictors. This plot has a few ugly things about it. Let's fix it up.
+We can make this plot using geom-underscore-point, the horizontal geom-underscore-errorbar, and geom-underscore-vline. Each item on the y axis is a single model's predictor and associated estimate, as an odds ratio, and confidence interval. Since the null line is at one for odds ratios, we need to set the x-intercept to one. When you have many model results, this plot can easily show all the models at once, which gives a bigger picture of the findings and makes it easier to compare predictors. Let's fix up the plot.
 
 
 ---
@@ -153,11 +152,11 @@ models %>%
 
 
 `@script`
-As stated in the STROBE guidelines, you should always show both unadjusted and adjusted model results. Showing both on a single plot is easy to do if your data is properly set up. With all model adjustment types in a single dataframe, you can plot the unadjusted and adjusted models by splitting them using facet grid. In this case, the argument rows indicates that the model groups should be vertically stacked rather than side by side as columns. The vars function lets the model variable to be passed to ggplot.
+As stated in the STROBE guidelines, you should always show both unadjusted and adjusted model results. Showing both on a single plot is easy to do if your data is properly set up. With all model adjustment types in a single dataframe, you can plot the unadjusted and adjusted models by splitting them using facet-underscore-grid. The vars function lets the model variable to be passed to ggplot. Here, using vars, the rows argument indicates that the model groups should be vertically stacked rather than side by side as columns.
 
 
 ---
-## Got an interaction? Definitely plot it
+## Got an interaction? Plot it
 
 ```yaml
 type: "FullSlide"
@@ -171,11 +170,11 @@ key: "6231c20cd6"
 - **But**, interactions are hard {{2}}
     - Easy to model, difficult to visualize
 - Found an interaction? {{3}}
-    - Get specialized training or support.
+    - Get specialized training or support
 
 
 `@script`
-Interactions are an extremely valuable source of scientific information and they definitely need to be visualized to simplify the often conceptually difficult interpretation. But it gets tricky very quickly. Modelling interactions is easy, as we covered in chapter three. But visualizing them can be incredibly difficult and time consuming. Covering interactions could take nearly an entire course and visualizing them is heavily dependent on the statistical modelling technique used. This course is not designed to go into  much detail on a given technique, so if you do find an interaction in your data, get some specialized training or support to help you make sure you correctly visualize it.
+Interactions are an extremely valuable source of scientific information and they need to be visualized to simplify the conceptually difficult interpretation. Although modeling interactions is easy, as we discussed previously, visualizing them can be incredibly difficult and time-consuming. Visualizing interactions is heavily dependent on the statistical modeling technique used, and this could be the topic of an entire course. This course will not go into much detail about specific techniques, so if you have an interaction in your data, be sure to get specialized training or support to make sure you correctly visualize it.
 
 
 ---
