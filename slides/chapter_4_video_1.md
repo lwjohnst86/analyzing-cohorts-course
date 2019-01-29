@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-Because of cohort studies focus on health and disease, how results are presented can directly impact people's lives and health. So care needs to be taken!
+Since cohort studies focus on health and disease, the way results are presented can directly impact people's lives and health, so care needs to be taken!
 
 
 ---
@@ -38,9 +38,9 @@ key: "42434a7ac4"
 
 
 `@script`
-In observational cohort studies, you should always have a healthy dose of caution when interpreting and presenting results. Because of the health and disease focus of cohorts, presenting results should emphasize more tangible health impact and try to be as clear and understandable as possible. The audience for your results will likely be public health professionals or clinicians, who aren't trained on interpreting complex model outputs. So be simple and concise. Find a healthcare practitioner who you can ask whether a certain graph or table is interpreted as you intend it to be.
+In observational cohort studies, you should always have a healthy dose of caution when interpreting and presenting results. Presenting results should emphasize more tangible health impact and try to be as clear and understandable as possible. The audience for your results will likely be public health professionals or clinicians who aren't trained on interpreting complex model outputs, so be simple and concise. 
 
-The other thing to keep in mind is that both non-significant and significant findings are important from a health standpoint. So show all results. And in those results, emphasize magnitude of association and the uncertainty of that association.
+Keep in mind that both non-significant and significant findings are important from a health standpoint. Show all results, and in those results, emphasize the magnitude of association and the uncertainty of that association.
 
 
 ---
@@ -62,7 +62,7 @@ key: "452c839802"
 
 
 `@script`
-One thing that often occurs is that observational findings are interpreted causally. While the field of causal reasoning in epidemiology is greatly expanding in recent years, it is still an area you should be cautious about. Unfortunately, humans often interpret associations as causal, so as the researcher you need to be extremely cautious when presenting findings from observational research. There are instances when causal language is easier to use, for example with the observation on smoking and lung cancer, but most of the time it is not so clear whether a causal relationship exists. Keep these things in mind whenever you present results from cohort studies.
+Oftentimes, observational findings are interpreted causally. While the field of causal reasoning in epidemiology has greatly expanded in recent years, it is still an area where you should be cautious. Unfortunately, humans often interpret associations as causal, so as the researcher you need to be extremely cautious when presenting findings from observational research. There are instances when causal language is easier to use, for example with the observation on smoking and lung cancer, but most of the time it is not so clear whether a causal relationship exists. Keep these things in mind whenever you present results from cohort studies.
 
 
 ---
@@ -98,9 +98,9 @@ unadjusted_models_list
 
 
 `@script`
-Alright, let's get to the model results and coding. Here I ran two models for two predictors and tidied them up, as we learned in chapter three. I put these two models into a list to make it easier to work with. This is what the list of models looks like for the unadjusted models.
+Here, I ran two models for two predictors and tidied them up, as we learned in chapter three. We can then put these two models into a list to make them easier to work with. This is what the model list looks like for the unadjusted models.
 
-There is also the adjusted models list. Plotting or creating tables from the model results is most efficiently done with a single dataframe of the results. What we need to do is add model specific details to each model before trying to combine them all.
+There is also a list for the adjusted models. Plotting or creating tables from the model results is most efficiently done with a single dataframe of the results, but we need to add model specific details to each model before trying to combine them.
 
 
 ---
@@ -139,7 +139,7 @@ map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted"))
 `@script`
 A powerful way of doing that is by leveraging R's functional programming strengths. The purrr package has an amazing and consistent interface for doing functional programming. Using the map function, we can apply a function or chain of functions to a list or vector. The first argument takes the list or vector and the second argument takes the function to apply to each list item.
 
-Here, I want to add a tag to each model indicating that the model is the unadjusted model. We can see how it adds to each model item in the list.
+Here, we can add a tag to each model item in the list to indicate that the model is unadjusted.
 
 
 ---
@@ -170,7 +170,7 @@ map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")) %>%
 
 
 `@script`
-Then, to convert that list into a single dataframe, we use dplyr's bind rows function, stacks the list dataframes into one.
+Then, to convert that list into a single dataframe, we use dplyr's bind rows function to stack the list dataframes into one.
 
 
 ---
@@ -210,7 +210,7 @@ bind_rows(
 
 
 `@script`
-Then we do the same thing for the adjusted models list, but instead we bind rows for both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, we add information about the outcome. We now have a single model dataframe to plot and create tables from.
+We can do the same thing for the list of adjusted models, but instead, we bind rows for both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, we add information about the outcome. We now have a single model dataframe we can use to create plots and tables.
 
 
 ---
