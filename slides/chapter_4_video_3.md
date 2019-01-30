@@ -65,7 +65,8 @@ diet %>%
 ```{r}
 diet %>%
     outline_table() %>%
-    add_rows("job", stat = stat_nPct)
+    add_rows("job", 
+             stat = stat_nPct)
 ```
 {{3}}
 
