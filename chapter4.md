@@ -55,7 +55,6 @@ xp: 50
 `@hint`
 - Add the predictor by selecting the element number from the `term` variable with the predictor information.
 
-
 `@sample_code`
 ```{r}
 # Add predictor and model type to each list item
@@ -120,8 +119,8 @@ success_ms("Excellent! You made use of R's strength of functional programming ra
 
 ```yaml
 type: NormalExercise
-xp: 100
 key: f30b964cce
+xp: 100
 ```
 
 The most efficient approach to later plotting and creating tables is to have all models in a single dataframe. You've already prepared them a bit, now its time to combine them together so you can continue wrangling.
@@ -133,7 +132,6 @@ The most efficient approach to later plotting and creating tables is to have all
 
 `@hint`
 - Filter so only the predictor estimate rows remain (when predictor and term are the same).
-
 
 `@pre_exercise_code`
 ```{r}
@@ -198,7 +196,7 @@ xp: 100
 
 Statistical analysis used on cohort data usually output some time of regression estimate along with a measure of uncertainty (e.g. 95% confidence interval). Sometimes it makes sense to present these results in a table, but often the better approach is to create a graph instead. Graphs show magnitude, direction, uncertainty, and comparison of results very effectively.
 
-Create a plot of the unadjusted model results that highlights the estimate and uncertainty of the estimate. 
+Create a plot of the unadjusted model results that highlights the estimate and uncertainty of the estimate.
 
 `@pre_exercise_code`
 ```{r}
@@ -213,8 +211,8 @@ all_models <- all_models %>%
 
 ```yaml
 type: NormalExercise
-xp: 30
 key: 19bfd714ac
+xp: 30
 ```
 
 `@instructions`
@@ -252,8 +250,8 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-xp: 35
 key: 4ffd9e23ed
+xp: 35
 ```
 
 `@instructions`
@@ -303,8 +301,8 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-xp: 35
 key: f5fe48b671
+xp: 35
 ```
 
 `@instructions`
@@ -369,7 +367,6 @@ Now that we've created this plot, let's polish it up. We want it to be "publicat
 As with the previous exercise, use the `unadjusted_results` dataframe you created to plot the findings. This time, make the plot more polished and presentable.
 
 `@instructions`
-
 - Add the `aes()` variables, the point, error bar, and vertical center line.
 - Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to dotted.
 - Include appropriate axis labels (the "Predictors" on the y and the "Odds Ratio (95% CI)" on the x). Remember, CI is the confidence interval.
