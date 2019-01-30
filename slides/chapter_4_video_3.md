@@ -206,9 +206,9 @@ How to get this? {{2}}
 
 
 `@script`
-At times you may need to present either your main results or a supplement as a table. Even if you present your main findings as a figure, providing the raw numerical model estimates in a machine-friendly format is helpful for other researchers who might use your findings as part of a meta-analysis of cohort studies.
+At times you may need to present either your main results or a supplement as a table. Even if you present your main findings as a figure, providing the raw numerical model estimates in a machine-friendly format is helpful for other researchers who might use your findings as part of a meta-analysis of cohort studies. Here, the standard error is shown, which is another measure of precision like the confidence interval.
 
-A quick note, the standard error is one of the measures of precision. How do we wrangle the results to get a table like this?
+So, how do we wrangle the results to get a table like this?
 
 
 ---
