@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-In this chapter, we'll be covering statistical analyses. We'll be focusing on general concepts rather than details of a specific method and won't cover interpretation just yet.
+In this chapter, we'll be covering statistical analyses. We'll be focusing on general concepts rather than details of a specific method and won't cover interpretation.
 
 
 ---

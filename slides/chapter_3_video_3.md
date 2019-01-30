@@ -123,7 +123,7 @@ weight:energy.grp>2750 KCals -0.043461   0.032994  -1.317    0.188
 
 
 `@script`
-Here's an example. This dataset doesn't have sex or ethnicity, so we'll use the energy group variable. You'll notice it isn't much more difficult to run an interaction test, as you just include the asterisk. But! The estimates are very different. There is now another term for weight with energy group at the bottom. Later in the course we'll get more to interpretation.
+Here's an example. This dataset doesn't have sex or ethnicity, so we'll use the energy group variable. You'll notice it isn't much more difficult to run an interaction test, as you just include the asterisk. But! The estimates are very different. There is now another term for weight with energy group at the bottom. Because interpretation of model results varies substantially based on variables and methods used, we won't cover interpretation.
 
 
 ---
