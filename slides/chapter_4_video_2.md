@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-Traditionally, results from cohort studies were presented as tables. However, tables are not really effective at communicating findings.
+Traditionally, results from cohort studies were presented as tables. However, for most scientific results, tables are not nearly as effective as figures for communicating findings.
 
 
 ---

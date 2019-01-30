@@ -17,7 +17,7 @@ title: Instructor
 
 
 `@script`
-Sadly we can't have everything as graphs. Tables can also be effective for communicating findings.
+Sadly we can't have everything as graphs. Tables can be quite useful for communicating certain types of results.
 
 
 ---
