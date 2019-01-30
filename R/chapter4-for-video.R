@@ -86,9 +86,10 @@ ggsave(here::here("datasets/ch4-v2-estimate-ci-basic.png"), estimate_ci_plot_bas
 estimate_ci_plot_nicer <- models %>%
     # filter(model == "unadjusted") %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_point() +
-    geom_errorbarh(height = 0.2) +
-    geom_vline(xintercept = 1, linetype = "dashed")
+    geom_point(size = 2) +
+    geom_errorbarh(height = 0.1) +
+    geom_vline(xintercept = 1, linetype = "dashed") +
+    theme_classic()
 
 ggsave(here::here("datasets/ch4-v2-estimate-ci-nicer.png"), estimate_ci_plot_nicer,
        height = 2.5, width = 8, dpi = 90)
