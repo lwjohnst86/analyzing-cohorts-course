@@ -90,7 +90,7 @@ xp: 50
 - Do the same thing for the adjusted model list.
 
 `@hint`
-- It is the adjusted model list.
+- Map onto the adjusted model list.
 
 `@sample_code`
 ```{r}
@@ -143,7 +143,6 @@ unadjusted_models_list <- map(
     unadjusted_models_list,
     ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
 )
-# Do the same for adjusted model list
 adjusted_models_list <- map(
     adjusted_models_list,
     ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
@@ -156,6 +155,9 @@ adjusted_models_list <- map(
 all_models <- ___ %>% 
     ___ %>% 
     ___
+
+# Check the model dataframe
+
 ```
 
 `@solution`
@@ -164,6 +166,9 @@ all_models <- ___ %>%
 all_models <- bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
     mutate(outcome = "got_cvd") %>% 
     filter(predictor == term)
+
+# Check the model dataframe
+all_models
 ```
 
 `@sct`
