@@ -29,17 +29,16 @@ key: "2b772c0d95"
 ```
 
 `@part1`
-Basically, *whenever you can't use graphs*
+Basically, *whenever you can't use graphs* {{1}}
 
-- Units are dissimilar
-- Items are distinct
-- Emphasizing compact display of data
-- With incomparable models
-- To provide more machine-readable raw values
+- Units are dissimilar {{2}}
+- Items are distinct and/or not comparable {{2}}
+- Different model types {{3}}
+- To provide the actual raw values {{4}}
 
 
 `@script`
-When is it best to use tables? Basically, whenever you can't use a graph. For example, use a table when the units of measure are too dissimilar or when comparison between items isn't as important.
+When is it best to use tables? Basically, whenever you can't use a graph. Use a table when, for example, the units of measure are too dissimilar, when the items are distinct or comparison between them isn't important, when presenting multiple but different models, or when you want to show the raw numbers so it's easier to extract it.
 
 
 ---
