@@ -55,17 +55,20 @@ key: "ee670c18b4"
 library(carpenter)
 diet %>%
     outline_table()
-``` {{1}}
+``` 
+{{1}}
 
 ```
 # A tibble: 0 x 0
-``` {{2}}
+``` 
+{{2}}
 
 ```{r}
 diet %>%
     outline_table() %>%
     add_rows("job", stat = stat_nPct)
-``` {{3}}
+```
+{{3}}
 
 ```
 # A tibble: 4 x 2
@@ -75,7 +78,8 @@ diet %>%
 2 - Bank worker 151 (44.8%)
 3 - Conductor   84 (24.9%) 
 4 - Driver      102 (30.3%)
-``` {{4}}
+``` 
+{{4}}
 
 
 `@part2`
@@ -88,7 +92,8 @@ diet %>%
              stat = stat_meanSD) %>%
     add_rows(c("energy", "weight"), 
              stat = stat_medianIQR)
-``` {{5}}
+``` 
+{{5}}
 
 ```
 # A tibble: 7 x 2
@@ -101,7 +106,8 @@ diet %>%
 5 fibre         1.7 (0.6)       
 6 energy        28.0 (25.4-31.1)
 7 weight        72.8 (64.6-79.8)
-``` {{6}}
+``` 
+{{6}}
 
 
 `@script`
