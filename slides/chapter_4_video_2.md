@@ -123,6 +123,7 @@ models %>%
 
 ![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/42c6b5374e981264459e76fb535589179aa62ff6/ch4-v2-estimate-ci-nicer.png) {{1}}
 
+
 `@script`
 There are couple things we could do to make the plot instantly prettier. The dot size in geom point is a bit small so let's increase it to two using the size argument.
 
