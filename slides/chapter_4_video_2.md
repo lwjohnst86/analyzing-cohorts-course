@@ -71,11 +71,11 @@ Let's use an example to illustrate the power of graphs. Here we have the estimat
 
 Now, let's see the information as a plot. You can quickly get a sense of the results, the magnitude, direction of association, and how they compare. You don't work as hard to understand the results, which is why plots are preferred to tables.
 
-I mentioned in chapter 3 that there are dozens of statistical techniques for analyzing cohort data. The technique you use will determine the plots you make. A common analysis output is some type of regression-based estimate and measure of precision, like confidence intervals, which this plot shows effectively.
+I mentioned in chapter 3 that there are dozens of statistical techniques for analyzing cohort data. The technique you use will determine the plots you make. A common analysis output is some type of regression-based estimate and measure of precision, like confidence intervals show as CI here, which this plot shows effectively. Another measure of precision includes the standard error, which the confidence interval is based off of.
 
 
 ---
-## Plotting estimates and confidence intervals
+## Plotting estimates and confidence intervals (CI)
 
 ```yaml
 type: "FullSlide"
