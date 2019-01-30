@@ -55,8 +55,6 @@ key: "452c839802"
 
 `@part1`
 - Growing field in epidemiology
-    - Book: [Causal Inference](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) 
-    - Book: [Causal Inference in Statistics: A Primer](https://www.wiley.com/en-us/Causal+Inference+in+Statistics%3A+A+Primer-p-9781119186847)
 - Use caution with causal language or interpretations
 - When to use stronger causal language
     - Depends on magnitude and temporal response
@@ -66,9 +64,29 @@ key: "452c839802"
 `@script`
 Oftentimes, observational findings are interpreted causally. While the field of causal reasoning in epidemiology has greatly expanded in recent years, it is still an area where you should be cautious. Unfortunately, humans often interpret associations as causal, so as the researcher you need to be extremely cautious when presenting findings from observational research. There are instances when causal language is easier to use, for example with the observation on smoking and lung cancer, but most of the time it is not so clear whether a causal relationship exists. Keep these things in mind whenever you present results from cohort studies.
 
+---
+## Running multiple models and using lists
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+```{r}
+unadjusted_models_list <- list(
+    glm(chd ~ energy, family = binomial, data = diet) %>%
+        tidy(conf.int = TRUE, exponentiate = TRUE),
+    glm(chd ~ fibre, family = binomial, data = diet) %>%
+        tidy(conf.int = TRUE, exponentiate = TRUE)
+)
+```
+
+`@script`
+
+There are several ways to work with multiple models. My suggestion is put your models into a single list, since working with lists is very easy in R thanks to the purrr package, which I will show later. Here, I've ran two models using what we learned from the previous chapter and stored them as a list into the object unadjusted models list. I did the same thing for the adjusted models by storing them as a list.
 
 ---
-## Wrangling models into combined tibble
+## Contents are multiple models stored in sequence
 
 ```yaml
 type: "FullSlide"
