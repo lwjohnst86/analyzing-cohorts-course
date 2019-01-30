@@ -43,7 +43,7 @@ When is it best to use tables? Basically, whenever you can't use a graph. For ex
 
 
 ---
-## Showing participant characteristics
+## Creating a table of participant characteristics
 
 ```yaml
 type: "TwoColumns"
@@ -121,7 +121,7 @@ Let's add rows to the table for fibre, using the mean and standard deviation, an
 
 
 ---
-## Showing participant characteristics
+## Renaming table headers
 
 ```yaml
 type: "FullSlide"
@@ -137,7 +137,8 @@ basic_char_table <- diet %>%
     add_rows(c("energy", "weight"), stat = stat_medianIQR) %>%
     renaming("header", c("", "Characteristics"))
 basic_char_table
-``` {{1}}
+```
+{{1}}
 
 ```
 # A tibble: 7 x 2
@@ -150,7 +151,8 @@ basic_char_table
 5 fibre         1.7 (0.6)       
 6 energy        28.0 (25.4-31.1)
 7 weight        72.8 (64.6-79.8)
-``` {{2}}
+``` 
+{{2}}
 
 
 `@script`
@@ -158,7 +160,7 @@ Great! But the table headers aren't informative. We set them using the renaming 
 
 
 ---
-## Showing participant characteristics
+## Render data into actual table
 
 ```yaml
 type: "FullSlide"
@@ -211,7 +213,7 @@ A quick note, the standard error is one of the measures of precision. How do we 
 
 
 ---
-## Wrangling model results into table format
+## Glue: Very useful package for wrangling into tables
 
 ```yaml
 type: "FullSlide"
@@ -224,11 +226,13 @@ library(glue)
 x <- 3
 y <- 5
 glue("{x} ({y}%)")
-``` {{1}}
+``` 
+{{1}}
 
 ```
 3 (5%)
-``` {{2}}
+``` 
+{{2}}
 
 
 `@script`
@@ -236,7 +240,7 @@ The glue function from the glue package helps create a character string and inse
 
 
 ---
-## Wrangling model results into table format
+## Combining dplyr and glue to prepare data
 
 ```yaml
 type: "FullSlide"
@@ -250,7 +254,8 @@ models %>%
     select(model, predictor, estimate, std.error) %>%
     mutate_at(vars(estimate, std.error), round, digits = 2) %>%
     mutate(estimate_se = glue("{estimate} ({std.error} SE)"))
-``` {{1}}
+``` 
+{{1}}
 
 ```
 # A tibble: 4 x 5
@@ -260,7 +265,8 @@ models %>%
 2 unadjusted fibre         0.33      0.38 0.33 (0.38 SE)
 3 adjusted   energy        0.89      0.04 0.89 (0.04 SE)
 4 adjusted   fibre         0.35      0.41 0.35 (0.41 SE)
-``` {{2}}
+``` 
+{{2}}
 
 
 `@script`
@@ -270,7 +276,7 @@ We see from the output the new column with the combined estimate and standard er
 
 
 ---
-## Wrangling model results into table format
+## Spreading rows across to make table columns
 
 ```yaml
 type: "FullSlide"
@@ -296,7 +302,8 @@ models %>%
   <chr>     <S3: glue>     <S3: glue>    
 1 energy    0.89 (0.04 SE) 0.89 (0.04 SE)
 2 fibre     0.35 (0.41 SE) 0.33 (0.38 SE)
-``` {{1}}
+``` 
+{{1}}
 
 
 `@script`
