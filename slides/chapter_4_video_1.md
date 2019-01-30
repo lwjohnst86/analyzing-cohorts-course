@@ -38,7 +38,9 @@ key: "42434a7ac4"
 
 
 `@script`
-In observational cohort studies, you should always have a healthy dose of caution when interpreting and presenting results. Presenting results should emphasize more tangible health impact and try to be as clear and understandable as possible. The audience for your results will likely be public health professionals or clinicians who aren't trained on interpreting complex model outputs, so be simple and concise. 
+In observational cohort studies, you should always have a healthy dose of caution when interpreting and presenting results. This is also stated within the STROBE guidelines. If you recall, STROBE was developed to make studies such as cohorts more rigorous, standardized, and transparent.
+
+Presenting results should emphasize more tangible health impact and try to be as clear and understandable as possible. The audience for your results will likely be public health professionals or clinicians who aren't trained on interpreting complex model outputs, so be simple and concise. 
 
 Keep in mind that both non-significant and significant findings are important from a health standpoint. Show all results, and in those results, emphasize the magnitude of association and the uncertainty of that association.
 
