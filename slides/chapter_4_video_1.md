@@ -118,13 +118,12 @@ unadjusted_models_list
 
 
 `@script`
-Here, I ran two models for two predictors and tidied them up, as we learned in chapter three. We can then put these two models into a list to make them easier to work with. This is what the model list looks like for the unadjusted models.
+We can see the contents of the list by printing it. You can see the two models inside the list object.This is what the model list looks like for the unadjusted models. The adjusted models list looks the same, except for the additional covariates.
 
-There is also a list for the adjusted models. Plotting or creating tables from the model results is most efficiently done with a single dataframe of the results, but we need to add model specific details to each model before trying to combine them.
-
+Plotting or creating tables from the model results is more efficiently done with a single dataframe of results, but we need to add some model specific details to each model before trying to combine them.
 
 ---
-## Wrangling models into combined tibble
+## Use map to apply functions to each list item
 
 ```yaml
 type: "FullSlide"
