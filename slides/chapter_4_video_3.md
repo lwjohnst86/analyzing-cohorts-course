@@ -269,7 +269,7 @@ models %>%
 
 
 `@script`
-Other than the glue function, the remaining functions used here should be familiar from previous discussions. We want the results to be formatted so the standard error is in brackets.
+Other than the glue function, the remaining functions used here should be familiar from previous discussions. We use select to choose the relevant variables and mutate at to round the values. Then we use mutate again but with the glue function, formatted so the standard error is in brackets.
 
 We see from the output the new column with the combined estimate and standard error.
 
