@@ -433,7 +433,7 @@ The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model
 `@instructions`
 - As in the previous exercise, create a plot of the estimates and confidence intervals of the predictors.
 - This time, don't filter by model adjustment.
-- Make the plot pretty as in the previous exercise.
+- Make the plot pretty as in the previous exercise (including the `labs`).
 - Expand on the previous exercise by splitting the plot by model using `facet_grid`.
 
 `@hint`
