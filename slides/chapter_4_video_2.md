@@ -121,7 +121,7 @@ models %>%
     geom_vline(xintercept = 1, linetype = "dashed")
 ```
 
-![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/ebfbdaf24bb53af9e73b35720776d1d277fadd8e/ch4-v2-estimate-ci-nicer.png) {{1}}
+![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/42c6b5374e981264459e76fb535589179aa62ff6/ch4-v2-estimate-ci-nicer.png) {{1}}
 
 
 `@script`
