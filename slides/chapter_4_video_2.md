@@ -102,7 +102,7 @@ We can make this plot using geom-underscore-point, the horizontal geom-underscor
 
 
 ---
-## Plotting estimates and confidence intervals
+## Making the plot prettier
 
 ```yaml
 type: "FullSlide"
@@ -114,19 +114,23 @@ disable_transition: true
 ```{r}
 models %>%
     filter(model == "unadjusted") %>%
-    ggplot(aes(y = predictor, x = estimate, 
-               xmin = conf.low, xmax = conf.high)) +
-    geom_point() +
-    geom_errorbarh(height = 0.2) + 
-    geom_vline(xintercept = 1, linetype = "dashed")
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point(size = 2) +
+    geom_errorbarh(height = 0.1) +
+    geom_vline(xintercept = 1, linetype = "dashed") +
+    theme_classic()
 ```
 
-![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/ebfbdaf24bb53af9e73b35720776d1d277fadd8e/ch4-v2-estimate-ci-nicer.png) {{1}}
-
+![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/42c6b5374e981264459e76fb535589179aa62ff6/ch4-v2-estimate-ci-nicer.png) {{1}}
 
 `@script`
-By reducing the height of the errorbar ends and making the center line dashed to differentiate it from the other plot elements, the plot will look much better.
+There are couple things we could do to make the plot instantly prettier. The dot size in geom point is a bit small so let's increase it to two using the size argument.
 
+The errorbar ends are also a bit long. We can shorten it with the height argument of geom errobarh. Let's shorten it to zero point one. Values larger than one will make the ends overlap with the bars below or above.
+
+Let's differentiate the center line from geom vline by setting the linetype argument to dashed. There are many other options for linetype such as dotted or solid, which is the default.
+
+We can also sent the theme. There are several themes available in ggplot2, and theme classic is in my view a good one to use, at least for more academic audiences.
 
 ---
 ## Unadjusted and adjusted models in a single plot
