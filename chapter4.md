@@ -197,21 +197,22 @@ xp: 100
 
 Statistical analysis used on cohort data usually output some time of regression estimate along with a measure of uncertainty (e.g. 95% confidence interval). Sometimes it makes sense to present these results in a table, but often the better approach is to create a graph instead. Graphs show magnitude, direction, uncertainty, and comparison of results very effectively.
 
-Create a plot of the unadjusted model results that highlights the estimate and uncertainty of the estimate. Include appropriate axis labels.
+Create a plot of the unadjusted model results that highlights the estimate and uncertainty of the estimate. 
 
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
 library(dplyr)
 library(ggplot2)
+all_models <- all_models %>% 
+    filter(predictor == term)
 ```
 
 ***
 
 ```yaml
 type: NormalExercise
-key: 1bba556c19
-xp: 25
+xp: 30
 ```
 
 `@instructions`
@@ -249,8 +250,7 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-key: 66f5089420
-xp: 25
+xp: 35
 ```
 
 `@instructions`
@@ -269,8 +269,7 @@ unadjusted_results <- all_models %>%
 model_plot <- ___ %>% 
     ggplot(aes(___)) +
     ___() +
-    # height of 0.2 for aesthetics
-    ___(height = 0.2)
+    ___()
 
 # Check the plot
 ___
@@ -286,8 +285,7 @@ unadjusted_results <- all_models %>%
 model_plot <- unadjusted_results %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
-    # height of 0.2 for aesthetics
-    geom_errorbarh(height = 0.2)
+    geom_errorbarh()
 
 # Check the plot
 model_plot
@@ -302,12 +300,11 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-key: 0e3b13549a
-xp: 25
+xp: 35
 ```
 
 `@instructions`
-- Add a vertical line at 1 for the "null line", using a line type of `"dotted"` for appearance.
+- Add a vertical line at 1 for the "center line".
 
 `@hint`
 - The `xintercept` must be set when adding a vertical line.
@@ -322,9 +319,9 @@ unadjusted_results <- all_models %>%
 model_plot <- unadjusted_results %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
-    geom_errorbarh(height = 0.2) +
+    geom_errorbarh() +
     # Add vertical line
-    ___(___, ___)
+    ___(___)
 
 # Check the plot
 ___
@@ -340,75 +337,12 @@ unadjusted_results <- all_models %>%
 model_plot <- unadjusted_results %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
-    geom_errorbarh(height = 0.2) +
+    geom_errorbarh() +
     # Add vertical line
-    geom_vline(xintercept = 1, linetype = "dotted")
+    geom_vline(xintercept = 1)
 
 # Check the plot
 model_plot
-```
-
-`@sct`
-```{r}
-success_msg("Great!")
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 3418387bf1
-xp: 25
-```
-
-`@instructions`
-- Create an object for the axis labels (for re-use on plots later in the lesson) and add to the plot.
-
-`@hint`
-- Create axis labels in ggplot2 with `labs()`.
-
-`@sample_code`
-```{r}
-# Keep only unadjusted models
-unadjusted_results <- all_models %>% 
-    filter(model == "Unadjusted")
-
-# Create a dot and error bar plot
-model_plot <- unadjusted_results %>% 
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_point() +
-    geom_errorbarh(height = 0.2) +
-    geom_vline(xintercept = 1, linetype = "dotted")
-
-# Create a label object for re-use
-plot_labels <- ___(___ = "Predictors", ___ = "Odds ratio (95% CI)")
-
-# Make the plot with labels
-___ +
-    # Apply labels
-    ___
-```
-
-`@solution`
-```{r}
-# Keep only unadjusted models
-unadjusted_results <- all_models %>% 
-    filter(model == "Unadjusted")
-
-# Create a dot and error bar plot
-model_plot <- unadjusted_results %>% 
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_point() +
-    geom_errorbarh(height = 0.2) +
-    geom_vline(xintercept = 1, linetype = "dotted")
-
-# Create a label object for re-use
-plot_labels <- labs(y = "Predictors", x = "Odds ratio (95% CI)")
-
-# Make the plot with labels
-model_plot +
-    # Apply labels
-    plot_labels
 ```
 
 `@sct`
@@ -418,7 +352,7 @@ success_msg("Excellent! See how this graph shows the uncertainty around individu
 
 ---
 
-## Insert exercise title here
+## Create a more polished plot
 
 ```yaml
 type: NormalExercise
@@ -426,32 +360,62 @@ key: f6857cd149
 xp: 100
 ```
 
+Now that we've created this plot, let's polish it up. We want it to be "publication quality", since we'll eventually present this figure to others.
 
+As with the previous exercise, use the `unadjusted_results` dataframe you created to plot the findings. This time, make the plot more polished and presentable.
 
 `@instructions`
 
+- Add the `aes()` variables, the point, error bar, and vertical center line.
+- Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to dotted.
+- Include appropriate axis labels (the "Predictors" on the y and the "Odds Ratio (95% CI)" on the x). Remember, CI is the confidence interval.
+- Change the theme to `theme_bw()`.
 
 `@hint`
-
+- The labels should be of the form `x = "Axis Label"` (for the x-axis for instance).
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
+library(dplyr)
+library(ggplot2)
+unadjusted_results <- all_models %>% 
+    filter(model == "Unadjusted", predictor == term)
 ```
 
 `@sample_code`
 ```{r}
+# Make the plot more polished
+model_plot <- unadjusted_results %>% 
+    ggplot(___) +
+    ___ +
+    ___ +
+    ___ +
+    labs(___, ___) +
+    ___
 
+# Plot it
+___
 ```
 
 `@solution`
 ```{r}
+# Make the plot more polished
+model_plot <- unadjusted_results %>% 
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point(size = 3) +
+    geom_errorbarh(height = 0.1) +
+    geom_vline(xintercept = 1, linetype = "dotted") +
+    labs(y = "Predictors", x = "Odds ratio (95% CI)") +
+    theme_bw()
 
+# Plot it
+model_plot
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Amazing! You have a very nice figure now that is ready to be presented to others! There are other themes to use if you don't like this one.")
 ```
 
 ---
@@ -467,7 +431,9 @@ xp: 100
 The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model results be shown. Showing both can be informative and insightful into the research question. Create a plot of your results showing both unadjusted and adjusted models. Do the same steps as in the previous exercise for creating the plot.
 
 `@instructions`
-- As in the previous exercise, create a plot of the estimates and confidence intervals of the predictors, but don't filter by model adjustment.
+- As in the previous exercise, create a plot of the estimates and confidence intervals of the predictors.
+- This time, don't filter by model adjustment.
+- Make the plot pretty as in the previous exercise.
 - Expand on the previous exercise by splitting the plot by model using `facet_grid`.
 
 `@hint`
@@ -479,7 +445,6 @@ The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
 library(dplyr)
 library(ggplot2)
-plot_labels <- labs(y = "Predictors", x = "Odds ratio (95% CI)")
 ```
 
 `@sample_code`
@@ -492,7 +457,7 @@ plot_all_models <- all_models %>%
     geom_vline(___) +
     # Split plot by model
     ___(rows = ___) +
-    plot_labels
+    labs(___, ___)
 
 # Plot the results
 plot_all_models
@@ -508,7 +473,7 @@ plot_all_models <- all_models %>%
     geom_vline(xintercept = 1, linetype = "dotted") +
     # Split plot by model
     facet_grid(rows = vars(model)) +
-    plot_labels
+    labs(y = "Predictors", x = "Odds ratio (95% CI)")
 
 # Plot the results
 plot_all_models
