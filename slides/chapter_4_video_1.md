@@ -162,7 +162,7 @@ Here, we can add a tag to each model item in the list to indicate that the model
 
 
 ---
-## Wrangling models into combined tibble
+## Bind rows to convert list into dataframe
 
 ```yaml
 type: "FullSlide"
@@ -193,7 +193,7 @@ Then, to convert that list into a single dataframe, we use dplyr's bind rows fun
 
 
 ---
-## Wrangling models into combined tibble
+## Bind multiple lists and continue piping
 
 ```yaml
 type: "FullSlide"
