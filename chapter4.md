@@ -121,6 +121,7 @@ success_ms("Excellent! You made use of R's strength of functional programming ra
 ```yaml
 type: NormalExercise
 xp: 100
+key: f30b964cce
 ```
 
 The most efficient approach to later plotting and creating tables is to have all models in a single dataframe. You've already prepared them a bit, now its time to combine them together so you can continue wrangling.
@@ -213,6 +214,7 @@ all_models <- all_models %>%
 ```yaml
 type: NormalExercise
 xp: 30
+key: 19bfd714ac
 ```
 
 `@instructions`
@@ -251,6 +253,7 @@ success_msg("Great!")
 ```yaml
 type: NormalExercise
 xp: 35
+key: 4ffd9e23ed
 ```
 
 `@instructions`
@@ -301,6 +304,7 @@ success_msg("Great!")
 ```yaml
 type: NormalExercise
 xp: 35
+key: f5fe48b671
 ```
 
 `@instructions`
