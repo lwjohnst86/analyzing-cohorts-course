@@ -172,7 +172,7 @@ key: "2ecaa9f305"
 build_table(basic_char_table)
 ```
 
-| Characteristics |      Values      |
+|                 |  Characteristics |
 |:----------------|:----------------:|
 | job             |                  |
 | - Bank worker   |   151 (44.8%)    |
