@@ -308,7 +308,7 @@ models %>%
 `@script`
 Next, using the spread function from the tidyr package, the models will be represented as columns. The first argument takes the model variable that groups the results and the second argument takes the estimate se variable that has the values making up the new columns. We should select only relevant columns before spreading.
 
-Great! With minimal code, we've gotten the results to appear similar to our desired table. We can either manually create the table or wrangle more to get the results exactly as the table.
+Great! With minimal code, we've gotten the results to appear similar to our desired table. We can either manually create the table or wrangle more to get the results exactly as the table. With further wrangling, we could mutate the predictor values and rename the columns to be capitalized and then use the kable function from knitr to create the final table.
 
 
 ---
