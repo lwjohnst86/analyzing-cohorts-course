@@ -1,6 +1,6 @@
 ---
 title: 'Exploring, wrangling, and transforming cohort data'
-description: ""
+description: 'Before statistically analyzing cohort data, you''ll need to explore and wrangle it into an appropriately analyzable format. You''ll also learn about some common transformations to apply to variables in cohort studies.'
 ---
 
 ## Exploring before wrangling

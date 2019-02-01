@@ -56,9 +56,9 @@ key: "cb8a52378a"
 | Type | R code | When to use |
 |:-----|:-------|:------------|
 | natural log | `log(x)` | Highly-right skewed, positive data |
-| mean-center | `scale(x, scale = FALSE)` | Zero is the mean, use for easier interpretation |
-| scaling | `scale(x)` | Same unit, not for longitudinal data |
-| square root | `sqrt(x)` | Great for count data, handles zeros |
+| mean-center | `scale(x, scale = FALSE)` | Zero is the mean; use for easier interpretation |
+| scaling | `scale(x)` | Same unit; be careful with longitudinal data |
+| square root | `sqrt(x)` | Great for count data; handles zeros |
 | inverse |`1 / x`| To invert values/unit, but no zeros | {{3}}
 
 

@@ -202,7 +202,7 @@ tidied_model %>%
 `@script`
 Wrangling after tidying is easy as the model is a tibble. So, if you run a logistic regression, you need to exponentiate the results to get odds ratios. Here we only select the important variables. Check how the estimates look right now. It's harder to understand what the numbers mean as they aren't as odds ratios.
 
-To get them, we apply the exp function to exponentiate each variable, except the term variable, by using mutate at. Now the results maybe look a bit more familiar. We'll cover interpretation in the next chapter.
+To get them, we apply the exp function to exponentiate each variable, except the term variable, by using mutate at. Now the results maybe look a bit more familiar.
 
 
 ---

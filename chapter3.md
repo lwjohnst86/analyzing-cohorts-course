@@ -1,6 +1,6 @@
 ---
 title: 'Statistical methods for cohort data'
-description: 'Apply statistical techniques on cohort data.'
+description: 'There are a wide range of statistical techniques you could apply to cohort datasets, and they depend heavily on the study design, research questions, and the type of data collected. In this chapter we will focus more on how to approach choosing the statistical method, what to think about, types of tests to use, and how to extract the revelant results from any statistical model.'
 ---
 
 ## Statistical analyses for cohort studies
