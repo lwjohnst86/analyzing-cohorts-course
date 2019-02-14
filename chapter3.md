@@ -49,7 +49,7 @@ library(dplyr)
 `@sct`
 ```{r}
 msg1 <- "Incorrect. The cohort study was not designed to answer 'causes'."
-msg2 <- "Incorrect. While cohorts could answer this question, Framingham participants are all in middle age so we can't answer questions outside of that timeframe."
+msg2 <- "Incorrect. While cohorts could answer this question, Framingham participants are all in middle age so we can't answer questions outside of that time frame."
 msg3 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
 msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
 msg5 <- "Incorrect. One of the above is a valid question."
@@ -227,7 +227,7 @@ xp: 100
 
 Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
-Include followup visit number in the `glmer` formula as well as the random term and the choleterol predictor (as in the previous exercise with `I()`). Then run the same model with logistic regression (without the random term of course) and compare the results with the mixed effect model. Pay attention to the differences in the estimates and standard errors.
+Include followup visit number in the `glmer` formula as well as the random term and the cholesterol predictor (as in the previous exercise with `I()`). Then run the same model with logistic regression (without the random term of course) and compare the results with the mixed effect model. Pay attention to the differences in the estimates and standard errors.
 
 `@pre_exercise_code`
 ```{r}
@@ -326,7 +326,7 @@ summary(glm_model)
 
 `@sct`
 ```{r}
-success_msg("Awesome! Notice how the estimate for total choleterol is the same between mixed effect and logistic models, but the standard error is very different? The estimate is biased in the logistic regression, so the error is smaller because it is assuming all the data come from different people, which is not true.")
+success_msg("Awesome! Notice how the estimate for total cholesterol is the same between mixed effect and logistic models, but the standard error is very different? The estimate is biased in the logistic regression, so the error is smaller because it is assuming all the data come from different people, which is not true.")
 ```
 
 ---
