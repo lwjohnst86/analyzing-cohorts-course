@@ -36,39 +36,14 @@ key: "d7c7602043"
 - For other study types/single measure: {{2}}
     - Cox proportional hazard models
     - Linear regression
-    - **Logistic regression**
+    - Logistic regression
     - Poisson regression
 
 
 `@script`
 There are many ways to analyze cohorts, depending on the data, the research questions, and the study design. Most often the analysis will be some form of regression modeling, which provides an estimate of the magnitude of an association and its uncertainty. A prospective cohort with multiple measures over time would often use mixed effects models, while other designs or those with single measures such as at only one time point tend to use simpler regression techniques. Cohorts also often study a disease state, which is generally binary, so you'd likely use a logistic regression model.
 
-For the rest of the chapter, we'll use logistic regression in the videos and mixed effects in the exercises.
-
-
----
-## Logistic regression
-
-```yaml
-type: "FullSlide"
-key: "3b69b894db"
-```
-
-`@part1`
-- **Logistic regression**: 
-    - Similar to linear regression
-    - With binary outcome 
-    - Used when only one timepoint
-
-```{r}
-# Example syntax:
-glm(outcome ~ predictor1 + predictor2, 
-    data = dataset, family = binomial)
-```{{1}}
-
-
-`@script`
-You'll have encountered logistic regression in prerequisites, but to review, it is similar to linear regression, but with a binary outcome and used when your predictor variables are only measured at a single time point. The syntax uses glm with the formula interface of the outcome on the left side and the predictors on the right side, separated by plus signs. You need to set the family to binomial since the outcome is binary.
+For the rest of the chapter, we'll focus on mixed effects modeling.
 
 
 ---

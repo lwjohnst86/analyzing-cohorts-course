@@ -214,11 +214,10 @@ success_msg("Amazing! You've solved the warnings about non-convergence, large ei
 
 ---
 
-## Include time and compare to logistic regression
+## Include time in the mixed effect model
 
 ```yaml
-type: TabExercise
-key: ee91386423
+type: NormalExercise
 xp: 100
 ```
 
@@ -230,14 +229,6 @@ Include followup visit number in the `glmer` formula as well as the random term 
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
 library(lme4)
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 6324cefad8
-xp: 50
 ```
 
 `@instructions`
@@ -270,60 +261,7 @@ summary(glmer_model)
 
 `@sct`
 ```{r}
-success_msg("Great! Next step.")
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: a50714fbc4
-xp: 50
-```
-
-`@instructions`
-- Do the same thing with the logistic regression in `glm()` (without the random term), paying attention to the differences in results.
-
-`@hint`
-- Use the exact same formula as in the `glmer` function, except the random term `(1 | ___)`.
-
-`@sample_code`
-```{r}
-# Include followup visit number
-glmer_model <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number +
-        (1 | subject_id),
-    data = sample_tidied_framingham, family = binomial
-    )
-summary(glmer_model)
-
-# Compare with logistic regression
-glm_model <- glm(
-    ___ ~ ___ + ___,
-    data = sample_tidied_framingham, family = ___)
-summary(___)
-```
-
-`@solution`
-```{r}
-# Include followup visit number
-glmer_model <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number +
-        (1 | subject_id),
-    data = sample_tidied_framingham, family = binomial
-    )
-summary(glmer_model)
-
-# Compare with logistic regression
-glm_model <- glm(
-    got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number,
-    data = sample_tidied_framingham, family = binomial)
-summary(glm_model)
-```
-
-`@sct`
-```{r}
-success_msg("Awesome! Notice how the estimate for total choleterol is the same between mixed effect and logistic models, but the standard error is very different? The estimate is biased in the logistic regression, so the error is smaller because it is assuming all the data come from different people, which is not true.")
+success_msg("Awesome! Adding a time component to any analysis that has repeated measurements is quite important. It reduces model bias and allows you to interpret the results in the context of time.")
 ```
 
 ---
@@ -420,11 +358,11 @@ xp: 100
 
 It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared. 
 
-To keep the computation run time quick, for this exercise we will use logistic regression rather than mixed effects models. Therefore, we will only use the baseline data from the Framingham dataset (through `filter()`) to fit the model assumptions.
+To keep the computation run time quick, for this exercise we greatly restricted the sample size and reduced the number of variables to include in the model.
 
 `@instructions`
-- Select the centered variables systolic blood pressure, body mass index, fasting blood glucose, and total cholesterol, as well as sex, education, and current smoking status. 
-- Set the outcome in the `glm` formula, the dataset, and the family (the outcome is binary).
+- Select the centered variables systolic blood pressure, fasting blood glucose, and total cholesterol, as well as sex and current smoking status. 
+- Set the outcome and random term in the `glmer` formula, the dataset, and the family (the outcome is binary).
 - "Dredge" through the combinations of variables in the model using AIC, comparing models that have centered systolic blood pressure.
 - Print the top 4 models.
 
@@ -437,18 +375,19 @@ To keep the computation run time quick, for this exercise we will use logistic r
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
 library(MuMIn)
 library(dplyr)
+library(lme4)
+# TODO: Add reduced sample code here
 ```
 
 `@sample_code`
 ```{r}
 # Select the predictors from the baseline data
 model_sel_df <- tidied_framingham %>% 
-    filter(followup_visit_number == 1) %>% 
-    select(got_cvd, ___) %>% 
+    select(subject_id, got_cvd, ___) %>% 
     na.omit()
 
-# Set the outcome, data, and family
-model <- glm(___ ~ ., data = ___, family = ___, na.action = "na.fail")
+# Set the outcome, random term, data, and family
+model <- glm(___ ~ . + ___, data = ___, family = ___, na.action = "na.fail")
 
 # Set the ranking method and subset
 selection <- dredge(___, rank = ___, subset = ___)
@@ -461,13 +400,12 @@ head(___, 4)
 ```{r}
 # Select the predictors from the baseline data
 model_sel_df <- tidied_framingham %>% 
-    filter(followup_visit_number == 1) %>% 
-    select(got_cvd, centered_systolic_blood_pressure, sex, education, centered_body_mass_index, 
+    select(subject_id, got_cvd, centered_systolic_blood_pressure, sex,
            currently_smokes, centered_total_cholesterol, centered_fasting_blood_glucose) %>% 
     na.omit()
 
 # Set the outcome, data, and family
-model <- glm(got_cvd ~ ., data = model_sel_df, family = binomial, na.action = "na.fail")
+model <- glm(got_cvd ~ . + (1 | subject_id), data = model_sel_df, family = binomial, na.action = "na.fail")
 
 # Set the ranking method and subset
 selection <- dredge(model, rank = "AIC", subset = "centered_systolic_blood_pressure")
