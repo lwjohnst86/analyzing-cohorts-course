@@ -63,17 +63,45 @@ key: "029e25b56b"
 # Example syntax:
 library(lme4)
 glmer(outcome ~ predictor1 + predictor2 + 
-          (1 | random_id), # e.g. subject_id
+          (1 | random_term), # e.g. subject_id
       data = dataset, family = binomial)
 ```
-
+{{1}}
 
 `@script`
-Mixed effects models meanwhile are more powerful and contain a fixed term and a random term. For example, you use this method when data has been collected on each person multiple times. You'll need to use the lme4 package, which contains the glmer function. This function is very similar to glm, except you add a random term by using brackets and a bar. Here, the one in the brackets indicates that each random unit should have its own intercept. This makes sense as each person will start at their own level in a study. The random id here is the random unit to use, such as the subject id.
-
+Mixed effects models are powerful methods that contain a fixed term and a random term. For example, you use this method when data has been collected on each person multiple times, which is common in prospective cohort studies. You'll need to use the lme4 package, which contains the glmer function. If you are familiar with glm, they are very similar except that you add a random term. Let's look into the model formula a bit more.
 
 ---
-## Transforming variables for modelling
+## Formula meaning in mixed models
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
+
+```{r}
+# Formula
+outcome ~ predictor + (1 | random_term)
+```
+
+- `outcome`: $y$ variable. In cohorts, usually disease. {{1}}
+- `predictor`: One or more $x$ variable. Variables thought to influence outcome. {{2}}
+    - Using more variables: `predictor1 + predictor2 + ...`
+- `(1 | random_term)`: Random effects variable. {{3}}
+    - Random = dependency between observations (e.g. siblings in family, person over time)
+    - Takes form `(left | right)`: left = individual slopes, right = individual intercepts. {{4}}
+    - `1` = same slope for all {{5}}
+    - `random_term` = each person has own intercept {{5}}
+
+`@script`
+
+There are three parts to a mixed model formula. There's the outcome or y, the predictors or x, and the random term. The outcome is in cohorts usually the disease variable. The predictor part can be one or more predictor variables. Adding more predictors is done by separating them by a plus sign. The predictor variables are the one thought to have some role in the risk for the disease. Lastly, there is variable to use for the random term indicating the random effects. 
+
+The name random indicates a dependency between observations, such as with siblings in a family or a person measured over time. The form has two parts, a left side and right side. The left side is to calculate slopes for each random unit while the right side is to calculate intercepts for each unit. The one here says have the same slopes and the random term on the right says to have different intercepts for each term. For example, in a prospective cohort, individuals measured over time will generally start at their own level at the start, which makes sense, since not every person starts at the same, for example, weight.
+
+---
+## Recall transforming variables for modelling
 
 ```yaml
 type: "FullSlide"
@@ -81,60 +109,48 @@ key: "d4dd5e98fc"
 ```
 
 `@part1`
-```{r}
-# Example:
-library(lme4)
-``` {{1}}
 
 ```{r}
-# Before modelling
+# Example transforming: Center, division, log
 changed_dataset <- dataset %>% 
     mutate(center_predictor = scale(predictor1, scale = FALSE),
-           predictor_divided_100 = predictor2 / 100)
+           predictor_divided_num = predictor2 / num,
+           log_predictor = log(predictor))
+``` 
+{{1}}
 
-glmer(outcome ~ center_predictor + predictor_divided_100 + 
-          (1 | random_id), # e.g. subject_id
-      data = changed_dataset, family = binomial)
-``` {{2}}
-
-```{r}
-# During modelling
-glmer(outcome ~ scale(predictor1, scale = FALSE) + # mean center
-        I(predictor2 / 100) + # Divide by 100
-        (1 | random_id), # e.g. subject_id
-      data = dataset, family = binomial)
-``` {{3}}
-
+- For mixed models, large differences in variances between variables is common issue {{2}}
+    - E.g. Weight of mother in kg and weight of newborn in grams
+- Often involves trial and error for transformations {{3}}
 
 `@script`
-Many regression models can be strongly influenced by large differences in numerical values between predictors, due to the underlying mathematics of the model. For instance, one variable may have values between a hundred to a thousand while another variable may range from one to five. These large differences in values can sometimes cause some problems. Usually, the model will inform you of a problem. If changes are needed, you'll have to transform the variables, as you learned in chapter two. You can do this two ways. Here, you can transform the variables beforehand and use the transformed variables in the model, or, you can directly transform variables in the model formula. For transformation such as addition or division, you need to use the I function wrapped around the transformation.
 
+In chapter 2 we covered transforming variables. Here we can put that knowledge to use. Some modelling techniques are fussy when it comes to what data you give it. Usually the code runs checks and informs you of any issue. For instance, with mixed effects models, large differences in the variances of variables included in the formula can cause warnings and errors when running glmer. So you'll often have to do some trial and error of scaling, logging, or any other mathematically transformations of predictors before the model computes a more correct output.
 
 ---
-## Keep in mind: Question is restricted by design and data
+## Running mixed effects models using glmer
 
 ```yaml
 type: "FullSlide"
-key: "d4bbe2304d"
+key: "d4dd5e98fc"
 ```
 
 `@part1`
-**Cohorts in general**
-- Are observational {{1}}
-- Shared characteristics {{1}}
 
-**Prospective cohorts** {{2}}
-- Has a defined time {{2}}
-
-**Data in general** {{3}}
-- Exposure may be unreliably measured {{3}}
-- Variable may be inconsistently measured {{3}}
+```{r}
+library(lme4)
+glmer(outcome ~ center_predictor + predictor_divided_100 + 
+          log_predictor + (1 | random_id), # e.g. subject_id
+      data = changed_dataset, family = binomial)
+``` 
+{{1}}
 
 
 `@script`
-Something to keep in mind. Research questions are limited by both study design and the type of data collected. Cohorts are observational studies, so questions on causes are nearly impossible to answer. Cohorts are about people with common characteristics, so you can't answer questions outside the group that is studied. 
 
-For prospective cohorts, there is a defined study timeframe, so we can't answer questions outside this time. Finally, exposure measurements may be unreliable, or participant data may not be consistently collected, which will make your answer biased.
+We've covered what to include in the formula and transforming some variables. Now it's time to put it all together in the glmer function. The function takes several arguments, but the three most important ones are the formula, the data, and the family function. The family function is used to indicate how to handle the outcome variable. In this case, the outcome is binary: You have the disease or not. So, you need to use the binomial distribution family to obtain the correct results.
+
+TODO: Include interpretation here?
 
 
 ---
