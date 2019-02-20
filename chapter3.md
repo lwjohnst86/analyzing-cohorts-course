@@ -388,13 +388,13 @@ xp: 100
 
 Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
-Include followup visit number in the `glmer` formula as well as the random term and the choleterol predictor (as in the previous exercise with `I()`). Then run the same model with logistic regression (without the random term of course) and compare the results with the mixed effect model. Pay attention to the differences in the estimates and standard errors.
+Include followup visit number in the `glmer` formula as well as the random term and the scaled choleterol predictor.
 
 `@instructions`
-- Run a `glmer` analysis using the same formula as the previous exercise (with the `I()` around cholesterol), but also include followup visit number.
+- Run a model of cholesterol (scaled) and followup visit number on CVD.
 
 `@hint`
-- The formula is the exact same as the previous exercise, except there is an additional predictor.
+- Include `followup_visit_number` after scaled cholesterol, still including the subject ID.
 
 `@pre_exercise_code`
 ```{r}
@@ -404,24 +404,28 @@ library(lme4)
 
 `@sample_code`
 ```{r}
-# Include followup visit number
-glmer_model <- glmer(
-    ___ ~ ___ + ___ +
-        (___),
-    data = sample_tidied_framingham, family = ___
+# Include followup visit number with cholesterol
+model <- glmer(
+    ___,
+    data = sample_tidied_framingham, 
+    family = binomial
     )
-summary(___)
+
+# View the model summary
+summary(model)
 ```
 
 `@solution`
 ```{r}
-# Include followup visit number
-glmer_model <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + followup_visit_number +
-        (1 | subject_id),
-    data = sample_tidied_framingham, family = binomial
+# Include followup visit number with cholesterol
+model <- glmer(
+    got_cvd ~ total_cholesterol_scaled + followup_visit_number + (1 | subject_id),
+    data = sample_tidied_framingham, 
+    family = binomial
     )
-summary(glmer_model)
+
+# View the model summary
+summary(model)
 ```
 
 `@sct`
