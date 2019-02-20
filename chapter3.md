@@ -59,13 +59,23 @@ ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 
 ```yaml
 type: BulletExercise
-key: 84d96a58a8
 xp: 100
 ```
 
-There are several things you need to consider and be aware of when running `glmer` models. For instance, large variable variances can cause computational issues. This is where your knowledge of transforming variables comes into use, as the predictors' values can effect model performance. This can involve some tweaking to transform the values so the model runs.
+Let's get you familiar with using and running `glmer` models. There is some tweaking involved when running `glmer` models, such as transforming variables before hand. Often this requires some trial and error to get right. For now, practice running some models.
 
-These exercises will likely result in warnings or errors, due to the predictor's values. The Framingham dataset has been reduced in size, since `glmer` is computationally expensive, and is loaded as `sample_tidied_framingham`.
+Since `glmer` is computationally expensive, the Framingham dataset has been reduced in size and is loaded as `sample_tidied_framingham`.
+
+Recall that the pattern for using `glmer` is:
+
+```{r}
+model <- glmer(
+    outcome_var ~ predictor_var + (1 | person_id),
+    data = dataset,
+    family = binomial
+)
+```
+
 
 `@pre_exercise_code`
 ```{r}
@@ -77,24 +87,26 @@ library(lme4)
 
 ```yaml
 type: NormalExercise
-key: e5bd052e2a
-xp: 35
+xp: 50
 ```
 
 `@instructions`
-- Look over the sampled data, then add cholesterol as a $x$, subject ID as the random term, and use a binomial family.
+- Run a model looking at how cholesterol (scaled) relates to CVD (have subject ID as the random term).
 
 `@hint`
-- The random term goes in the `(1 | ___)` portion of code.
+- The variables should be `got_cvd`, `total_cholesterol_scaled`, and `subject_id`.
 
 `@sample_code`
 ```{r}
-# Have a quick look at the sampled data
-summary(___)
+# Confirm name of predictor
+names(___)
 
-# Run a basic, unadjusted model
-model <- glmer(got_cvd ~ ___ + (1 | ___), 
-      data = sample_tidied_framingham, family = ___) 
+# Model cholesterol on CVD
+model <- glmer(
+    ___ ~ ___,
+    data = ___,
+    family = ___
+    )
 
 # View the model output
 summary(___)
@@ -102,12 +114,15 @@ summary(___)
 
 `@solution`
 ```{r}
-# Have a quick look at the sampled data
-summary(sample_tidied_framingham)
+# Confirm name of predictor
+names(sample_tidied_framingham)
 
-# Run a basic, unadjusted model
-model <- glmer(got_cvd ~ total_cholesterol + (1 | subject_id), 
-      data = sample_tidied_framingham, family = binomial) 
+# Model centered cholesterol on CVD
+model <- glmer(
+    got_cvd ~ total_cholesterol_scaled + (1 | subject_id),
+    data = sample_tidied_framingham, 
+    family = binomial
+    )
 
 # View the model output
 summary(model)
@@ -115,44 +130,131 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Great!")
+success_msg("Amazing!")
 ```
 
 ***
 
 ```yaml
 type: NormalExercise
-key: 182639f25f
-xp: 35
+xp: 50
 ```
 
 `@instructions`
-- Let's fix the warning by mean-centering cholesterol in the model.
+- Try another predictor. Run a model using fasting blood glucose (scaled) as a predictor instead of cholesterol.
 
 `@hint`
-- The mean centered cholesterol variable is found already in the dataset.
+- The variable is `fasting_blood_glucose_scaled`.
 
 `@sample_code`
 ```{r}
-# Take a look at centered cholesterol
-summary(sample_tidied_framingham$___)
+# Confirm name of predictor
+names(___)
 
-# Run with centered variable
-model <- glmer(___ ~ ___ + (___), 
-      data = sample_tidied_framingham, family = ___) 
+# Model fasting blood glucose on CVD
+model <- glmer(
+    ___ ~ ___,
+    data = ___,
+    family = ___
+    )
 
 # View the model output
-___
+summary(___)
 ```
 
 `@solution`
 ```{r}
-# Take a look at centered cholesterol
-summary(sample_tidied_framingham$centered_total_cholesterol)
+# Confirm name of predictor
+names(sample_tidied_framingham)
 
-# Run with centered variable
-model <- glmer(got_cvd ~ centered_total_cholesterol + (1 | subject_id), 
-      data = sample_tidied_framingham, family = binomial) 
+# Model fasting blood glucose on CVD
+model <- glmer(
+    got_cvd ~ fasting_blood_glucose_scaled + (1 | subject_id), 
+    data = sample_tidied_framingham, 
+    family = binomial
+) 
+
+# View the model output
+summary(model)
+```
+
+`@sct`
+```{r}
+success_msg("Great job! You've ran several mixed effects models!")
+```
+
+---
+
+## Why transforming may be required
+
+```yaml
+type: BulletExercise
+xp: 100
+```
+
+There are several things you need to consider when running `glmer` models, as they can be finnicky. For instance, large variable variances can cause computational issues in the model. Often `glmer` will throw an error or warning telling you of the problem.
+
+To fix the problem, your knowledge of transformations comes into use. Getting the right transformation can sometimes involve trial and error to get the model to run.
+
+These exercises will (likely) generate warnings or errors. Compare the different transformations and notice why problems may occur. 
+
+Recall that the dataset is smaller and is loaded as `sample_tidied_framingham`, as well as what the general pattern is for `glmer`:
+
+```{r}
+model <- glmer(
+    outcome_var ~ predictor_var + (1 | person_id),
+    data = dataset,
+    family = binomial
+)
+```
+
+
+`@pre_exercise_code`
+```{r}
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+library(lme4)
+```
+
+***
+
+```yaml
+type: NormalExercise
+xp: 35
+```
+
+`@instructions`
+- Plot the original total cholesterol and include it in the model; you will get a warning.
+
+`@hint`
+- Don't forget the random term: `(1 | subject_id)`.
+
+`@sample_code`
+```{r}
+# Plot of original cholesterol
+plot(sample_tidied_framingham$___)
+
+# Model the total cholesterol
+model <- glmer(
+    ___ ~ ___,
+    data = sample_tidied_framingham, 
+    family = binomial
+    )
+
+# View the model output
+summary(model)
+```
+
+`@solution`
+```{r}
+# Plot of original cholesterol
+plot(sample_tidied_framingham$total_cholesterol)
+
+# Model the total cholesterol
+model <- glmer(
+    got_cvd ~ total_cholesterol + (1 | subject_id),
+    data = sample_tidied_framingham, 
+    family = binomial
+    )
 
 # View the model output
 summary(model)
@@ -167,41 +269,98 @@ success_msg("Amazing job!")
 
 ```yaml
 type: NormalExercise
-key: f5444213d6
-xp: 30
+xp: 35
 ```
 
 `@instructions`
-- There's still a warning about rescaling, as the variance is too large, so use `I()` and divide cholesterol by 100.
+- Compare centered cholesterol and use it in the model.
 
 `@hint`
-- Use the same formula as in the previous exercises, but wrap the cholesterol variable with the `I()` function.
+- Use `names(sample_tidied_framingham)` to get the correct name of the cholesterol predictor.
 
 `@sample_code`
 ```{r}
-# Check centered cholesterol after dividing it
-summary(I(___ / 100))
+# Compare the original vs centered variable
+plot(sample_tidied_framingham$total_cholesterol)
+plot(sample_tidied_framingham$___)
 
-# Wrap centered cholesterol with I()
+# Model with centered cholesterol
 model <- glmer(
-    ___ ~ ___,
-    data = sample_tidied_framingham, family = ___
-    )
+    ___,
+    data = sample_tidied_framingham, 
+    family = binomial
+) 
 
 # View the model output
-___
+summary(model)
 ```
 
 `@solution`
 ```{r}
-# Check centered cholesterol after dividing it
-summary(I(sample_tidied_framingham$centered_total_cholesterol / 100))
+# Compare the original vs centered variable
+plot(sample_tidied_framingham$total_cholesterol)
+plot(sample_tidied_framingham$total_cholesterol_centered)
 
-# Run with centered variable, divided by 100 with I()
+# Model with centered cholesterol
 model <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + (1 | subject_id),
-    data = sample_tidied_framingham, family = binomial
-    )
+    got_cvd ~ total_cholesterol_centered + (1 | subject_id), 
+    data = sample_tidied_framingham, 
+    family = binomial
+) 
+
+# View the model output
+summary(model)
+```
+
+`@sct`
+```{r}
+success_msg("Great!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+xp: 30
+```
+
+`@instructions`
+- Lastly, we can fix the warnings by using the scaled cholesterol variable.
+
+`@hint`
+- The variable is `total_cholesterol_scaled`.
+
+`@sample_code`
+```{r}
+# Compare the original vs centered vs scaled variables
+plot(sample_tidied_framingham$total_cholesterol)
+plot(sample_tidied_framingham$total_cholesterol_centered)
+plot(sample_tidied_framingham$___)
+
+# Model with scaled cholesterol
+model <- glmer(
+    ___,
+    data = sample_tidied_framingham, 
+    family = binomial
+) 
+
+# View the model output
+summary(model)
+```
+
+`@solution`
+```{r}
+# Compare the original vs centered vs scaled variables
+plot(sample_tidied_framingham$total_cholesterol)
+plot(sample_tidied_framingham$total_cholesterol_centered)
+plot(sample_tidied_framingham$total_cholesterol_scaled)
+
+# Model with scaled cholesterol
+model <- glmer(
+    got_cvd ~ total_cholesterol_scaled + (1 | subject_id),
+    data = sample_tidied_framingham, 
+    family = binomial
+) 
 
 # View the model output
 summary(model)
@@ -211,6 +370,7 @@ summary(model)
 ```{r}
 success_msg("Amazing! You've solved the warnings about non-convergence, large eigenvalues, and the rescaling issue.")
 ```
+
 
 ---
 
