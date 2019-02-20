@@ -60,6 +60,7 @@ ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 ```yaml
 type: BulletExercise
 xp: 100
+key: 84d96a58a8
 ```
 
 Let's get you familiar with using and running `glmer` models. There is some tweaking involved when running `glmer` models, such as transforming variables before hand. Often this requires some trial and error to get right. For now, practice running some models.
@@ -88,6 +89,7 @@ library(lme4)
 ```yaml
 type: NormalExercise
 xp: 50
+key: ad97101e99
 ```
 
 `@instructions`
@@ -138,6 +140,7 @@ success_msg("Amazing!")
 ```yaml
 type: NormalExercise
 xp: 50
+key: d3065312e7
 ```
 
 `@instructions`
@@ -190,6 +193,7 @@ success_msg("Great job! You've ran several mixed effects models!")
 ```yaml
 type: BulletExercise
 xp: 100
+key: 7d5ac3e0d5
 ```
 
 There are several things you need to consider when running `glmer` models, as they can be finnicky. For instance, large variable variances can cause computational issues in the model. Often `glmer` will throw an error or warning telling you of the problem.
@@ -220,6 +224,7 @@ library(lme4)
 ```yaml
 type: NormalExercise
 xp: 35
+key: 19eebe2393
 ```
 
 `@instructions`
@@ -270,6 +275,7 @@ success_msg("Amazing job!")
 ```yaml
 type: NormalExercise
 xp: 35
+key: ddddfcd2f8
 ```
 
 `@instructions`
@@ -322,6 +328,7 @@ success_msg("Great!")
 ```yaml
 type: NormalExercise
 xp: 30
+key: 105d4c6ea5
 ```
 
 `@instructions`
