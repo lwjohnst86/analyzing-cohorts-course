@@ -50,8 +50,12 @@ save(tidier_framingham, file = "datasets/framingham_tidier.rda")
 
 # For chapter 3 -----------------------------------------------------------
 
-mean_center <- function(x) {
+centered <- function(x) {
     as.numeric(scale(x, scale = FALSE))
+}
+
+scaled <- function(x) {
+    as.numeric(scale(x, scale = TRUE))
 }
 
 tidied_framingham <- tidier_framingham %>%
@@ -74,12 +78,11 @@ tidied_framingham <- tidier_framingham %>%
             "Post-Secondary" = "College",
             "Post-Secondary" = "Vocational"
         ),
-        centered_total_cholesterol = mean_center(total_cholesterol),
-        centered_systolic_blood_pressure = mean_center(systolic_blood_pressure),
-        centered_body_mass_index = mean_center(body_mass_index),
-        centered_fasting_blood_glucose = mean_center(fasting_blood_glucose)
-        )
+        ) %>%
+    mutate_at(vars(total_cholesterol, systolic_blood_pressure, body_mass_index, fasting_blood_glucose),
+              funs(scaled, centered))
 
+set.seed(1456)
 ids <- unique(tidied_framingham$subject_id)
 sampled_ids <- sample(ids, length(ids) / 15, replace = FALSE)
 sample_tidied_framingham <- tidied_framingham %>%
