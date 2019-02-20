@@ -59,8 +59,8 @@ ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
 
 ```yaml
 type: BulletExercise
-xp: 100
 key: 84d96a58a8
+xp: 100
 ```
 
 Let's get you familiar with using and running `glmer` models. There is some tweaking involved when running `glmer` models, such as transforming variables before hand. Often this requires some trial and error to get right. For now, practice running some models.
@@ -77,7 +77,6 @@ model <- glmer(
 )
 ```
 
-
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
@@ -88,8 +87,8 @@ library(lme4)
 
 ```yaml
 type: NormalExercise
-xp: 50
 key: ad97101e99
+xp: 50
 ```
 
 `@instructions`
@@ -139,8 +138,8 @@ success_msg("Amazing!")
 
 ```yaml
 type: NormalExercise
-xp: 50
 key: d3065312e7
+xp: 50
 ```
 
 `@instructions`
@@ -192,8 +191,8 @@ success_msg("Great job! You've ran several mixed effects models!")
 
 ```yaml
 type: BulletExercise
-xp: 100
 key: 7d5ac3e0d5
+xp: 100
 ```
 
 There are several things you need to consider when running `glmer` models, as they can be finnicky. For instance, large variable variances can cause computational issues in the model. Often `glmer` will throw an error or warning telling you of the problem.
@@ -212,7 +211,6 @@ model <- glmer(
 )
 ```
 
-
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
@@ -223,8 +221,8 @@ library(lme4)
 
 ```yaml
 type: NormalExercise
-xp: 35
 key: 19eebe2393
+xp: 35
 ```
 
 `@instructions`
@@ -274,8 +272,8 @@ success_msg("Amazing job!")
 
 ```yaml
 type: NormalExercise
-xp: 35
 key: ddddfcd2f8
+xp: 35
 ```
 
 `@instructions`
@@ -327,8 +325,8 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-xp: 30
 key: 105d4c6ea5
+xp: 30
 ```
 
 `@instructions`
@@ -378,32 +376,31 @@ summary(model)
 success_msg("Amazing! You've solved the warnings about non-convergence, large eigenvalues, and the rescaling issue.")
 ```
 
-
 ---
 
 ## Include time in the mixed effect model
 
 ```yaml
 type: NormalExercise
-xp: 100
 key: 0635f94add
+xp: 100
 ```
 
 Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
 Include followup visit number in the `glmer` formula as well as the random term and the choleterol predictor (as in the previous exercise with `I()`). Then run the same model with logistic regression (without the random term of course) and compare the results with the mixed effect model. Pay attention to the differences in the estimates and standard errors.
 
-`@pre_exercise_code`
-```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
-library(lme4)
-```
-
 `@instructions`
 - Run a `glmer` analysis using the same formula as the previous exercise (with the `I()` around cholesterol), but also include followup visit number.
 
 `@hint`
 - The formula is the exact same as the previous exercise, except there is an additional predictor.
+
+`@pre_exercise_code`
+```{r}
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+library(lme4)
+```
 
 `@sample_code`
 ```{r}
