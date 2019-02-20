@@ -79,7 +79,7 @@ model <- glmer(
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
 ```
 
@@ -213,7 +213,7 @@ model <- glmer(
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
 ```
 
@@ -398,7 +398,7 @@ Include followup visit number in the `glmer` formula as well as the random term 
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
 ```
 
@@ -466,7 +466,7 @@ Let's find which variables to adjust for when systolic blood pressure (SBP) is t
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(dagitty)
 ```
 
@@ -613,7 +613,7 @@ The Framingham study was almost entirely those of European-ancestry, so we will 
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
 library(MuMIn)
 ```
@@ -776,7 +776,7 @@ Often times we make assumptions about our data and the participants that make up
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
 library(dplyr)
 ```
@@ -950,7 +950,7 @@ A model has been created for you already, now you need to tidy it up.
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
 library(broom)
 library(dplyr)
