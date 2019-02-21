@@ -458,12 +458,14 @@ xp: 100
 
 Building an appropriate DAG that is reasonably close to the underlying biology is very very difficult. It requires domain specific knowledge, consult experts familiar with the mechanisms and biology as you build the DAG. As stated in the video, you are guaranteed to build an incomplete DAG. That's why you take a few approaches to model selection. 
 
-Let's find which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Keeping things simple, assume that: sex influences SBP and smoking; smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
+Let's find which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Keeping things simple, assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
+
+To learn more about graphs and networks, check out the [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r) course.
 
 `@instructions`
-- Convert the above links between variables into a DAG, in the form `variable -> {one or more variables}` (remember, `->` means "influences" or "effects").
+- Using the links between variables described above as well as the plot as a guide, create a DAG, where the forms `variable -> {one or more variables}` specify a link.
 - Visually inspect the plot of the `variables_pathway` graph.
-- Identify which variables to potentially adjust for from the `variable_pathways` graph, specifying the exposure and the outcome variables.
+- Identify a potential (minimal) model adjustment set of variables based on the `variable_pathways` graph, selecting the appropriate exposure and the outcome variables.
 
 `@hint`
 - The `adjustmentSets()` requires the DAG object and the outcome (CVD) and the predictor (SBP).
@@ -472,6 +474,15 @@ Let's find which variables to adjust for when systolic blood pressure (SBP) is t
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(dagitty)
+
+variable_pathways <- dagitty("dag {
+    SBP -> CVD
+    Sex -> {SBP Smoking}
+    Smoking -> {SBP CVD}
+    BMI -> {SBP CVD FastingGlucose}
+    FastingGlucose -> CVD
+}")
+plot(graphLayout(variable_pathways))
 ```
 
 `@sample_code`
@@ -488,7 +499,7 @@ variable_pathways <- dagitty("dag {
 # Plot potential confounding pathways
 plot(graphLayout(___))
 
-# Identify potential confounders
+# Identify some confounders to adjust for
 adjustmentSets(___, exposure = ___, outcome = ___)
 ```
 
@@ -506,7 +517,7 @@ variable_pathways <- dagitty("dag {
 # Plot potential confounding pathways
 plot(graphLayout(variable_pathways))
 
-# Identify potential confounders
+# Identify some confounders to adjust for
 adjustmentSets(variable_pathways, exposure = "SBP", outcome = "CVD")
 ```
 
