@@ -451,8 +451,8 @@ xp: 50
 ## Model selection using DAGs
 
 ```yaml
-type: NormalExercise
-key: 74eb8858a3
+type: TabExercise
+key: 4af692e468
 xp: 100
 ```
 
@@ -461,14 +461,6 @@ Building an appropriate DAG that is reasonably close to the underlying biology i
 Let's find which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Keeping things simple, assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
 
 To learn more about graphs and networks, check out the [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r) course.
-
-`@instructions`
-- Using the links between variables described above as well as the plot as a guide, create a DAG, where the forms `variable -> {one or more variables}` specify a link.
-- Visually inspect the plot of the `variables_pathway` graph.
-- Identify a potential (minimal) model adjustment set of variables based on the `variable_pathways` graph, selecting the appropriate exposure and the outcome variables.
-
-`@hint`
-- The `adjustmentSets()` requires the DAG object and the outcome (CVD) and the predictor (SBP).
 
 `@pre_exercise_code`
 ```{r}
@@ -485,6 +477,20 @@ variable_pathways <- dagitty("dag {
 plot(graphLayout(variable_pathways))
 ```
 
+***
+
+```yaml
+type: NormalExercise
+key: fc9f26a1a9
+xp: 35
+```
+
+`@instructions`
+- Using both the links between variables described in the context above and the plot as a guide, create a DAG of the hypothetical pathways.
+
+`@hint`
+- The form for a pathway is `start_variable -> {one or more end variables}`.
+
 `@sample_code`
 ```{r}
 # Include the links between variables
@@ -494,6 +500,50 @@ variable_pathways <- dagitty("dag {
     ___ -> {___ ___}
     ___ -> {___ ___ ___}
     ___ -> ___
+}")
+```
+
+`@solution`
+```{r}
+# Include the links between variables
+variable_pathways <- dagitty("dag {
+    SBP -> CVD
+    Sex -> {SBP Smoking}
+    Smoking -> {SBP CVD}
+    BMI -> {SBP CVD FastingGlucose}
+    FastingGlucose -> CVD
+}")
+```
+
+`@sct`
+```{r}
+success_msg("Great!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 1b78256dd8
+xp: 35
+```
+
+`@instructions`
+- Visually inspect the plot of the `variables_pathway` graph.
+- Identify the (minimal) model adjustment set of variables from the `variable_pathways` graph, selecting the appropriate exposure and the outcome variables.
+
+`@hint`
+- The `adjustmentSets()` requires the DAG object and the outcome (CVD) and the predictor (SBP).
+
+`@sample_code`
+```{r}
+# Include the links between variables
+variable_pathways <- dagitty("dag {
+    SBP -> CVD
+    Sex -> {SBP Smoking}
+    Smoking -> {SBP CVD}
+    BMI -> {SBP CVD FastingGlucose}
+    FastingGlucose -> CVD
 }")
 
 # Plot potential confounding pathways
@@ -523,7 +573,29 @@ adjustmentSets(variable_pathways, exposure = "SBP", outcome = "CVD")
 
 `@sct`
 ```{r}
+success_msg("Excellent job!")
+```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+key: 7198bda654
+xp: 30
+```
+
+`@question`
+
+
+`@possible_answers`
 success_msg("Amazing! You identified that at least BMI and smoking should be adjusted for.")
+
+`@hint`
+
+
+`@sct`
+```{r}
+
 ```
 
 ---
