@@ -610,36 +610,49 @@ xp: 100
 
 It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared. 
 
-To keep the computation run time quick, for this exercise we greatly restricted the sample size and reduced the number of variables to include in the model.
+We've greatly restricted the sample size and reduced the number of variables to include in the model to keep the computation run time short.
 
 `@instructions`
-- Select the centered variables systolic blood pressure, fasting blood glucose, and total cholesterol, as well as sex and current smoking status. 
-- Set the outcome and random term in the `glmer` formula, the dataset, and the family (the outcome is binary).
-- "Dredge" through the combinations of variables in the model using AIC, comparing models that have centered systolic blood pressure.
+- Set CVD as the outcome and subject ID as the random term.
+- Include all other remaining variables as predictors in the formula.
+- "Dredge" through the combinations of variables that have systolic blood pressure (scaled) in the model using AIC to rank models.
 - Print the top 4 models.
 
 `@hint`
-- Use the formula interface `got_cvd ~ .`.
-- Subset by centered systolic blood pressure.
+- Model formulas are in the form: `got_cvd ~ predictor1 + predictor2 + (1 | subject_id)`.
+- Subset by `systolic_blood_pressure_scaled`.
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(MuMIn)
 library(dplyr)
 library(lme4)
 # TODO: Add reduced sample code here
+ids <- unique(sample_tidied_framingham$subject_id)
+sampled_ids <- sample(ids, length(ids) / 3, replace = FALSE)
+sample_tidied_framingham <- sample_tidied_framingham %>%
+    filter(subject_id %in% sampled_ids)
+model_sel_df <- sample_tidied_framingham %>% 
+    # filter(followup_visit_number == 1) %>% 
+    select(subject_id, got_cvd, systolic_blood_pressure_scaled, sex,
+           total_cholesterol_scaled, currently_smokes, followup_visit_number) %>% 
+    mutate(subject_id = as.character(subject_id)) %>% 
+    na.omit()
 ```
 
 `@sample_code`
 ```{r}
-# Select the predictors from the baseline data
-model_sel_df <- tidied_framingham %>% 
-    select(subject_id, got_cvd, ___) %>% 
-    na.omit()
+# Check column names
+names(model_sel_df)
 
 # Set the outcome, random term, data, and family
-model <- glm(___ ~ . + ___, data = ___, family = ___, na.action = "na.fail")
+model <- glmer(
+    ___,
+    data = model_sel_df, 
+    family = binomial, 
+    na.action = "na.fail"
+)
 
 # Set the ranking method and subset
 selection <- dredge(___, rank = ___, subset = ___)
@@ -650,17 +663,20 @@ head(___, 4)
 
 `@solution`
 ```{r}
-# Select the predictors from the baseline data
-model_sel_df <- tidied_framingham %>% 
-    select(subject_id, got_cvd, centered_systolic_blood_pressure, sex,
-           currently_smokes, centered_total_cholesterol, centered_fasting_blood_glucose) %>% 
-    na.omit()
+# Check column names
+names(model_sel_df)
 
 # Set the outcome, data, and family
-model <- glm(got_cvd ~ . + (1 | subject_id), data = model_sel_df, family = binomial, na.action = "na.fail")
+model <- glmer(
+    got_cvd ~ systolic_blood_pressure_scaled + total_cholesterol_scaled + 
+        currently_smokes + sex + followup_visit_number + (1 | subject_id),
+    data = model_sel_df, 
+    family = binomial, 
+    na.action = "na.fail"
+)
 
 # Set the ranking method and subset
-selection <- dredge(model, rank = "AIC", subset = "centered_systolic_blood_pressure")
+selection <- dredge(model, rank = "AIC", subset = "systolic_blood_pressure_scaled")
 
 # Print the top 4
 head(selection, 4)
