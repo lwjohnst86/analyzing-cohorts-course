@@ -86,25 +86,30 @@ head(model_selection, 4)
 
 # Video 3, interaction form -----------------------------------------------
 
-with_interaction <- glm(chd ~ weight * energy.grp,
-                        data = diet, family = binomial)
-summary(with_interaction)
+model_with_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled * sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+summary(model_with_interaction)
 
 # Video 3, interaction form -----------------------------------------------
 
-no_interaction <- glm(chd ~ weight + energy.grp,
-                      data = diet, family = binomial)
-with_interaction <- glm(chd ~ weight * energy.grp,
-                        data = diet, family = binomial)
-model.sel(no_interaction, with_interaction, rank = "AIC")
+model_with_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+model_with_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled * sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+model.sel(model_no_interaction, model_with_interaction, rank = "AIC")
 
 # Video 3, sensitivity analysis -------------------------------------------
 
 remove_diet_misreporting <- diet %>%
     filter(between(energy, 20, 40))
 
-summary(glm(chd ~ weight + energy, data = diet,
-            family = binomial))$coef
+model_with_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+fixef(glm(chd ~ weight + energy, data = diet, family = binomial))
 summary(glm(chd ~ weight + energy, data = remove_diet_misreporting,
             family = binomial))$coef
 
