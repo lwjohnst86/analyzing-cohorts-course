@@ -77,10 +77,9 @@ tidied_framingham <- tidier_framingham %>%
             # Form is: "new" = "old"
             "Post-Secondary" = "College",
             "Post-Secondary" = "Vocational"
-        ),
-        ) %>%
+        )) %>%
     mutate_at(vars(total_cholesterol, systolic_blood_pressure, body_mass_index, fasting_blood_glucose),
-              funs(scaled, centered))
+              list(scaled = scaled, centered = centered))
 
 set.seed(1456)
 ids <- unique(tidied_framingham$subject_id)
