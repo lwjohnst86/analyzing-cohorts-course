@@ -100,28 +100,8 @@ plan(multiprocess)
 
 # Prepare the data for the modeling
 tidied_framingham_v02 <- tidied_framingham %>%
-    mutate_at(
-        vars(
-            systolic_blood_pressure,
-            diastolic_blood_pressure,
-            fasting_blood_glucose,
-            total_cholesterol,
-            body_mass_index
-        ),
-        funs(as.numeric(scale(.)))
-    ) %>%
-    rename_at(
-        vars(
-            systolic_blood_pressure,
-            diastolic_blood_pressure,
-            fasting_blood_glucose,
-            total_cholesterol,
-            body_mass_index
-        ),
-        funs(str_c("scaled_", .))
-    ) %>%
     mutate(baseline_age = if_else(followup_visit_number == 1, participant_age, NA_real_) %>%
-               mean_center()) %>%
+               centered()) %>%
     arrange(subject_id, followup_visit_number) %>%
     group_by(subject_id) %>%
     fill(baseline_age) %>%
@@ -129,7 +109,7 @@ tidied_framingham_v02 <- tidied_framingham %>%
 
 # Set predictors and covariates for model formulas.
 predictors <- tidied_framingham_v02 %>%
-    select(matches("^scaled_"), -scaled_body_mass_index) %>%
+    select(matches("_scaled$"), -body_mass_index_scaled) %>%
     names()
 
 covariates <- tidied_framingham_v02 %>%
