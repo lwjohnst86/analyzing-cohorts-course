@@ -1,4 +1,5 @@
 source(here::here("R/setup.R"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
 
 # Video 2, confounder -----------------------------------------------------
 
