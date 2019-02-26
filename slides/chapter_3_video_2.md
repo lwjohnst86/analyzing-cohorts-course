@@ -197,6 +197,8 @@ You can use MuMIn as an interface to model selection. First, we must create a da
 
 Be careful when running dredge. Since it compares many models, the computation time can be very long.
 
+NOTE: You need to set na.action na fail because the dredge function requires it.
+
 
 ---
 ## Model selection using the MuMIn package
