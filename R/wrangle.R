@@ -171,6 +171,8 @@ all_models <- bind_rows(
 # Save the model results:
 save(all_models, file = "datasets/all_models.rda")
 
+stop("Don't run this next section (interactions)")
+
 # Function to extract interaction model results from glmer
 extract_interaction_lme <- function(.x) {
         model <- glmer(.x, family = binomial, data = tidied_framingham_v02)
