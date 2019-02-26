@@ -74,19 +74,21 @@ key: "39623125fa"
 
 ```
 outcome ~ predictor + sex + predictor:sex
-``` {{1}}
+``` 
+{{1}}
 
 **Simplified version in formula**: {{2}}
 
 ```
 outcome ~ predictor * sex
-``` {{2}}
+``` 
+{{2}}
 
 - Can't interpret estimates on their own {{3}}
 
 
 `@script`
-There are two ways to model an interaction term. The first is similiar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can use a shorthand using the asterisk between the two terms. These two formulas are equivalent. Be careful with the estimates, as you cannot interpret interaction estimates alone but only in the context of the other estimates.
+There are several ways to model an interaction term. One way is similiar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can also use a shorthand using the asterisk between the two terms. These two formulas are equivalent. Be careful with the estimates, as you cannot interpret interaction estimates alone but only in the context of the other estimates.
 
 
 ---
@@ -99,9 +101,9 @@ key: "c46f536e01"
 
 `@part1`
 ```{r}
-with_interaction <- glm(chd ~ weight * energy.grp,
-                        data = diet, family = binomial)
-summary(with_interaction)
+model_with_interaction <- glmer(chd ~ weight * energy.grp,
+                              data = diet, family = binomial)
+summary(model_with_interaction)
 ```
 
 
@@ -118,8 +120,9 @@ Coefficients:
 (Intercept)                  -1.627930   1.289080  -1.263    0.207
 weight                        0.001478   0.018140   0.081    0.935
 energy.grp>2750 KCals         2.492756   2.375240   1.049    0.294
-weight:energy.grp>2750 KCals -0.043461   0.032994  -1.317    0.188
-``` {{1}}
+weight:energy.grp>2750 KCals -0.043461   0.032994  -1.317    0.188 <- This
+```
+{{1}}
 
 
 `@script`
@@ -137,11 +140,11 @@ key: "ee31140a86"
 `@part1`
 ```{r}
 library(MuMIn)
-no_interaction <- glm(chd ~ weight + energy.grp,
-                      data = diet, family = binomial)
-with_interaction <- glm(chd ~ weight * energy.grp,
-                        data = diet, family = binomial)
-model.sel(no_interaction, with_interaction, rank = "AIC")
+model_no_interaction <- glm(chd ~ weight + energy.grp,
+                            data = diet, family = binomial)
+model_with_interaction <- glm(chd ~ weight * energy.grp,
+                              data = diet, family = binomial)
+model.sel(model_no_interaction, model_with_interaction, rank = "AIC")
 ```
 
 ```
@@ -150,7 +153,8 @@ Model selection table
 no_interaction   -0.6758       + 0.5299              3 -129.305 264.6  0.00
 with_interaction -1.6280       + 0.4701           +  4 -128.425 264.8  0.24
 Models ranked by AIC(x) 
-``` {{1}}
+```
+{{1}}
 
 
 `@script`
