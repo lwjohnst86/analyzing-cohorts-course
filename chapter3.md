@@ -710,9 +710,9 @@ key: 6ed7e200c3
 xp: 100
 ```
 
-In the past (and still fairly common), most research was done only on males. Clinical trials, experimental animal models, and observational studies tended  to either explicitly only study males, or to disregard the role that biological sex had on the study. This had disasterous results, especially when it came to drugs. Now, most journals and funding agencies *require* that differences in sex and ethnicity are investigated or tested.
+In the past (and still very common today), most research was done mostly or only on males. Clinical trials, experimental animal models, and observational studies tended to explicitly study males, as female hormonal cycles can potential be a confounding factor. This often had harmful consequences, since there are massive gender differences in responses to drug treatment and other disease interventions. Most journals and funding agencies now *require* that differences in sex, and ethnicity, are investigated.
 
-The Framingham study was almost entirely those of European-ancestry, so we will only test sex interactions. Compare models without and with interactions for sex.
+Since the Framingham study was almost entirely those of European-ancestry, we will only test sex interactions. Compare models without and with interactions for sex.
 
 `@pre_exercise_code`
 ```{r}
