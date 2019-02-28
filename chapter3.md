@@ -730,28 +730,27 @@ xp: 40
 ```
 
 `@instructions`
-- Run `glmer` models with centered total cholesterol (divided by 100), sex, followup visit, and the random term, but no interaction.
+- Run `glmer` models with total cholesterol (scaled), sex, followup visit number, and subject ID as the random term, but don't include an interaction.
 
 `@hint`
-- Use the `I()` to divide centered cholesterol by 100.
+- Confirm the names of the variables by using `names(sample_tidied_framingham)`.
 
 `@sample_code`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    ___ ~ ___ + ___ + ___ + (___), 
-    data = sample_tidied_framingham, family = ___)
-summary(___)
+model_no_interaction <- glmer(
+    ___,
+    data = sample_tidied_framingham, family = binomial)
+summary(model_no_interaction)
 ```
 
 `@solution`
 ```{r}
-
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 ```
 
 `@sct`
@@ -768,39 +767,39 @@ xp: 40
 ```
 
 `@instructions`
-- Create the same formula, but this time with an interaction between sex and cholesterol.
+- Create the same formula, but this time with an interaction between sex and total cholesterol (scaled).
 
 `@hint`
-- The variables to check for an interaction should be around the `*` in the formula.
+- Use a `*` instead of a `+` for including an interaction between variables in the formula.
 
 `@sample_code`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 
 # Model with sex interaction
-sex_interaction <- glmer(
-    ___ ~ ___ * ___ + (___), 
-    data = sample_tidied_framingham, family = ___)
-summary(___)
+model_sex_interaction <- glmer(
+    ___,
+    data = sample_tidied_framingham, family = binomial)
+summary(model_sex_interaction)
 ```
 
 `@solution`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 
 # Model with sex interaction
-sex_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id), 
+model_sex_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(sex_interaction)
+summary(model_sex_interaction)
 ```
 
 `@sct`
@@ -817,7 +816,7 @@ xp: 20
 ```
 
 `@instructions`
-- Compare each using the `model.sel` function based on AIC.
+- Compare each model using the `model.sel` function based on AIC.
 
 `@hint`
 - Include both models, with and without interaction, in the `model.sel` function.
@@ -825,39 +824,37 @@ xp: 20
 `@sample_code`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 
 # Model with sex interaction
-sex_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id), 
+model_sex_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(sex_interaction)
+summary(model_sex_interaction)
 
 # Test that sex doesn't add to model
 model.sel(___, ___, rank = ___)
-
 ```
 
 `@solution`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 
 # Model with sex interaction
-sex_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id), 
+model_sex_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(sex_interaction)
+summary(model_sex_interaction)
 
 # Test that sex doesn't add to model
-model.sel(no_interaction, sex_interaction, rank = "AIC")
-
+model.sel(model_no_interaction, model_sex_interaction, rank = "AIC")
 ```
 
 `@sct`
