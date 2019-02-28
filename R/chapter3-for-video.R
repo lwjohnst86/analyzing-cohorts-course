@@ -1,5 +1,5 @@
 source(here::here("R/setup.R"))
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(here::here("datasets/tidied_framingham.rda"))
 
 # Video 2, confounder -----------------------------------------------------
 
@@ -93,25 +93,27 @@ summary(model_with_interaction)
 
 # Video 3, interaction form -----------------------------------------------
 
-model_with_interaction <- glmer(
+model_no_interaction <- glmer(
     got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
     data = tidied_framingham, family = binomial)
 model_with_interaction <- glmer(
     got_cvd ~ body_mass_index_scaled * sex + (1 | subject_id),
     data = tidied_framingham, family = binomial)
 model.sel(model_no_interaction, model_with_interaction, rank = "AIC")
+as.data.frame(model.sel(model_no_interaction, model_with_interaction, rank = "AIC"))[6:9]
 
 # Video 3, sensitivity analysis -------------------------------------------
 
-remove_diet_misreporting <- diet %>%
-    filter(between(energy, 20, 40))
+no_diabetes_framingham <- tidied_framingham %>%
+    filter(diabetes == 0)
 
-model_with_interaction <- glmer(
-    got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
-    data = tidied_framingham, family = binomial)
-fixef(glm(chd ~ weight + energy, data = diet, family = binomial))
-summary(glm(chd ~ weight + energy, data = remove_diet_misreporting,
-            family = binomial))$coef
+glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+      data = tidied_framingham, family = binomial) %>%
+    fixef()
+
+glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+      data = no_diabetes_framingham, family = binomial) %>%
+    fixef()
 
 # Video 4, tidy function example ------------------------------------------
 

@@ -15,6 +15,7 @@ library(janitor)
 library(glue)
 library(broom)
 library(carpenter)
+library(lme4)
 
 data("diet")
 color_theme <- ghibli_palette("MononokeMedium")
