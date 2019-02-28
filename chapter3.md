@@ -872,7 +872,9 @@ key: b3558d44ca
 xp: 100
 ```
 
-Often times we make assumptions about our data and the participants that make up that data. For instance, with body mass index (BMI), we assume that the value represents a person regardless of how sick or healthy they are. However, usually if someone's BMI is really low (below around 18.5) or really high (for instance, above 45), this could indicate a serious health problem that they have. For example, people who are very ill usually lose a lot of weight. So if we include them in the model, we might get a biased estimate for the association of BMI on CVD. Run a sensitivity analysis removing these observations and compare the results.
+Often times we make assumptions about our data and the participants that make up that data. For instance, with body mass index (BMI), we assume that the value represents a person regardless of how sick or healthy they are. However, usually if someone's BMI is really low (below around 18.5, which is considered underweight) or really high (above 40 which is considered morbidly obese), this could indicate a serious health problem that they have. For example, people who are very ill usually lose a lot of weight. So if we include them in the model, we might get a biased estimate for the association of BMI on CVD. Run a sensitivity analysis removing these observations and compare the results.
+
+Use the `sample_tidied_framingham` dataset.
 
 `@pre_exercise_code`
 ```{r}
@@ -890,23 +892,23 @@ xp: 20
 ```
 
 `@instructions`
-- Filter out those people with body mass index (not centered) below 18.5 and above 45.
+- Keep those people with body mass index at or above 18.5 and at or below 40.
 
 `@hint`
-- The argument order of `between` is variable, lower range, upper range.
+- Include two conditions (`>=` and `<=`) to restrict the range of body mass index.
 
 `@sample_code`
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(___, ___, ___))
+    filter(___)
 ```
 
 `@solution`
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 ```
 
 `@sct`
@@ -923,7 +925,7 @@ xp: 40
 ```
 
 `@instructions`
-- Including centered body mass index, followup visit, and the random term in the formula, run the model with the original dataset.
+- Include body mass index (scaled), followup visit, and subject ID in the formula, then run the model with the original dataset.
 
 `@hint`
 - The model formula is the same as the previous exercises, but using the original dataset.
@@ -932,11 +934,12 @@ xp: 40
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
 # Run and check model with original dataset
-original_model <- glmer(___ ~ ___ + ___ + (___),
-                        data = ___, family = binomial)
+original_model <- glmer(
+    ___,
+    data = ___, family = binomial)
 summary(___)$coef
 ```
 
@@ -944,11 +947,12 @@ summary(___)$coef
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
 # Run and check model with original dataset
-original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
-                        data = sample_tidied_framingham, family = binomial)
+original_model <- glmer(
+    got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial)
 summary(original_model)$coef
 ```
 
@@ -975,40 +979,43 @@ xp: 40
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
 # Run and check model with original dataset
-original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
-                        data = sample_tidied_framingham, family = binomial)
+original_model <- glmer(
+    got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial)
 summary(original_model)$coef
 
 # Run and check model with the body mass checking
-bmi_check_model <- glmer(___ ~ ___ + ___ + (___),
-                        data = ___, family = binomial)
-___(___)$___
+bmi_check_model <- glmer(
+    ___,
+    data = ___, family = binomial)
+summary(___)$coef
 ```
 
 `@solution`
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
 # Run and check model with original dataset
-original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
-                        data = sample_tidied_framingham, family = binomial)
+original_model <- glmer(
+    got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial)
 summary(original_model)$coef
 
 # Run and check model with the body mass checking
-bmi_check_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
-                        data = bmi_check_data, family = binomial)
+bmi_check_model <- glmer(
+    got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
+    data = bmi_check_data, family = binomial)
 summary(bmi_check_model)$coef
 ```
 
 `@sct`
 ```{r}
-success_msg("Amazing! Notice how the estimate increases and the standard error decreases. However, the change is not much, so it tells us there may be differences in those below or above a certain BMI. But we need to explore it more.")
-
+success_msg("Amazing! Notice how the fixed effect estimates for body mass index decrease and the standard error slightly increases, while for followup number the values barely change. The change for the body mass index is not much but it does tell us that including people below or above a certain body mass may bias the estimates by inflating them.")
 ```
 
 ---
