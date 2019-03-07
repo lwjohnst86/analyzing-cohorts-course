@@ -1104,38 +1104,3 @@ tidy_model %>%
 ```{r}
 success_msg("Amazing! You extracted and started tidying up the model results. Plus you now kept the most important results from the model!")
 ```
-
----
-
-## "Not statistically significant"
-
-```yaml
-type: MultipleChoiceExercise
-key: 9eee53c6f6
-xp: 50
-```
-
-This is a hypothetical example based on a real study: Premature babies often face severe health problems and need lots of help to ensure healthy growth. Nutrition is key and there are many infant formula and intravenous fluids designed for premature babies. A study found that babies fed a new formula had an odds ratio of 1.12 (0.94 to 1.30 95% CI, p=0.09) for reaching a healthier weight compared to currently used formula. Which is the more correct response?
-
-`@possible_answers`
-- No significant association (p>0.05, CI passes through 1.0).
-- The small weight improvement could be meaningful (CI reached 1.30). More research is needed.
-- There is a higher odds of improving weight. Let's use this formula right away.
-- Can't say anything yet... null hypothesis was not rejected.
-
-`@hint`
-- The upper bound of the confidence interval reaches an odds ratio of 1.30.
-
-`@pre_exercise_code`
-```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
-```
-
-`@sct`
-```{r}
-msg1 <- "Incorrect. While traditional p-value thresholds would say this is correct, this has the danger of discarding a new formula that could help premature babies."
-msg2 <- "Correct! While 'not statistically significant', there is evidence of some potential improvement for premature babies, which needs to be further explored."
-msg3 <- "Incorrect. This is too hasty a response. More studies are needed."
-msg4 <- "Slightly true. It is correct to say this, but the focus should be on the uncertainty of the odds ratio, rather than the null hypothesis."
-ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
-```
