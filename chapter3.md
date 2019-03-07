@@ -1033,7 +1033,7 @@ dfd73cee12b1663ba86738a4ec9a6c06
 
 ---
 
-## Tidy up the results with broom
+## Tidy up and back-transform the results with broom
 
 ```yaml
 type: NormalExercise
@@ -1041,66 +1041,58 @@ key: 6c2f7f04d3
 xp: 100
 ```
 
-We've created several models investigating the association between the exposure and outcome. Now we need to tidy up the model results and extract what we need from the model. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package to provide that framework in a "tidy" format. 
+Now that you've created several models, you need to do some tidying and back-transforming. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package to provide that framework in a "tidy" format. Tidying mixed effects models requires the broom.mixed package. Back-transforming by exponentiating is required as the model uses a binary outcome, which give log-odds estimates that can be difficult to interpret. Exponentiating converts the estimates to odds. 
 
-A model has been created for you already, now you need to tidy it up.
+A model has been created for you already called `main_model`.
 
 `@instructions`
-- Using the functions from broom, tidy the model to check how the output looks.
-- Then tidy it again, but adding the confidence intervals.
+- Using the functions from broom.mixed, tidy the model, create confidence intervals and exponentiate the estimates.
 - Select only the most important results: the terms, the estimates, and the lower and upper confidence interval.
-- Exponentiate (`exp`) by mutating all but the terms.
 
 `@hint`
-- Use the `tidy` function, with the `conf.int` argument.
-- Keep only the four columns from the tidied model.
+- Use the `tidy` function on model object.
 
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
-library(broom)
 library(dplyr)
-main_model <- glmer(got_cvd ~ I(centered_total_cholesterol/100) + followup_visit_number + 
-                   (1 | subject_id), 
+main_model <- glmer(got_cvd ~ total_cholesterol_scaled + followup_visit_number + (1 | subject_id), 
               data = sample_tidied_framingham, family = binomial, na.action = "na.omit")
+options(digits = 3, scipen = 4)
 ```
 
 `@sample_code`
 ```{r}
-# Check mixed effect model
-main_model
+library(broom.mixed)
 
-# Tidy it up
-___(___)
+# Tidy up main_model, include conf.int and exponentiate
+tidy_model <- ___
 
-# Tidy but with confidence interval
-tidy_model <- ___(___, ___)
+# View the tidied model
+tidy_model
 
-# Select only the important variables and exponentiate
+# Select the four important variables
 tidy_model %>% 
-    ___(___) %>% 
-    ___(vars(-term), ___)
+    ___(___)
 ```
 
 `@solution`
 ```{r}
-# Check mixed effect model
-main_model
+library(broom.mixed)
 
-# Tidy it up
-tidy(main_model)
+# Tidy up main_model, include conf.int and exponentiate
+tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
 
-# Tidy but with confidence interval
-tidy_model <- tidy(main_model, conf.int = TRUE)
+# View the tidied model
+tidy_model
 
-# Select only the important variables and exponentiate
+# Select the four important variables
 tidy_model %>% 
-    select(term, estimate, conf.low, conf.high) %>% 
-    mutate_at(vars(-term), exp)
+    select(term, estimate, conf.low, conf.high) 
 ```
 
 `@sct`
 ```{r}
-success_msg("Amazing! You extracted and started tidying up the model results. Plus you now kept the most important results from the model!")
+success_msg("Amazing! You tidied up the model and have extracted the most important results!")
 ```
