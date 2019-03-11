@@ -26,7 +26,7 @@ xp: 50
 
 Because the Framingham study is a prospective cohort, with certain limits to the data and with three data collection visits, there are restrictions to the types of questions we can ask and reliably answer. Choose the most valid and most appropriate question that we could ask of the Framingham data.
 
-The `tidied_framingham` dataset is loaded in case you want to look through it.
+The `tidied_framingham` dataset is loaded. Before answering, look at the variables available in the dataset, and the age range of the participants.
 
 `@possible_answers`
 - Does higher cholesterol cause cardiovascular disease (CVD)?
@@ -37,16 +37,19 @@ The `tidied_framingham` dataset is loaded in case you want to look through it.
 
 `@hint`
 - Remember, these are questions to ask *of the Framingham study*. The variables in the question must exist in the dataset.
+- Use `glimpse(tidied_framingham)` to see which variables are available.
+- Use `range(tidied_framingham$participant_age)` to see the ages of the participants.
 
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+library(dplyr)
 ```
 
 `@sct`
 ```{r}
 msg1 <- "Incorrect. The cohort study was not designed to answer 'causes'."
-msg2 <- "Incorrect. While cohorts could answer this question, Framingham participants are all in middle age so we can't answer questions outside of that timeframe."
+msg2 <- "Incorrect. While cohorts could answer this question, Framingham participants are all in middle age so we can't answer questions outside of that time frame."
 msg3 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
 msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
 msg5 <- "Incorrect. One of the above is a valid question."
