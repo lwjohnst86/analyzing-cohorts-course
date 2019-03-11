@@ -74,19 +74,21 @@ key: "39623125fa"
 
 ```
 outcome ~ predictor + sex + predictor:sex
-``` {{1}}
+``` 
+{{1}}
 
 **Simplified version in formula**: {{2}}
 
 ```
 outcome ~ predictor * sex
-``` {{2}}
+``` 
+{{2}}
 
 - Can't interpret estimates on their own {{3}}
 
 
 `@script`
-There are two ways to model an interaction term. The first is similiar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can use a shorthand using the asterisk between the two terms. These two formulas are equivalent. Be careful with the estimates, as you cannot interpret interaction estimates alone but only in the context of the other estimates.
+There are several ways to model an interaction term. One way is similiar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can also use a shorthand using the asterisk between the two terms. These two formulas are equivalent. Be careful with the estimates, as you cannot interpret interaction estimates alone but only in the context of the other estimates.
 
 
 ---
@@ -99,32 +101,38 @@ key: "c46f536e01"
 
 `@part1`
 ```{r}
-with_interaction <- glm(chd ~ weight * energy.grp,
-                        data = diet, family = binomial)
-summary(with_interaction)
+model_with_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled * sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+summary(model_with_interaction)
 ```
+{{1}}
 
+Parts of output: {{2}}
 
 ```
-Call:
-glm(formula = chd ~ weight * energy.grp, family = binomial, data = diet)
+Generalized linear mixed model fit by maximum likelihood (Laplace Approximation)
 
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--0.6430  -0.6254  -0.4968  -0.3889   2.3273  
+... # Removed parts
 
-Coefficients:
-                              Estimate Std. Error z value Pr(>|z|)
-(Intercept)                  -1.627930   1.289080  -1.263    0.207
-weight                        0.001478   0.018140   0.081    0.935
-energy.grp>2750 KCals         2.492756   2.375240   1.049    0.294
-weight:energy.grp>2750 KCals -0.043461   0.032994  -1.317    0.188
-``` {{1}}
+Fixed effects:
+                                Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                     -12.3403     0.3203 -38.530   <2e-16 ***
+body_mass_index_scaled            0.1272     0.2681   0.475   0.6351    
+sexWoman                         -0.9423     0.3696  -2.549   0.0108 *  
+body_mass_index_scaled:sexWoman   0.1672     0.3412   0.490   0.6241    <-- This
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+...
+```
+{{2}}
 
 
 `@script`
-Here's an example. This dataset doesn't have sex or ethnicity, so we'll use the energy group variable. You'll notice it isn't much more difficult to run an interaction test, as you just include the asterisk. But! The estimates are very different. There is now another term for weight with energy group at the bottom. Because interpretation of model results varies substantially based on variables and methods used, we won't cover interpretation.
+Here we show a mixed model interaction using the Framingham dataset. We test the interaction between scaled body mass index and sex. Notice the use of the asterisks to denote the interaction. 
 
+When we run summary on the model, it gives us a lot of information. I've cut out some of that info to focus on the main results of the fixed effects. With interactions, we can't interpret the estimates as we do normally. We need to interpret all estimates from the interaction terms, in this case there are the three estimates. The interaction estimate itself is showing that when sex is female and body mass index is 1 unit or standard deviation, then the combined estimate is plus zero point sixteen. But in this case, the standard error for the interaction is very wide, suggesting that there isn't much interactive effect going on.
 
 ---
 ## Checking if an interactive association exists
@@ -137,25 +145,27 @@ key: "ee31140a86"
 `@part1`
 ```{r}
 library(MuMIn)
-no_interaction <- glm(chd ~ weight + energy.grp,
-                      data = diet, family = binomial)
-with_interaction <- glm(chd ~ weight * energy.grp,
-                        data = diet, family = binomial)
-model.sel(no_interaction, with_interaction, rank = "AIC")
+model_no_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+model_with_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled * sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+model.sel(model_no_interaction, model_with_interaction, rank = "AIC")
 ```
 
 ```
 Model selection table 
-                   (Int) enr.grp    wgh enr.grp:wgh df   logLik   AIC delta
-no_interaction   -0.6758       + 0.5299              3 -129.305 264.6  0.00
-with_interaction -1.6280       + 0.4701           +  4 -128.425 264.8  0.24
+                       ...    logLik      AIC    delta    weight
+model_no_interaction   ... -1822.493 3652.985 0.000000 0.7069518 <--
+model_with_interaction ... -1822.373 3654.746 1.761251 0.2930482
 Models ranked by AIC(x) 
-``` {{1}}
+```
+{{1}}
 
 
 `@script`
-Great, we've ran a model with an interaction. But how do we know whether an interaction exists or not. We can test it by seeing if the model fitness improves. Here we use the model dot sel function from MuMIn. Run two models, one with and one without the interaction. Then compare the two models for their AIC. Here, the output shows the two models are equivalent. Since the interaction doesn't give more information, there is no interaction.
-
+To determine whether there is an interaction, you'll need to compare models with and without the interaction by using the model dot sel function. Here the difference between models in their AIC is almost two, shown in the delta. The weight value tells us that the no interaction model is likely the better of the two models by seventy percent. This tells us there is minimal difference in the models, so it isn't likely there is an interaction present.
 
 ---
 ## Checking robustness of results with sensitivity analyses
@@ -181,7 +191,7 @@ Examples of this include whether people who miss the data collection visit are d
 
 
 ---
-## Example: Under and over estimating dietary intake
+## Example: Previous diabetes increases risk of CVD
 
 ```yaml
 type: "FullSlide"
@@ -189,34 +199,32 @@ key: "3fbf27f005"
 ```
 
 `@part1`
-- Run analysis with more plausible dietary energy intake
-    - Min and max energy intake (per 100 kilocalorie): 17.5 to 44.0
+```{r}
+no_diabetes_framingham <- tidied_framingham %>%
+    filter(diabetes == 0)
+
+glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+      data = tidied_framingham, family = binomial) %>%
+    fixef()
+#>           (Intercept) body_mass_index_scaled 
+#>             -12.86217                0.23932 
+``` 
+{{1}}
 
 ```{r}
-remove_diet_misreporting <- diet %>%
-    filter(between(energy, 20, 40))
-summary(glm(chd ~ weight + energy, data = diet, family = binomial))$coef
-
-#>                 Estimate Std. Error    z value    Pr(>|z|)
-#> (Intercept)  1.795997723 1.35969917  1.3208787 0.186541801
-#> weight      -0.007172747 0.01515672 -0.4732386 0.636042947
-#> energy      -0.113894418 0.04197572 -2.7133404 0.006660865
-``` {{1}}
-
-```{r}
-summary(glm(chd ~ weight + energy, data = remove_diet_misreporting,
-            family = binomial))$coef
-
-#>                Estimate Std. Error    z value   Pr(>|z|)
-#> (Intercept)  1.59669111 1.50476475  1.0610902 0.28864892
-#> weight      -0.01049956 0.01601857 -0.6554621 0.51217026
-#> energy      -0.09831964 0.04744248 -2.0723968 0.03822845
-``` {{2}}
+glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+      data = no_diabetes_framingham, family = binomial) %>%
+    fixef()
+#>           (Intercept) body_mass_index_scaled 
+#>           -12.8966567              0.2529004 
+``` 
+{{2}}
 
 
 `@script`
-For example, in studies on diet, participants often unconsciously over or under estimate how much food they eat. Most people don't regularly consume, for instance, less than two thousand kilocalories per day, so when there are kilocalorie values less than that, there is the potential for error in reporting. These values in the data can lead to inflated estimates as the data has more variability than there may be in real life. We can run a sensitivity analysis by dropping all observations less than two thousand and more than four thousand kilocalories, so in this case twenty and forty since the values were recorded as per hundred kilocalorie. Now we redo the analyses and compare the results. You'll notice the estimate for energy drops and the standard error increases. This is expected and shows us there may be some misreporting of energy intake. Notice also that the p value changes quite a bit, highlighting now unreliable it is.
+Here's an example. When individuals have diabetes they are at much higher risk of developing cardiovascular disease because of a range physiological changes that occur because of the diabetes. Depending on the predictor, including diabetes cases may bias the estimates so removing them may be needed. So here we keep only those participants without diabetes. Then we run the model on the original dataset and output the fixed effect estimates.
 
+Next we run the model on the data without the diabetes cases, again outputting the fixed effect estimates. See how this estimate is slightly higher than the estimates found from original dataset. The estimate is slightly higher, suggesting diabetes cases may be reducing the estimate. However, the differences are very small, so if there is some bias it isn't large.
 
 ---
 ## Time to practice!

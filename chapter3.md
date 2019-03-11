@@ -611,36 +611,49 @@ xp: 100
 
 It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared. 
 
-To keep the computation run time quick, for this exercise we greatly restricted the sample size and reduced the number of variables to include in the model.
+We've greatly restricted the sample size and reduced the number of variables to include in the model to keep the computation run time short.
 
 `@instructions`
-- Select the centered variables systolic blood pressure, fasting blood glucose, and total cholesterol, as well as sex and current smoking status. 
-- Set the outcome and random term in the `glmer` formula, the dataset, and the family (the outcome is binary).
-- "Dredge" through the combinations of variables in the model using AIC, comparing models that have centered systolic blood pressure.
+- Set CVD as the outcome and subject ID as the random term.
+- Include all other remaining variables as predictors in the formula.
+- "Dredge" through the combinations of variables that have systolic blood pressure (scaled) in the model using AIC to rank models.
 - Print the top 4 models.
 
 `@hint`
-- Use the formula interface `got_cvd ~ .`.
-- Subset by centered systolic blood pressure.
+- Model formulas are in the form: `got_cvd ~ predictor1 + predictor2 + (1 | subject_id)`.
+- Subset by `systolic_blood_pressure_scaled`.
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(MuMIn)
 library(dplyr)
 library(lme4)
 # TODO: Add reduced sample code here
+ids <- unique(sample_tidied_framingham$subject_id)
+sampled_ids <- sample(ids, length(ids) / 3, replace = FALSE)
+sample_tidied_framingham <- sample_tidied_framingham %>%
+    filter(subject_id %in% sampled_ids)
+model_sel_df <- sample_tidied_framingham %>% 
+    # filter(followup_visit_number == 1) %>% 
+    select(subject_id, got_cvd, systolic_blood_pressure_scaled, sex,
+           total_cholesterol_scaled, currently_smokes, followup_visit_number) %>% 
+    mutate(subject_id = as.character(subject_id)) %>% 
+    na.omit()
 ```
 
 `@sample_code`
 ```{r}
-# Select the predictors from the baseline data
-model_sel_df <- tidied_framingham %>% 
-    select(subject_id, got_cvd, ___) %>% 
-    na.omit()
+# Check column names
+names(model_sel_df)
 
 # Set the outcome, random term, data, and family
-model <- glm(___ ~ . + ___, data = ___, family = ___, na.action = "na.fail")
+model <- glmer(
+    ___,
+    data = model_sel_df, 
+    family = binomial, 
+    na.action = "na.fail"
+)
 
 # Set the ranking method and subset
 selection <- dredge(___, rank = ___, subset = ___)
@@ -651,17 +664,20 @@ head(___, 4)
 
 `@solution`
 ```{r}
-# Select the predictors from the baseline data
-model_sel_df <- tidied_framingham %>% 
-    select(subject_id, got_cvd, centered_systolic_blood_pressure, sex,
-           currently_smokes, centered_total_cholesterol, centered_fasting_blood_glucose) %>% 
-    na.omit()
+# Check column names
+names(model_sel_df)
 
 # Set the outcome, data, and family
-model <- glm(got_cvd ~ . + (1 | subject_id), data = model_sel_df, family = binomial, na.action = "na.fail")
+model <- glmer(
+    got_cvd ~ systolic_blood_pressure_scaled + total_cholesterol_scaled + 
+        currently_smokes + sex + followup_visit_number + (1 | subject_id),
+    data = model_sel_df, 
+    family = binomial, 
+    na.action = "na.fail"
+)
 
 # Set the ranking method and subset
-selection <- dredge(model, rank = "AIC", subset = "centered_systolic_blood_pressure")
+selection <- dredge(model, rank = "AIC", subset = "systolic_blood_pressure_scaled")
 
 # Print the top 4
 head(selection, 4)
@@ -695,9 +711,9 @@ key: 6ed7e200c3
 xp: 100
 ```
 
-In the past (and still fairly common), most research was done only on males. Clinical trials, experimental animal models, and observational studies tended  to either explicitly only study males, or to disregard the role that biological sex had on the study. This had disasterous results, especially when it came to drugs. Now, most journals and funding agencies *require* that differences in sex and ethnicity are investigated or tested.
+In the past (and still very common today), most research was done mostly or only on males. Clinical trials, experimental animal models, and observational studies tended to explicitly study males, as female hormonal cycles can potential be a confounding factor. This often had harmful consequences, since there are massive gender differences in responses to drug treatment and other disease interventions. Most journals and funding agencies now *require* that differences in sex, and ethnicity, are investigated.
 
-The Framingham study was almost entirely those of European-ancestry, so we will only test sex interactions. Compare models without and with interactions for sex.
+Since the Framingham study was almost entirely those of European-ancestry, we will only test sex interactions. Compare models without and with interactions for sex.
 
 `@pre_exercise_code`
 ```{r}
@@ -715,28 +731,27 @@ xp: 40
 ```
 
 `@instructions`
-- Run `glmer` models with centered total cholesterol (divided by 100), sex, followup visit, and the random term, but no interaction.
+- Run `glmer` models with total cholesterol (scaled), sex, followup visit number, and subject ID as the random term, but don't include an interaction.
 
 `@hint`
-- Use the `I()` to divide centered cholesterol by 100.
+- Confirm the names of the variables by using `names(sample_tidied_framingham)`.
 
 `@sample_code`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    ___ ~ ___ + ___ + ___ + (___), 
-    data = sample_tidied_framingham, family = ___)
-summary(___)
+model_no_interaction <- glmer(
+    ___,
+    data = sample_tidied_framingham, family = binomial)
+summary(model_no_interaction)
 ```
 
 `@solution`
 ```{r}
-
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 ```
 
 `@sct`
@@ -753,39 +768,39 @@ xp: 40
 ```
 
 `@instructions`
-- Create the same formula, but this time with an interaction between sex and cholesterol.
+- Create the same formula, but this time with an interaction between sex and total cholesterol (scaled).
 
 `@hint`
-- The variables to check for an interaction should be around the `*` in the formula.
+- Use a `*` instead of a `+` for including an interaction between variables in the formula.
 
 `@sample_code`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 
 # Model with sex interaction
-sex_interaction <- glmer(
-    ___ ~ ___ * ___ + (___), 
-    data = sample_tidied_framingham, family = ___)
-summary(___)
+model_sex_interaction <- glmer(
+    ___,
+    data = sample_tidied_framingham, family = binomial)
+summary(model_sex_interaction)
 ```
 
 `@solution`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 
 # Model with sex interaction
-sex_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id), 
+model_sex_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(sex_interaction)
+summary(model_sex_interaction)
 ```
 
 `@sct`
@@ -802,7 +817,7 @@ xp: 20
 ```
 
 `@instructions`
-- Compare each using the `model.sel` function based on AIC.
+- Compare each model using the `model.sel` function based on AIC.
 
 `@hint`
 - Include both models, with and without interaction, in the `model.sel` function.
@@ -810,39 +825,37 @@ xp: 20
 `@sample_code`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 
 # Model with sex interaction
-sex_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id), 
+model_sex_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(sex_interaction)
+summary(model_sex_interaction)
 
 # Test that sex doesn't add to model
 model.sel(___, ___, rank = ___)
-
 ```
 
 `@solution`
 ```{r}
 # Model without interaction
-no_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) + sex + followup_visit_number + (1 | subject_id), 
+model_no_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(no_interaction)
+summary(model_no_interaction)
 
 # Model with sex interaction
-sex_interaction <- glmer(
-    got_cvd ~ I(centered_total_cholesterol / 100) * sex + followup_visit_number + (1 | subject_id), 
+model_sex_interaction <- glmer(
+    got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, family = binomial)
-summary(sex_interaction)
+summary(model_sex_interaction)
 
 # Test that sex doesn't add to model
-model.sel(no_interaction, sex_interaction, rank = "AIC")
-
+model.sel(model_no_interaction, model_sex_interaction, rank = "AIC")
 ```
 
 `@sct`
@@ -860,7 +873,9 @@ key: b3558d44ca
 xp: 100
 ```
 
-Often times we make assumptions about our data and the participants that make up that data. For instance, with body mass index (BMI), we assume that the value represents a person regardless of how sick or healthy they are. However, usually if someone's BMI is really low (below around 18.5) or really high (for instance, above 45), this could indicate a serious health problem that they have. For example, people who are very ill usually lose a lot of weight. So if we include them in the model, we might get a biased estimate for the association of BMI on CVD. Run a sensitivity analysis removing these observations and compare the results.
+Often times we make assumptions about our data and the participants that make up that data. For instance, with body mass index (BMI), we assume that the value represents a person regardless of how sick or healthy they are. However, usually if someone's BMI is really low (below around 18.5, which is considered underweight) or really high (above 40 which is considered morbidly obese), this could indicate a serious health problem that they have. For example, people who are very ill usually lose a lot of weight. So if we include them in the model, we might get a biased estimate for the association of BMI on CVD. Run a sensitivity analysis removing these observations and compare the results.
+
+Use the `sample_tidied_framingham` dataset.
 
 `@pre_exercise_code`
 ```{r}
@@ -878,23 +893,23 @@ xp: 20
 ```
 
 `@instructions`
-- Filter out those people with body mass index (not centered) below 18.5 and above 45.
+- Keep those people with body mass index at or above 18.5 and at or below 40.
 
 `@hint`
-- The argument order of `between` is variable, lower range, upper range.
+- Include two conditions (`>=` and `<=`) to restrict the range of body mass index.
 
 `@sample_code`
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(___, ___, ___))
+    filter(___)
 ```
 
 `@solution`
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 ```
 
 `@sct`
@@ -911,7 +926,7 @@ xp: 40
 ```
 
 `@instructions`
-- Including centered body mass index, followup visit, and the random term in the formula, run the model with the original dataset.
+- Include body mass index (scaled), followup visit, and subject ID in the formula, then run the model with the original dataset.
 
 `@hint`
 - The model formula is the same as the previous exercises, but using the original dataset.
@@ -920,11 +935,12 @@ xp: 40
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
 # Run and check model with original dataset
-original_model <- glmer(___ ~ ___ + ___ + (___),
-                        data = ___, family = binomial)
+original_model <- glmer(
+    ___,
+    data = ___, family = binomial)
 summary(___)$coef
 ```
 
@@ -932,11 +948,12 @@ summary(___)$coef
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
 # Run and check model with original dataset
-original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
-                        data = sample_tidied_framingham, family = binomial)
+original_model <- glmer(
+    got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial)
 summary(original_model)$coef
 ```
 
@@ -963,45 +980,48 @@ xp: 40
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
 # Run and check model with original dataset
-original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
-                        data = sample_tidied_framingham, family = binomial)
+original_model <- glmer(
+    got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial)
 summary(original_model)$coef
 
 # Run and check model with the body mass checking
-bmi_check_model <- glmer(___ ~ ___ + ___ + (___),
-                        data = ___, family = binomial)
-___(___)$___
+bmi_check_model <- glmer(
+    ___,
+    data = ___, family = binomial)
+summary(___)$coef
 ```
 
 `@solution`
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(between(body_mass_index, 18.5, 45))
+    filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
 # Run and check model with original dataset
-original_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
-                        data = sample_tidied_framingham, family = binomial)
+original_model <- glmer(
+    got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
+    data = sample_tidied_framingham, family = binomial)
 summary(original_model)$coef
 
 # Run and check model with the body mass checking
-bmi_check_model <- glmer(got_cvd ~ centered_body_mass_index + followup_visit_number + (1 | subject_id),
-                        data = bmi_check_data, family = binomial)
+bmi_check_model <- glmer(
+    got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
+    data = bmi_check_data, family = binomial)
 summary(bmi_check_model)$coef
 ```
 
 `@sct`
 ```{r}
-success_msg("Amazing! Notice how the estimate increases and the standard error decreases. However, the change is not much, so it tells us there may be differences in those below or above a certain BMI. But we need to explore it more.")
-
+success_msg("Amazing! Notice how the fixed effect estimates for body mass index decrease and the standard error slightly increases, while for followup number the values barely change. The change for the body mass index is not much but it does tell us that including people below or above a certain body mass may bias the estimates by inflating them.")
 ```
 
 ---
 
-## Tidying and extracting results from model objects
+## Predictions, interpretations, and tidying of model results
 
 ```yaml
 type: VideoExercise
@@ -1014,7 +1034,7 @@ dfd73cee12b1663ba86738a4ec9a6c06
 
 ---
 
-## Tidy up the results with broom
+## Tidy up and back-transform the results with broom
 
 ```yaml
 type: NormalExercise
@@ -1022,101 +1042,58 @@ key: 6c2f7f04d3
 xp: 100
 ```
 
-We've created several models investigating the association between the exposure and outcome. Now we need to tidy up the model results and extract what we need from the model. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package to provide that framework in a "tidy" format. 
+Now that you've created several models, you need to do some tidying and back-transforming. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package to provide that framework in a "tidy" format. Tidying mixed effects models requires the broom.mixed package. Back-transforming by exponentiating is required as the model uses a binary outcome, which give log-odds estimates that can be difficult to interpret. Exponentiating converts the estimates to odds. 
 
-A model has been created for you already, now you need to tidy it up.
+A model has been created for you already called `main_model`.
 
 `@instructions`
-- Using the functions from broom, tidy the model to check how the output looks.
-- Then tidy it again, but adding the confidence intervals.
+- Using the functions from broom.mixed, tidy the model, create confidence intervals and exponentiate the estimates.
 - Select only the most important results: the terms, the estimates, and the lower and upper confidence interval.
-- Exponentiate (`exp`) by mutating all but the terms.
 
 `@hint`
-- Use the `tidy` function, with the `conf.int` argument.
-- Keep only the four columns from the tidied model.
+- Use the `tidy` function on model object.
 
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
-library(broom)
 library(dplyr)
-main_model <- glmer(got_cvd ~ I(centered_total_cholesterol/100) + followup_visit_number + 
-                   (1 | subject_id), 
+main_model <- glmer(got_cvd ~ total_cholesterol_scaled + followup_visit_number + (1 | subject_id), 
               data = sample_tidied_framingham, family = binomial, na.action = "na.omit")
+options(digits = 3, scipen = 4)
 ```
 
 `@sample_code`
 ```{r}
-# Check mixed effect model
-main_model
+library(broom.mixed)
 
-# Tidy it up
-___(___)
+# Tidy up main_model, include conf.int and exponentiate
+tidy_model <- ___
 
-# Tidy but with confidence interval
-tidy_model <- ___(___, ___)
+# View the tidied model
+tidy_model
 
-# Select only the important variables and exponentiate
+# Select the four important variables
 tidy_model %>% 
-    ___(___) %>% 
-    ___(vars(-term), ___)
+    ___(___)
 ```
 
 `@solution`
 ```{r}
-# Check mixed effect model
-main_model
+library(broom.mixed)
 
-# Tidy it up
-tidy(main_model)
+# Tidy up main_model, include conf.int and exponentiate
+tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
 
-# Tidy but with confidence interval
-tidy_model <- tidy(main_model, conf.int = TRUE)
+# View the tidied model
+tidy_model
 
-# Select only the important variables and exponentiate
+# Select the four important variables
 tidy_model %>% 
-    select(term, estimate, conf.low, conf.high) %>% 
-    mutate_at(vars(-term), exp)
+    select(term, estimate, conf.low, conf.high) 
 ```
 
 `@sct`
 ```{r}
-success_msg("Amazing! You extracted and started tidying up the model results. Plus you now kept the most important results from the model!")
-```
-
----
-
-## "Not statistically significant"
-
-```yaml
-type: MultipleChoiceExercise
-key: 9eee53c6f6
-xp: 50
-```
-
-This is a hypothetical example based on a real study: Premature babies often face severe health problems and need lots of help to ensure healthy growth. Nutrition is key and there are many infant formula and intravenous fluids designed for premature babies. A study found that babies fed a new formula had an odds ratio of 1.12 (0.94 to 1.30 95% CI, p=0.09) for reaching a healthier weight compared to currently used formula. Which is the more correct response?
-
-`@possible_answers`
-- No significant association (p>0.05, CI passes through 1.0).
-- The small weight improvement could be meaningful (CI reached 1.30). More research is needed.
-- There is a higher odds of improving weight. Let's use this formula right away.
-- Can't say anything yet... null hypothesis was not rejected.
-
-`@hint`
-- The upper bound of the confidence interval reaches an odds ratio of 1.30.
-
-`@pre_exercise_code`
-```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/f64eb1d4240436aae2c7a829b93d7466c8ab1278/tidied_framingham.rda"))
-```
-
-`@sct`
-```{r}
-msg1 <- "Incorrect. While traditional p-value thresholds would say this is correct, this has the danger of discarding a new formula that could help premature babies."
-msg2 <- "Correct! While 'not statistically significant', there is evidence of some potential improvement for premature babies, which needs to be further explored."
-msg3 <- "Incorrect. This is too hasty a response. More studies are needed."
-msg4 <- "Slightly true. It is correct to say this, but the focus should be on the uncertainty of the odds ratio, rather than the null hypothesis."
-ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
+success_msg("Amazing! You tidied up the model and have extracted the most important results!")
 ```

@@ -1,4 +1,5 @@
 source(here::here("R/setup.R"))
+load(here::here("datasets/tidied_framingham.rda"))
 
 # Video 2, confounder -----------------------------------------------------
 
@@ -85,46 +86,63 @@ head(model_selection, 4)
 
 # Video 3, interaction form -----------------------------------------------
 
-with_interaction <- glm(chd ~ weight * energy.grp,
-                        data = diet, family = binomial)
-summary(with_interaction)
+model_with_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled * sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+summary(model_with_interaction)
 
 # Video 3, interaction form -----------------------------------------------
 
-no_interaction <- glm(chd ~ weight + energy.grp,
-                      data = diet, family = binomial)
-with_interaction <- glm(chd ~ weight * energy.grp,
-                        data = diet, family = binomial)
-model.sel(no_interaction, with_interaction, rank = "AIC")
+model_no_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+model_with_interaction <- glmer(
+    got_cvd ~ body_mass_index_scaled * sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+model.sel(model_no_interaction, model_with_interaction, rank = "AIC")
+as.data.frame(model.sel(model_no_interaction, model_with_interaction, rank = "AIC"))[6:9]
 
 # Video 3, sensitivity analysis -------------------------------------------
 
-remove_diet_misreporting <- diet %>%
-    filter(between(energy, 20, 40))
+no_diabetes_framingham <- tidied_framingham %>%
+    filter(diabetes == 0)
 
-summary(glm(chd ~ weight + energy, data = diet,
-            family = binomial))$coef
-summary(glm(chd ~ weight + energy, data = remove_diet_misreporting,
-            family = binomial))$coef
+glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+      data = tidied_framingham, family = binomial) %>%
+    fixef()
+
+glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+      data = no_diabetes_framingham, family = binomial) %>%
+    fixef()
+
+# Video 4, prediction -----------------------------------------------------
+
+library(broom.mixed)
+library(lme4)
+model <- glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
+ggplot(augment(model), aes(x = .fitted, y = .resid)) +
+    geom_point()
+stats::model.frame(model) %>%
+    mutate(.fitted = predict(model, type = "response")) %>%
+    ggplot(aes(x = body_mass_index_scaled, y = .fitted)) +
+    geom_point()
+
+plot(model)
 
 # Video 4, tidy function example ------------------------------------------
 
-model <- glm(chd ~ weight + energy, data = diet, family = binomial)
-summary(model)
+library(broom.mixed)
+library(lme4)
+model <- glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+    data = tidied_framingham, family = binomial)
 
 tidy(model)
-
 tidy(model, conf.int = TRUE)
 
+# Video 4, backtransforming and important variables -----------------------
 
-# Video 4, backtransforming estimates -------------------------------------
-
-model <- glm(chd ~ weight + fibre + energy,
-             data = diet, family = binomial)
-
-tidied_model <- tidy(model, conf.int = TRUE) %>%
+tidied_model <- model %>%
+    tidy(exponentiate = TRUE, conf.int = TRUE) %>%
     select(term, estimate, conf.low, conf.high)
 tidied_model
-
-tidied_model %>%
-    mutate_at(vars(-term), exp)
