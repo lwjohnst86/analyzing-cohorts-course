@@ -59,7 +59,7 @@ Considering confounding is vital in health research. You should use several appr
 
 
 ---
-## Confounder identification with DAGs
+## Identify confounders with Directed Acyclic Graphs (DAG)
 
 ```yaml
 type: "FullSlide"
@@ -67,14 +67,20 @@ key: "669761f7ba"
 ```
 
 `@part1`
-### Directed Acyclic Graph (DAG)
 
 ![DAG](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
 
+- Directed = A link with a direction. A cause and an effect. {{1}}
+- Acyclic = Pathways don't loop (cycle) back. {{2}}
+- Graph = Any type of representation of links between objects. {{3}}
 
 `@script`
+
 Drawing graphs like this DAG is a powerful approach to finding confounders. Each variable is called a node, and the causal or hypothetical link between variables is called an edge. Creating DAGs makes hypothetical confounding pathways explicit.
 
+Let's breakdown the meaning of DAG. Directed indicates a directionality, for example, an exposure affects an outcome, referring to the arrow's direction. Acyclic means that a pathway doesn't loop back, for instance going from exposure to confounder to outcome and back to exposure. And lastly, graph means there are some type of representation of real or hypothetical links between objects.
+
+Another example of a DAG is a decision tree.
 
 ---
 ## Identifying adjustment variables with dagitty
