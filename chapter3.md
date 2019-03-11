@@ -29,7 +29,6 @@ Because the Framingham study is a prospective cohort, with certain limits to the
 The `tidied_framingham` dataset is loaded. Before answering, look at the variables available in the dataset, and the age range of the participants.
 
 `@possible_answers`
-- Does higher cholesterol cause cardiovascular disease (CVD)?
 - Will lower body mass during adolescence increase the risk for CVD?
 - Does smoking increase the risk for CVD?
 - Does having many close friends lower the risk for CVD?
@@ -48,12 +47,11 @@ library(dplyr)
 
 `@sct`
 ```{r}
-msg1 <- "Incorrect. The cohort study was not designed to answer 'causes'."
-msg2 <- "Incorrect. While cohorts could answer this question, Framingham participants are all in middle age so we can't answer questions outside of that time frame."
-msg3 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
-msg4 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
-msg5 <- "Incorrect. One of the above is a valid question."
-ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4, msg5))
+msg1 <- "Incorrect. While cohorts could answer this question, Framingham participants are all in middle age so we can't answer questions outside of that time frame."
+msg2 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
+msg3 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
+msg4 <- "Incorrect. One of the above is a valid question."
+ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
 
 ---
