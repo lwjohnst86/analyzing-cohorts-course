@@ -95,8 +95,6 @@ An example: Height with colon cancer. But... {{1}}
 
 - Men are taller {{2}}
 - Men more likely to get cancer {{2}}
-- More meat, more likely to get colon cancer {{2}}
-- Men tend to eat more meat {{2}}
 
 ... Let's make a DAG of this {{3}}
 
@@ -108,7 +106,6 @@ An example: Height with colon cancer. But... {{1}}
 confounders <- dagitty("dag {
   Height -> ColonCancer
   Sex -> {Height ColonCancer}
-  Sex -> MeatIntake -> ColonCancer
 }") 
 ``` {{3}}
 
@@ -125,7 +122,9 @@ adjustmentSets(
 
 
 `@script`
-You can create DAGs with the dagitty package, which will then suggest possible adjustment variables. For example, let's study how height associates with risk for colon cancer. We know men tend to be taller than women, that men have a higher risk for cancer, that meat intake increases risk for colon cancer, and that men tend to eat more meat. So, what do we adjust for? Let's use dagitty! The dagitty function takes a DAG specification as a character string. Starting with the keyword dag, we list each link between variables. Here, height links with colon cancer, sex links with both height and colon cancer, and so on until all links are drawn. We then use the adjustmentSets function on the DAG, set the exposure and the outcome, and are told that sex should at least be adjusted for.
+You can create DAGs with the dagitty package, which will then suggest possible adjustment variables. For example, let's study how height associates with risk for colon cancer. We know men tend to be taller than women, that men have a higher risk for cancer. This is a simple example, but assume we want to know, what do we adjust for? Let's use dagitty! The dagitty function takes a DAG specification as a character string. Starting with the keyword dag, we list each link between variables. Here, height links with colon cancer and sex links with both height and colon cancer. We then use the adjustmentSets function on the DAG, set the exposure and the outcome, and are told that sex should at least be adjusted for.
+
+TODO: Describe adjustment set. Meaning of exposure, etc.
 
 
 ---
