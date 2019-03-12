@@ -230,28 +230,30 @@ key: "51eddc42eb"
 `@part1`
 
 ```{r}
-# Logistic regression, all predictors
-full_model <- glm(chd ~ ., data = cleaned_diet,
-                  family = binomial, na.action = "na.fail") 
+full_model <- glmer(
+    got_cvd ~ body_mass_index_scaled + total_cholesterol_scaled +
+        participant_age + currently_smokes + education_combined +
+        sex + (1 | subject_id), 
+    data = tidied_framingham, family = binomial, na.action = "na.fail")
+```
+{{1}}
+
+```{r}
+library(MuMIn)
+# Models with every combination of predictor
+model_selection <- dredge(full_model, rank = "AIC",
+                          subset = "total_cholesterol_scaled")
 ```
 {{2}}
 
-```{r}
-# Models with every combination of predictor
-model_comparison <- dredge(full_model, rank = "AIC", subset = "fibre")
-```
-{{3}}
-
 - *A caution*: With many variables, big datasets, and/or the type of model = long computation times {{4}}
 
-
 `@script`
-You can use MuMIn as an interface to model selection. First, we must create a dataframe with the outcome and predictors, with no missingness. Then we create the model with all variables by using a dot after the tilde. MuMIn requires we set na dot fail. Next we use dredge on the model using AIC. Dredge runs all combination of models and compares them. In this example, our main exposure is fibre, so we set it with subset.
+We can use the MuMIn package for model selection. To start, we need to add all the variables to the model that we think might contribute or confound the association between the outcome and the exposure. We need to set na dot action to na dot fail, as it is required for the MuMIn function.
 
-Be careful when running dredge. Since it compares many models, the computation time can be very long.
+Then we give the full model to the dredge function from MuMIn. Dredge is useful as it runs models of all possible combinations of variables that is included in the original full model. Dredge requires the model object and which model ranking method to use to determine which is the best model, in this case using AIC. You can also specify that you only want models compared that at least have the cholesterol variable by using the subset argument.
 
-NOTE: You need to set na.action na fail because the dredge function requires it.
-
+Be careful when running dredge. Since it compares many models, if you include complicated model variables or model techniques, the computation time can be very long.
 
 ---
 ## Model selection using the MuMIn package
@@ -263,27 +265,35 @@ key: "276321afb5"
 
 `@part1`
 ```{r}
-head(model_selection, 4)
+# Top 5 models
+head(model_selection, 5)
 ``` 
 {{1}}
 
 ```
-#> Global model call: glm(formula = chd ~ ., family = binomial, data = cleaned_diet, 
-#>     na.action = "na.fail")
-#> ---
-#> Model selection table 
-#>    (Intrc)     bmi     enrgy     fat   fibre df   logLik   AIC delta weight
-#> 14 -0.4290 0.09605           -0.1752 -0.9882  4 -120.996 250.0  0.00  0.435
-#> 13  1.3510                   -0.1579 -0.7839  3 -122.598 251.2  1.20  0.238
-#> 12 -0.4436 0.08922 -0.074450         -0.9432  4 -121.964 251.9  1.94  0.165
-#> 16 -0.4920 0.09616  0.008187 -0.1861 -1.0070  5 -120.990 252.0  1.99  0.161
-#> Models ranked by AIC(x) 
+Global model call: glmer(formula = got_cvd ~ body_mass_index_scaled + total_cholesterol_scaled + 
+    participant_age + currently_smokes + education_combined + 
+    sex + (1 | subject_id), data = tidied_framingham, family = binomial, 
+    na.action = "na.fail")
+---
+Model selection table 
+     (Int) bdy_mss_ind_scl crr_smk edc_cmb prt_age sex ttl_chl_scl df   logLik   AIC delta weight
+58 -1.2190          0.7495                  0.5155   +      0.2742  6 -203.065 418.1  0.00  0.411
+60 -1.5220          0.7653       +          0.5859   +      0.2709  7 -202.288 418.6  0.44  0.329
+50 -1.2580          0.7356                           +      0.2749  5 -205.457 420.9  2.78  0.102
+62 -0.9683          0.7212               +  0.4928   +      0.2804  8 -202.588 421.2  3.05  0.090
+64 -1.2870          0.7401       +       +  0.5603   +      0.2742  9 -201.854 421.7  3.58  0.069
+Models ranked by AIC(x) 
+Random terms (all models): 
+‘1 | subject_id’
 ``` 
 {{2}}
 
 
 `@script`
-To see the top four models, use head. The AIC column shows the models are all very similar. Here, we see that these variables may not contribute substantially to model fitness. We could be safe using any of these models.
+To determine which variables should be included based on dredge, use head to show the top models. In this case, we are showing the top 5 models. 
+
+The output of dredge shows many things, such as the model information at the top, then shows a table of models compared, including or excluding certain variables. Notice how some columns don't have a value in the cell. This indicates the model excluded that variable. The AIC is listed at the end, along with the delta, or difference with the last model AIC. The last column is weight and that tells us the likelihood that that model is better than the others. So we can see that the first two models are vary similar in AIC and weight. Based on the output from dredge, a model with body mass, age, and sex, and optionally smoking status, would have the best model fit of the models compared.
 
 
 ---
