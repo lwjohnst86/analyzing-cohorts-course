@@ -307,34 +307,6 @@ key: "a46da48b7d"
 Considering confounding is part of rigorous science. But it's also required from the STROBE checklist. STROBE, or strengthening the reporting of observational studies in epidemiology, and is internationally embraced by researchers working on observational studies. This checklist focuses your analyses and presentation of results and ensures adherence to higher quality research.
 
 ---
-## Keep in mind: Question is restricted by design and data
-
-```yaml
-type: "FullSlide"
-key: "d4bbe2304d"
-```
-
-`@part1`
-**Cohorts in general**
-- Are observational {{1}}
-- Shared characteristics {{1}}
-
-**Prospective cohorts** {{2}}
-- Has a defined time {{2}}
-
-**Data in general** {{3}}
-- Exposure may be unreliably measured {{3}}
-- Variable may be inconsistently measured {{3}}
-
-
-`@script`
-Something to keep in mind. Research questions are limited by both study design and the type of data collected. Cohorts are observational studies, so questions on causes are nearly impossible to answer. Cohorts are about people with common characteristics, so you can't answer questions outside the group that is studied. 
-
-For prospective cohorts, there is a defined study timeframe, so we can't answer questions outside this time. Finally, exposure measurements may be unreliable, or participant data may not be consistently collected, which will make your answer biased.
-
-
-
----
 ## Let's find some confounders!
 
 ```yaml
