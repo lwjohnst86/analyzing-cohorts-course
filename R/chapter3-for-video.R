@@ -59,29 +59,47 @@ kidney_stones %>%
 
 possible_confounders <- dagitty("dag {
     Height -> ColonCancer
+}")
+
+png(here::here("datasets/ch3-v2-dagitty-1.png"),
+    width = 300, height = 300, pointsize = 18)
+plot(graphLayout(possible_confounders))
+dev.off()
+
+possible_confounders <- dagitty("dag {
+    Height -> ColonCancer
     Sex -> {Height ColonCancer}
-    Sex -> MeatIntake -> ColonCancer
 }")
 
 adjustmentSets(possible_confounders, exposure = "Height", outcome = "ColonCancer")
 
-png(here::here("datasets/ch3-v2-dagitty.png"),
-    width = 800, height = 450, pointsize = 18)
+png(here::here("datasets/ch3-v2-dagitty-2.png"),
+    width = 300, height = 300, pointsize = 18)
 plot(graphLayout(possible_confounders))
 dev.off()
 
 # Video 2, AIC ------------------------------------------------------------
 
-cleaned_diet <- diet %>%
-    mutate(bmi = weight / (height / 100)^2) %>%
-    select(energy, bmi, fat, fibre, chd) %>%
+tidied_fh2 <- tidied_framingham %>%
+    select(subject_id, body_mass_index_scaled, total_cholesterol_scaled,
+           participant_age, got_cvd, currently_smokes, education) %>%
+    mutate(currently_smokes = if_else(currently_smokes == 0, "No", "Yes"),
+           subject_id = as.character(subject_id),
+           participant_age = as.numeric(scale(participant_age, scale = FALSE) / 10)) %>%
     na.omit()
 
-full_model <- glm(chd ~ ., data = cleaned_diet,
-                  family = binomial, na.action = "na.fail")
+full_model <-
+    glmer(
+        got_cvd ~ . + (1 | subject_id),
+        data = tidied_fh2,
+        family = binomial,
+        na.action = "na.fail"
+    )
 
-model_selection <- dredge(full_model, rank = "AIC", subset = "fibre")
+model_selection <- dredge(full_model, rank = "AIC",
+                          subset = "total_cholesterol_scaled")
 
+model_selection
 head(model_selection, 4)
 
 # Video 3, interaction form -----------------------------------------------
