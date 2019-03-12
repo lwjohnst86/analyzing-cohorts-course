@@ -1,5 +1,6 @@
 source(here::here("R/setup.R"))
 load(here::here("datasets/tidied_framingham.rda"))
+load(here::here("datasets/sample_tidied_framingham.rda"))
 
 # Video 2, confounder -----------------------------------------------------
 
@@ -80,27 +81,29 @@ dev.off()
 
 # Video 2, AIC ------------------------------------------------------------
 
-tidied_fh2 <- tidied_framingham %>%
+tidied_fh2 <- sample_tidied_framingham %>%
     select(subject_id, body_mass_index_scaled, total_cholesterol_scaled,
-           participant_age, got_cvd, currently_smokes, education) %>%
+           participant_age, got_cvd, currently_smokes, education_combined,
+           sex) %>%
     mutate(currently_smokes = if_else(currently_smokes == 0, "No", "Yes"),
            subject_id = as.character(subject_id),
            participant_age = as.numeric(scale(participant_age, scale = FALSE) / 10)) %>%
     na.omit()
 
-full_model <-
-    glmer(
-        got_cvd ~ . + (1 | subject_id),
-        data = tidied_fh2,
-        family = binomial,
-        na.action = "na.fail"
-    )
+glmer_formula <- as.formula(
+    got_cvd ~ body_mass_index_scaled + total_cholesterol_scaled +
+        participant_age + currently_smokes + education_combined +
+        sex + (1 | subject_id)
+)
+full_model <- glmer(glmer_formula, data = tidied_fh2, family = binomial,
+                    na.action = "na.fail", nAGQ = 0)
+
+summary(full_model)
 
 model_selection <- dredge(full_model, rank = "AIC",
                           subset = "total_cholesterol_scaled")
 
-model_selection
-head(model_selection, 4)
+head(model_selection, 5)
 
 # Video 3, interaction form -----------------------------------------------
 
