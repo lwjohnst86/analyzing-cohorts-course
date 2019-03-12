@@ -253,7 +253,7 @@ We can use the MuMIn package for model selection. To start, we need to add all t
 
 Then we give the full model to the dredge function from MuMIn. Dredge is useful as it runs models of all possible combinations of variables that is included in the original full model. Dredge requires the model object and which model ranking method to use to determine which is the best model, in this case using AIC. You can also specify that you only want models compared that at least have the cholesterol variable by using the subset argument.
 
-Be careful when running dredge. Since it compares many models, if you include complicated model variables or model techniques, the computation time can be very long.
+Be careful when running dredge. Since it compares many models, the computation time can be very long if you include too many variables or use complex model techniques.
 
 ---
 ## Model selection using the MuMIn package
