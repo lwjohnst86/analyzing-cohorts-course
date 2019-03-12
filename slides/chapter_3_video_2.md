@@ -46,7 +46,8 @@ key: "b0f88227c7"
 
 `@part1`
 - **Very difficult** to completely control/adjust for confounding
-- Three common approaches:
+- Integral to STROBE statement: **STrengthening the Reporting of OBservational studies in Epidemiology.** (www.strobe-statement.org) {{1}}
+- Three common approaches: {{2}}
     - Literature, biological rationale, background knowledge
     - Causal pathways: Directed acyclic graphs (DAG)
     - Model selection: Information criterion methods
@@ -55,8 +56,9 @@ key: "b0f88227c7"
 `@script`
 What does it mean to adjust for confounders? Confounding is tricky in cohorts and requires substantial consideration. Do the best you can, but be aware you are guaranteed to not include or to not know about all confounders.
 
-Considering confounding is vital in health research. You should use several approaches when identifying confounders, as they each have strengths and weaknesses. Use previous biological and domain knowledge and formal methods such as directed acyclic graphs, or DAGs, and information criterion techniques.
+Considering confounding is part of doing rigorous science. It's also required from the STROBE statement. STROBE, or strengthening the reporting of observational studies in epidemiology, is an internationally embraced standard by researchers working on observational studies. Make sure to adhere to these guidelines when doing your cohort analysis.
 
+You should use several approaches when identifying confounders, as each has strengths and weaknesses. Use previous biological and domain knowledge and formal methods such as directed acyclic graphs, or DAGs, and information criterion techniques.
 
 ---
 ## Identify confounders with Directed Acyclic Graphs (DAG)
@@ -295,26 +297,6 @@ To determine which variables should be included based on dredge, use head to sho
 
 The output of dredge shows many things, such as the model information at the top, then shows a table of models compared, including or excluding certain variables. Notice how some columns don't have a value in the cell. This indicates the model excluded that variable. The AIC is listed at the end, along with the delta, or difference with the last model AIC. The last column is weight and that tells us the likelihood that that model is better than the others. So we can see that the first two models are vary similar in AIC and weight. Based on the output from dredge, a model with body mass, age, and sex, and optionally smoking status, would have the best model fit of the models compared.
 
-
----
-## Adhering to the STROBE Statement
-
-```yaml
-type: "FullSlide"
-key: "a46da48b7d"
-```
-
-`@part1`
-- **STrengthening the Reporting of OBservational studies in Epidemiology.** (www.strobe-statement.org)
-
-- **Completion of STROBE checklist required for most journals**, such as: {{1}}
-    - *"Describe ... methods ... used to control for confounding"* {{2}}
-    - *"... which confounders were adjusted for and why ..."* {{2}}
-    - *"Give unadjusted estimates and ... confounder-adjusted estimates"* {{2}}
-
-
-`@script`
-Considering confounding is part of rigorous science. But it's also required from the STROBE checklist. STROBE, or strengthening the reporting of observational studies in epidemiology, and is internationally embraced by researchers working on observational studies. This checklist focuses your analyses and presentation of results and ensures adherence to higher quality research.
 
 ---
 ## Let's find some confounders!
