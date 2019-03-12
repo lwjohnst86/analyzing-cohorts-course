@@ -216,7 +216,7 @@ key: "fdb2dfd109"
 
 
 `@script`
-It is good practice to use multiple methods to decide what you should adjust. The information criterion methods are also quite powerful and compares several models to find which is better. The method balances model fitness with the number of predictors. Use the Akaike criterion or AIC for models that use maximum likelihood.
+It is good practice to use multiple methods to decide what you should adjust. The information criterion methods are also quite powerful and compare several models to find which is better. The method balances model fitness with the number of predictors. Use the Akaike criterion or AIC for models that use maximum likelihood.
 
 
 ---
