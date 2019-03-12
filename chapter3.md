@@ -457,9 +457,12 @@ key: 4af692e468
 xp: 100
 ```
 
-Building an appropriate DAG that is reasonably close to the underlying biology is very very difficult. It requires domain specific knowledge, consult experts familiar with the mechanisms and biology as you build the DAG. As stated in the video, you are guaranteed to build an incomplete DAG. That's why you take a few approaches to model selection. 
+Building an appropriate DAG that approximates the biology is very hard. It requires domain knowledge, so consult experts familiar with the mechanisms as you build the DAG. Remember, you are guaranteed to build an incomplete DAG. That's why you take several model selection approaches. 
 
-Let's find which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Keeping things simple, assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
+Let's determine which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Keeping things simple, assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
+
+Recall that for dagitty, `x -> y` means "x influences y" and that `x -> {y z}` means
+"x influences y and z".
 
 To learn more about graphs and networks, check out the [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r) course.
 
