@@ -80,72 +80,125 @@ Drawing graphs like this DAG is a powerful approach to finding confounders. Each
 
 Let's breakdown the meaning of DAG. Directed indicates a directionality, for example, an exposure affects an outcome, referring to the arrow's direction. Acyclic means that a pathway doesn't loop back, for instance going from exposure to confounder to outcome and back to exposure. And lastly, graph means there are some type of representation of real or hypothetical links between objects.
 
-Another example of a DAG is a decision tree.
+---
+## Identifying adjustment variables with dagitty
+
+```yaml
+type: "TwoColumns"
+```
+
+`@part1`
+An example: Height with colon cancer. {{1}}
+
+
+`@part2`
+
+```{r}
+confounders <- dagitty("dag {
+  Height -> ColonCancer
+
+}") 
+``` {{2}}
+
+```{r}
+plot(graphLayout(confounders))
+``` {{3}}
+
+![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/ffd2d6db1ded2c0cdd212531e3393f1f4c2bba6a/ch3-v2-dagitty-1.png) {{3}}
+
+`@script`
+
+So how do we use DAGs to find confounders? Let's do an example, where we are determining whether height is associated with colon cancer. 
+
+We can use the dagitty package to create DAGs by giving it a character string of a DAG specification. This string begins with the name dag then curly brackets followed by the variable names and links. Links are indicated using the arrow, which is the minus and greater than sign.
+
+We can plot it by wrapping the DAG object with graph layout, which gives us a nice DAG image.
 
 ---
 ## Identifying adjustment variables with dagitty
 
 ```yaml
 type: "TwoColumns"
-key: "22d8c21829"
+disable_transition: true
 ```
 
 `@part1`
-An example: Height with colon cancer. But... {{1}}
+An example: Height with colon cancer. 
 
-- Men are taller {{2}}
-- Men more likely to get cancer {{2}}
+But... 
 
-... Let's make a DAG of this {{3}}
+- Men are taller {{1}}
+- Men more likely to get cancer {{1}}
 
 
 `@part2`
-&nbsp;
 
 ```{r}
 confounders <- dagitty("dag {
   Height -> ColonCancer
   Sex -> {Height ColonCancer}
 }") 
+``` {{2}}
+
+```{r}
+plot(graphLayout(confounders))
 ``` {{3}}
+
+![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/dcfb3d855caa09046ddacc5dcc13a707736dfa87/ch3-v2-dagitty-2.png) {{3}}
+
+
+`@script`
+
+But we know there are confounding factors to this association. First, we know that men tend to be taller and than men are more likely to get cancer. 
+
+We include that in the DAG by creating another line and setting additional links. Because sex is linked with both height and cancer, in the DAG string we can include both by wrapping them in curly brackets.
+
+When we plot the DAG, we see how the DAG looks like.
+
+---
+## Identifying adjustment variables with dagitty
+
+```yaml
+type: "TwoColumns"
+disable_transition: true
+```
+
+`@part1`
+An example: Height with colon cancer.
+
+But... 
+
+- Men are taller 
+- Men more likely to get cancer
+
+
+`@part2`
+
+```{r}
+confounders <- dagitty("dag {
+  Height -> ColonCancer
+  Sex -> {Height ColonCancer}
+}") 
+```
 
 ```{r}
 adjustmentSets(
     confounders,
     exposure = "Height",
-    outcome = "ColonCancer") 
-``` {{4}}
+    outcome = "ColonCancer"
+) 
+``` {{1}}
 
 ```{r}
 #>  { Sex }
-``` {{4}}
+``` {{2}}
 
 
 `@script`
-You can create DAGs with the dagitty package, which will then suggest possible adjustment variables. For example, let's study how height associates with risk for colon cancer. We know men tend to be taller than women, that men have a higher risk for cancer. This is a simple example, but assume we want to know, what do we adjust for? Let's use dagitty! The dagitty function takes a DAG specification as a character string. Starting with the keyword dag, we list each link between variables. Here, height links with colon cancer and sex links with both height and colon cancer. We then use the adjustmentSets function on the DAG, set the exposure and the outcome, and are told that sex should at least be adjusted for.
 
-TODO: Describe adjustment set. Meaning of exposure, etc.
+The important part of using DAGs isn't in making nice figures, it's to determine what variables to adjust for in the model. We can use the adjustment sets function, which determines possible variables to adjust for to reduce the risk of confounding bias. Since a DAG doesn't know which variables are the exposure and outcome, we need to include that by setting those respective arguments.
 
-
----
-## Visualizing the graph from dagitty
-
-```yaml
-type: "FullSlide"
-key: "d5d3441a67"
-```
-
-`@part1`
-```{r}
-plot(graphLayout(confounders))
-``` {{1}}
-
-![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/8af0f2c49f1e245a7cad1e0e19b53f1ccb987a13/ch3-v2-dagitty.png) {{2}}
-
-
-`@script`
-You can visualize what the graph looks like using this code to see how each variable is linked, as specified. Check this plot to confirm the DAG was correctly specified.
-
+Since this particular example is very simple, the only variable we should control for is sex.
 
 ---
 ## Assessing model fit: Information criterion methods
@@ -175,14 +228,6 @@ key: "51eddc42eb"
 ```
 
 `@part1`
-```{r}
-# Keep only interested predictors and no missing
-cleaned_diet <- diet %>%
-    mutate(bmi = weight / (height / 100)^2) %>%
-    select(energy, bmi, fat, fibre, chd) %>%
-    na.omit() 
-``` 
-{{1}}
 
 ```{r}
 # Logistic regression, all predictors
