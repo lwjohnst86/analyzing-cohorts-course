@@ -1,9 +1,9 @@
 ---
-title: Predictions, interpretations, and tidying of model results
+title: Tidying and interpreting model results
 key: dfd73cee12b1663ba86738a4ec9a6c06
 
 ---
-## Predictions, interpretations, and tidying of model results
+## Tidying and interpreting model results
 
 ```yaml
 type: "TitleSlide"

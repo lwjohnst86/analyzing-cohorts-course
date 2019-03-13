@@ -1024,7 +1024,7 @@ success_msg("Amazing! Notice how the fixed effect estimates for body mass index 
 
 ---
 
-## Predictions, interpretations, and tidying of model results
+## Tidying and interpreting model results
 
 ```yaml
 type: VideoExercise
