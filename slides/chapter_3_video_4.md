@@ -17,18 +17,7 @@ title: Postdoctoral researcher in diabetes epidemiology
 
 
 `@script`
-We've now ran several models, checked them, and adjusted for variables. Now let's tidy these model objects up and extract the relevant results.
-
----
-## Predictions
-
-```yaml
-type: "FullSlide"
-```
-
-`@part1`
-
-`@script`
+We've now ran several models, checked them, and adjusted for variables. Now let's tidy these model objects up, extract the relevant results, and interpret what they mean.
 
 ---
 ## Tidying up with broom.mixed
