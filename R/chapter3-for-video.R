@@ -140,14 +140,27 @@ glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
 
 library(broom.mixed)
 library(lme4)
-model <- glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
-    data = tidied_framingham, family = binomial)
+model <- glmer(got_cvd ~ total_cholesterol_scaled +
+                   body_mass_index_scaled + followup_visit_number +
+                   sex + (1 | subject_id),
+    data = tidied_framingham, family = binomial, nAGQ = 0)
+tidy(model)
 ggplot(augment(model), aes(x = .fitted, y = .resid)) +
     geom_point()
+stats::model.frame(model) %>%
+    mutate(.fitted = predict(model, type = "response"),
+           .fitted = as.character(round(.fitted, 0))) %>%
+    count(got_cvd, .fitted)
 stats::model.frame(model) %>%
     mutate(.fitted = predict(model, type = "response")) %>%
     ggplot(aes(x = body_mass_index_scaled, y = .fitted)) +
     geom_point()
+stats::model.frame(model) %>%
+    mutate(.fitted = predict(model, type = "response"),
+           .fitted = as.character(round(.fitted, 0))) %>%
+    ggplot(aes(x = body_mass_index_scaled, fill = .fitted)) +
+    geom_density(alpha = 0.5) +
+    scale_color_brewer(type = "qual", palette = "Dark2")
 
 plot(model)
 
@@ -155,7 +168,7 @@ plot(model)
 
 library(broom.mixed)
 library(lme4)
-model <- glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+model <- glmer(got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
     data = tidied_framingham, family = binomial)
 
 tidy(model)
@@ -165,5 +178,5 @@ tidy(model, conf.int = TRUE)
 
 tidied_model <- model %>%
     tidy(exponentiate = TRUE, conf.int = TRUE) %>%
-    select(term, estimate, conf.low, conf.high)
+    select(effect, term, estimate, conf.low, conf.high)
 tidied_model
