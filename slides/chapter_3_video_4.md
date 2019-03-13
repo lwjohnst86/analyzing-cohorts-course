@@ -33,7 +33,7 @@ type: "FullSlide"
 
 ```{r}
 library(broom.mixed)
-model <- glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
+model <- glmer(got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
       data = tidied_framingham, family = binomial)
       
 # General tidying
@@ -45,12 +45,13 @@ tidy(model_object, conf.int = TRUE)
 {{2}}
 
 ```
-# A tibble: 3 x 9
-  effect   group    term             estimate std.error statistic p.value conf.low conf.high
-  <chr>    <chr>    <chr>               <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
-1 fixed    NA       (Intercept)       -12.9       0.278    -46.3    0     -13.4      -12.3  
-2 fixed    NA       body_mass_index…    0.239     0.159      1.51   0.132  -0.0722     0.551
-3 ran_pars subject… sd__(Intercept)    56.8      NA         NA     NA      NA         NA    
+# A tibble: 4 x 9
+  effect  group   term         estimate std.error statistic p.value conf.low conf.high
+  <chr>   <chr>   <chr>           <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
+1 fixed   NA      (Intercept)   -12.4       0.321    -38.5   0       -13.0     -11.7  
+2 fixed   NA      body_mass_i…    0.229     0.169      1.35  0.177    -0.103     0.560
+3 fixed   NA      sexWoman       -0.916     0.365     -2.51  0.0122   -1.63     -0.200
+4 ran_pa… subjec… sd__(Interc…   56.1      NA         NA    NA        NA        NA    
 ```
 {{3}}
 
