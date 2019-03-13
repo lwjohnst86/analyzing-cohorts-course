@@ -133,24 +133,13 @@ key: "333093b1b3"
 
 DOI to statement: https://doi.org/10.1080/00031305.2016.1154108 {{1}}
 
-**Example**: Odds ratio of 0.8 (0.59, 1.01 95% CI), p>0.05 ("not significant") for drug treatment, uncertainty could reach odds of 41% less disease from drug {{2}}
+**Example**: Odds ratio of 0.8 (0.59, 1.01 95% CI), p>0.05 ("not significant") for drug treatment, uncertainty could reach 0.59 times lower odds of disease from drug {{2}}
 
 
 `@script`
-Why didn't I include the p value? The biggest reason is that it provides little to no clinical or public health value and it can actually be harmful! One of the biggest and most influential statistical associations released a statement about this problem. They provide much more detail in their statement, but briefly, they state to not rely on p values in scientific studies. P values are not good evidence for a hypothesis or for the importance of a study's findings.
+You may have noticed that I didn't include or discuss the p-value. Why? Mostly because it provides little to no clinical or public health utility. The American Statistical Association released a statement highlighting the problem with using and relying on the p-value, as they are not good evidence for a hypothesis or for the importance of a study's findings.
 
 Let's take an example. Suppose a drug treatment for a disease has an odds ratio of zero point eight, but has a p value above zero point zero five. Most studies would report this as not significant and not discuss it further. But at the lower bound of uncertainty the odds is forty one percent less disease in those taking the drug. So it could still be clinically useful!
-
----
-## Interpretation
-
-```yaml
-type: "FullSlide"
-```
-
-`@part1`
-
-`@script`
 
 
 ---
