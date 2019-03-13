@@ -78,45 +78,66 @@ type: "FullSlide"
 ```{r}
 tidied_model <- model %>%
     tidy(exponentiate = TRUE, conf.int = TRUE) %>%
-    select(term, estimate, conf.low, conf.high)
+    select(effect, term, estimate, conf.low, conf.high)
 tidied_model
 ```
 {{1}}
 
 ```
-# A tibble: 3 x 4
-  term                      estimate    conf.low   conf.high
-  <chr>                        <dbl>       <dbl>       <dbl>
-1 (Intercept)             0.00000259  0.00000151  0.00000447
-2 body_mass_index_scaled  1.27        0.930       1.73      
-3 sd__(Intercept)        56.8        NA          NA         
+# A tibble: 4 x 5
+  effect   term                      estimate    conf.low   conf.high
+  <chr>    <chr>                        <dbl>       <dbl>       <dbl>
+1 fixed    (Intercept)             0.00000430  0.00000230  0.00000807
+2 fixed    body_mass_index_scaled  1.26        0.902       1.75      
+3 fixed    sexWoman                0.400       0.196       0.819     
+4 ran_pars sd__(Intercept)        56.1        NA          NA         
 ``` 
 {{2}}
+
+- Emphasize estimation and uncertainty (as per STROBE) {{3}}
+- Gives more insight and utility for health decision making {{3}}
 
 `@script`
 Wrangling after tidying is easy as the model is a tibble. So, if you run a logistic regression, you need to exponentiate the results to get odds ratios. Here we only select the important variables. Check how the estimates look right now. It's harder to understand what the numbers mean as they aren't as odds ratios.
 
 To get them, we apply the exp function to exponentiate each variable, except the term variable, by using mutate at. Now the results maybe look a bit more familiar.
 
+I mentioned keeping only important variables. Why were those variables important? Looking to STROBE, it says to provide the estimates with the 95 percent confidence interval. For science and health research, the estimate, also called the effect size, is much more useful when judging how important an exposure is on an outcome. Combined with the uncertainty, which gives a possible distribution to the effect size, you are able to gain more insight into your research question.
 
 ---
-## Estimation and measures of uncertainty
+## Interpreting the model results
 
 ```yaml
 type: "FullSlide"
-key: "8823985610"
 ```
 
 `@part1`
-> "Give ... estimates and ... their precision (eg, 95% confidence interval)" - STROBE guideline {{1}}
 
-- Use estimation, uncertainty, distribution of effect size {{2}}
-    - Science is quantifying uncertainty
-    - More insight, more utility for health decision making
+```
+# A tibble: 4 x 5
+  effect   term                      estimate    conf.low   conf.high
+  <chr>    <chr>                        <dbl>       <dbl>       <dbl>
+1 fixed    (Intercept)             0.00000430  0.00000230  0.00000807
+2 fixed    body_mass_index_scaled  1.26        0.902       1.75      
+3 fixed    sexWoman                0.400       0.196       0.819     
+4 ran_pars sd__(Intercept)        56.1        NA          NA         
+``` 
 
+- `estimate` for `fixed` effect is the "marginal" (population-level) effect {{1}} 
+- Every unit increase in `term` is `estimate` odds increase in CVD, controlling 
+for other `term` {{2}}
+- `estimate`, given data and assumptions, ranges from `conf.low` to `conf.high` {{3}}
+- `estimate` for `ran_pars` effect indicates variation between subjects {{4}}
 
 `@script`
-I mentioned keeping only important variables. Why were those variables important? Looking to STROBE, it says to provide the estimates with the 95 percent confidence interval. For science and health research, the estimate, also called the effect size, is much more useful when judging how important an exposure is on an outcome. Combined with the uncertainty, which gives a possible distribution to the effect size, you are able to gain more insight into your research question.
+
+Let's interpret these results. Here, the fixed effect estimate is the value for the marginal or population level average.
+
+The estimate value itself is the estimated odds when the predictor or term increases by one unit, after controlling for the other predictors, in this case sex. So in this case, because BMI is scaled, we say that a one standard deviation increase in BMI is associated with a one point twenty-six times higher risk for getting CVD.
+
+We need to also consider the confidence interval. We interpret this by saying that for BMI, the estimated odds ranges from a zero point nine lower risk to a one point seventy-five higher risk.
+
+Lastly, the estimate for the random effect term indicates the amount of variation between subjects. In this case, there is a lot of variation! Which is actually expected at the individual level.
 
 
 ---
