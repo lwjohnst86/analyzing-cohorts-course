@@ -17,7 +17,7 @@ title: Postdoctoral researcher in diabetes epidemiology
 
 
 `@script`
-A difficult part of the analysis is controlling for potential confounders.
+A really difficult part of doing analysis is controlling for potential confounders.
 
 
 ---
@@ -33,7 +33,7 @@ key: "24393effa1"
 
 
 `@script`
-A confounder is a variable that can influence both the outcome and the exposure. You'll likely have encountered the concept of confounding in the other courses. Understanding confounding is essential in making valid inferences. To control for confounding, you need to include it in your models.
+What is a confounder? A confounder is a variable that could influence both the outcome and the exposure. While you may have learned about confounding in other courses, understanding it is essential to making valid inferences.
 
 
 ---
@@ -54,11 +54,11 @@ key: "b9a8c843aa"
 
 
 `@script`
-What does it mean to adjust for confounders? Confounding is tricky in cohorts and requires substantial consideration. Do the best you can, but be aware you are guaranteed to not include or to not know about all confounders.
+You need to control for confounding by including confounders in your model to reduce risk of biased estimates. Adequately adjusting for confounding requires substantial consideration. Do the best you can, but know that you will never adjust for all possible confounders.
 
-Considering confounding is part of doing rigorous science. It's also required from the STROBE statement. STROBE, or strengthening the reporting of observational studies in epidemiology, is an internationally embraced standard by researchers working on observational studies. Make sure to adhere to these guidelines when doing your cohort analysis.
+Confounder adjustment is part of thorough research, so important that it's required from the STROBE statement. STROBE, or strengthening the reporting of observational studies in epidemiology, is a standard for cohort research and it is encouraged to adhere to it.
 
-You should use several approaches when identifying confounders, as each has strengths and weaknesses. Use previous biological and domain knowledge and formal methods such as directed acyclic graphs, or DAGs, and information criterion techniques.
+Use several approaches to identify confounders, as each have strengths and weaknesses. Use biological and domain knowledge and formal methods like directed acyclic graphs, or DAGs, and information criterion techniques.
 
 
 ---
@@ -78,9 +78,9 @@ key: "7aadf2f281"
 
 
 `@script`
-Drawing graphs like this DAG is a powerful approach to finding confounders. Each variable is called a node, and the causal or hypothetical link between variables is called an edge. Creating DAGs makes hypothetical confounding pathways explicit.
+Using DAG is a powerful approach to finding confounders as it makes hypothetical pathways explicit.
 
-Let's breakdown the meaning of DAG. Directed indicates a directionality, for example, an exposure affects an outcome, referring to the arrow's direction. Acyclic means that a pathway doesn't loop back, for instance going from exposure to confounder to outcome and back to exposure. And lastly, graph means there are some type of representation of real or hypothetical links between objects.
+What does DAG mean?. Directed indicates directionality, a cause and an effect. Acyclic means that a pathway doesn't loop back, where the effect also causes the cause. Lastly, graph is a visual representation of mathematical links between objects.
 
 
 ---
@@ -113,11 +113,11 @@ plot(graphLayout(confounders))
 
 
 `@script`
-So how do we use DAGs to find confounders? Let's do an example, where we are determining whether height is associated with colon cancer. 
+Let's do an example of finding confounders with DAGS. Let's say we want to determine whether height associates with colon cancer. 
 
-We can use the dagitty package to create DAGs by giving it a character string of a DAG specification. This string begins with the name dag then curly brackets followed by the variable names and links. Links are indicated using the arrow, which is the minus and greater than sign.
+We can use the dagitty package to help out. We give it a character string of a DAG specification. This string begins with the name dag then curly brackets followed by the variable names and links. Links are indicated with the minus and greater than sign.
 
-We can plot it by wrapping the DAG object with graph layout, which gives us a nice DAG image.
+We plot it with graph underscore layout to get a nice image.
 
 
 ---
@@ -156,11 +156,11 @@ plot(graphLayout(confounders))
 
 
 `@script`
-But we know there are confounding factors to this association. First, we know that men tend to be taller and than men are more likely to get cancer. 
+But, we know there are confounders. First, we know men tend to be taller and men are more likely to get cancer. 
 
-We include that in the DAG by creating another line and setting additional links. Because sex is linked with both height and cancer, in the DAG string we can include both by wrapping them in curly brackets.
+We include this by setting additional links. Since sex is linked with both height and cancer, in dagitty we include both by wrapping them in curly brackets.
 
-When we plot the DAG, we see how the DAG looks like.
+Which looks like this after plotting it.
 
 
 ---
@@ -205,9 +205,9 @@ adjustmentSets(
 
 
 `@script`
-The important part of using DAGs isn't in making nice figures, it's to determine what variables to adjust for in the model. We can use the adjustment sets function, which determines possible variables to adjust for to reduce the risk of confounding bias. Since a DAG doesn't know which variables are the exposure and outcome, we need to include that by setting those respective arguments.
+The point of dagitty isn't to make figures, it's to determine which variables to adjust for. The adjustment sets function tells us which variables at a minimum to adjust for to reduce bias. We also need to tell this function which variables are the exposure and outcome.
 
-Since this particular example is very simple, the only variable we should control for is sex.
+This simple example only shows sex as a possible confounder.
 
 
 ---
@@ -226,7 +226,7 @@ key: "fa35c1a27a"
 
 
 `@script`
-It is good practice to use multiple methods to decide what you should adjust. The information criterion methods are also quite powerful and compare several models to find which is better. The method balances model fitness with the number of predictors. Use the Akaike criterion or AIC for models that use maximum likelihood.
+Another method is the information criterion, which identifies variables to adjust for by comparing multiple models. A common method is the Akaike criterion or AIC.
 
 
 ---
@@ -259,11 +259,11 @@ model_selection <- dredge(full_model, rank = "AIC",
 
 
 `@script`
-We can use the MuMIn package for model selection. To start, we need to add all the variables to the model that we think might contribute or confound the association between the outcome and the exposure. We need to set na dot action to na dot fail, as it is required for the MuMIn function.
+The package MuMIn has model selection functions. First, we need to include all variables we think may bias the model estimate and to set na dot action to na dot fail, as required by MuMIn.
 
-Then we give the full model to the dredge function from MuMIn. Dredge is useful as it runs models of all possible combinations of variables that is included in the original full model. Dredge requires the model object and which model ranking method to use to determine which is the best model, in this case using AIC. You can also specify that you only want models compared that at least have the cholesterol variable by using the subset argument.
+Then we give the model to the dredge function, which runs models with all possible variable combinations. Dredge requires the model and the ranking method to determine the best model. We'll use AIC. We'll also specify to only compare models with at least the cholesterol variable with the subset argument.
 
-Be careful when running dredge. Since it compares many models, the computation time can be very long if you include too many variables or use complex model techniques.
+Be careful though, as computation times can become very long.
 
 
 ---
@@ -302,9 +302,9 @@ Random terms (all models):
 
 
 `@script`
-To determine which variables should be included based on dredge, use head to show the top models. In this case, we are showing the top 5 models. 
+Let's see the top 5 models from dredge using head.
 
-The output of dredge shows many things, such as the model information at the top, then shows a table of models compared, including or excluding certain variables. Notice how some columns don't have a value in the cell. This indicates the model excluded that variable. The AIC is listed at the end, along with the delta, or difference with the last model AIC. The last column is weight and that tells us the likelihood that that model is better than the others. So we can see that the first two models are vary similar in AIC and weight. Based on the output from dredge, a model with body mass, age, and sex, and optionally smoking status, would have the best model fit of the models compared.
+Dredge's output is extensive. The important bits are the columns and cells with missing values, which are the models without those variables, as well as the delta and weight columns on the end. The delta is the difference in AIC with the model above. Weight is the likelihood we should choose that model of all the models. Here, including body mass, age, and sex, and optionally smoking, would provide a good fit for the model.
 
 
 ---
@@ -316,5 +316,5 @@ key: "6c254e2fc3"
 ```
 
 `@script`
-Alright, let's identify confounders!
+Alright, let's identify some confounders!
 
