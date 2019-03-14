@@ -109,7 +109,7 @@ plot(graphLayout(confounders))
 ``` 
 {{3}}
 
-![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/ffd2d6db1ded2c0cdd212531e3393f1f4c2bba6a/ch3-v2-dagitty-1.png) {{3}}
+![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/bac11416364a6c926095a672a1b60ee6dacf546f/ch3-v2-dagitty-1.png) {{3}}
 
 
 `@script`
@@ -152,7 +152,7 @@ plot(graphLayout(confounders))
 ``` 
 {{3}}
 
-![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/dcfb3d855caa09046ddacc5dcc13a707736dfa87/ch3-v2-dagitty-2.png) {{3}}
+![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/a2fceb013a9fdd1946aca1b17bf89ebb1854f1cb/ch3-v2-dagitty-2.png) {{3}}
 
 
 `@script`
