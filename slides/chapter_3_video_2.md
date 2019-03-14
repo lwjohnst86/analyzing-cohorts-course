@@ -7,7 +7,6 @@ key: 911feb6e308d8e7e180f7f33f32a51ed
 
 ```yaml
 type: "TitleSlide"
-key: "9f03a6de45"
 ```
 
 `@lower_third`
@@ -25,7 +24,6 @@ A difficult part of the analysis is controlling for potential confounders.
 
 ```yaml
 type: "FullSlide"
-key: "061e68225d"
 ```
 
 `@part1`
@@ -41,7 +39,6 @@ A confounder is a variable that can influence both the outcome and the exposure.
 
 ```yaml
 type: "FullSlide"
-key: "b0f88227c7"
 ```
 
 `@part1`
@@ -65,7 +62,6 @@ You should use several approaches when identifying confounders, as each has stre
 
 ```yaml
 type: "FullSlide"
-key: "669761f7ba"
 ```
 
 `@part1`
@@ -94,17 +90,18 @@ An example: Height with colon cancer. {{1}}
 
 
 `@part2`
-
 ```{r}
 confounders <- dagitty("dag {
   Height -> ColonCancer
 
 }") 
-``` {{2}}
+``` 
+{{2}}
 
 ```{r}
 plot(graphLayout(confounders))
-``` {{3}}
+``` 
+{{3}}
 
 ![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/ffd2d6db1ded2c0cdd212531e3393f1f4c2bba6a/ch3-v2-dagitty-1.png) {{3}}
 
@@ -121,7 +118,6 @@ We can plot it by wrapping the DAG object with graph layout, which gives us a ni
 
 ```yaml
 type: "TwoColumns"
-disable_transition: true
 ```
 
 `@part1`
@@ -134,17 +130,18 @@ But...
 
 
 `@part2`
-
 ```{r}
 confounders <- dagitty("dag {
   Height -> ColonCancer
   Sex -> {Height ColonCancer}
 }") 
-``` {{2}}
+``` 
+{{2}}
 
 ```{r}
 plot(graphLayout(confounders))
-``` {{3}}
+``` 
+{{3}}
 
 ![dagitty graph](https://assets.datacamp.com/production/repositories/2079/datasets/dcfb3d855caa09046ddacc5dcc13a707736dfa87/ch3-v2-dagitty-2.png) {{3}}
 
@@ -162,7 +159,6 @@ When we plot the DAG, we see how the DAG looks like.
 
 ```yaml
 type: "TwoColumns"
-disable_transition: true
 ```
 
 `@part1`
@@ -175,7 +171,6 @@ But...
 
 
 `@part2`
-
 ```{r}
 confounders <- dagitty("dag {
   Height -> ColonCancer
@@ -189,15 +184,16 @@ adjustmentSets(
     exposure = "Height",
     outcome = "ColonCancer"
 ) 
-``` {{1}}
+```
+{{1}}
 
 ```{r}
 #>  { Sex }
-``` {{2}}
+``` 
+{{2}}
 
 
 `@script`
-
 The important part of using DAGs isn't in making nice figures, it's to determine what variables to adjust for in the model. We can use the adjustment sets function, which determines possible variables to adjust for to reduce the risk of confounding bias. Since a DAG doesn't know which variables are the exposure and outcome, we need to include that by setting those respective arguments.
 
 Since this particular example is very simple, the only variable we should control for is sex.
@@ -207,7 +203,6 @@ Since this particular example is very simple, the only variable we should contro
 
 ```yaml
 type: "FullSlide"
-key: "fdb2dfd109"
 ```
 
 `@part1`
@@ -226,7 +221,6 @@ It is good practice to use multiple methods to decide what you should adjust. Th
 
 ```yaml
 type: "FullSlide"
-key: "51eddc42eb"
 ```
 
 `@part1`
@@ -248,7 +242,7 @@ model_selection <- dredge(full_model, rank = "AIC",
 ```
 {{2}}
 
-- *A caution*: With many variables, big datasets, and/or the type of model = long computation times {{4}}
+- *A caution*: With many variables, big datasets, and/or the type of model = long computation times {{3}}
 
 `@script`
 We can use the MuMIn package for model selection. To start, we need to add all the variables to the model that we think might contribute or confound the association between the outcome and the exposure. We need to set na dot action to na dot fail, as it is required for the MuMIn function.
@@ -262,7 +256,6 @@ Be careful when running dredge. Since it compares many models, the computation t
 
 ```yaml
 type: "FullSlide"
-key: "276321afb5"
 ```
 
 `@part1`
@@ -303,7 +296,6 @@ The output of dredge shows many things, such as the model information at the top
 
 ```yaml
 type: "FinalSlide"
-key: "56b0010ae1"
 ```
 
 `@script`
