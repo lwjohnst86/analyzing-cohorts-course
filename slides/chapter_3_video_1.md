@@ -105,7 +105,6 @@ The name random indicates a dependency between observations, such as with siblin
 
 ```yaml
 type: "FullSlide"
-key: "d4dd5e98fc"
 ```
 
 `@part1`
@@ -132,7 +131,6 @@ In chapter 2 we covered transforming variables. Here we can put that knowledge t
 
 ```yaml
 type: "FullSlide"
-key: "d4dd5e98fc"
 ```
 
 `@part1`
@@ -148,10 +146,7 @@ glmer(outcome ~ center_predictor + predictor_divided_100 +
 
 `@script`
 
-We've covered what to include in the formula and transforming some variables. Now it's time to put it all together in the glmer function. The function takes several arguments, but the three most important ones are the formula, the data, and the family function. The family function is used to indicate how to handle the outcome variable. In this case, the outcome is binary: You have the disease or not. So, you need to use the binomial distribution family to obtain the correct results.
-
-TODO: Include interpretation here?
-
+We've covered what to include in the formula and how to transform some variables. Now it's time to put it all together in the glmer function. The function takes several arguments, but the three most important ones are the formula, the data, and the family function. The family function is used to indicate how to handle the outcome variable. In this case, the outcome is binary: You have the disease or not. So, you need to use the binomial distribution family to obtain the correct result.
 
 ---
 ## Let's practice with mixed effects models!

@@ -121,7 +121,7 @@ Fixed effects:
 body_mass_index_scaled            0.1272     0.2681   0.475   0.6351    
 sexWoman                         -0.9423     0.3696  -2.549   0.0108 *  
 body_mass_index_scaled:sexWoman   0.1672     0.3412   0.490   0.6241    <-- This
----
+...
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 ...
