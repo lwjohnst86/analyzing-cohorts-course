@@ -90,6 +90,21 @@ sample_tidied_framingham <- tidied_framingham %>%
 save(sample_tidied_framingham, file = "datasets/sample_tidied_framingham.rda")
 save(tidied_framingham, file = "datasets/tidied_framingham.rda")
 
+# Even smaller sample size and variable list
+
+ids <- unique(sample_tidied_framingham$subject_id)
+sampled_ids <- sample(ids, length(ids) / 3, replace = FALSE)
+sample_tidied_framingham <- sample_tidied_framingham %>%
+    filter(subject_id %in% sampled_ids)
+model_sel_df <- sample_tidied_framingham %>%
+    # filter(followup_visit_number == 1) %>%
+    select(subject_id, got_cvd, systolic_blood_pressure_scaled, sex,
+           body_mass_index_scaled, currently_smokes, followup_visit_number) %>%
+    mutate(subject_id = as.character(subject_id)) %>%
+    na.omit()
+
+saveRDS(model_sel_df, file = "datasets/model_sel_df.Rds")
+
 # For chapter 4 -----------------------------------------------------------
 
 library(lme4)
