@@ -606,44 +606,6 @@ success_msg("Amazing! You identified that at least BMI and smoking should be adj
 ## Model selection using Information Criterion
 
 ```yaml
-type: NormalExercise
-key: dc6191ab98
-xp: 100
-```
-
-
-
-`@instructions`
-
-
-`@hint`
-
-
-`@pre_exercise_code`
-```{r}
-
-```
-
-`@sample_code`
-```{r}
-
-```
-
-`@solution`
-```{r}
-
-```
-
-`@sct`
-```{r}
-
-```
-
----
-
-## Model selection using Information Criterion
-
-```yaml
 type: TabExercise
 key: 12f92a5b3e
 xp: 100
