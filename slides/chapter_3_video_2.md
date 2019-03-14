@@ -270,7 +270,7 @@ Global model call: glmer(formula = got_cvd ~ body_mass_index_scaled + total_chol
     participant_age + currently_smokes + education_combined + 
     sex + (1 | subject_id), data = tidied_framingham, family = binomial, 
     na.action = "na.fail")
----
+...
 Model selection table 
      (Int) bdy_mss_ind_scl crr_smk edc_cmb prt_age sex ttl_chl_scl df   logLik   AIC delta weight
 58 -1.2190          0.7495                  0.5155   +      0.2742  6 -203.065 418.1  0.00  0.411
