@@ -389,7 +389,7 @@ xp: 100
 
 Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
-Include followup visit number in the `glmer` formula as well as the random term and the scaled choleterol predictor.
+Include followup visit number in the `glmer` formula as well as the random term and the scaled cholesterol predictor.
 
 `@instructions`
 - Run a model of cholesterol (scaled) and followup visit number on CVD.
