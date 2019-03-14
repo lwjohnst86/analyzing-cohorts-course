@@ -196,13 +196,9 @@ key: 7d5ac3e0d5
 xp: 100
 ```
 
-There are several things you need to consider when running `glmer` models, as they can be finnicky. For instance, large variable variances can cause computational issues in the model. Often `glmer` will throw an error or warning telling you of the problem.
+You need to consider many things with `glmer` models, e.g. large variable variances. Often `glmer` will warn you of a problem, which you must fix using your knowledge of transformations. Getting it right often involves trial and error.
 
-To fix the problem, your knowledge of transformations comes into use. Getting the right transformation can sometimes involve trial and error to get the model to run.
-
-These exercises will (likely) generate warnings or errors. Compare the different transformations and notice why problems may occur. 
-
-Recall that the dataset is smaller and is loaded as `sample_tidied_framingham`, as well as what the general pattern is for `glmer`:
+These exercises will (likely) generate warnings or errors. Compare the different transformations and notice why problems occur. Recall that we are using a smaller dataset, `sample_tidied_framingham`. The general template for `glmer` is:
 
 ```{r}
 model <- glmer(
@@ -389,7 +385,7 @@ xp: 100
 
 Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
-Include followup visit number in the `glmer` formula as well as the random term and the scaled choleterol predictor.
+Include followup visit number in the `glmer` formula as well as the random term and the scaled cholesterol predictor.
 
 `@instructions`
 - Run a model of cholesterol (scaled) and followup visit number on CVD.
@@ -457,12 +453,11 @@ key: 4af692e468
 xp: 100
 ```
 
-Building an appropriate DAG that approximates the biology is very hard. It requires domain knowledge, so consult experts familiar with the mechanisms as you build the DAG. Remember, you are guaranteed to build an incomplete DAG. That's why you take several model selection approaches. 
+Building a DAG that approximates the biology is difficult. It requires domain knowledge, so consult experts familiar with the research to confirm the DAG. Remember, you will build an incomplete DAG. That's why you take several model selection approaches. 
 
-Let's determine which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Keeping things simple, assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
+Let's determine which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
 
-Recall that for dagitty, `x -> y` means "x influences y" and that `x -> {y z}` means
-"x influences y and z".
+Recall that for dagitty, `x -> y` means "x influences y" and that `x -> {y z}` means "x influences y and z".
 
 To learn more about graphs and networks, check out the [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r) course.
 
@@ -589,17 +584,21 @@ xp: 30
 ```
 
 `@question`
-
+According to the output of the `adjustmentSets`, what variables does DAG suggest you adjust for in the model to get less biased results?
 
 `@possible_answers`
-success_msg("Amazing! You identified that at least BMI and smoking should be adjusted for.")
+- Sex and FastingGlucose
+- [BMI and Smoking]
+- Smoking, Sex, BMI
+- All variables
+- No variables
 
 `@hint`
-
+- Run the `adjustmentSets` function again.
 
 `@sct`
 ```{r}
-
+success_msg("Amazing! You identified that at least BMI and smoking should be adjusted for by including them in the model.")
 ```
 
 ---
@@ -607,88 +606,144 @@ success_msg("Amazing! You identified that at least BMI and smoking should be adj
 ## Model selection using Information Criterion
 
 ```yaml
-type: NormalExercise
-key: dc6191ab98
+type: TabExercise
+key: 12f92a5b3e
 xp: 100
 ```
 
 It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared. 
 
-We've greatly restricted the sample size and reduced the number of variables to include in the model to keep the computation run time short.
+We've greatly restricted the sample size, the number of variables to include in the model, and set `nAQG` to 0 (to calculate less exact estimates) to have short computational runtimes. Check the `names` of the `model_sel_df` and add **all** of the variables in the dataset to the model.
+
+`@pre_exercise_code`
+```{r}
+model_sel_df <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/1db99d25c4b0ca4deb2a5790d87e18ed64e2ef63/model_sel_df.Rds"))
+library(MuMIn)
+library(lme4)
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: d9e78451a2
+xp: 35
+```
 
 `@instructions`
 - Set CVD as the outcome and subject ID as the random term.
 - Include all other remaining variables as predictors in the formula.
-- "Dredge" through the combinations of variables that have systolic blood pressure (scaled) in the model using AIC to rank models.
-- Print the top 4 models.
 
 `@hint`
 - Model formulas are in the form: `got_cvd ~ predictor1 + predictor2 + (1 | subject_id)`.
-- Subset by `systolic_blood_pressure_scaled`.
-
-`@pre_exercise_code`
-```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
-library(MuMIn)
-library(dplyr)
-library(lme4)
-# TODO: Add reduced sample code here
-ids <- unique(sample_tidied_framingham$subject_id)
-sampled_ids <- sample(ids, length(ids) / 3, replace = FALSE)
-sample_tidied_framingham <- sample_tidied_framingham %>%
-    filter(subject_id %in% sampled_ids)
-model_sel_df <- sample_tidied_framingham %>% 
-    # filter(followup_visit_number == 1) %>% 
-    select(subject_id, got_cvd, systolic_blood_pressure_scaled, sex,
-           total_cholesterol_scaled, currently_smokes, followup_visit_number) %>% 
-    mutate(subject_id = as.character(subject_id)) %>% 
-    na.omit()
-```
 
 `@sample_code`
 ```{r}
-# Check column names
-names(model_sel_df)
-
 # Set the outcome, random term, data, and family
 model <- glmer(
     ___,
     data = model_sel_df, 
     family = binomial, 
-    na.action = "na.fail"
+    na.action = "na.fail", nAGQ = 0 # to speed up computation
+)
+```
+
+`@solution`
+```{r}
+# Set the outcome, data, and family
+model <- glmer(
+    got_cvd ~ systolic_blood_pressure_scaled + body_mass_index_scaled +
+        currently_smokes + sex + followup_visit_number + (1 | subject_id),
+    data = model_sel_df, 
+    family = binomial, 
+    na.action = "na.fail", nAGQ = 0 # to speed up computation
+)
+```
+
+`@sct`
+```{r}
+success_msg("Great job!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 1255cd823d
+xp: 35
+```
+
+`@instructions`
+- "Dredge" through the combinations of variables that have systolic blood pressure (scaled) in the model using AIC to rank models.
+- Print the top 5 models.
+
+`@hint`
+- Subset by `systolic_blood_pressure_scaled`.
+
+`@sample_code`
+```{r}
+# Set the outcome, random term, data, and family
+model <- glmer(
+    got_cvd ~ systolic_blood_pressure_scaled + body_mass_index_scaled +
+        currently_smokes + sex + followup_visit_number + (1 | subject_id),
+    data = model_sel_df, 
+    family = binomial, 
+    na.action = "na.fail", nAGQ = 0 # to speed up computation
 )
 
 # Set the ranking method and subset
 selection <- dredge(___, rank = ___, subset = ___)
 
-# Print the top 4
-head(___, 4)
+# Print the top 5
+head(___, ___)
 ```
 
 `@solution`
 ```{r}
-# Check column names
-names(model_sel_df)
-
 # Set the outcome, data, and family
 model <- glmer(
-    got_cvd ~ systolic_blood_pressure_scaled + total_cholesterol_scaled + 
+    got_cvd ~ systolic_blood_pressure_scaled + body_mass_index_scaled +
         currently_smokes + sex + followup_visit_number + (1 | subject_id),
     data = model_sel_df, 
     family = binomial, 
-    na.action = "na.fail"
+    na.action = "na.fail", nAGQ = 0 # to speed up computation
 )
 
 # Set the ranking method and subset
 selection <- dredge(model, rank = "AIC", subset = "systolic_blood_pressure_scaled")
 
-# Print the top 4
-head(selection, 4)
+# Print the top 5
+head(selection, 5)
 ```
 
 `@sct`
 ```{r}
-success_msg("Great job! You've identified the model that has the best fit (of those compared). Now, using the knowledge you've gained from the DAG and the AIC suggestions, you can make a more informed decision on which variables to adjust for!")
+success_msg("Great job!")
+```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+key: d9c9cb4d09
+xp: 30
+```
+
+`@question`
+Based on the output of `dredge`, what variables are in the top model?
+
+`@possible_answers`
+- BMI and smoking
+- Sex and smoking
+- [Sex and BMI]
+- All of the variables
+
+`@hint`
+- Check which variables are missing in the columns of `selection`.
+
+`@sct`
+```{r}
+success_msg("Great job! You've identified the model that has the best fit (of those compared) and which variables provide that best fit. Now, using the knowledge you've gained from the DAG and the AIC suggestions, you can make a more informed decision on which variables to adjust for!")
 ```
 
 ---
