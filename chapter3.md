@@ -196,13 +196,9 @@ key: 7d5ac3e0d5
 xp: 100
 ```
 
-There are several things you need to consider when running `glmer` models, as they can be finnicky. For instance, large variable variances can cause computational issues in the model. Often `glmer` will throw an error or warning telling you of the problem.
+You need to consider many things with `glmer` models, e.g. large variable variances. Often `glmer` will warn you of a problem, which you must fix using your knowledge of transformations. Getting it right often involves trial and error.
 
-To fix the problem, your knowledge of transformations comes into use. Getting the right transformation can sometimes involve trial and error to get the model to run.
-
-These exercises will (likely) generate warnings or errors. Compare the different transformations and notice why problems may occur. 
-
-Recall that the dataset is smaller and is loaded as `sample_tidied_framingham`, as well as what the general pattern is for `glmer`:
+These exercises will (likely) generate warnings or errors. Compare the different transformations and notice why problems occur. Recall that we are using a smaller dataset, `sample_tidied_framingham`. The general template for `glmer` is:
 
 ```{r}
 model <- glmer(
