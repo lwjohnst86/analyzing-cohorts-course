@@ -585,17 +585,21 @@ xp: 30
 ```
 
 `@question`
-
+According to the output of the `adjustmentSets`, what variables does DAG suggest you adjust for in the model to get less biased results?
 
 `@possible_answers`
-success_msg("Amazing! You identified that at least BMI and smoking should be adjusted for.")
+- Sex and FastingGlucose
+- [BMI and Smoking]
+- Smoking, Sex, BMI
+- All variables
+- No variables
 
 `@hint`
-
+- Run the `adjustmentSets` function again.
 
 `@sct`
 ```{r}
-
+success_msg("Amazing! You identified that at least BMI and smoking should be adjusted for by including them in the model.")
 ```
 
 ---
