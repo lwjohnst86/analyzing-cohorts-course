@@ -32,21 +32,24 @@ bind_rows(map(unadjusted_models_list, ~ mutate(.x, model = "Unadjusted")),
 # Video 2, compare plot vs table ------------------------------------------
 
 extract_results <- function(x) {
-    glm(x$model_formula, data = diet, family = binomial) %>%
+    glmer(x$model_formula, data = sample_tidied_framingham,
+          family = binomial, nAGQ = 0) %>%
         tidy(conf.int = TRUE, exponentiate = TRUE) %>%
-        mutate(predictor = x$predictor, outcome = "chd")
+        mutate(predictor = x$predictor, outcome = "got_cvd")
 }
 
-individual_models <- map(c("energy", "fibre", "fat"),
-    ~ list(model_formula = as.formula(glue("chd ~ {.x}")),
+individual_models <- map(c("body_mass_index_scaled", "systolic_blood_pressure_scaled",
+                           "fasting_blood_glucose_scaled"),
+    ~ list(model_formula = as.formula(glue("got_cvd ~ {.x} + (1 | subject_id)")),
            predictor = .x)) %>%
     map_dfr(extract_results)
 
 models_plot <- individual_models %>%
     filter(predictor == term) %>%
+    mutate(predictor = str_remove(predictor, "_scaled$")) %>%
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point() +
-    geom_errorbarh(height = 0.2) +
+    geom_errorbarh(height = 0.15) +
     geom_vline(xintercept = 1, linetype = "dotted")
 
 ggsave(here::here("datasets/ch4-v2-models.png"), models_plot,
@@ -54,6 +57,7 @@ ggsave(here::here("datasets/ch4-v2-models.png"), models_plot,
 
 individual_models %>%
     filter(predictor == term) %>%
+    mutate(predictor = str_remove(predictor, "_scaled$")) %>%
     mutate_if(is.numeric, round, digits = 1) %>%
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})")) %>%
     select(Predictor = predictor, `Estimate (95% CI)` = estimate_ci) %>%
@@ -61,17 +65,11 @@ individual_models %>%
 
 # Video 2, creating plot --------------------------------------------------
 
-# Not for video
-model_energy <- glm(chd ~ energy, data = diet, family = binomial) %>%
-    tidy(conf.int = TRUE, exponentiate = TRUE)
-model_fibre <- glm(chd ~ fibre, data = diet, family = binomial) %>%
-    tidy(conf.int = TRUE, exponentiate = TRUE)
-models <-
-    bind_rows(
-        model_energy %>% mutate(predictor = "energy"),
-        model_fibre %>% mutate(predictor = "fibre")
-    ) %>%
-    filter(predictor == term)
+# Not for video. individual_models from previous section
+models <- individual_models %>%
+    filter(predictor == term,
+           predictor != "body_mass_index_scaled") %>%
+    mutate(predictor = str_remove(predictor, "_scaled$"))
 
 # For video
 estimate_ci_plot_basic <- models %>%
@@ -90,33 +88,28 @@ estimate_ci_plot_nicer <- models %>%
     geom_point(size = 2) +
     geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dashed") +
-    theme_classic()
+    theme_bw()
 
 ggsave(here::here("datasets/ch4-v2-estimate-ci-nicer.png"), estimate_ci_plot_nicer,
        height = 2.5, width = 8, dpi = 90)
 
 # Video 2, adjusted and unadjusted ----------------------------------------
 
-tidied_glm <- function(predictors) {
-    Formula <- as.formula(glue("chd ~ {predictors}"))
-    glm(Formula, data = diet, family = binomial) %>%
-        tidy(conf.int = TRUE, exponentiate = TRUE)
-}
+adj_individual_models <- map(c("body_mass_index_scaled", "systolic_blood_pressure_scaled",
+                           "fasting_blood_glucose_scaled"),
+    ~ list(model_formula = as.formula(glue("got_cvd ~ {.x} + sex + body_mass_index_scaled + (1 | subject_id)")),
+           predictor = .x)) %>%
+    map_dfr(extract_results)
 
 # Not for video
-model_energy <- tidied_glm("energy")
-model_fibre <- tidied_glm("fibre")
-adj_model_energy <- tidied_glm("energy + weight")
-adj_model_fibre <- tidied_glm("fibre + weight")
-
 models <-
     bind_rows(
-        model_energy %>% mutate(predictor = "energy", model = "unadjusted"),
-        model_fibre %>% mutate(predictor = "fibre", model = "unadjusted"),
-        adj_model_energy %>% mutate(predictor = "energy", model = "adjusted"),
-        adj_model_fibre %>% mutate(predictor = "fibre", model = "adjusted")
+        individual_models %>% mutate(model = "unadjusted"),
+        adj_individual_models %>% mutate(model = "adjusted")
     ) %>%
-    filter(predictor == term)
+    filter(predictor == term,
+           predictor != "body_mass_index_scaled") %>%
+    mutate(predictor = str_remove(predictor, "_scaled$"))
 
 # For video
 unadjusted_adjusted <- models %>%
@@ -127,7 +120,7 @@ unadjusted_adjusted <- models %>%
     facet_grid(rows = vars(model))
 
 unadjusted_adjusted <- unadjusted_adjusted +
-    coord_cartesian(ylim = c(0., 2.1), expand = FALSE)
+    coord_cartesian(ylim = c(0.7, 2.3), xlim = c(0.5, 4.5), expand = FALSE)
 
 ggsave(here::here("datasets/ch4-v2-unadjusted-adjusted.png"), unadjusted_adjusted,
        height = 2.5, width = 8, dpi = 90)
