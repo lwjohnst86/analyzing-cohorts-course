@@ -127,31 +127,33 @@ ggsave(here::here("datasets/ch4-v2-unadjusted-adjusted.png"), unadjusted_adjuste
 
 # Video 3, characteristics table ------------------------------------------
 
-diet %>%
+tidied_framingham %>%
     outline_table()
 
-diet %>%
+tidied_framingham %>%
     outline_table() %>%
-    add_rows("job", stat = stat_nPct)
+    add_rows("education_combined",
+             stat = stat_nPct)
 
-diet %>%
+tidied_framingham %>%
     outline_table() %>%
-    add_rows("job", stat = stat_nPct) %>%
-    add_rows("fibre", stat = stat_meanSD) %>%
-    add_rows(c("energy", "weight"),
+    add_rows("education_combined",
+             stat = stat_nPct) %>%
+    add_rows("body_mass_index",
+             stat = stat_meanSD) %>%
+    add_rows(c("participant_age", "heart_rate"),
              stat = stat_medianIQR)
 
-basic_char_table <- diet %>%
+basic_char_table <- tidied_framingham %>%
     outline_table() %>%
-    add_rows("job", stat = stat_nPct) %>%
-    add_rows("fibre", stat = stat_meanSD) %>%
-    add_rows(c("energy", "weight"),
+    add_rows("education_combined", stat = stat_nPct) %>%
+    add_rows("body_mass_index", stat = stat_meanSD) %>%
+    add_rows(c("participant_age", "heart_rate"),
              stat = stat_medianIQR) %>%
     renaming("header", c("Characteristics", "Values"))
 basic_char_table
 
 build_table(basic_char_table)
-
 
 # Video 3, wrangle model to table -----------------------------------------
 
