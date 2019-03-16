@@ -13,7 +13,7 @@ key: "0d2a8f7826"
 `@lower_third`
 
 name: Luke Johnston
-title: Postdoctoral researcher in diabetes epidemiology
+title: Diabetes epidemiologist
 
 
 `@script`
