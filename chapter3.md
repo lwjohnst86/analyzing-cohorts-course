@@ -768,9 +768,9 @@ key: 6ed7e200c3
 xp: 100
 ```
 
-In the past (and still very common today), most research was done mostly or only on males. Clinical trials, experimental animal models, and observational studies tended to explicitly study males, as female hormonal cycles can potential be a confounding factor. This often had harmful consequences, since there are massive gender differences in responses to drug treatment and other disease interventions. Most journals and funding agencies now *require* that differences in sex, and ethnicity, are investigated.
+In the past (and still very common today), most research was done mostly or only on males. Clinical trials, experimental animal models, and observational studies tended to explicitly study males, as female hormonal cycles can act as a confounding factor. This often had harmful consequences, since there are massive gender differences in responses to drug treatment and other disease interventions. Most journals and funding agencies now *require* that differences in sex, and ethnicity, are investigated.
 
-Since the Framingham study was almost entirely those of European-ancestry, we will only test sex interactions. Compare models without and with interactions for sex.
+Since the Framingham study has almost entirely individuals of European-ancestry, we can only test sex interactions. Compare models without and with interactions for sex.
 
 `@pre_exercise_code`
 ```{r}
@@ -893,7 +893,7 @@ model_sex_interaction <- glmer(
     data = sample_tidied_framingham, family = binomial)
 summary(model_sex_interaction)
 
-# Test that sex doesn't add to model
+# Test if interaction adds to model
 model.sel(___, ___, rank = ___)
 ```
 
@@ -911,13 +911,37 @@ model_sex_interaction <- glmer(
     data = sample_tidied_framingham, family = binomial)
 summary(model_sex_interaction)
 
-# Test that sex doesn't add to model
+# Test if interaction adds to model
 model.sel(model_no_interaction, model_sex_interaction, rank = "AIC")
 ```
 
 `@sct`
 ```{r}
-success_msg("Wonderful! You've checked and confirmed that sex doesn't seem to influence the results. You don't need to include the interaction or report any differences.")
+success_msg("Great!")
+```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+key: b0bf4c6e91
+```
+
+`@question`
+Does including a sex by predictor interaction provide more information for the model?
+
+`@possible_answers`
+- Yes, but only by a bit.
+- [No, since the models are not different.]
+- No, but we should still add a sex interaction.
+- None of the above.
+
+`@hint`
+- Check which model has a higher `weight`.
+
+`@sct`
+```{r}
+success_msg("Wonderful! You've checked and confirmed that sex doesn't seem to influence the results. You don't need to include the interaction or report any differences since it doesn't provide additional information in the model, so better to keep the model simpler.")
 ```
 
 ---
