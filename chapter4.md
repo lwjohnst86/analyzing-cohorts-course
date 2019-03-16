@@ -110,7 +110,7 @@ adjusted_models_list <- map(
 
 `@sct`
 ```{r}
-success_ms("Excellent! You made use of R's strength of functional programming rather than use a for loop.")
+success_msg("Excellent! You made use of R's strength of functional programming rather than use a for loop.")
 ```
 
 ---
