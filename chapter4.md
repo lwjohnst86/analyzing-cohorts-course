@@ -35,8 +35,8 @@ You have 8 models in total, stored as a list. There are a couple of things we sh
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/2bb231430c5899236ee8b8d0af4b229036657d3a/unadjusted_models_list.rda"))
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/13d5aaceecc89a74b4f323546401d409a605acc2/adjusted_models_list.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/07241773b32bd45d4d1eb59cb3524e5519e117e7/unadjusted_models_list.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/dc0bc2887b3a9f02c65275512b851fd3d0a8ddee/adjusted_models_list.rda"))
 library(dplyr)
 library(purrr)
 ```
@@ -139,8 +139,8 @@ The most efficient approach to later plotting and creating tables is to have all
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/2bb231430c5899236ee8b8d0af4b229036657d3a/unadjusted_models_list.rda"))
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/13d5aaceecc89a74b4f323546401d409a605acc2/adjusted_models_list.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/07241773b32bd45d4d1eb59cb3524e5519e117e7/unadjusted_models_list.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/dc0bc2887b3a9f02c65275512b851fd3d0a8ddee/adjusted_models_list.rda"))
 library(dplyr)
 library(purrr)
 unadjusted_models_list <- map(
@@ -209,7 +209,7 @@ Create a plot of the unadjusted model results that highlights the estimate and u
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/5a385fa413f9f3cfbe95857e390b53ae9966a62d/all_models.rda"))
 library(dplyr)
 library(ggplot2)
 ```
@@ -384,7 +384,7 @@ As with the previous exercise, use the `unadjusted_results` dataframe you create
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/5a385fa413f9f3cfbe95857e390b53ae9966a62d/all_models.rda"))
 library(dplyr)
 library(ggplot2)
 unadjusted_results <- all_models %>% 
@@ -450,7 +450,7 @@ The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/5a385fa413f9f3cfbe95857e390b53ae9966a62d/all_models.rda"))
 library(ggplot2)
 ```
 
@@ -734,7 +734,7 @@ Provide the estimates and 95% confidence intervals of the unadjusted and adjuste
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/5a385fa413f9f3cfbe95857e390b53ae9966a62d/all_models.rda"))
 library(knitr)
 library(glue)
 library(dplyr)
