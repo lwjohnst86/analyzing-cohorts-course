@@ -79,8 +79,10 @@ key: "633c32f759"
 `@part1`
 ```{r}
 unadjusted_models_list <- list(
-    glmer(chd ~ energy, family = binomial, data = diet),
-    glmer(chd ~ fibre, family = binomial, data = diet)
+    glmer(got_cvd ~ total_cholesterol_scaled + (1 | subject_id), 
+        family = binomial, data = tidied_framingham),
+    glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id), 
+        family = binomial, data = tidied_framingham)
 )
 ```
 {{1}}
@@ -88,8 +90,8 @@ unadjusted_models_list <- list(
 ```{r}
 library(purrr)
 tidied_unadjusted_models_list <- unadjusted_models_list %>%
-    map(~ tidy(.x, conf.int = TRUE, exponentiate = TRUE) %>%
-			select(effect, terms, estimate, conf.low, conf.high))
+    map(~tidy(.x, conf.int = TRUE, exponentiate = TRUE) %>%
+            select(effect, term, estimate, conf.low, conf.high))
 ```
 {{2}}
 
@@ -118,18 +120,20 @@ unadjusted_models_list
 
 ```
 [[1]]
-# A tibble: 2 x 7
-  term        estimate std.error statistic p.value conf.low conf.high
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
-1 (Intercept)    4.30     1.09        1.33 0.183      0.516    38.1  
-2 energy         0.887    0.0404     -2.97 0.00297    0.817     0.958
+# A tibble: 3 x 5
+  effect   term                        estimate     conf.low  conf.high
+  <chr>    <chr>                          <dbl>        <dbl>      <dbl>
+1 fixed    (Intercept)               0.00000273  0.000000334  0.0000223
+2 fixed    total_cholesterol_scaled  1.10        0.319        3.78     
+3 ran_pars sd__(Intercept)          56.5        NA           NA        
 
 [[2]]
-# A tibble: 2 x 7
-  term        estimate std.error statistic p.value conf.low conf.high
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
-1 (Intercept)    0.953     0.604   -0.0804 0.936      0.297     3.16 
-2 fibre          0.326     0.382   -2.94   0.00328    0.149     0.664
+# A tibble: 3 x 5
+  effect   term                      estimate     conf.low  conf.high
+  <chr>    <chr>                        <dbl>        <dbl>      <dbl>
+1 fixed    (Intercept)             0.00000248  0.000000289  0.0000213
+2 fixed    body_mass_index_scaled  1.62        0.410        6.38     
+3 ran_pars sd__(Intercept)        56.8        NA           NA        
 ```
 {{2}}
 
@@ -151,23 +155,25 @@ disable_transition: true
 
 `@part1`
 ```{r}
-map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted"))
+map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted"))
 ```
 
 ```
 [[1]]
-# A tibble: 2 x 8
-  term        estimate std.error statistic p.value conf.low conf.high model     
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl> <chr>     
-1 (Intercept)    4.30     1.09        1.33 0.183      0.516    38.1   Unadjusted
-2 energy         0.887    0.0404     -2.97 0.00297    0.817     0.958 Unadjusted
+# A tibble: 3 x 6
+  effect   term                       estimate     conf.low conf.high model    
+  <chr>    <chr>                         <dbl>        <dbl>     <dbl> <chr>    
+1 fixed    (Intercept)              0.00000273  0.000000334   2.23e-5 Unadjust…
+2 fixed    total_cholesterol_scal…  1.10        0.319         3.78e+0 Unadjust…
+3 ran_pars sd__(Intercept)         56.5        NA            NA       Unadjust…
 
 [[2]]
-# A tibble: 2 x 8
-  term        estimate std.error statistic p.value conf.low conf.high model     
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl> <chr>     
-1 (Intercept)    0.953     0.604   -0.0804 0.936      0.297     3.16  Unadjusted
-2 fibre          0.326     0.382   -2.94   0.00328    0.149     0.664 Unadjusted
+# A tibble: 3 x 6
+  effect   term                      estimate     conf.low  conf.high model    
+  <chr>    <chr>                        <dbl>        <dbl>      <dbl> <chr>    
+1 fixed    (Intercept)             0.00000248  0.000000289  0.0000213 Unadjust…
+2 fixed    body_mass_index_scaled  1.62        0.410        6.38      Unadjust…
+3 ran_pars sd__(Intercept)        56.8        NA           NA         Unadjust…
 ```
 {{1}}
 
@@ -191,18 +197,20 @@ disable_transition: true
 
 `@part1`
 ```{r}
-map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")) %>% 
+map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted")) %>% 
     bind_rows()
 ```
 
 ```
-# A tibble: 4 x 8
-  term        estimate std.error statistic p.value conf.low conf.high model     
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl> <chr>     
-1 (Intercept)    4.30     1.09      1.33   0.183      0.516    38.1   Unadjusted
-2 energy         0.887    0.0404   -2.97   0.00297    0.817     0.958 Unadjusted
-3 (Intercept)    0.953    0.604    -0.0804 0.936      0.297     3.16  Unadjusted
-4 fibre          0.326    0.382    -2.94   0.00328    0.149     0.664 Unadjusted
+# A tibble: 6 x 6
+  effect   term                  estimate   conf.low conf.high model   
+  <chr>    <chr>                    <dbl>      <dbl>     <dbl> <chr>   
+1 fixed    (Intercept)         0.00000273    3.34e-7   2.23e-5 Unadjus…
+2 fixed    total_cholesterol…  1.10          3.19e-1   3.78e+0 Unadjus…
+3 ran_pars sd__(Intercept)    56.5          NA        NA       Unadjus…
+4 fixed    (Intercept)         0.00000248    2.89e-7   2.13e-5 Unadjus…
+5 fixed    body_mass_index_s…  1.62          4.10e-1   6.38e+0 Unadjus…
+6 ran_pars sd__(Intercept)    56.8          NA        NA       Unadjus…
 ```
 {{1}}
 
@@ -222,33 +230,31 @@ disable_transition: true
 
 `@part1`
 ```{r}
-bind_rows(
-    map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")),
-    map(adjusted_models_list, ~ .x %>% mutate(model = "Adjusted"))
-    ) %>%
-    mutate(outcome = "chd")
+bind_rows(map(unadjusted_models_list, ~ mutate(.x, model = "Unadjusted")),
+          map(adjusted_models_list, ~ mutate(.x, model = "Adjusted"))) %>%
+    mutate(outcome = "got_cvd")
 ```
 
 ```
-# A tibble: 10 x 9
-   term     estimate std.error statistic p.value conf.low conf.high model  outcome
-   <chr>       <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl> <chr>  <chr>  
- 1 (Interc…    4.30     1.09      1.33   0.183      0.516    38.1   Unadj… chd    
- 2 energy      0.887    0.0404   -2.97   0.00297    0.817     0.958 Unadj… chd    
- 3 (Interc…    0.953    0.604    -0.0804 0.936      0.297     3.16  Unadj… chd    
- 4 fibre       0.326    0.382    -2.94   0.00328    0.149     0.664 Unadj… chd    
- 5 (Interc…    6.03     1.36      1.32   0.187      0.420    88.5   Adjus… chd    
- 6 energy      0.892    0.0420   -2.71   0.00666    0.820     0.967 Adjus… chd    
- 7 weight      0.993    0.0152   -0.473  0.636      0.963     1.02  Adjus… chd    
- 8 (Interc…    1.24     1.09      0.199  0.842      0.145    10.5   Adjus… chd    
- 9 fibre       0.346    0.412    -2.58   0.0100     0.149     0.746 Adjus… chd    
-10 weight      0.995    0.0162   -0.319  0.750      0.963     1.03  Adjus… chd  
+# A tibble: 14 x 7
+   effect   term                       estimate     conf.low conf.high model     outcome
+   <chr>    <chr>                         <dbl>        <dbl>     <dbl> <chr>     <chr>  
+ 1 fixed    (Intercept)              0.00000273  0.000000334   2.23e-5 Unadjust… got_cvd
+ 2 fixed    total_cholesterol_scal…  1.10        0.319         3.78e+0 Unadjust… got_cvd
+ 3 ran_pars sd__(Intercept)         56.5        NA            NA       Unadjust… got_cvd
+ 4 fixed    (Intercept)              0.00000248  0.000000289   2.13e-5 Unadjust… got_cvd
+ 5 fixed    body_mass_index_scaled   1.62        0.410         6.38e+0 Unadjust… got_cvd
+ 6 ran_pars sd__(Intercept)         56.8        NA            NA       Unadjust… got_cvd
+ 7 fixed    (Intercept)              0.00000532  0.000000503   5.61e-5 Adjusted  got_cvd
+ 8 fixed    total_cholesterol_scal…  1.21        0.347         4.22e+0 Adjusted  got_cvd
+ 9 fixed    sexWoman                 0.272       0.0143        5.15e+0 Adjusted  got_cvd
+10 ran_pars sd__(Intercept)         55.5        NA            NA       Adjusted  got_cvd
 ```
 {{1}}
 
 
 `@script`
-Let's do the same thing wit the list of adjusted models, but instead, we bind rows for both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, let's add information about the outcome. We now have a single model dataframe that we can use to create plots and tables.
+Let's do the same thing with the list of adjusted models, but instead, we bind rows for both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, let's add information about the outcome. We now have a single model dataframe that we can use to create plots and tables.
 
 
 ---
@@ -260,5 +266,5 @@ key: "07d2f95588"
 ```
 
 `@script`
-Alright, let's get to wrangling the model results!
+Now you know how to wrangling model results. Let's practice!
 

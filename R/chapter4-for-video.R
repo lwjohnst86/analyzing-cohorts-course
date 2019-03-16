@@ -1,32 +1,33 @@
 source(here::here("R/setup.R"))
+load(here::here("datasets/sample_tidied_framingham.rda"))
 
 # Video 1 -----------------------------------------------------------------
 
 tidy_glm <- function(predictors) {
-    model_formula <- as.formula(glue("chd ~ {predictors}"))
-    glm(model_formula, family = binomial, data = diet) %>%
-        tidy(conf.int = TRUE, exponentiate = TRUE)
+    model_formula <- as.formula(glue("got_cvd ~ {predictors}"))
+    glmer(model_formula, family = binomial, data = sample_tidied_framingham) %>%
+        tidy(conf.int = TRUE, exponentiate = TRUE) %>%
+        select(effect, term, estimate, conf.low, conf.high)
 }
 
-predictors <- c("energy", "fibre")
-predictors_with_covars <- paste(predictors, "weight", sep = " + ")
+predictors <- c("total_cholesterol_scaled", "body_mass_index_scaled")
+predictors_with_random <- paste(predictors, "(1 | subject_id)", sep = " + ")
+predictors_with_covars <- paste(predictors, "sex", "(1 | subject_id)", sep = " + ")
 
-unadjusted_models_list <- map(predictors, tidy_glm)
+unadjusted_models_list <- map(predictors_with_random, tidy_glm)
 adjusted_models_list <- map(predictors_with_covars, tidy_glm)
 
 # For video
 unadjusted_models_list
 
-map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted"))
+map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted"))
 
-map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")) %>%
+map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted")) %>%
     bind_rows()
 
-bind_rows(
-        map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")),
-        map(adjusted_models_list, ~ .x %>% mutate(model = "Adjusted"))
-    ) %>%
-    mutate(outcome = "chd")
+bind_rows(map(unadjusted_models_list, ~ mutate(.x, model = "Unadjusted")),
+          map(adjusted_models_list, ~ mutate(.x, model = "Adjusted"))) %>%
+    mutate(outcome = "got_cvd")
 
 # Video 2, compare plot vs table ------------------------------------------
 
