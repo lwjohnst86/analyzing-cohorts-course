@@ -1010,7 +1010,7 @@ xp: 40
 - Include body mass index (scaled), followup visit, and subject ID in the formula, then run the model with the original dataset.
 
 `@hint`
-- The model formula is the same as the previous exercises, but using the original dataset.
+- The model object should be given to `summary`.
 
 `@sample_code`
 ```{r}
