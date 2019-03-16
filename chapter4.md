@@ -623,10 +623,10 @@ xp: 25
 ```
 
 `@instructions`
-- Add a row for the predictor variables, body mass, and age using `median (interquartile range)` as the statistic.
+- Add rows for cholesterol, blood pressure, blood glucose, body mass, and age using `median (interquartile range)` as the statistic.
 
 `@hint`
-- The predictors are total cholesterol, systolic and diastolic blood pressure, and fasting blood glucose.
+- The variables are total cholesterol, systolic and diastolic blood pressure, fasting blood glucose, and body mass index.
 
 `@sample_code`
 ```{r}
