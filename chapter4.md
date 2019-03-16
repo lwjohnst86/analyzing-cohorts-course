@@ -114,7 +114,7 @@ adjusted_models_list <- map(
 
 `@sct`
 ```{r}
-success_msg("Excellent! You made use of R's strength of functional programming rather than use a for loop.")
+success_msg("Excellent! You made use of R's strength of functional programming rather than use a `for` loop.")
 ```
 
 ---
@@ -131,8 +131,8 @@ The most efficient approach to later plotting and creating tables is to have all
 
 `@instructions`
 - Using `bind_rows`, put the two model list objects together.
-- Continuing to pipe, add an outcome column.
-- Finally, filter out all but the predictor estimates.
+- Continuing to pipe, add an outcome column for the disease variable.
+- Finally, filter so only conditions where the `predictor` is the `term` and the `effect` is fixed.
 
 `@hint`
 - Filter so only the predictor estimate rows remain (when predictor and term are the same).
@@ -145,11 +145,11 @@ library(dplyr)
 library(purrr)
 unadjusted_models_list <- map(
     unadjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
+    ~mutate(.x, predictor = term[2], model = "Unadjusted")
 )
 adjusted_models_list <- map(
     adjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
+    ~mutate(.x, predictor = term[2], model = "Adjusted")
 )
 ```
 
@@ -161,7 +161,7 @@ all_models <- ___ %>%
     ___
 
 # Check the model dataframe
-
+all_models
 ```
 
 `@solution`
@@ -169,7 +169,7 @@ all_models <- ___ %>%
 # Combine models, add outcome, keep predictor estimates
 all_models <- bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
     mutate(outcome = "got_cvd") %>% 
-    filter(predictor == term)
+    filter(predictor == term, effect == "fixed")
 
 # Check the model dataframe
 all_models
@@ -203,7 +203,7 @@ key: 69007ab10b
 xp: 100
 ```
 
-Statistical analysis used on cohort data usually output some time of regression estimate along with a measure of uncertainty (e.g. 95% confidence interval). Sometimes it makes sense to present these results in a table, but often the better approach is to create a graph instead. Graphs show magnitude, direction, uncertainty, and comparison of results very effectively.
+Statistical analysis used on cohort data usually output some time of regression estimate along with a measure of uncertainty (e.g. 95% confidence interval). Sometimes it makes sense to present these results in a table, but often the better approach is to create a figure instead. Figures show magnitude, direction, uncertainty, and comparison of results very effectively.
 
 Create a plot of the unadjusted model results that highlights the estimate and uncertainty of the estimate.
 
@@ -212,8 +212,6 @@ Create a plot of the unadjusted model results that highlights the estimate and u
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
 library(dplyr)
 library(ggplot2)
-all_models <- all_models %>% 
-    filter(predictor == term)
 ```
 
 ***
@@ -225,10 +223,10 @@ xp: 30
 ```
 
 `@instructions`
-- Keep only the unadjusted results.
+- Keep only the unadjusted results for this exercise.
 
 `@hint`
-- Filter takes a logic condition.
+- Filter takes a logical condition.
 
 `@sample_code`
 ```{r}
@@ -264,7 +262,7 @@ xp: 35
 ```
 
 `@instructions`
-- Create a point and error bar plot of the estimates and confidence intervals, with the predictors on the y axis.
+- Create a point and error-bar plot of the estimates and confidence intervals, with the predictors on the y axis.
 
 `@hint`
 - Use the geom for points and for `errorbarh` (horizontal).
@@ -379,7 +377,7 @@ As with the previous exercise, use the `unadjusted_results` dataframe you create
 - Add the `aes()` variables, the point, error bar, and vertical center line.
 - Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to dotted.
 - Include appropriate axis labels (the "Predictors" on the y and the "Odds Ratio (95% CI)" on the x). Remember, CI is the confidence interval.
-- Change the theme to `theme_bw()`.
+- Change the theme to `theme_classic()`.
 
 `@hint`
 - The labels should be of the form `x = "Axis Label"` (for the x-axis for instance).
@@ -390,7 +388,7 @@ load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fe
 library(dplyr)
 library(ggplot2)
 unadjusted_results <- all_models %>% 
-    filter(model == "Unadjusted", predictor == term)
+    filter(model == "Unadjusted")
 ```
 
 `@sample_code`
@@ -417,7 +415,7 @@ model_plot <- unadjusted_results %>%
     geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dotted") +
     labs(y = "Predictors", x = "Odds ratio (95% CI)") +
-    theme_bw()
+    theme_classic()
 
 # Plot it
 model_plot
@@ -425,7 +423,7 @@ model_plot
 
 `@sct`
 ```{r}
-success_msg("Amazing! You have a very nice figure now that is ready to be presented to others! There are other themes to use if you don't like this one.")
+success_msg("Amazing! You have a very nice figure now that is ready to be presented to others! There are other themes to use if you don't like this one. Check out the package ggthemes for more.")
 ```
 
 ---
@@ -453,7 +451,6 @@ The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model
 `@pre_exercise_code`
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
-library(dplyr)
 library(ggplot2)
 ```
 
