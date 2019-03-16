@@ -117,7 +117,7 @@ saveRDS(main_model, file = "datasets/main_model.Rds")
 # For chapter 4 -----------------------------------------------------------
 
 library(lme4)
-library(broom)
+library(broom.mixed)
 library(furrr)
 library(glue)
 plan(multiprocess)
@@ -145,10 +145,10 @@ base_covariates <- "followup_visit_number + (1 | subject_id)"
 
 # Function to extract model results from glmer
 extract_results_simple_lme <- function(.x) {
-        model <- glmer(.x, family = binomial, data = tidied_framingham_v02)
+        model <- glmer(.x, family = binomial, data = tidied_framingham_v02, nAGQ = 0)
         model %>%
-            tidy(conf.int = TRUE) %>%
-            mutate_at(vars(estimate, std.error, conf.low, conf.high), exp)
+            tidy(conf.int = TRUE, exponentiate = TRUE) %>%
+            select(effect, term, estimate, conf.low, conf.high)
 }
 
 unadjusted_models_list <- predictors %>%
@@ -165,12 +165,12 @@ save(adjusted_models_list, file = "datasets/adjusted_models_list.rda")
 
 # Function to extract model results from glmer
 extract_results_lme <- function(.x) {
-        model <- glmer(.x, family = binomial, data = tidied_framingham_v02)
+        model <- glmer(.x, family = binomial, data = tidied_framingham_v02, nAGQ = 0)
         model %>%
-            tidy(conf.int = TRUE) %>%
+            tidy(conf.int = TRUE, exponentiate = TRUE) %>%
             mutate(outcome = as.character(model@call$formula[[2]]),
                    predictor = term[2]) %>%
-            select(outcome, predictor, everything())
+            select(effect, outcome, predictor, term, estimate, conf.low, conf.high)
 }
 
 # Generate model results from all possible formulas.
@@ -189,8 +189,8 @@ all_models <- bind_rows(
     unadjusted_models %>% mutate(model = "Unadjusted"),
     adjusted_models %>% mutate(model = "Adjusted")
     ) %>%
-    mutate_at(vars(estimate, conf.low, conf.high), exp) %>%
-    select(model, outcome, predictor, term, estimate, conf.low, conf.high)
+    select(model, everything()) %>%
+    filter(predictor == term, effect == "fixed")
 
 # Save the model results:
 save(all_models, file = "datasets/all_models.rda")
