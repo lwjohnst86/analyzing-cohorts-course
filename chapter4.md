@@ -50,17 +50,18 @@ xp: 50
 ```
 
 `@instructions`
-- Create a predictor column using the row number that the predictor is in from the `term` variable, then add a model column to indicate "adjustment".
+- Create a model column to indicate "adjustment" for each model in the list.
 
 `@hint`
-- Add the predictor by selecting the element number from the `term` variable with the predictor information.
+- Use `map` to add to each model.
 
 `@sample_code`
 ```{r}
 # Add predictor and model type to each list item
 unadjusted_models_list <- ___(
     unadjusted_models_list,
-    ~ .x %>% ___(predictor = term[___], ___)
+    ~___(.x, predictor = term[2], 
+         model = ___)
 )
 ```
 
@@ -69,7 +70,8 @@ unadjusted_models_list <- ___(
 # Add predictor and model type to each list item
 unadjusted_models_list <- map(
     unadjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
+    ~mutate(.x, predictor = term[2], 
+            model = "Unadjusted")
 )
 ```
 
@@ -90,7 +92,8 @@ xp: 50
 - Do the same thing for the adjusted model list.
 
 `@hint`
-- Map onto the adjusted model list.
+- Refer to each list object in `map` with `.x`.
+- Include the `~` before `mutate`.
 
 `@sample_code`
 ```{r}
@@ -104,7 +107,8 @@ adjusted_models_list <-
 # Do the same for adjusted model list
 adjusted_models_list <- map(
     adjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
+    ~mutate(.x, predictor = term[2],
+            model = "Adjusted")
 )
 ```
 
