@@ -1115,34 +1115,40 @@ dfd73cee12b1663ba86738a4ec9a6c06
 
 ---
 
-## Tidy up and back-transform the results with broom
+## Tidy up with broom and interpret the results
 
 ```yaml
-type: NormalExercise
-key: 6c2f7f04d3
+type: TabExercise
+key: 33b5b785cf
 xp: 100
 ```
 
-Now that you've created several models, you need to do some tidying and back-transforming. Since most modelling methods don't use a consistent framework to present their results, we need to use the broom package to provide that framework in a "tidy" format. Tidying mixed effects models requires the broom.mixed package. Back-transforming by exponentiating is required as the model uses a binary outcome, which give log-odds estimates that can be difficult to interpret. Exponentiating converts the estimates to odds. 
+Now that you've created several models, you need to do some tidying and back-transforming. Tidying mixed effects models requires the broom.mixed package. Back-transforming by exponentiating is required as the model uses a binary outcome. Exponentiating converts the estimates to odds. Then select the variables that are important and relevant.
 
 A model has been created for you already called `main_model`.
 
+`@pre_exercise_code`
+```{r}
+main_model <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/ef96cbfc9ab3b3728b18de9fa59f9600d8894add/main_model.Rds"))
+library(lme4)
+library(dplyr)
+options(digits = 3, scipen = 4)
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: aa6db67866
+xp: 50
+```
+
 `@instructions`
-- Using the functions from broom.mixed, tidy the model, create confidence intervals and exponentiate the estimates.
-- Select only the most important results: the terms, the estimates, and the lower and upper confidence interval.
+- Using the functions from broom.mixed, tidy the model, create confidence intervals, and exponentiate the estimates.
+- Select only the most important results: the effect, terms, estimates, and the lower and upper confidence interval.
 
 `@hint`
 - Use the `tidy` function on model object.
-
-`@pre_exercise_code`
-```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
-library(lme4)
-library(dplyr)
-main_model <- glmer(got_cvd ~ total_cholesterol_scaled + followup_visit_number + (1 | subject_id), 
-              data = sample_tidied_framingham, family = binomial, na.action = "na.omit")
-options(digits = 3, scipen = 4)
-```
 
 `@sample_code`
 ```{r}
@@ -1171,10 +1177,44 @@ tidy_model
 
 # Select the four important variables
 tidy_model %>% 
-    select(term, estimate, conf.low, conf.high) 
+    select(effect, term, estimate, conf.low, conf.high) 
 ```
 
 `@sct`
 ```{r}
-success_msg("Amazing! You tidied up the model and have extracted the most important results!")
+success_msg("Amazing!")
+```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+key: 479e2ac60e
+xp: 50
+```
+
+`@question`
+Which is the *most* accurate interpretation of the results? (Note: SD = standard deviation)
+
+`@possible_answers`
+- One SD increase in cholesterol has a 1.09 times higher risk of CVD, but has much uncertainty (from 0.320 to 3.75).
+- For each new visit number, there is a 0.9 times lower risk of CVD.
+- [One SD increase in cholesterol has a 1.09 times higher risk of CVD (highly uncertain, from 0.320 to 3.75), controlling for time.]
+- Total cholesterol is not significantly associated with CVD, because the estimate passes the null line (1).
+- There is a lot of uncertainty around the association of cholesterol with CVD. More research is needed.
+
+
+# A tibble: 4 x 4
+  term                        estimate     conf.low  conf.high
+  <chr>                          <dbl>        <dbl>      <dbl>
+1 (Intercept)               0.00000334  0.000000151  0.0000736
+2 total_cholesterol_scaled  1.09        0.320        3.75     
+3 followup_visit_number     0.898       0.258        3.13
+
+`@hint`
+- There are several that are right, but only one is the **most** accurate statement.
+
+`@sct`
+```{r}
+success_msg("Amazing! You tidied up the model, extracted the most important results, and correctly identified the most accurate interpretation of these results!")
 ```
