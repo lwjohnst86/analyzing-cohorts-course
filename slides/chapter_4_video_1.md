@@ -38,11 +38,11 @@ key: "42434a7ac4"
 
 
 `@script`
-In observational cohort studies, you should always have a healthy dose of caution when interpreting and presenting results. This is also stated within the STROBE guidelines. If you recall, STROBE was developed to make studies such as cohorts more rigorous, standardized, and transparent.
+In observational cohort studies, you need to use a healthy dose of caution when interpreting and presenting results. This is also stated within the STROBE guidelines. If you recall, STROBE was developed to make studies such as cohorts more rigorous, standardized, and transparent.
 
-Presenting results should emphasize more tangible health impact and try to be as clear and understandable as possible. The audience for your results will likely be public health professionals or clinicians who aren't trained on interpreting complex model outputs, so be simple and concise. 
+Emphasize more tangible health impacts when presenting results and try to be as clear and understandable as possible. Your audience or readers will likely be public health professionals or clinicians who aren't trained in interpreting complex models, so be simple and concise. 
 
-Keep in mind that both non-significant and significant findings are important from a health standpoint. Show all results, and in those results, emphasize the magnitude of association and the uncertainty of that association.
+Keep in mind that both non-significant and significant findings are important from a health standpoint. Show all results, emphasizing the magnitude of association and the uncertainty of that association.
 
 
 ---
@@ -55,35 +55,52 @@ key: "452c839802"
 
 `@part1`
 - Growing field in epidemiology
-- Use caution with causal language or interpretations
-- When to use stronger causal language
-    - Depends on magnitude and temporal response
-    - e.g. with smoking and lung cancer
+- Use caution with causal language or interpretations {{1}}
+- Using stronger causal language depends on magnitude and temporal response {{2}}
+    - E.g. with smoking and lung cancer
 
 
 `@script`
-Oftentimes, observational findings are interpreted causally. While the field of causal reasoning in epidemiology has greatly expanded in recent years, it is still an area where you should be cautious. Unfortunately, humans often interpret associations as causal, so as the researcher you need to be extremely cautious when presenting findings from observational research. There are instances when causal language is easier to use, for example with the observation on smoking and lung cancer, but most of the time it is not so clear whether a causal relationship exists. Keep these things in mind whenever you present results from cohort studies.
+Oftentimes, observational findings are interpreted causally. While the field of causal reasoning in epidemiology has expanded recently, it is still an area to exercise cautious. 
+
+Unfortunately, humans often interpret associations as causal, so as the researcher you need to be extremely cautious when presenting findings from observational research. 
+
+There are times when causal language is justified, for example with the observation of cigarette smoking and lung cancer. But usually it isn't clear whether a causal relationship exists. Keep these in mind when you present cohort study results.
+
 
 ---
-## Running multiple models and using lists
+## Multiple models as lists, tidying with map
 
 ```yaml
 type: "FullSlide"
+key: "633c32f759"
 ```
 
 `@part1`
 ```{r}
 unadjusted_models_list <- list(
-    glm(chd ~ energy, family = binomial, data = diet) %>%
-        tidy(conf.int = TRUE, exponentiate = TRUE),
-    glm(chd ~ fibre, family = binomial, data = diet) %>%
-        tidy(conf.int = TRUE, exponentiate = TRUE)
+    glmer(chd ~ energy, family = binomial, data = diet),
+    glmer(chd ~ fibre, family = binomial, data = diet)
 )
 ```
+{{1}}
+
+```{r}
+library(purrr)
+tidied_unadjusted_models_list <- unadjusted_models_list %>%
+    map(~ tidy(.x, conf.int = TRUE, exponentiate = TRUE) %>%
+			select(effect, terms, estimate, conf.low, conf.high))
+```
+{{2}}
+
 
 `@script`
+Given you'll likely be working with multiple models, my suggestion is put your models into a single list, since working with lists is very easy in R thanks to the purrr package. 
 
-There are several ways to work with multiple models. My suggestion is put your models into a single list, since working with lists is very easy in R thanks to the purrr package, which I will show later. Here, I've ran two models using what we learned from the previous chapter and stored them as a list into the object unadjusted models list. I did the same thing for the adjusted models by storing them as a list.
+Here, I've ran two models using what we learned from the previous chapter and stored them as a list into the object unadjusted models list. I did the same thing for the adjusted models by storing them as a list.
+
+Then, to apply the tidy function to each of those models, we use the map function. Map takes two arguments. The list object and the function. We set the function with the tilde symbol and refer to the object by dot x.
+
 
 ---
 ## Contents are multiple models stored in sequence
@@ -118,12 +135,13 @@ unadjusted_models_list
 
 
 `@script`
-We can see the contents of the list by printing it. You can see the two models inside the list object.This is what the model list looks like for the unadjusted models. The adjusted models list looks the same, except for the additional covariates.
+You see that the content is a list of model results, where two models are inside the object. These results are for the unadjusted models. The adjusted models list looks the same, except there are additional predictors.
 
-Plotting or creating tables from the model results is more efficiently done with a single dataframe of results, but we need to add some model specific details to each model before trying to combine them.
+Plotting or creating tables from the results is more efficient using a single dataframe, but we need to add some model specific details before combining them.
+
 
 ---
-## Use map to apply functions to each list item
+## Use map to add more model details
 
 ```yaml
 type: "FullSlide"
@@ -133,7 +151,6 @@ disable_transition: true
 
 `@part1`
 ```{r}
-library(purrr)
 map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted"))
 ```
 
@@ -156,13 +173,15 @@ map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted"))
 
 
 `@script`
-A powerful way of doing that is by leveraging R's functional programming strengths. The purrr package has an amazing and consistent interface for doing functional programming. Using the map function, we can apply a function or chain of functions to a list or vector. The first argument takes the list or vector and the second argument takes the function to apply to each list item.
+Using the map function from the purrr package leverages R's powerful functional programming strengths. purrr has a wonderful and consistent interface for using this functional programming. 
 
-Here, we can add a tag to each model item in the list to indicate that the model is unadjusted.
+Let's use map to add more information to the model objects in the list. We'll add a tag to each model item in the list to indicate that the models are unadjusted.
+
+When we look at the list of models, we see that column has been added to all of them.
 
 
 ---
-## Bind rows to convert list into dataframe
+## Use bind_rows to convert list into data frame
 
 ```yaml
 type: "FullSlide"
@@ -189,7 +208,7 @@ map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")) %>%
 
 
 `@script`
-Then, to convert that list into a single dataframe, we use dplyr's bind rows function to stack the list dataframes into one.
+Then, we can convert the list of models into a single dataframe of the results. We do this using dplyr's bind underline rows function to stack the list dataframes into one.
 
 
 ---
@@ -229,7 +248,7 @@ bind_rows(
 
 
 `@script`
-We can do the same thing for the list of adjusted models, but instead, we bind rows for both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, we add information about the outcome. We now have a single model dataframe we can use to create plots and tables.
+Let's do the same thing wit the list of adjusted models, but instead, we bind rows for both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, let's add information about the outcome. We now have a single model dataframe that we can use to create plots and tables.
 
 
 ---
