@@ -216,7 +216,7 @@ map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted")) %>%
 
 
 `@script`
-Then, we can convert the list of models into a single dataframe of the results. We do this using dplyr's bind underline rows function to stack the list dataframes into one.
+Then, we can convert the list of models into a single dataframe of the results. We do this using dplyr's bind underscore rows function to stack the list dataframes into one.
 
 
 ---
