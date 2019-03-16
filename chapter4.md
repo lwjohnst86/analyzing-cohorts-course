@@ -27,11 +27,11 @@ xp: 100
 Imagine you've ran several models, based on what you learned in chapter 3. You:
 
 - Scaled predictors to compare estimates.
-- Set covariates as baseline age, sex, smoking, and education.
+- Set confounders and other predictors as baseline age, sex, smoking, and education.
 - Have each predictor with unadjusted and adjusted models (time and subject ID were included in all).
 - Tidied models and exponentiated estimates.
 
-You have 8 models in total, stored as a list. There are a couple of things we should add to each model to differentiate it from the other models. Use `map` from the purrr package to wrangle each model item simultaneously.
+You have 8 models in total, stored as a list. There are a couple of things we should add to each model to differentiate each from the other models. Use `map` from the purrr package to wrangle each model item simultaneously.
 
 `@pre_exercise_code`
 ```{r}
