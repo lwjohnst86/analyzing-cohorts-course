@@ -150,43 +150,21 @@ basic_char_table <- tidied_framingham %>%
     add_rows("body_mass_index", stat = stat_meanSD) %>%
     add_rows(c("participant_age", "heart_rate"),
              stat = stat_medianIQR) %>%
-    renaming("header", c("Characteristics", "Values"))
+    renaming("header", c("", "Characteristics"))
 basic_char_table
 
 build_table(basic_char_table)
 
 # Video 3, wrangle model to table -----------------------------------------
 
-# Not for video
-tidied_glm <- function(predictors) {
-    Formula <- as.formula(glue("chd ~ {predictors}"))
-    glm(Formula, data = diet, family = binomial) %>%
-        tidy(conf.int = TRUE, exponentiate = TRUE)
-}
-
-# Not for video
-model_energy <- tidied_glm("energy")
-model_fibre <- tidied_glm("fibre")
-adj_model_energy <- tidied_glm("energy + weight")
-adj_model_fibre <- tidied_glm("fibre + weight")
-
-# Not for video
-models <-
-    bind_rows(
-        model_energy %>% mutate(predictor = "energy", model = "unadjusted"),
-        model_fibre %>% mutate(predictor = "fibre", model = "unadjusted"),
-        adj_model_energy %>% mutate(predictor = "energy", model = "adjusted"),
-        adj_model_fibre %>% mutate(predictor = "fibre", model = "adjusted")
-    ) %>%
-    filter(predictor == term)
-
-# Show how we want it to look
+# Not for video. models from previous section.
 models %>%
-    mutate_at(vars(estimate, std.error), round, digits = 2) %>%
-    mutate(estimate_se = glue("{estimate} ({std.error} SE)"),
-           predictors = str_to_title(predictor)) %>%
-    select(predictors, model, estimate_se) %>%
-    spread(model, estimate_se) %>%
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>%
+    mutate(estimate_ci = glue("{estimate} ({conf.low} to {conf.high})"),
+           predictors = str_to_title(predictor) %>%
+               str_replace_all("_", " ")) %>%
+    select(predictors, model, estimate_ci) %>%
+    spread(model, estimate_ci) %>%
     rename_all(str_to_title) %>%
     select(Predictors, Unadjusted, Adjusted) %>%
     knitr::kable()
@@ -197,14 +175,13 @@ y <- 5
 glue("{x} ({y}%)")
 
 models %>%
-    select(model, predictor, estimate, std.error) %>%
-    mutate_at(vars(estimate, std.error), round, digits = 2) %>%
-    mutate(estimate_se = glue("{estimate} ({std.error} SE)"))
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>%
+    mutate(estimate_ci = glue("{estimate} ({conf.low} to {conf.high})")) %>%
+    select(model, predictor, estimate_ci)
 
 models %>%
-    select(model, predictor, estimate, std.error) %>%
-    mutate_at(vars(estimate, std.error), round, digits = 2) %>%
-    mutate(estimate_se = glue("{estimate} ({std.error} SE)")) %>%
-    select(predictor, model, estimate_se) %>%
-    spread(model, estimate_se)
+    mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>%
+    mutate(estimate_ci = glue("{estimate} ({conf.low} to {conf.high})")) %>%
+    select(model, predictor, estimate_ci) %>%
+    spread(model, estimate_ci)
 
