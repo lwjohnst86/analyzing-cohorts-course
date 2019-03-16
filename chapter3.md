@@ -463,7 +463,6 @@ To learn more about graphs and networks, check out the [Network Analysis in R](h
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(dagitty)
 
 variable_pathways <- dagitty("dag {
