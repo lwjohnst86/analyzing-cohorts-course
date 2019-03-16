@@ -17,7 +17,7 @@ title: Postdoctoral researcher in diabetes epidemiology
 
 
 `@script`
-Sadly we can't have everything as graphs. Tables can be quite useful for communicating certain types of results.
+Sadly we can't have everything as figures. Tables can be quite useful for communicating certain types of results.
 
 
 ---
@@ -29,7 +29,7 @@ key: "2b772c0d95"
 ```
 
 `@part1`
-Basically, *whenever you can't use graphs* {{1}}
+Basically, *whenever you can't use figures* {{1}}
 
 - Units are dissimilar {{2}}
 - Items are distinct and/or not comparable {{2}}
@@ -38,7 +38,9 @@ Basically, *whenever you can't use graphs* {{1}}
 
 
 `@script`
-When is it best to use tables? Basically, whenever you can't use a graph. Use a table when, for example, the units of measure are too dissimilar, when the items are distinct or comparison between them isn't important, when presenting multiple but different models, or when you want to show the raw numbers so it's easier to extract it.
+When is it best to use tables? Basically, whenever you can't use a figure. 
+
+Use a table when, for example, the units of measure are too dissimilar, when the items are distinct or comparison between them isn't important, when presenting multiple but different models, or when you want to show the raw numbers so it's easier to extract it.
 
 
 ---
@@ -116,9 +118,9 @@ Presenting basic participant characteristics, as suggested by STROBE, is a great
 
 The carpenter package provides an easy way of creating these tables. We start by outlining the table based on the data. With multiple time points, you could indicate the time variable so that each time point has a column. This outputs nothing right now as we haven't added rows. 
 
-Next, we add a row for the factor variable jobs. A common summary statistic for factors is count showing percent of total, so we set the stat to n percent.
+Next, we add a row for the factor variable combined education. A common summary statistic for factors is count showing percent of total, so we set the stat to n percent.
 
-Let's add rows to the table for fibre, using the mean and standard deviation, and energy and weight, using median and interquartile range.
+Let's add rows to the table for BMI, using the mean and standard deviation, and participant age and heart rate, using median and interquartile range.
 
 
 ---
@@ -209,7 +211,7 @@ How to get this? {{2}}
 
 
 `@script`
-At times you may need to present either your main results or a supplement as a table. Even if you present your main findings as a figure, providing the raw numerical model estimates in a machine-friendly format is helpful for other researchers who might use your findings as part of a meta-analysis of cohort studies. Here, the standard error is shown, which is another measure of precision like the confidence interval.
+At times you may need to present either your main or supplemental results as a table. Even if you present your main findings as a figure, providing the raw numerical model estimates in a machine-friendly format is helpful for other researchers who might use your findings as part of a meta-analysis of cohort studies. Here, the confidence interval is shown.
 
 So, how do we wrangle the results to get a table like this?
 
@@ -271,9 +273,9 @@ models %>%
 
 
 `@script`
-Other than the glue function, the remaining functions used here should be familiar from previous discussions. We use select to choose the relevant variables and mutate at to round the values. Then we use mutate again but with the glue function, formatted so the standard error is in brackets.
+Other than the glue function, the remaining functions used here should be familiar from previous lessons. We use mutate at to round the values of the three variables. Then we use mutate again but with the glue function, formatted so the confidence interval is in brackets. Then select to choose the relevant variables.
 
-We see from the output the new column with the combined estimate and standard error.
+We see from the output the new column with the combined estimate and confidence interval.
 
 
 ---
@@ -305,7 +307,7 @@ models %>%
 
 
 `@script`
-Next, using the spread function from the tidyr package, the models will be represented as columns. The first argument takes the model variable that groups the results and the second argument takes the estimate se variable that has the values making up the new columns. We should select only relevant columns before spreading.
+Next, using the spread function from the tidyr package, the models will be represented as columns. The first argument takes the model variable that groups the results and the second argument takes the estimate ci variable that has the values making up the new columns. We should select only relevant columns before spreading.
 
 Great! With minimal code, we've gotten the results to appear similar to our desired table. We can either manually create the table or wrangle more to get the results exactly as the table. With further wrangling, we could mutate the predictor values and rename the columns to be capitalized and then use the kable function from knitr to create the final table.
 

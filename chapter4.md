@@ -623,10 +623,10 @@ xp: 25
 ```
 
 `@instructions`
-- Add a row for the predictor variables, body mass, and age using `median (interquartile range)` as the statistic.
+- Add rows for cholesterol, blood pressure, blood glucose, body mass, and age using `median (interquartile range)` as the statistic.
 
 `@hint`
-- The predictors are total cholesterol, systolic and diastolic blood pressure, and fasting blood glucose.
+- The variables are total cholesterol, systolic and diastolic blood pressure, fasting blood glucose, and body mass index.
 
 `@sample_code`
 ```{r}
@@ -809,7 +809,7 @@ table_model_results <- all_models %>%
     mutate(estimate_ci = ___("___"),
            # Tidy up predictor
            predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
+               str_remove("_scaled") %>% 
                str_replace_all("_", " "))
 
 # View wrangled data
@@ -825,7 +825,7 @@ table_model_results <- all_models %>%
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            # Tidy up predictor
            predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
+               str_remove("_scaled") %>% 
                str_replace_all("_", " "))
 
 # View wrangled data
@@ -858,7 +858,7 @@ table_model_results <- all_models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
+               str_remove("_scaled") %>% 
                str_replace_all("_", " ")) %>%
     # Keep then spread variables for final table
     select(___) %>% 
@@ -875,7 +875,7 @@ table_model_results <- all_models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
+               str_remove("_scaled") %>% 
                str_replace_all("_", " ")) %>%
     # Keep then spread variables for final table
     select(model, predictor, estimate_ci) %>% 
