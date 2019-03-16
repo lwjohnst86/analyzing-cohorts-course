@@ -105,6 +105,15 @@ model_sel_df <- sample_tidied_framingham %>%
 
 saveRDS(model_sel_df, file = "datasets/model_sel_df.Rds")
 
+# For the tidying exercise
+
+main_model <- lme4::glmer(got_cvd ~ total_cholesterol_scaled + followup_visit_number +
+                        (1 | subject_id),
+                    data = sample_tidied_framingham, family = binomial,
+                    na.action = "na.omit", nAGQ = 0)
+
+saveRDS(main_model, file = "datasets/main_model.Rds")
+
 # For chapter 4 -----------------------------------------------------------
 
 library(lme4)
