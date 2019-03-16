@@ -36,7 +36,7 @@ key: "fe20e41d30"
 
 
 `@script`
-Interaction testing is when you combine variables in a model to see whether their individual values together modify the association with an outcome. For example, some drugs reduce risk for a disease in men, but may be harmful or have no effect in women. Or that risk factors such as obesity have a larger effect in certain ethnicities. When it comes to sex and ethnicity, you always need to check for interactions, since both have such powerful impacts on health.
+Interaction testing is when you combine variables in a model to see whether their individual values together modify the association with an outcome. For example, some drugs reduce risk for disease in men, but may be harmful or have no effect in women. Or that risk factors such as obesity have a larger effect in certain ethnicities. For sex and ethnicity, you must always check for interactions, as they have powerful impacts on health.
 
 
 ---
@@ -48,7 +48,7 @@ key: "a2abb2e2ae"
 ```
 
 `@part1`
-- Visual presentation {{1}}
+- Visual inspection {{1}}
     - Very effective
 - Stratified/subgroup analysis {{2}}
     - Split dataset based on group
@@ -58,7 +58,7 @@ key: "a2abb2e2ae"
 
 
 `@script`
-There are several ways to check for interactions. The first, and often the most effective, is to visualize the data. More formal methods include doing stratified analyses, which is literally splitting the dataset up by a group such as sex. You can also directly model interactions by including interaction terms in your analyses.
+There are several ways to check for interactions. The first, and often most effective, is to visualize the data. More formal methods include doing stratified analyses, by literally splitting the dataset by the discrete variable. You can also directly model interactions by including interaction terms in your analyses.
 
 
 ---
@@ -88,7 +88,7 @@ outcome ~ predictor * sex
 
 
 `@script`
-There are several ways to model an interaction term. One way is similiar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can also use a shorthand using the asterisk between the two terms. These two formulas are equivalent. Be careful with the estimates, as you cannot interpret interaction estimates alone but only in the context of the other estimates.
+There are several ways to model interactions. One way is similar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can also use a shorthand using the asterisk between the two terms. These two formula are equivalent. Be careful with the model estimates, as you cannot interpret interaction estimates alone but only with the other estimates.
 
 
 ---
@@ -108,31 +108,32 @@ summary(model_with_interaction)
 ```
 {{1}}
 
-Parts of output: {{2}}
-
 ```
 Generalized linear mixed model fit by maximum likelihood (Laplace Approximation)
-
-... # Removed parts
-
 Fixed effects:
                                 Estimate Std. Error z value Pr(>|z|)    
 (Intercept)                     -12.3403     0.3203 -38.530   <2e-16 ***
 body_mass_index_scaled            0.1272     0.2681   0.475   0.6351    
 sexWoman                         -0.9423     0.3696  -2.549   0.0108 *  
 body_mass_index_scaled:sexWoman   0.1672     0.3412   0.490   0.6241    <-- This
-...
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-...
 ```
 {{2}}
 
+- BMI at 1 SD = 1 x 0.127, woman = 1 x -0.942, interaction = 1 x 1 x 0.167 {{3}}
+- 0.127 + -0.942 + 0.167 = -0.648 (raw estimate) {{3}}
+- Man = 0 x 0.127, interaction = 0 x 1 x 0.167 (*since sex is 0*) {{4}}
+- 0.127 + 0 + 0 = 0.127 (raw estimate) {{4}}
+
 
 `@script`
-Here we show a mixed model interaction using the Framingham dataset. We test the interaction between scaled body mass index and sex. Notice the use of the asterisks to denote the interaction. 
+Here is a mixed model interaction using the Framingham dataset. We are testing the interaction between scaled body mass index and sex. Notice the asterisks to denote the interaction. 
 
-When we run summary on the model, it gives us a lot of information. I've cut out some of that info to focus on the main results of the fixed effects. With interactions, we can't interpret the estimates as we do normally. We need to interpret all estimates from the interaction terms, in this case there are the three estimates. The interaction estimate itself is showing that when sex is female and body mass index is 1 unit or standard deviation, then the combined estimate is plus zero point sixteen. But in this case, the standard error for the interaction is very wide, suggesting that there isn't much interactive effect going on.
+Running summary on the model gives a lot of information. I've cut some of it to focus on the main fixed effects results. With interactions we can't use just one estimate as a result as we would with no interactions. We need to use the estimates from each of the interaction terms, which are three estimates for this model. 
+
+We read the interaction by multiplying sex and body mass. Woman is equal to one, so the sex estimate is times one. For one standard deviation of BMI, the estimate is times one. Since both BMI and sex are both one, for the interaction estimate we do one times one. Do some math, and the final estimate is minus zero point six. 
+
+Man is equal to zero, so the interaction is one times zero. Add the estimates up and the BMI estimate is the interaction estimate as well.
+
 
 ---
 ## Checking if an interactive association exists
@@ -157,7 +158,7 @@ model.sel(model_no_interaction, model_with_interaction, rank = "AIC")
 ```
 Model selection table 
                        ...    logLik      AIC    delta    weight
-model_no_interaction   ... -1822.493 3652.985 0.000000 0.7069518 <--
+model_no_interaction   ... -1822.493 3652.985 0.000000 0.7069518 <-- Here
 model_with_interaction ... -1822.373 3654.746 1.761251 0.2930482
 Models ranked by AIC(x) 
 ```
@@ -165,7 +166,8 @@ Models ranked by AIC(x)
 
 
 `@script`
-To determine whether there is an interaction, you'll need to compare models with and without the interaction by using the model dot sel function. Here the difference between models in their AIC is almost two, shown in the delta. The weight value tells us that the no interaction model is likely the better of the two models by seventy percent. This tells us there is minimal difference in the models, so it isn't likely there is an interaction present.
+To determine if an interaction exists, you need to compare models with and without the interaction then using the model dot sel function. The delta between the model AIC is almost two, and weight says without an interaction is most likely the better model, by seventy percent. Since an interaction doesn't provide more information, we can remove it.
+
 
 ---
 ## Checking robustness of results with sensitivity analyses
@@ -185,9 +187,9 @@ key: "a0da496622"
 
 
 `@script`
-Sensitivity analysis is a way to determine the robustness of your results by checking different assumptions that may change your results.
+Sensitivity analysis is a way to determine how robust your results are under different assumptions.
 
-Examples of this include whether people who miss the data collection visit are different or if the results you obtain differ because of a statistical technique.
+Examples include whether people who miss the data collection visit are different or if the results change with a different statistical technique.
 
 
 ---
@@ -222,9 +224,10 @@ glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
 
 
 `@script`
-Here's an example. When individuals have diabetes they are at much higher risk of developing cardiovascular disease because of a range physiological changes that occur because of the diabetes. Depending on the predictor, including diabetes cases may bias the estimates so removing them may be needed. So here we keep only those participants without diabetes. Then we run the model on the original dataset and output the fixed effect estimates.
+Here's an example. Individuals with diabetes have a much higher risk of developing CVD because of toxicity from high blood glucose. Depending on the predictor, including diabetes cases may bias the estimates so removing them may be needed. So we run a model that excludes participants with diabetes and one with diabetes cases, then output the fixed effect estimates for both.
 
-Next we run the model on the data without the diabetes cases, again outputting the fixed effect estimates. See how this estimate is slightly higher than the estimates found from original dataset. The estimate is slightly higher, suggesting diabetes cases may be reducing the estimate. However, the differences are very small, so if there is some bias it isn't large.
+The estimate for BMI in the model without diabetes cases is slightly higher than the estimate that includes diabetes cases. This suggests that diabetes cases may be reducing the estimate. However, the differences are very small, so if there is bias it isn't large.
+
 
 ---
 ## Time to practice!
@@ -235,5 +238,5 @@ key: "1931fc9890"
 ```
 
 `@script`
-Let's do some exercises!
+Alright, let's do some exercises!
 
