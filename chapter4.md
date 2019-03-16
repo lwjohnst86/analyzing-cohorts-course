@@ -452,6 +452,7 @@ The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/5a385fa413f9f3cfbe95857e390b53ae9966a62d/all_models.rda"))
 library(ggplot2)
+library(magrittr)
 ```
 
 `@sample_code`
