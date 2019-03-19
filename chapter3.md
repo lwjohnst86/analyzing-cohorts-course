@@ -51,7 +51,7 @@ msg1 <- "Incorrect. While cohorts could answer this question, Framingham partici
 msg2 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
 msg3 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
 msg4 <- "Incorrect. One of the above is a valid question."
-ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4))
+ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
 
 ---
