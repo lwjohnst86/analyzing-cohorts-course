@@ -37,7 +37,7 @@ The `tidied_framingham` dataset is loaded. Before answering, look at the variabl
 `@hint`
 - Remember, these are questions to ask *of the Framingham study*. The variables in the question must exist in the dataset.
 - Use `glimpse(tidied_framingham)` to see which variables are available.
-- Use `range(tidied_framingham$participant_age)` to see the ages of the participants.
+- Use `min` and `max` of `participant_age` to see the age ranges of the participants.
 
 `@pre_exercise_code`
 ```{r}
@@ -93,16 +93,13 @@ xp: 50
 ```
 
 `@instructions`
-- Run a model looking at how cholesterol (scaled) relates to CVD (have subject ID as the random term).
+- Run a model looking at how `total_cholesterol_scaled` relates to CVD (have subject ID as the random term).
 
 `@hint`
 - The variables should be `got_cvd`, `total_cholesterol_scaled`, and `subject_id`.
 
 `@sample_code`
 ```{r}
-# Confirm name of predictor
-names(___)
-
 # Model cholesterol on CVD
 model <- glmer(
     ___ ~ ___,
@@ -111,14 +108,11 @@ model <- glmer(
     )
 
 # View the model output
-summary(___)
+summary(model)
 ```
 
 `@solution`
 ```{r}
-# Confirm name of predictor
-names(sample_tidied_framingham)
-
 # Model centered cholesterol on CVD
 model <- glmer(
     got_cvd ~ total_cholesterol_scaled + (1 | subject_id),
@@ -144,16 +138,13 @@ xp: 50
 ```
 
 `@instructions`
-- Try another predictor. Run a model using fasting blood glucose (scaled) as a predictor instead of cholesterol.
+- Try another predictor. Run a model using `fasting_blood_glucose_scaled` as a predictor instead of cholesterol.
 
 `@hint`
-- The variable is `fasting_blood_glucose_scaled`.
+- Using the same formula as the previous step, replace `total_cholesterol_scaled` with `fasting_blood_glucose_scaled`.
 
 `@sample_code`
 ```{r}
-# Confirm name of predictor
-names(___)
-
 # Model fasting blood glucose on CVD
 model <- glmer(
     ___ ~ ___,
@@ -162,14 +153,11 @@ model <- glmer(
     )
 
 # View the model output
-summary(___)
+summary(model)
 ```
 
 `@solution`
 ```{r}
-# Confirm name of predictor
-names(sample_tidied_framingham)
-
 # Model fasting blood glucose on CVD
 model <- glmer(
     got_cvd ~ fasting_blood_glucose_scaled + (1 | subject_id), 
@@ -183,7 +171,7 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Great job! You've ran several mixed effects models!")
+success_msg("Great job! You've become a bit more familiar with coding and running mixed effects models in R. You ran two models to get practice on setting predictors and the formula. Now we can get to more complicated modeling aspects.")
 ```
 
 ---
@@ -212,6 +200,7 @@ model <- glmer(
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
+library(ggplot2)
 ```
 
 ***
@@ -223,16 +212,13 @@ xp: 35
 ```
 
 `@instructions`
-- Plot the original total cholesterol and include it in the model; you will get a warning.
+- Include `total_cholesterol` it in the model; you will get a warning.
 
 `@hint`
 - Don't forget the random term: `(1 | subject_id)`.
 
 `@sample_code`
 ```{r}
-# Plot of original cholesterol
-plot(sample_tidied_framingham$___)
-
 # Model the total cholesterol
 model <- glmer(
     ___ ~ ___,
@@ -246,9 +232,6 @@ summary(model)
 
 `@solution`
 ```{r}
-# Plot of original cholesterol
-plot(sample_tidied_framingham$total_cholesterol)
-
 # Model the total cholesterol
 model <- glmer(
     got_cvd ~ total_cholesterol + (1 | subject_id),
@@ -274,17 +257,13 @@ xp: 35
 ```
 
 `@instructions`
-- Compare centered cholesterol and use it in the model.
+- Use `total_cholesterol_centered` in the model; you will get a warning.
 
 `@hint`
-- Use `names(sample_tidied_framingham)` to get the correct name of the cholesterol predictor.
+- Replace the original cholesterol variable with the centered one in the formula.
 
 `@sample_code`
 ```{r}
-# Compare the original vs centered variable
-plot(sample_tidied_framingham$total_cholesterol)
-plot(sample_tidied_framingham$___)
-
 # Model with centered cholesterol
 model <- glmer(
     ___,
@@ -298,10 +277,6 @@ summary(model)
 
 `@solution`
 ```{r}
-# Compare the original vs centered variable
-plot(sample_tidied_framingham$total_cholesterol)
-plot(sample_tidied_framingham$total_cholesterol_centered)
-
 # Model with centered cholesterol
 model <- glmer(
     got_cvd ~ total_cholesterol_centered + (1 | subject_id), 
@@ -327,18 +302,13 @@ xp: 30
 ```
 
 `@instructions`
-- Lastly, we can fix the warnings by using the scaled cholesterol variable.
+- Use the `total_cholesterol_scaled` variable instead; the warning should now be fixed.
 
 `@hint`
-- The variable is `total_cholesterol_scaled`.
+- Include `total_cholesterol_scaled` in the formula.
 
 `@sample_code`
 ```{r}
-# Compare the original vs centered vs scaled variables
-plot(sample_tidied_framingham$total_cholesterol)
-plot(sample_tidied_framingham$total_cholesterol_centered)
-plot(sample_tidied_framingham$___)
-
 # Model with scaled cholesterol
 model <- glmer(
     ___,
@@ -352,11 +322,6 @@ summary(model)
 
 `@solution`
 ```{r}
-# Compare the original vs centered vs scaled variables
-plot(sample_tidied_framingham$total_cholesterol)
-plot(sample_tidied_framingham$total_cholesterol_centered)
-plot(sample_tidied_framingham$total_cholesterol_scaled)
-
 # Model with scaled cholesterol
 model <- glmer(
     got_cvd ~ total_cholesterol_scaled + (1 | subject_id),
@@ -370,7 +335,7 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Amazing! You've solved the warnings about non-convergence, large eigenvalues, and the rescaling issue.")
+success_msg("Amazing! You've solved the warnings about non-convergence and rescaling issue! Often it requires some trial and error to find which transformations are optimal for the model technique.")
 ```
 
 ---
@@ -385,10 +350,10 @@ xp: 100
 
 Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
-Include followup visit number in the `glmer` formula as well as the random term and the scaled cholesterol predictor.
+Include `followup_visit_number` in the `glmer` formula as well as the random term and the scaled cholesterol predictor.
 
 `@instructions`
-- Run a model of cholesterol (scaled) and followup visit number on CVD.
+- Run a model of cholesterol (scaled) and `followup_visit_number` on CVD.
 
 `@hint`
 - Include `followup_visit_number` after scaled cholesterol, still including the subject ID.
