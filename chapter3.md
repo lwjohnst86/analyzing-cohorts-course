@@ -583,7 +583,9 @@ xp: 100
 
 It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared. 
 
-We've greatly restricted the sample size, the number of variables to include in the model, and set `nAQG` to 0 (to calculate less exact estimates) to have short computational runtimes. Check the `names` of the `model_sel_df` and add **all** of the variables in the dataset to the model.
+As multiple models will be computed and compared, to keep computing time short, for *DataCamp lesson purposes only*, we: greatly restricted the sample size and number of variables in the data, called `model_sel_df`; and, set `nAQG = 0` argument (reduces estimation precision, but increases speed).
+
+Add scaled systolic blood pressure, sex, scaled body mass index, currently smoking, and followup visit number as predictors to the model.
 
 `@pre_exercise_code`
 ```{r}
@@ -602,7 +604,7 @@ xp: 35
 
 `@instructions`
 - Set CVD as the outcome and subject ID as the random term.
-- Include all other remaining variables as predictors in the formula.
+- Include the remaining variables (listed above) as predictors in the formula.
 
 `@hint`
 - Model formulas are in the form: `got_cvd ~ predictor1 + predictor2 + (1 | subject_id)`.
@@ -644,11 +646,12 @@ xp: 35
 ```
 
 `@instructions`
-- "Dredge" through the combinations of variables that have systolic blood pressure (scaled) in the model using AIC to rank models.
+- "Dredge" through the combinations of variables that have `systolic_blood_pressure_scaled` in the model using AIC to rank models.
 - Print the top 5 models.
 
 `@hint`
-- Subset by `systolic_blood_pressure_scaled`.
+- Provide 5 as the second argument to `head`.
+- Give `model` as the first argument to `dredge`.
 
 `@sample_code`
 ```{r}
