@@ -418,13 +418,13 @@ key: 4af692e468
 xp: 100
 ```
 
-Building a DAG that approximates the biology is difficult. It requires domain knowledge, so consult experts familiar with the research to confirm the DAG. Remember, you will build an incomplete DAG. That's why you take several model selection approaches. 
+Building a DAG that approximates the biology is difficult. It requires domain knowledge, so consult experts to confirm the DAG. Remember, you will build an incomplete DAG. This is but one step to finding confounders.
 
 Let's determine which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
 
-Recall that for dagitty, `x -> y` means "x influences y" and that `x -> {y z}` means "x influences y and z".
+Recall that for dagitty `x -> y` means "x influences y" and that `x -> {y z}` means "x influences y and z"; dagitty is already loaded.
 
-To learn more about graphs and networks, check out the [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r) course.
+To learn more about graphs and networks, check out [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r).
 
 `@pre_exercise_code`
 ```{r}
@@ -450,6 +450,7 @@ xp: 35
 
 `@instructions`
 - Using both the links between variables described in the context above and the plot as a guide, create a DAG of the hypothetical pathways.
+- Visually inspect the plot of the `variables_pathway` graph.
 
 `@hint`
 - The form for a pathway is `start_variable -> {one or more end variables}`.
@@ -464,6 +465,9 @@ variable_pathways <- dagitty("dag {
     ___ -> {___ ___ ___}
     ___ -> ___
 }")
+
+# Plot potential confounding pathways
+plot(graphLayout(___))
 ```
 
 `@solution`
@@ -476,6 +480,9 @@ variable_pathways <- dagitty("dag {
     BMI -> {SBP CVD FastingGlucose}
     FastingGlucose -> CVD
 }")
+
+# Plot potential confounding pathways
+plot(graphLayout(variable_pathways))
 ```
 
 `@sct`
@@ -492,7 +499,6 @@ xp: 35
 ```
 
 `@instructions`
-- Visually inspect the plot of the `variables_pathway` graph.
 - Identify the (minimal) model adjustment set of variables from the `variable_pathways` graph, selecting the appropriate exposure and the outcome variables.
 
 `@hint`
@@ -510,7 +516,7 @@ variable_pathways <- dagitty("dag {
 }")
 
 # Plot potential confounding pathways
-plot(graphLayout(___))
+plot(graphLayout(variable_pathways))
 
 # Identify some confounders to adjust for
 adjustmentSets(___, exposure = ___, outcome = ___)
