@@ -762,10 +762,10 @@ xp: 40
 ```
 
 `@instructions`
-- Run `glmer` models with total cholesterol (scaled), sex, followup visit number, and subject ID as the random term, but don't include an interaction.
+- Run `glmer` models with `total_cholesterol_scaled`, `sex`, `followup_visit_number`, and `subject_id` as the random term, but don't include an interaction.
 
 `@hint`
-- Confirm the names of the variables by using `names(sample_tidied_framingham)`.
+- The outcome variable is `got_cvd`.
 
 `@sample_code`
 ```{r}
@@ -799,7 +799,7 @@ xp: 40
 ```
 
 `@instructions`
-- Create the same formula, but this time with an interaction between sex and total cholesterol (scaled).
+- Create the same formula, but this time with an interaction between `sex` and `total_cholesterol_scaled`.
 
 `@hint`
 - Use a `*` instead of a `+` for including an interaction between variables in the formula.
@@ -981,10 +981,10 @@ xp: 40
 ```
 
 `@instructions`
-- Include body mass index (scaled), followup visit, and subject ID in the formula, then run the model with the original dataset.
+- Include `body_mass_index_scaled`, `followup_visit_number`, and `subject_id` (as a random term) in the formula, then run the model with the original dataset.
 
 `@hint`
-- The model object should be given to `summary`.
+- Use `sample_tidied_framingham` in the data argument.
 
 `@sample_code`
 ```{r}
@@ -996,7 +996,7 @@ bmi_check_data <- sample_tidied_framingham %>%
 original_model <- glmer(
     ___,
     data = ___, family = binomial)
-summary(___)$coef
+summary(___)
 ```
 
 `@solution`
@@ -1009,7 +1009,7 @@ bmi_check_data <- sample_tidied_framingham %>%
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, family = binomial)
-summary(original_model)$coef
+summary(original_model)
 ```
 
 `@sct`
@@ -1041,13 +1041,13 @@ bmi_check_data <- sample_tidied_framingham %>%
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, family = binomial)
-summary(original_model)$coef
+summary(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
     ___,
     data = ___, family = binomial)
-summary(___)$coef
+summary(___)
 ```
 
 `@solution`
@@ -1060,13 +1060,13 @@ bmi_check_data <- sample_tidied_framingham %>%
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, family = binomial)
-summary(original_model)$coef
+summary(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = bmi_check_data, family = binomial)
-summary(bmi_check_model)$coef
+summary(bmi_check_model)
 ```
 
 `@sct`
