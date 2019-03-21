@@ -1104,7 +1104,6 @@ A model has been created for you already called `main_model`.
 `@pre_exercise_code`
 ```{r}
 main_model <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/ef96cbfc9ab3b3728b18de9fa59f9600d8894add/main_model.Rds"))
-library(lme4)
 library(dplyr)
 options(digits = 3, scipen = 4)
 ```
@@ -1231,8 +1230,8 @@ The `relevant_results` model has been loaded for you to look over. Note that SD 
 `@pre_exercise_code`
 ```{r}
 main_model <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/ef96cbfc9ab3b3728b18de9fa59f9600d8894add/main_model.Rds"))
-library(lme4)
 library(dplyr)
+library(broom.mixed)
 options(digits = 3, scipen = 4)
 relevant_results <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE) %>% 
     select(effect, term, estimate, conf.low, conf.high) 
