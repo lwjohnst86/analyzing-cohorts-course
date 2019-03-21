@@ -232,7 +232,7 @@ xp: 30
 - Keep only the unadjusted results for this exercise.
 
 `@hint`
-- Filter takes a logical condition.
+- Filter takes a logical condition, in this case when model is `"Unadjusted"`.
 
 `@sample_code`
 ```{r}
@@ -268,10 +268,10 @@ xp: 35
 ```
 
 `@instructions`
-- Create a point and error-bar plot of the estimates and confidence intervals, with the predictors on the y axis.
+- Create a point and error-bar plot of the estimates (`x`) and confidence intervals (`xmin`, `xmax`), with the predictors on the y axis.
 
 `@hint`
-- Use the geom for points and for `errorbarh` (horizontal).
+- Use the geom for points and for `errorbarh` (horizontal), which requires `xmin = conf.low, xmax = conf.high`.
 
 `@sample_code`
 ```{r}
@@ -339,7 +339,7 @@ model_plot <- unadjusted_results %>%
     ___(___)
 
 # Check the plot
-___
+model_plot
 ```
 
 `@solution`
@@ -381,9 +381,9 @@ As with the previous exercise, use the `unadjusted_results` dataframe you create
 
 `@instructions`
 - Add the `aes()` variables, the point, error bar, and vertical center line.
-- Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to dotted.
+- Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to `"dotted"`.
 - Include appropriate axis labels (the "Predictors" on the y and the "Odds Ratio (95% CI)" on the x). Remember, CI is the confidence interval.
-- Change the theme to `theme_classic()`.
+- Change the theme to `theme_classic()` on the last line.
 
 `@hint`
 - The labels should be of the form `x = "Axis Label"` (for the x-axis for instance).
@@ -401,10 +401,10 @@ unadjusted_results <- all_models %>%
 ```{r}
 # Make the plot more polished
 model_plot <- unadjusted_results %>% 
-    ggplot(___) +
-    ___ +
-    ___ +
-    ___ +
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point(___) +
+    geom_errorbarh(___) +
+    geom_vline(xintercept = 1, ___) +
     labs(___, ___) +
     ___
 
@@ -447,11 +447,9 @@ The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model
 `@instructions`
 - As in the previous exercise, create a plot of the estimates and confidence intervals of the predictors.
 - This time, don't filter by model adjustment.
-- Make the plot pretty as in the previous exercise (including the `labs`).
 - Expand on the previous exercise by splitting the plot by model using `facet_grid`.
 
 `@hint`
-- The vertical line should have a `linetype` of "dotted".
 - Select the facetting variable using `vars()`.
 
 `@pre_exercise_code`
@@ -465,13 +463,14 @@ library(magrittr)
 ```{r}
 # Show results of both adjusted and unadjusted
 plot_all_models <- all_models %>% 
-    ggplot(aes(___)) +
-    ___() +
-    ___(height = 0.2) +
-    geom_vline(___) +
-    # Split plot by model
-    ___(rows = ___) +
-    labs(___, ___)
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point(size = 3) +
+    geom_errorbarh(height = 0.1) +
+    geom_vline(xintercept = 1, linetype = "dotted") +
+    # Facet plot by model
+    ___(___) +
+    labs(y = "Predictors", x = "Odds ratio (95% CI)") +
+	theme_classic()
 
 # Plot the results
 plot_all_models
@@ -482,12 +481,13 @@ plot_all_models
 # Show results of both adjusted and unadjusted
 plot_all_models <- all_models %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_point() +
-    geom_errorbarh(height = 0.2) +
+    geom_point(size = 3) +
+    geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dotted") +
     # Split plot by model
     facet_grid(rows = vars(model)) +
-    labs(y = "Predictors", x = "Odds ratio (95% CI)")
+    labs(y = "Predictors", x = "Odds ratio (95% CI)") +
+	theme_classic()
 
 # Plot the results
 plot_all_models
