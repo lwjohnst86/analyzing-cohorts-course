@@ -50,7 +50,7 @@ xp: 50
 ```
 
 `@instructions`
-- Create a model column to indicate "adjustment" for each model in the list.
+- Create a model column to indicate "adjustment" for each model. `term[2]` selects the second term, which is the predictor.
 
 `@hint`
 - Use `map` to add to each model.
@@ -60,8 +60,10 @@ xp: 50
 # Add predictor and model type to each list item
 unadjusted_models_list <- ___(
     unadjusted_models_list,
-    ~___(.x, predictor = term[2], 
-         model = ___)
+    ~___(.x, 
+         	# This selects predictor, not confounder
+            predictor = term[2], 
+            model = ___)
 )
 ```
 
@@ -70,7 +72,9 @@ unadjusted_models_list <- ___(
 # Add predictor and model type to each list item
 unadjusted_models_list <- map(
     unadjusted_models_list,
-    ~mutate(.x, predictor = term[2], 
+    ~mutate(.x,
+            # This selects predictor, not confounder
+            predictor = term[2], 
             model = "Unadjusted")
 )
 ```
@@ -107,14 +111,16 @@ adjusted_models_list <-
 # Do the same for adjusted model list
 adjusted_models_list <- map(
     adjusted_models_list,
-    ~mutate(.x, predictor = term[2],
+    ~mutate(.x, 
+            # This selects predictor, not confounder
+            predictor = term[2], 
             model = "Adjusted")
 )
 ```
 
 `@sct`
 ```{r}
-success_msg("Excellent! You made use of R's strength of functional programming rather than use a `for` loop.")
+success_msg("Excellent! You made use of map to add more details to each model object.")
 ```
 
 ---
@@ -131,11 +137,11 @@ The most efficient approach to later plotting and creating tables is to have all
 
 `@instructions`
 - Using `bind_rows`, put the two model list objects together.
-- Continuing to pipe, add an outcome column for the disease variable.
-- Finally, filter so only conditions where the `predictor` is the `term` and the `effect` is fixed.
+- Continuing to pipe, add (`mutate`) an outcome column for the `got_cvd` variable.
+- Finally, use `filter()` to keep only conditions where the `predictor` is the `term` and the `effect` is `"fixed"`.
 
 `@hint`
-- Filter so only the predictor estimate rows remain (when predictor and term are the same).
+- Filter when predictor and term are the same (`==`).
 
 `@pre_exercise_code`
 ```{r}
@@ -157,8 +163,8 @@ adjusted_models_list <- map(
 ```{r}
 # Combine models, add outcome, keep predictor estimates
 all_models <- ___ %>% 
-    ___ %>% 
-    ___
+    mutate(___) %>% 
+    filter(___, ___)
 
 # Check the model dataframe
 all_models
