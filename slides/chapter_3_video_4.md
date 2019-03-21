@@ -39,27 +39,45 @@ model <- glmer(got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
       
 # General tidying
 tidy(model_object)
-# Confidence interval
-tidy(model_object, conf.int = TRUE)
 ```
 {{2}}
 
+
+`@script`
+Most statistical methods in R are developed by independent researchers, so there usually isn't an underlying consistency in presenting the method's results. They can be messy to deal with and can be a frustrating experience when learning something new. Thankfully there is the tidy function from the broom package to help out! Tidy, which takes a model object, allows you to clean up many analyses, calculate confidence intervals for uncertainty, and, for logistic regression, calculates the odds ratio. Odds ratios are covered more in the Logistic Regression course, but briefly, it is the odds of an outcome occurring given a predictor's presence compared to the odds given the predictor's absence.
+
+
+---
+## Output of the tidy function
+
+```yaml
+type: "FullSlide"
+key: "5501ecfc91"
+```
+
+`@part1`
+```r
+# Confidence interval
+tidy(model_object, conf.int = TRUE)
+```
+{{1}}
+
 ```
 # A tibble: 4 x 9
-  effect  group   term         estimate std.error statistic p.value conf.low conf.high
-  <chr>   <chr>   <chr>           <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
-1 fixed   NA      (Intercept)   -12.4       0.321    -38.5   0       -13.0     -11.7  
-2 fixed   NA      body_mass_i…    0.229     0.169      1.35  0.177    -0.103     0.560
-3 fixed   NA      sexWoman       -0.916     0.365     -2.51  0.0122   -1.63     -0.200
-4 ran_pa… subjec… sd__(Interc…   56.1      NA         NA    NA        NA        NA    
+  effect group term  estimate std.error statistic p.value conf.low conf.high
+  <chr>  <chr> <chr>    <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
+1 fixed  NA    (Int…  -12.4       0.321    -38.5   0       -13.0     -11.7  
+2 fixed  NA    body…    0.229     0.169      1.35  0.177    -0.103     0.560
+3 fixed  NA    sexW…   -0.916     0.365     -2.51  0.0122   -1.63     -0.200
+4 ran_p… subj… sd__…   56.1      NA         NA    NA        NA        NA    
 ```
-{{3}}
+{{2}}
 
 
 `@script`
-Most statistical methods in R are developed by independent researchers, so there usually isn't an underlying consistency in presenting the method's results. They can be messy to deal with and can be a frustrating experience when learning a new technique. Thankfully there is the tidy function from the broom package to help out! Tidy allows you to clean up many analyses, calculate confidence intervals for uncertainty, and, for logistic regression, calculates the odds ratio. Odds ratios are covered more in the Logistic Regression course, but briefly, it is the odds of an outcome occurring given a predictor's presence compared to the odds given the predictor's absence.
+You've used summary on a model before, which isn't a great interface to accessing the results. Calculating the confidence interval in base R requires extra work. To use tidy, you provide the model object, and set conf dot int to true.
 
-You've used summary on the model before, which isn't a great interface to accessing the results. Calculating the confidence interval in base R requires extra work. To use tidy, you provide the model object, and set conf dot int to true, and you have a nice dataframe of results and confidence intervals. Confidence intervals are, very simply, a range of uncertainty of the estimate.
+In return you'll have a nice dataframe of results and confidence intervals. Confidence intervals are, very simply, a range of uncertainty of the estimate.
 
 
 ---
