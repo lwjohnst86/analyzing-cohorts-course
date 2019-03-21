@@ -38,7 +38,7 @@ key: "42434a7ac4"
 
 
 `@script`
-In observational cohort studies, you need to use a healthy dose of caution when interpreting and presenting results. This is also stated within the STROBE guidelines. If you recall, STROBE was developed to make studies such as cohorts more rigorous, standardized, and transparent.
+In observational cohort studies, you need to use a healthy dose of caution when interpreting and presenting results, as is also stated in the STROBE best practices. If you recall, STROBE was developed to make studies such as cohorts more rigorous, standardized, and transparent.
 
 Emphasize more tangible health impacts when presenting results and try to be as clear and understandable as possible. Your audience or readers will likely be public health professionals or clinicians who aren't trained in interpreting complex models, so be simple and concise. 
 

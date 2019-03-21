@@ -37,7 +37,7 @@ The `tidied_framingham` dataset is loaded. Before answering, look at the variabl
 `@hint`
 - Remember, these are questions to ask *of the Framingham study*. The variables in the question must exist in the dataset.
 - Use `glimpse(tidied_framingham)` to see which variables are available.
-- Use `range(tidied_framingham$participant_age)` to see the ages of the participants.
+- Use `min` and `max` of `participant_age` to see the age ranges of the participants.
 
 `@pre_exercise_code`
 ```{r}
@@ -51,7 +51,7 @@ msg1 <- "Incorrect. While cohorts could answer this question, Framingham partici
 msg2 <- "Correct! The Framingham dataset collected information on smoking status and can assess relative risk between exposure status."
 msg3 <- "Incorrect. While cohorts could answer this question, the Framingham Study did not collect this information."
 msg4 <- "Incorrect. One of the above is a valid question."
-ex() %>% check_mc(3, feedback_msgs = c(msg1, msg2, msg3, msg4))
+ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
 
 ---
@@ -93,16 +93,13 @@ xp: 50
 ```
 
 `@instructions`
-- Run a model looking at how cholesterol (scaled) relates to CVD (have subject ID as the random term).
+- Run a model looking at how `total_cholesterol_scaled` relates to CVD (have subject ID as the random term).
 
 `@hint`
 - The variables should be `got_cvd`, `total_cholesterol_scaled`, and `subject_id`.
 
 `@sample_code`
 ```{r}
-# Confirm name of predictor
-names(___)
-
 # Model cholesterol on CVD
 model <- glmer(
     ___ ~ ___,
@@ -111,14 +108,11 @@ model <- glmer(
     )
 
 # View the model output
-summary(___)
+summary(model)
 ```
 
 `@solution`
 ```{r}
-# Confirm name of predictor
-names(sample_tidied_framingham)
-
 # Model centered cholesterol on CVD
 model <- glmer(
     got_cvd ~ total_cholesterol_scaled + (1 | subject_id),
@@ -144,16 +138,13 @@ xp: 50
 ```
 
 `@instructions`
-- Try another predictor. Run a model using fasting blood glucose (scaled) as a predictor instead of cholesterol.
+- Try another predictor. Run a model using `fasting_blood_glucose_scaled` as a predictor instead of cholesterol.
 
 `@hint`
-- The variable is `fasting_blood_glucose_scaled`.
+- Using the same formula as the previous step, replace `total_cholesterol_scaled` with `fasting_blood_glucose_scaled`.
 
 `@sample_code`
 ```{r}
-# Confirm name of predictor
-names(___)
-
 # Model fasting blood glucose on CVD
 model <- glmer(
     ___ ~ ___,
@@ -162,14 +153,11 @@ model <- glmer(
     )
 
 # View the model output
-summary(___)
+summary(model)
 ```
 
 `@solution`
 ```{r}
-# Confirm name of predictor
-names(sample_tidied_framingham)
-
 # Model fasting blood glucose on CVD
 model <- glmer(
     got_cvd ~ fasting_blood_glucose_scaled + (1 | subject_id), 
@@ -183,7 +171,7 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Great job! You've ran several mixed effects models!")
+success_msg("Great job! You've become a bit more familiar with coding and running mixed effects models in R. You ran two models to get practice on setting predictors and the formula. Now we can get to more complicated modeling aspects.")
 ```
 
 ---
@@ -212,6 +200,7 @@ model <- glmer(
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
+library(ggplot2)
 ```
 
 ***
@@ -223,16 +212,13 @@ xp: 35
 ```
 
 `@instructions`
-- Plot the original total cholesterol and include it in the model; you will get a warning.
+- Include `total_cholesterol` it in the model; you will get a warning.
 
 `@hint`
 - Don't forget the random term: `(1 | subject_id)`.
 
 `@sample_code`
 ```{r}
-# Plot of original cholesterol
-plot(sample_tidied_framingham$___)
-
 # Model the total cholesterol
 model <- glmer(
     ___ ~ ___,
@@ -246,9 +232,6 @@ summary(model)
 
 `@solution`
 ```{r}
-# Plot of original cholesterol
-plot(sample_tidied_framingham$total_cholesterol)
-
 # Model the total cholesterol
 model <- glmer(
     got_cvd ~ total_cholesterol + (1 | subject_id),
@@ -274,17 +257,13 @@ xp: 35
 ```
 
 `@instructions`
-- Compare centered cholesterol and use it in the model.
+- Use `total_cholesterol_centered` in the model; you will get a warning.
 
 `@hint`
-- Use `names(sample_tidied_framingham)` to get the correct name of the cholesterol predictor.
+- Replace the original cholesterol variable with the centered one in the formula.
 
 `@sample_code`
 ```{r}
-# Compare the original vs centered variable
-plot(sample_tidied_framingham$total_cholesterol)
-plot(sample_tidied_framingham$___)
-
 # Model with centered cholesterol
 model <- glmer(
     ___,
@@ -298,10 +277,6 @@ summary(model)
 
 `@solution`
 ```{r}
-# Compare the original vs centered variable
-plot(sample_tidied_framingham$total_cholesterol)
-plot(sample_tidied_framingham$total_cholesterol_centered)
-
 # Model with centered cholesterol
 model <- glmer(
     got_cvd ~ total_cholesterol_centered + (1 | subject_id), 
@@ -327,18 +302,13 @@ xp: 30
 ```
 
 `@instructions`
-- Lastly, we can fix the warnings by using the scaled cholesterol variable.
+- Use the `total_cholesterol_scaled` variable instead; the warning should now be fixed.
 
 `@hint`
-- The variable is `total_cholesterol_scaled`.
+- Include `total_cholesterol_scaled` in the formula.
 
 `@sample_code`
 ```{r}
-# Compare the original vs centered vs scaled variables
-plot(sample_tidied_framingham$total_cholesterol)
-plot(sample_tidied_framingham$total_cholesterol_centered)
-plot(sample_tidied_framingham$___)
-
 # Model with scaled cholesterol
 model <- glmer(
     ___,
@@ -352,11 +322,6 @@ summary(model)
 
 `@solution`
 ```{r}
-# Compare the original vs centered vs scaled variables
-plot(sample_tidied_framingham$total_cholesterol)
-plot(sample_tidied_framingham$total_cholesterol_centered)
-plot(sample_tidied_framingham$total_cholesterol_scaled)
-
 # Model with scaled cholesterol
 model <- glmer(
     got_cvd ~ total_cholesterol_scaled + (1 | subject_id),
@@ -370,7 +335,7 @@ summary(model)
 
 `@sct`
 ```{r}
-success_msg("Amazing! You've solved the warnings about non-convergence, large eigenvalues, and the rescaling issue.")
+success_msg("Amazing! You've solved the warnings about non-convergence and rescaling issue! Often it requires some trial and error to find which transformations are optimal for the model technique.")
 ```
 
 ---
@@ -385,10 +350,10 @@ xp: 100
 
 Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
-Include followup visit number in the `glmer` formula as well as the random term and the scaled cholesterol predictor.
+Include `followup_visit_number` in the `glmer` formula as well as the random term and the scaled cholesterol predictor.
 
 `@instructions`
-- Run a model of cholesterol (scaled) and followup visit number on CVD.
+- Run a model of cholesterol (scaled) and `followup_visit_number` on CVD.
 
 `@hint`
 - Include `followup_visit_number` after scaled cholesterol, still including the subject ID.
@@ -453,13 +418,13 @@ key: 4af692e468
 xp: 100
 ```
 
-Building a DAG that approximates the biology is difficult. It requires domain knowledge, so consult experts familiar with the research to confirm the DAG. Remember, you will build an incomplete DAG. That's why you take several model selection approaches. 
+Building a DAG that approximates the biology is difficult. It requires domain knowledge, so consult experts to confirm the DAG. Remember, you will build an incomplete DAG. This is but one step to finding confounders.
 
 Let's determine which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
 
-Recall that for dagitty, `x -> y` means "x influences y" and that `x -> {y z}` means "x influences y and z".
+Recall that for dagitty `x -> y` means "x influences y" and that `x -> {y z}` means "x influences y and z"; dagitty is already loaded.
 
-To learn more about graphs and networks, check out the [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r) course.
+To learn more about graphs and networks, check out [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r).
 
 `@pre_exercise_code`
 ```{r}
@@ -485,6 +450,7 @@ xp: 35
 
 `@instructions`
 - Using both the links between variables described in the context above and the plot as a guide, create a DAG of the hypothetical pathways.
+- Visually inspect the plot of the `variables_pathway` graph.
 
 `@hint`
 - The form for a pathway is `start_variable -> {one or more end variables}`.
@@ -499,6 +465,9 @@ variable_pathways <- dagitty("dag {
     ___ -> {___ ___ ___}
     ___ -> ___
 }")
+
+# Plot potential confounding pathways
+plot(graphLayout(___))
 ```
 
 `@solution`
@@ -511,6 +480,9 @@ variable_pathways <- dagitty("dag {
     BMI -> {SBP CVD FastingGlucose}
     FastingGlucose -> CVD
 }")
+
+# Plot potential confounding pathways
+plot(graphLayout(variable_pathways))
 ```
 
 `@sct`
@@ -527,7 +499,6 @@ xp: 35
 ```
 
 `@instructions`
-- Visually inspect the plot of the `variables_pathway` graph.
 - Identify the (minimal) model adjustment set of variables from the `variable_pathways` graph, selecting the appropriate exposure and the outcome variables.
 
 `@hint`
@@ -545,7 +516,7 @@ variable_pathways <- dagitty("dag {
 }")
 
 # Plot potential confounding pathways
-plot(graphLayout(___))
+plot(graphLayout(variable_pathways))
 
 # Identify some confounders to adjust for
 adjustmentSets(___, exposure = ___, outcome = ___)
@@ -610,9 +581,11 @@ key: 12f92a5b3e
 xp: 100
 ```
 
-It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared. 
+It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools for choosing variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared by using AIC to rank them. A *smaller* AIC is better.
 
-We've greatly restricted the sample size, the number of variables to include in the model, and set `nAQG` to 0 (to calculate less exact estimates) to have short computational runtimes. Check the `names` of the `model_sel_df` and add **all** of the variables in the dataset to the model.
+As multiple models will be computed and compared, to keep computing time short, for *DataCamp lesson purposes only*, we: greatly restricted the sample size and number of variables in the data, called `model_sel_df`; and, set `nAQG = 0` argument (reduces estimation precision, but increases speed).
+
+Add scaled systolic blood pressure, sex, scaled body mass index, currently smoking, and followup visit number as predictors to the model.
 
 `@pre_exercise_code`
 ```{r}
@@ -631,7 +604,7 @@ xp: 35
 
 `@instructions`
 - Set CVD as the outcome and subject ID as the random term.
-- Include all other remaining variables as predictors in the formula.
+- Include the remaining variables (listed above) as predictors in the formula.
 
 `@hint`
 - Model formulas are in the form: `got_cvd ~ predictor1 + predictor2 + (1 | subject_id)`.
@@ -673,11 +646,12 @@ xp: 35
 ```
 
 `@instructions`
-- "Dredge" through the combinations of variables that have systolic blood pressure (scaled) in the model using AIC to rank models.
+- "Dredge" through the combinations of variables that have `systolic_blood_pressure_scaled` in the model using AIC to rank models.
 - Print the top 5 models.
 
 `@hint`
-- Subset by `systolic_blood_pressure_scaled`.
+- Provide 5 as the second argument to `head`.
+- Give `model` as the first argument to `dredge`.
 
 `@sample_code`
 ```{r}
@@ -788,10 +762,10 @@ xp: 40
 ```
 
 `@instructions`
-- Run `glmer` models with total cholesterol (scaled), sex, followup visit number, and subject ID as the random term, but don't include an interaction.
+- Run `glmer` models with `total_cholesterol_scaled`, `sex`, `followup_visit_number`, and `subject_id` as the random term, but don't include an interaction.
 
 `@hint`
-- Confirm the names of the variables by using `names(sample_tidied_framingham)`.
+- The outcome variable is `got_cvd`.
 
 `@sample_code`
 ```{r}
@@ -825,7 +799,7 @@ xp: 40
 ```
 
 `@instructions`
-- Create the same formula, but this time with an interaction between sex and total cholesterol (scaled).
+- Create the same formula, but this time with an interaction between `sex` and `total_cholesterol_scaled`.
 
 `@hint`
 - Use a `*` instead of a `+` for including an interaction between variables in the formula.
@@ -1007,10 +981,10 @@ xp: 40
 ```
 
 `@instructions`
-- Include body mass index (scaled), followup visit, and subject ID in the formula, then run the model with the original dataset.
+- Include `body_mass_index_scaled`, `followup_visit_number`, and `subject_id` (as a random term) in the formula, then run the model with the original dataset.
 
 `@hint`
-- The model object should be given to `summary`.
+- Use `sample_tidied_framingham` in the data argument.
 
 `@sample_code`
 ```{r}
@@ -1022,7 +996,7 @@ bmi_check_data <- sample_tidied_framingham %>%
 original_model <- glmer(
     ___,
     data = ___, family = binomial)
-summary(___)$coef
+summary(___)
 ```
 
 `@solution`
@@ -1035,7 +1009,7 @@ bmi_check_data <- sample_tidied_framingham %>%
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, family = binomial)
-summary(original_model)$coef
+summary(original_model)
 ```
 
 `@sct`
@@ -1067,13 +1041,13 @@ bmi_check_data <- sample_tidied_framingham %>%
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, family = binomial)
-summary(original_model)$coef
+summary(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
     ___,
     data = ___, family = binomial)
-summary(___)$coef
+summary(___)
 ```
 
 `@solution`
@@ -1086,13 +1060,13 @@ bmi_check_data <- sample_tidied_framingham %>%
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, family = binomial)
-summary(original_model)$coef
+summary(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = bmi_check_data, family = binomial)
-summary(bmi_check_model)$coef
+summary(bmi_check_model)
 ```
 
 `@sct`
@@ -1123,14 +1097,13 @@ key: 33b5b785cf
 xp: 100
 ```
 
-Now that you've created several models, you need to do some tidying and back-transforming. Tidying mixed effects models requires the broom.mixed package. Back-transforming by exponentiating is required as the model uses a binary outcome. Exponentiating converts the estimates to odds. Then select the variables that are important and relevant.
+Now that you've created several models, you need to do some tidying and back-transforming. Tidying mixed effects models requires the broom.mixed package. Back-transforming by exponentiating is required as the model uses a binary outcome. Exponentiating converts the estimates to odds. Next, select the variables that are more important and relevant.
 
 A model has been created for you already called `main_model`.
 
 `@pre_exercise_code`
 ```{r}
 main_model <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/ef96cbfc9ab3b3728b18de9fa59f9600d8894add/main_model.Rds"))
-library(lme4)
 library(dplyr)
 options(digits = 3, scipen = 4)
 ```
@@ -1144,8 +1117,7 @@ xp: 50
 ```
 
 `@instructions`
-- Using the functions from broom.mixed, tidy the model, create confidence intervals, and exponentiate the estimates.
-- Select only the most important results: the effect, terms, estimates, and the lower and upper confidence interval.
+- Using the function from broom.mixed, tidy the model, create confidence intervals, and exponentiate the estimates.
 
 `@hint`
 - Use the `tidy` function on model object.
@@ -1159,10 +1131,54 @@ tidy_model <- ___
 
 # View the tidied model
 tidy_model
+```
+
+`@solution`
+```{r}
+library(broom.mixed)
+
+# Tidy up main_model, include conf.int and exponentiate
+tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
+
+# View the tidied model
+tidy_model
+```
+
+`@sct`
+```{r}
+success_msg("Amazing!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 4e07620171
+xp: 50
+```
+
+`@instructions`
+- Select only the most important results: the effect, terms, estimates, and the lower and upper confidence interval.
+
+`@hint`
+- Use the `select()` function.
+
+`@sample_code`
+```{r}
+library(broom.mixed)
+
+# Tidy up main_model, include conf.int and exponentiate
+tidy_model <- ___
+
+# View the tidied model
+tidy_model
 
 # Select the four important variables
-tidy_model %>% 
-    ___(___)
+relevant_results <- tidy_model %>% 
+    ___(___) 
+
+# View the relevent results
+relevant_results
 ```
 
 `@solution`
@@ -1176,45 +1192,56 @@ tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
 tidy_model
 
 # Select the four important variables
-tidy_model %>% 
+relevant_results <- tidy_model %>% 
+    select(effect, term, estimate, conf.low, conf.high) 
+
+# View the relevent results
+relevant_results
+```
+
+`@sct`
+```{r}
+success_msg("Amazing! You tidied up the model and extracted the most important results!")
+```
+
+---
+
+## Interpreting the tidied results
+
+```yaml
+type: MultipleChoiceExercise
+key: cdb2dd92be
+xp: 50
+```
+
+You've now created a tidied model output and kept the most relevant results. Now time to interpret! Which of the responses below is the *most* accurate interpretation of the results? 
+
+The `relevant_results` model has been loaded for you to look over. Note that SD means standard deviation and CI means confidence interval.
+
+`@possible_answers`
+- 1 SD higher cholesterol has 1.1 times more CVD risk, but uncertain (0.3 to 3.7 CI).
+- [1 SD higher cholesterol has 1.1 times more CVD risk (range is 0.3 to 3.7 times), adjusted for time.]
+- No significant relationships exist: CI passes 1.
+- Cholesterol's relation to CVD is uncertain. Need more research.
+
+`@hint`
+- There are several that are right, but only one is the **most** accurate statement.
+
+`@pre_exercise_code`
+```{r}
+main_model <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/ef96cbfc9ab3b3728b18de9fa59f9600d8894add/main_model.Rds"))
+library(dplyr)
+library(broom.mixed)
+options(digits = 3, scipen = 4)
+relevant_results <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE) %>% 
     select(effect, term, estimate, conf.low, conf.high) 
 ```
 
 `@sct`
 ```{r}
-success_msg("Amazing!")
-```
-
-***
-
-```yaml
-type: MultipleChoiceExercise
-key: 479e2ac60e
-xp: 50
-```
-
-`@question`
-Which is the *most* accurate interpretation of the results? (Note: SD = standard deviation)
-
-`@possible_answers`
-- One SD increase in cholesterol has a 1.09 times higher risk of CVD, but has much uncertainty (from 0.320 to 3.75).
-- For each new visit number, there is a 0.9 times lower risk of CVD.
-- [One SD increase in cholesterol has a 1.09 times higher risk of CVD (highly uncertain, from 0.320 to 3.75), controlling for time.]
-- Total cholesterol is not significantly associated with CVD, because the estimate passes the null line (1).
-- There is a lot of uncertainty around the association of cholesterol with CVD. More research is needed.
-
-
-# A tibble: 4 x 4
-  term                        estimate     conf.low  conf.high
-  <chr>                          <dbl>        <dbl>      <dbl>
-1 (Intercept)               0.00000334  0.000000151  0.0000736
-2 total_cholesterol_scaled  1.09        0.320        3.75     
-3 followup_visit_number     0.898       0.258        3.13
-
-`@hint`
-- There are several that are right, but only one is the **most** accurate statement.
-
-`@sct`
-```{r}
-success_msg("Amazing! You tidied up the model, extracted the most important results, and correctly identified the most accurate interpretation of these results!")
+msg1 <- "Nearly correct, but missing a key component of the model."
+msg2 <- "Correct! You interpret the estimate and uncertainty around the estimate in the context of what you adjust for."
+msg3 <- "Incorrect. An arbitrary threshold does not mean there are no relationships between variables."
+msg4 <- "Nearly correct. The estimate is highly uncertain, but there is better, more accurate statement here."
+ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```

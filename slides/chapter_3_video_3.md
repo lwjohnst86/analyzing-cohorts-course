@@ -17,7 +17,7 @@ title: Diabetes epidemiologist
 
 
 `@script`
-An important part of any analysis is testing for interactions of important variables and running sensitivity analyses.
+An important part of any cohort analysis is testing for interactions of variables and running sensitivity analyses.
 
 
 ---
@@ -36,7 +36,7 @@ key: "fe20e41d30"
 
 
 `@script`
-Interaction testing is when you combine variables in a model to see whether their individual values together modify the association with an outcome. For example, some drugs reduce risk for disease in men, but may be harmful or have no effect in women. Or that risk factors such as obesity have a larger effect in certain ethnicities. For sex and ethnicity, you must always check for interactions, as they have powerful impacts on health.
+Interaction testing is when you combine variables in a model to see whether their individual values together modify the association with an outcome. For example, some drugs reduce risk for disease in men, but may be harmful or have no effect in women. Or that risk factors such as obesity have a larger effect in certain ethnicities. For sex and ethnicity, you should always check for interactions, as they have powerful impacts on health.
 
 
 ---
@@ -58,7 +58,7 @@ key: "a2abb2e2ae"
 
 
 `@script`
-There are several ways to check for interactions. The first, and often most effective, is to visualize the data. More formal methods include doing stratified analyses, by literally splitting the dataset by the discrete variable. You can also directly model interactions by including interaction terms in your analyses.
+There are several ways to check for interactions. The first, and often most effective, is to visualize the data. More formal methods include doing stratified analyses, by splitting up the dataset. You can also directly model interactions using interaction terms in your analyses.
 
 
 ---
@@ -88,7 +88,7 @@ outcome ~ predictor * sex
 
 
 `@script`
-There are several ways to model interactions. One way is similar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can also use a shorthand using the asterisk between the two terms. These two formula are equivalent. Be careful with the model estimates, as you cannot interpret interaction estimates alone but only with the other estimates.
+There are several ways to model interactions. One way is similar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can also use a shorthand with the asterisk between the two terms. These two formula are equivalent.
 
 
 ---
@@ -119,20 +119,16 @@ body_mass_index_scaled:sexWoman   0.1672     0.3412   0.490   0.6241    <-- This
 ```
 {{2}}
 
-- BMI at 1 SD = 1 x 0.127, woman = 1 x -0.942, interaction = 1 x 1 x 0.167 {{3}}
-- 0.127 + -0.942 + 0.167 = -0.648 (raw estimate) {{3}}
-- Man = 0 x 0.127, interaction = 0 x 1 x 0.167 (*since sex is 0*) {{4}}
-- 0.127 + 0 + 0 = 0.127 (raw estimate) {{4}}
+- Interaction interpretation is difficult and complex {{3}}
+	- Refer to [Statistical Modeling in R (Part 2)](https://www.datacamp.com/courses/statistical-modeling-in-r-part-2) course
 
 
 `@script`
 Here is a mixed model interaction using the Framingham dataset. We are testing the interaction between scaled body mass index and sex. Notice the asterisks to denote the interaction. 
 
-Running summary on the model gives a lot of information. I've cut some of it to focus on the main fixed effects results. With interactions we can't use just one estimate as a result as we would with no interactions. We need to use the estimates from each of the interaction terms, which are three estimates for this model. 
+The model summary gives a lot of information, most of which I've cut to show the main fixed effects. With interactions we can't interpret using just one estimate as we would with no interactions. We must use the estimates from each of the interaction terms, which are the three estimates from this model. 
 
-We read the interaction by multiplying sex and body mass. Woman is equal to one, so the sex estimate is times one. For one standard deviation of BMI, the estimate is times one. Since both BMI and sex are both one, for the interaction estimate we do one times one. Do some math, and the final estimate is minus zero point six. 
-
-Man is equal to zero, so the interaction is one times zero. Add the estimates up and the BMI estimate is the interaction estimate as well.
+Interpreting interaction results can be quite difficult. If you encounter interactions in your own modeling or want to learn more, check out Chapter 1 of the Statistical Modeling in R Part Two DataCamp course, which describes model interactions in great detail.
 
 
 ---
@@ -152,6 +148,8 @@ model_no_interaction <- glmer(
 model_with_interaction <- glmer(
     got_cvd ~ body_mass_index_scaled * sex + (1 | subject_id),
     data = tidied_framingham, family = binomial)
+
+# Compare models
 model.sel(model_no_interaction, model_with_interaction, rank = "AIC")
 ```
 
@@ -166,7 +164,9 @@ Models ranked by AIC(x)
 
 
 `@script`
-To determine if an interaction exists, you need to compare models with and without the interaction then using the model dot sel function. The delta between the model AIC is almost two, and weight says without an interaction is most likely the better model, by seventy percent. Since an interaction doesn't provide more information, we can remove it.
+To determine if an interaction does exist, you need to compare models with and without an interaction using the model dot sel function. The function accepts many models as arguments. It also takes the method to rank with, which we'll use AIC. It is a measure tries to balance the model's fit to the data and the number of predictors. A smaller AIC means the model is better compared to a larger AIC.
+
+Running the function outputs several columns. The important ones are AIC, delta, and weight. The interaction model's delta is two more AIC, indicating it is slightly worse, while the no interaction model's weight value tells us that it is seventy percent more likely better. This tells us that including an interaction gives no additional information, so we can remove it.
 
 
 ---

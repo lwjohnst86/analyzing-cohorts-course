@@ -37,11 +37,10 @@ key: "d7c7602043"
     - Cox proportional hazard models
     - Linear regression
     - Logistic regression
-    - Poisson regression
 
 
 `@script`
-There are many ways to analyze cohorts, depending on the data, the research questions, and the study design. Most often the analysis will be some form of regression modeling, which provides an estimate of the magnitude of an association and its uncertainty. A prospective cohort with multiple measures over time would often use mixed effects models, while other designs or those with single measures such as with only one time point tend to use simpler regression techniques. Cohorts usually study a disease, which is generally binary, so you'd likely use a logistic regression model.
+There are many ways to analyze cohorts, depending on the data, the research questions, and the study design. For prospective cohorts with multiple measures over time, you would generally use mixed effects or generalized estimated equations, while other study designs tend to use simpler techniques such as linear or logistic regression or cox models. Cohorts usually study a disease, which is generally binary, so you'd likely use a logistic regression-type methods, including with mixed effects models.
 
 For the rest of the chapter, we'll focus on mixed effects modeling.
 
@@ -74,7 +73,7 @@ glmer(outcome ~ predictor1 + predictor2 +
 `@script`
 Mixed effects models are powerful methods that contain a fixed term and a random term. For example, you use this method when data has been collected on each person multiple times, commonly done in prospective cohort studies. 
 
-You'll need to use the lme4 package, which contains the glmer function. If you are familiar with glm, they are very similar except that you add a random term. Let's look into the model formula a bit more.
+You'll need to use the lme4 package, which contains the glmer function. If you are familiar with the function glm, or generalized linear models, glmer is very similar except that you add a random term. Let's look into the model formula a bit more.
 
 
 ---
@@ -94,11 +93,6 @@ outcome ~ predictor + (1 | random_term)
 - `outcome`: $y$ variable. In cohorts, usually disease. {{1}}
 - `predictor`: One or more $x$ variable. Variables thought to influence outcome. {{2}}
     - Using more variables: `predictor1 + predictor2 + ...`
-- `(1 | random_term)`: Random effects variable. {{3}}
-    - Random = dependency between observations (e.g. siblings in family, person over time)
-    - Takes form `(left | right)`: left = individual slopes, right = individual intercepts. {{4}}
-    - `1` = same slope for all {{5}}
-    - `random_term` = each person has own intercept {{5}}
 
 
 `@script`
@@ -108,6 +102,29 @@ The outcome in cohorts is usually the disease variable.
 
 The predictor part can be one or more predictor variables. You can add more predictors by separating them with a plus sign. The predictor variable of interest, called the exposure, is the one we hypothesize has a role in the the disease. Other predictors included are the confounders, which we will cover later.
 
+
+---
+## Formula meaning in mixed models
+
+```yaml
+type: "FullSlide"
+key: "6258135d76"
+```
+
+`@part1`
+```{r}
+# Formula
+outcome ~ predictor + (1 | random_term)
+```
+
+- `(1 | random_term)`: Random effects variable.
+    - Random = dependency between observations (e.g. siblings in family, person over time) {{1}}
+    - Takes form `(left | right)`: left = individual slopes, right = individual intercepts. {{2}}
+    - `1` = same slope for all {{3}}
+    - `random_term` = each person has own intercept {{4}}
+
+
+`@script`
 Lastly, there is variable for the random effects. The name random means there is a dependency between observations, such as with siblings in a family or a person measured over time. 
 
 The form has two parts, a left and right side. The left side calculates slopes for each random unit while the right side calculates intercepts for each unit. The one here says to have the same slopes and that each group in the random term on the right has a different intercept. For example, in a prospective cohort, individuals measured over time will generally start at their own level at the start. For example, everyone starts at a their own weight but that it may change over time.
@@ -118,6 +135,7 @@ The form has two parts, a left and right side. The left side calculates slopes f
 
 ```yaml
 type: "FullSlide"
+key: "a652496216"
 ```
 
 `@part1`
@@ -148,6 +166,7 @@ You'll often have to do some trial and error of scaling, logging, or other trans
 
 ```yaml
 type: "FullSlide"
+key: "d2067f83af"
 ```
 
 `@part1`
@@ -161,8 +180,8 @@ glmer(outcome ~ center_predictor + predictor_divided_100 +
 
 
 `@script`
+We've covered what to include in the formula and how to transform some variables. Now it's time to put it all together in the glmer function. The function takes several arguments, but the three most important ones are the formula, the data, and the family function. The family argument is used to indicate how to handle the outcome variable. In this case, the outcome is binary: You have the disease or not. So, you need to use the binomial distribution family to obtain the correct result.
 
-We've covered what to include in the formula and how to transform some variables. Now it's time to put it all together in the glmer function. The function takes several arguments, but the three most important ones are the formula, the data, and the family function. The family function is used to indicate how to handle the outcome variable. In this case, the outcome is binary: You have the disease or not. So, you need to use the binomial distribution family to obtain the correct result.
 
 ---
 ## Let's practice with mixed effects models!

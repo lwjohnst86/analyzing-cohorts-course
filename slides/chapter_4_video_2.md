@@ -94,13 +94,15 @@ models %>%
 ```
 {{1}}
 
-![Plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/25486b26544f91dfece966db92fae24f0a3e0f3c/ch4-v2-estimate-ci-basic.png) {{2}}
+![Plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/25486b26544f91dfece966db92fae24f0a3e0f3c/ch4-v2-estimate-ci-basic.png) {{1}}
 
 
 `@script`
 We can make this type of plot using geom-underscore-point, geom-underscore-errorbarh, and geom-underscore-vline. 
 
-Each item on the y axis is a single model's predictor and associated estimate, as an odds ratio, and confidence interval. Since the null line is one for odds ratios, we need to set the x-intercept to one. When you have many model results, this plot can easily show all the models, providing a bigger overview of the findings and making it easier to compare predictors.
+Each item on the y axis is a single model's predictor and associated estimate, as an odds ratio, and confidence interval. For this plot, it needs an x for the estimate, an xmin for the lower confidence limit and xmax for the upper confidence limit.
+
+Since the null line is one for odds ratios, we need to set the x-intercept to one. When you have many model results, this plot can easily show all the models, providing a bigger overview of the findings and making it easier to compare predictors.
 
 
 ---
@@ -162,7 +164,7 @@ models %>%
 
 
 `@script`
-As stated in the STROBE guidelines, you need to show both unadjusted and adjusted models. Showing both on a single plot is easy if your data is properly setup. With all models in a single dataframe, you can plot the unadjusted and adjusted models by splitting them using facet-underscore-grid. Use the vars function to set the model variable. With the rows argument, the model groups will be vertically stacked instead of side by side.
+As stated in the STROBE best practices, you need to show both unadjusted and adjusted models. Showing both on a single plot is easy if your data is properly setup. With all models in a single dataframe, you can plot the unadjusted and adjusted models by splitting them using facet-underscore-grid. Use the vars function to set the model variable. With the rows argument, the model groups will be vertically stacked instead of side by side.
 
 
 ---

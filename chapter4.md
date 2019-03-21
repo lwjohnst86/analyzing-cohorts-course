@@ -50,7 +50,7 @@ xp: 50
 ```
 
 `@instructions`
-- Create a model column to indicate "adjustment" for each model in the list.
+- Create a model column to indicate "adjustment" for each model. `term[2]` selects the second term, which is the predictor.
 
 `@hint`
 - Use `map` to add to each model.
@@ -60,8 +60,10 @@ xp: 50
 # Add predictor and model type to each list item
 unadjusted_models_list <- ___(
     unadjusted_models_list,
-    ~___(.x, predictor = term[2], 
-         model = ___)
+    ~___(.x, 
+         	# This selects predictor, not confounder
+            predictor = term[2], 
+            model = ___)
 )
 ```
 
@@ -70,7 +72,9 @@ unadjusted_models_list <- ___(
 # Add predictor and model type to each list item
 unadjusted_models_list <- map(
     unadjusted_models_list,
-    ~mutate(.x, predictor = term[2], 
+    ~mutate(.x,
+            # This selects predictor, not confounder
+            predictor = term[2], 
             model = "Unadjusted")
 )
 ```
@@ -107,14 +111,16 @@ adjusted_models_list <-
 # Do the same for adjusted model list
 adjusted_models_list <- map(
     adjusted_models_list,
-    ~mutate(.x, predictor = term[2],
+    ~mutate(.x, 
+            # This selects predictor, not confounder
+            predictor = term[2], 
             model = "Adjusted")
 )
 ```
 
 `@sct`
 ```{r}
-success_msg("Excellent! You made use of R's strength of functional programming rather than use a `for` loop.")
+success_msg("Excellent! You made use of map to add more details to each model object.")
 ```
 
 ---
@@ -131,11 +137,11 @@ The most efficient approach to later plotting and creating tables is to have all
 
 `@instructions`
 - Using `bind_rows`, put the two model list objects together.
-- Continuing to pipe, add an outcome column for the disease variable.
-- Finally, filter so only conditions where the `predictor` is the `term` and the `effect` is fixed.
+- Continuing to pipe, add (`mutate`) an outcome column for the `got_cvd` variable.
+- Finally, use `filter()` to keep only conditions where the `predictor` is the `term` and the `effect` is `"fixed"`.
 
 `@hint`
-- Filter so only the predictor estimate rows remain (when predictor and term are the same).
+- Filter when predictor and term are the same (`==`).
 
 `@pre_exercise_code`
 ```{r}
@@ -157,8 +163,8 @@ adjusted_models_list <- map(
 ```{r}
 # Combine models, add outcome, keep predictor estimates
 all_models <- ___ %>% 
-    ___ %>% 
-    ___
+    mutate(___) %>% 
+    filter(___, ___)
 
 # Check the model dataframe
 all_models
@@ -226,7 +232,7 @@ xp: 30
 - Keep only the unadjusted results for this exercise.
 
 `@hint`
-- Filter takes a logical condition.
+- Filter takes a logical condition, in this case when model is `"Unadjusted"`.
 
 `@sample_code`
 ```{r}
@@ -262,10 +268,10 @@ xp: 35
 ```
 
 `@instructions`
-- Create a point and error-bar plot of the estimates and confidence intervals, with the predictors on the y axis.
+- Create a point and error-bar plot of the estimates (`x`) and confidence intervals (`xmin`, `xmax`), with the predictors on the y axis.
 
 `@hint`
-- Use the geom for points and for `errorbarh` (horizontal).
+- Use the geom for points and for `errorbarh` (horizontal), which requires `xmin = conf.low, xmax = conf.high`.
 
 `@sample_code`
 ```{r}
@@ -333,7 +339,7 @@ model_plot <- unadjusted_results %>%
     ___(___)
 
 # Check the plot
-___
+model_plot
 ```
 
 `@solution`
@@ -375,9 +381,9 @@ As with the previous exercise, use the `unadjusted_results` dataframe you create
 
 `@instructions`
 - Add the `aes()` variables, the point, error bar, and vertical center line.
-- Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to dotted.
+- Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to `"dotted"`.
 - Include appropriate axis labels (the "Predictors" on the y and the "Odds Ratio (95% CI)" on the x). Remember, CI is the confidence interval.
-- Change the theme to `theme_classic()`.
+- Change the theme to `theme_classic()` on the last line.
 
 `@hint`
 - The labels should be of the form `x = "Axis Label"` (for the x-axis for instance).
@@ -395,10 +401,10 @@ unadjusted_results <- all_models %>%
 ```{r}
 # Make the plot more polished
 model_plot <- unadjusted_results %>% 
-    ggplot(___) +
-    ___ +
-    ___ +
-    ___ +
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point(___) +
+    geom_errorbarh(___) +
+    geom_vline(xintercept = 1, ___) +
     labs(___, ___) +
     ___
 
@@ -441,11 +447,9 @@ The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model
 `@instructions`
 - As in the previous exercise, create a plot of the estimates and confidence intervals of the predictors.
 - This time, don't filter by model adjustment.
-- Make the plot pretty as in the previous exercise (including the `labs`).
 - Expand on the previous exercise by splitting the plot by model using `facet_grid`.
 
 `@hint`
-- The vertical line should have a `linetype` of "dotted".
 - Select the facetting variable using `vars()`.
 
 `@pre_exercise_code`
@@ -459,13 +463,14 @@ library(magrittr)
 ```{r}
 # Show results of both adjusted and unadjusted
 plot_all_models <- all_models %>% 
-    ggplot(aes(___)) +
-    ___() +
-    ___(height = 0.2) +
-    geom_vline(___) +
-    # Split plot by model
-    ___(rows = ___) +
-    labs(___, ___)
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point(size = 3) +
+    geom_errorbarh(height = 0.1) +
+    geom_vline(xintercept = 1, linetype = "dotted") +
+    # Facet plot by model
+    ___(___) +
+    labs(y = "Predictors", x = "Odds ratio (95% CI)") +
+	theme_classic()
 
 # Plot the results
 plot_all_models
@@ -476,12 +481,13 @@ plot_all_models
 # Show results of both adjusted and unadjusted
 plot_all_models <- all_models %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_point() +
-    geom_errorbarh(height = 0.2) +
+    geom_point(size = 3) +
+    geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dotted") +
     # Split plot by model
     facet_grid(rows = vars(model)) +
-    labs(y = "Predictors", x = "Odds ratio (95% CI)")
+    labs(y = "Predictors", x = "Odds ratio (95% CI)") +
+	theme_classic()
 
 # Plot the results
 plot_all_models
