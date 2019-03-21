@@ -38,17 +38,18 @@ Basically, *whenever you can't use figures* {{1}}
 
 
 `@script`
-When is it best to use tables? Basically, whenever you can't use a figure. 
+When is it best to use tables? Basically, whenever you can't use figures. 
 
-Use a table when, for example, the units of measure are too dissimilar, when the items are distinct or comparison between them isn't important, when presenting multiple but different models, or when you want to show the raw numbers so it's easier to extract it.
+Use tables when, for example, the units of measure are too dissimilar, when the items are distinct or comparison between them isn't important, when presenting multiple but different models, or when you want to show the raw numbers so it's easier to extract it.
 
 
 ---
 ## Creating a table of participant characteristics
 
 ```yaml
-type: "TwoColumns"
-key: "ee670c18b4"
+type: "FullSlide"
+key: "ed9bf55a56"
+disable_transition: false
 ```
 
 `@part1`
@@ -67,8 +68,7 @@ tidied_framingham %>%
 ```{r}
 tidied_framingham %>%
     outline_table() %>%
-    add_rows("education_combined",
-             stat = stat_nPct)
+    add_rows("education_combined", stat = stat_nPct)
 ```
 {{3}}
 
@@ -84,19 +84,33 @@ tidied_framingham %>%
 {{4}}
 
 
-`@part2`
+`@script`
+Presenting basic participant characteristics, as suggested by STROBE best practices, is a great example for using a table. Here you can show summary statistics of the outcomes, predictors, and other characteristics.
+
+The carpenter package provides an easy way of creating these tables. We start by outlining the table based on the data. With multiple time points, you could indicate the time variable so that each time point has a column. This outputs nothing right now as we haven't added rows. 
+
+Let's add a row for a factor variable like combined education. A common statistic for factors is the count with percent of total, so let's set stat to stat-underscore-n-percent.
+
+
+---
+## Creating a table of participant characteristics
+
+```yaml
+type: "FullSlide"
+key: "a6b86785d3"
+disable_transition: true
+```
+
+`@part1`
 ```{r}
 tidied_framingham %>%
     outline_table() %>%
-    add_rows("education_combined",
-             stat = stat_nPct) %>%
-    add_rows("body_mass_index",
-             stat = stat_meanSD) %>%
-    add_rows(c("participant_age", 
-               "heart_rate"),
+    add_rows("education_combined", stat = stat_nPct) %>%
+    add_rows("body_mass_index", stat = stat_meanSD) %>%
+    add_rows(c("participant_age", "heart_rate"),
              stat = stat_medianIQR)
 ``` 
-{{5}}
+{{1}}
 
 ```
 # A tibble: 7 x 2
@@ -110,17 +124,11 @@ tidied_framingham %>%
 6 participant_age    54.0 (48.0-62.0)
 7 heart_rate         75.0 (69.0-85.0)
 ``` 
-{{6}}
+{{2}}
 
 
 `@script`
-Presenting basic participant characteristics, as suggested by STROBE, is a great example for using a table. Here you can show summary statistics of the outcomes, the predictors, and other characteristics.
-
-The carpenter package provides an easy way of creating these tables. We start by outlining the table based on the data. With multiple time points, you could indicate the time variable so that each time point has a column. This outputs nothing right now as we haven't added rows. 
-
-Next, we add a row for the factor variable combined education. A common summary statistic for factors is count showing percent of total, so we set the stat to n percent.
-
-Let's add rows to the table for BMI, using the mean and standard deviation, and participant age and heart rate, using median and interquartile range.
+Now let's add some rows to the table for BMI, using stat-underscore-mean-sd for the mean and standard deviation, and participant age and heart rate, using stat-underscore-median-iqr for the median and interquartile range.
 
 
 ---
@@ -160,7 +168,7 @@ basic_char_table
 
 
 `@script`
-Great! But the table headers aren't informative. We set them using the renaming function, using the argument header and providing the names of each column. Here we added a single column called Characteristics.
+Great! But the table headers aren't informative. We set them using the renaming function and the header argument, then providing the names of each column. Here let's name only one column as Characteristics.
 
 
 ---
@@ -188,7 +196,7 @@ build_table(basic_char_table)
 
 
 `@script`
-If you use R Markdown, we can use the build-underscore-table function to convert this table data into a Markdown table. Now you have a basic characteristics table to use when presenting your cohort analysis!
+If you use R Markdown, we can use build-underscore-table to convert the output into a Markdown table. Now you have a basic characteristics table to use when presenting your cohort analysis!
 
 
 ---
@@ -217,34 +225,7 @@ So, how do we wrangle the results to get a table like this?
 
 
 ---
-## Glue: Very useful package for wrangling into tables
-
-```yaml
-type: "FullSlide"
-key: "7a6f6ba0ae"
-```
-
-`@part1`
-```{r}
-library(glue)
-x <- 3
-y <- 5
-glue("{x} ({y}%)")
-``` 
-{{1}}
-
-```
-3 (5%)
-``` 
-{{2}}
-
-
-`@script`
-The glue function from the glue package helps create a character string and insert data into that string between curly braces. Here, glue is used to replace the y with 5.
-
-
----
-## Combining dplyr and glue to prepare data
+## Wrangling data into table form
 
 ```yaml
 type: "FullSlide"
@@ -253,6 +234,7 @@ key: "2de3b37bbf"
 
 `@part1`
 ```{r}
+library(glue)
 models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>%
     mutate(estimate_ci = glue("{estimate} ({conf.low} to {conf.high})")) %>%
@@ -269,13 +251,17 @@ models %>%
 3 adjusted   systolic_blood_pressure 1.86 (0.78 to 4.43)
 4 adjusted   fasting_blood_glucose   1.52 (0.75 to 3.07)
 ``` 
-{{2}}
+{{1}}
 
 
 `@script`
-Other than the glue function, the remaining functions used here should be familiar from previous lessons. We use mutate at to round the values of the three variables. Then we use mutate again but with the glue function, formatted so the confidence interval is in brackets. Then select to choose the relevant variables.
+Most of these functions should be familiar, except for mutate-at and glue. Mutate-at applies a function to each variable contained within the vars function. Here we are rounding the values of each variable to three. 
 
-We see from the output the new column with the combined estimate and confidence interval.
+Next, we again use mutate but with the glue function.
+Glue helps create a character string that changes based on the variable given between the curly braces. We use glue to
+format a string with the estimate and confidence interval in brackets. 
+
+Finally, let's keep the most relevant variables and output the dataframe.
 
 
 ---
@@ -289,11 +275,12 @@ disable_transition: true
 
 `@part1`
 ```{r}
-models %>%
+table_models <- models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>%
     mutate(estimate_ci = glue("{estimate} ({conf.low} to {conf.high})")) %>%
     select(model, predictor, estimate_ci) %>%
     spread(model, estimate_ci)
+table_models
 ```
 
 ```
@@ -307,9 +294,36 @@ models %>%
 
 
 `@script`
-Next, using the spread function from the tidyr package, the models will be represented as columns. The first argument takes the model variable that groups the results and the second argument takes the estimate ci variable that has the values making up the new columns. We should select only relevant columns before spreading.
+Next, using the spread function from the tidyr package, the model adjustments will be represented as individual columns. The first argument to spread takes the model variable name that will represent the new columns and the second argument takes the estimate-underscore-ci variable that has the values that will make up the new columns.
 
-Great! With minimal code, we've gotten the results to appear similar to our desired table. We can either manually create the table or wrangle more to get the results exactly as the table. With further wrangling, we could mutate the predictor values and rename the columns to be capitalized and then use the kable function from knitr to create the final table.
+So, with minimal code, we've gotten the results to appear very similar to our desired table.
+
+
+---
+## Create R Markdown table with kable
+
+```yaml
+type: "FullSlide"
+key: "e94dd5cdce"
+```
+
+`@part1`
+```{r}
+library(knitr)
+library(stringr)
+table_models %>% 
+    mutate(predictor = str_replace_all(predictor, "_", " ")) %>% 
+    kable()
+```
+
+|predictor               |adjusted            |unadjusted          |
+|:-----------------------|:-------------------|:-------------------|
+|fasting blood glucose   |1.52 (0.75 to 3.07) |1.55 (0.78 to 3.09) |
+|systolic blood pressure |1.86 (0.78 to 4.43) |1.86 (0.8 to 4.29)  |
+
+
+`@script`
+We could continue replace underscores with spaces using the str-underscore-replace-underscore-all function from stringr. Like any search and replace, provide arguments for the string, the symbol to search, and the replacement. If you use R Markdown, you can use the kable function from knitr to create the final, nicely formatted table.
 
 
 ---
@@ -321,5 +335,5 @@ key: "ccbe649640"
 ```
 
 `@script`
-You now have the tools to make some tables!
+Now let's try making some tables!
 
