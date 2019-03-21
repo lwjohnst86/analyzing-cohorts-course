@@ -581,7 +581,7 @@ key: 12f92a5b3e
 xp: 100
 ```
 
-It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools in your toolbox for identifying and choosing the variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared. 
+It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools for choosing variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared by using AIC to rank them. A *smaller* AIC is better.
 
 As multiple models will be computed and compared, to keep computing time short, for *DataCamp lesson purposes only*, we: greatly restricted the sample size and number of variables in the data, called `model_sel_df`; and, set `nAQG = 0` argument (reduces estimation precision, but increases speed).
 
