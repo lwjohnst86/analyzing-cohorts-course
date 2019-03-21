@@ -1097,7 +1097,7 @@ key: 33b5b785cf
 xp: 100
 ```
 
-Now that you've created several models, you need to do some tidying and back-transforming. Tidying mixed effects models requires the broom.mixed package. Back-transforming by exponentiating is required as the model uses a binary outcome. Exponentiating converts the estimates to odds. Then select the variables that are important and relevant.
+Now that you've created several models, you need to do some tidying and back-transforming. Tidying mixed effects models requires the broom.mixed package. Back-transforming by exponentiating is required as the model uses a binary outcome. Exponentiating converts the estimates to odds. Next, select the variables that are more important and relevant.
 
 A model has been created for you already called `main_model`.
 
@@ -1118,8 +1118,7 @@ xp: 50
 ```
 
 `@instructions`
-- Using the functions from broom.mixed, tidy the model, create confidence intervals, and exponentiate the estimates.
-- Select only the most important results: the effect, terms, estimates, and the lower and upper confidence interval.
+- Using the function from broom.mixed, tidy the model, create confidence intervals, and exponentiate the estimates.
 
 `@hint`
 - Use the `tidy` function on model object.
@@ -1133,10 +1132,54 @@ tidy_model <- ___
 
 # View the tidied model
 tidy_model
+```
+
+`@solution`
+```{r}
+library(broom.mixed)
+
+# Tidy up main_model, include conf.int and exponentiate
+tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
+
+# View the tidied model
+tidy_model
+```
+
+`@sct`
+```{r}
+success_msg("Amazing!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: 4e07620171
+xp: 50
+```
+
+`@instructions`
+- Select only the most important results: the effect, terms, estimates, and the lower and upper confidence interval.
+
+`@hint`
+- Use the `select()` function.
+
+`@sample_code`
+```{r}
+library(broom.mixed)
+
+# Tidy up main_model, include conf.int and exponentiate
+tidy_model <- ___
+
+# View the tidied model
+tidy_model
 
 # Select the four important variables
-tidy_model %>% 
-    ___(___)
+relevant_results <- tidy_model %>% 
+    ___(___) 
+
+# View the relevent results
+relevant_results
 ```
 
 `@solution`
@@ -1150,45 +1193,56 @@ tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
 tidy_model
 
 # Select the four important variables
-tidy_model %>% 
+relevant_results <- tidy_model %>% 
+    select(effect, term, estimate, conf.low, conf.high) 
+
+# View the relevent results
+relevant_results
+```
+
+`@sct`
+```{r}
+success_msg("Amazing! You tidied up the model and extracted the most important results!")
+```
+
+---
+
+## Interpreting the tidied results
+
+```yaml
+type: MultipleChoiceExercise
+key: cdb2dd92be
+xp: 50
+```
+
+You've now created a tidied model output and kept the most relevant results. Now time to interpret! Which of the responses below is the *most* accurate interpretation of the results? 
+
+The `relevant_results` model has been loaded for you to look over. Note that SD means standard deviation and CI means confidence interval.
+
+`@possible_answers`
+- 1 SD higher cholesterol has 1.1 times more CVD risk, but uncertain (0.3 to 3.7 CI).
+- [1 SD higher cholesterol has 1.1 times more CVD risk (range is 0.3 to 3.7 times), adjusted for time.]
+- No significant relationships exist: CI passes 1.
+- Cholesterol's relation to CVD is uncertain. Need more research.
+
+`@hint`
+- There are several that are right, but only one is the **most** accurate statement.
+
+`@pre_exercise_code`
+```{r}
+main_model <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/ef96cbfc9ab3b3728b18de9fa59f9600d8894add/main_model.Rds"))
+library(lme4)
+library(dplyr)
+options(digits = 3, scipen = 4)
+relevant_results <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE) %>% 
     select(effect, term, estimate, conf.low, conf.high) 
 ```
 
 `@sct`
 ```{r}
-success_msg("Amazing!")
-```
-
-***
-
-```yaml
-type: MultipleChoiceExercise
-key: 479e2ac60e
-xp: 50
-```
-
-`@question`
-Which is the *most* accurate interpretation of the results? (Note: SD = standard deviation)
-
-`@possible_answers`
-- One SD increase in cholesterol has a 1.09 times higher risk of CVD, but has much uncertainty (from 0.320 to 3.75).
-- For each new visit number, there is a 0.9 times lower risk of CVD.
-- [One SD increase in cholesterol has a 1.09 times higher risk of CVD (highly uncertain, from 0.320 to 3.75), controlling for time.]
-- Total cholesterol is not significantly associated with CVD, because the estimate passes the null line (1).
-- There is a lot of uncertainty around the association of cholesterol with CVD. More research is needed.
-
-
-# A tibble: 4 x 4
-  term                        estimate     conf.low  conf.high
-  <chr>                          <dbl>        <dbl>      <dbl>
-1 (Intercept)               0.00000334  0.000000151  0.0000736
-2 total_cholesterol_scaled  1.09        0.320        3.75     
-3 followup_visit_number     0.898       0.258        3.13
-
-`@hint`
-- There are several that are right, but only one is the **most** accurate statement.
-
-`@sct`
-```{r}
-success_msg("Amazing! You tidied up the model, extracted the most important results, and correctly identified the most accurate interpretation of these results!")
+msg1 <- "Nearly correct, but missing a key component of the model."
+msg2 <- "Correct! You interpret the estimate and uncertainty around the estimate in the context of what you adjust for."
+msg3 <- "Incorrect. An arbitrary threshold does not mean there are no relationships between variables."
+msg4 <- "Nearly correct. The estimate is highly uncertain, but there is better, more accurate statement here."
+ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
