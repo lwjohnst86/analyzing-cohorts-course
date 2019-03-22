@@ -170,18 +170,19 @@ models %>%
     knitr::kable()
 
 # Short highlighting of glue
-x <- 3
-y <- 5
-glue("{x} ({y}%)")
-
 models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>%
     mutate(estimate_ci = glue("{estimate} ({conf.low} to {conf.high})")) %>%
     select(model, predictor, estimate_ci)
 
-models %>%
+table_models <- models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>%
     mutate(estimate_ci = glue("{estimate} ({conf.low} to {conf.high})")) %>%
     select(model, predictor, estimate_ci) %>%
     spread(model, estimate_ci)
 
+library(knitr)
+library(stringr)
+table_models %>%
+    mutate(predictor = str_replace_all(predictor, "_", " ")) %>%
+    kable()
