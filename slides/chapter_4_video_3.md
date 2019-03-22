@@ -323,7 +323,7 @@ table_models %>%
 
 
 `@script`
-We could continue replace underscores with spaces using the str-underscore-replace-underscore-all function from stringr. Like any search and replace, provide arguments for the string, the symbol to search, and the replacement. If you use R Markdown, you can use the kable function from knitr to create the final, nicely formatted table.
+We could continue to replace underscores with spaces using the str-underscore-replace-underscore-all function from stringr. Like any search and replace, provide arguments for the string, the symbol to search, and the replacement. If you use R Markdown, use the kable function from knitr to create the final, nicely formatted table.
 
 
 ---
