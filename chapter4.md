@@ -541,29 +541,31 @@ xp: 25
 ```
 
 `@instructions`
-- Convert `followup_visit_number` and `got_cvd` to factor variables, then set the visit number as the header/columns of the table.
+- Set `followup_visit_number` as the header/columns of the table.
 
 `@hint`
-- Select the variables using `vars()` in `mutate_at`.
+- Use quotes around `followup_visit_number`.
 
 `@sample_code`
 ```{r}
 # Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
-    # Convert variables to factor
-    mutate_at(___, ___) %>% 
-    # Set variable as table column
+	# These discrete variables are numeric, but must be factors
+	mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+	# Set followup visit number as table column
     outline_table(header = ___) 
 
 # Check the table
-___
+characteristics_table
 ```
 
 `@solution`
 ```{r}
 # Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
+	# These discrete variables are numeric, but must be factors
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+	# Set followup visit number as table column
     outline_table(header = "followup_visit_number") 
 
 # Check the table
@@ -584,10 +586,10 @@ xp: 25
 ```
 
 `@instructions`
-- Add a row for the outcome, sex, and education (combined) variables, using `number (percent)` as a summary statistic.
+- Add a row for the `got_cvd`, `sex`, and `education_combined` variables, using `stat_nPct` as the summary statistic.
 
 `@hint`
-- Carpenter summary statistic functions begin with `stat_`; choose the version for number and percent.
+- The variables should be quoted, e.g. `"sex"`.
 
 `@sample_code`
 ```{r}
@@ -595,11 +597,11 @@ xp: 25
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
-    # Show n (%) for factors as rows
+    # Show n (%) for discrete variables as rows
     add_rows(c(___, ___, ___), stat = ___)
 
 # Check the table
-___
+characteristics_table
 ```
 
 `@solution`
@@ -608,7 +610,7 @@ ___
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
-    # Show n (%) for factors as rows
+    # Show n (%) for discrete variables as rows
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct)
 
 # Check the table
@@ -629,10 +631,10 @@ xp: 25
 ```
 
 `@instructions`
-- Add rows for cholesterol, blood pressure, blood glucose, body mass, and age using `median (interquartile range)` as the statistic.
+- Add rows for `total_cholesterol`, `body_mass_index`, and `participant_age` using `stat_medianIQR` for the `stat` argument.
 
 `@hint`
-- The variables are total cholesterol, systolic and diastolic blood pressure, fasting blood glucose, and body mass index.
+- The variables need to be surrounded by quotes, just like the function above.
 
 `@sample_code`
 ```{r}
@@ -642,10 +644,10 @@ characteristics_table <- tidied_framingham %>%
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
     # Show median (range) for continuous variables
-    ___(___, ___)
+    add_rows(c(___, ___, ___), stat = ___)
 
 # Check the table
-___
+characteristics_table
 ```
 
 `@solution`
@@ -656,10 +658,7 @@ characteristics_table <- tidied_framingham %>%
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
     # Show median (range) for continuous variables
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) 
+    add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR)
 
 # Check the table
 characteristics_table
@@ -682,7 +681,7 @@ xp: 25
 - Rename the table headers to "Measures", "Baseline", "Second followup", and "Third followup", then build the table into markdown format.
 
 `@hint`
-- The new column headers should be passed as a character vector.
+- The new column headers should be given as a character vector.
 
 `@sample_code`
 ```{r}
@@ -691,12 +690,9 @@ characteristics_table <- tidied_framingham %>%
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) %>% 
+    add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR) %>% 
     # Rename headers to better titles
-    renaming(___, c(___))
+    renaming("header", c(___))
 
 # Build the table and convert to markdown form
 build_table(___)
@@ -709,10 +705,7 @@ characteristics_table <- tidied_framingham %>%
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) %>% 
+    add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR) %>% 
     # Rename headers to better titles
     renaming("header", c("Measures", "Baseline", "Second followup", "Third followup"))
 
@@ -735,9 +728,9 @@ key: e1034d1d86
 xp: 100
 ```
 
-While the main messaging and presentation of results should emphasize figures over tables, often it is useful to other researchers (especially those doing meta-analyses) that the raw model results be given as well. Here we can use tables to give this data, as a supplement to the figure.
+While the main messaging and presentation of results should emphasize figures over tables, often it is useful to other researchers (especially those doing meta-analyses or aggregating results) that the raw model results be given as well. Here we can use tables to give this data, as a supplement to the figure.
 
-Provide the estimates and 95% confidence intervals of the unadjusted and adjusted model results in a format that is nearly suitable for inclusion in a document.
+Provide the estimates and confidence intervals of the unadjusted and adjusted model results in a table format that you could include in a document or report.
 
 `@pre_exercise_code`
 ```{r}
@@ -760,17 +753,17 @@ xp: 35
 ```
 
 `@instructions`
-- Keeping only the predictor estimates, round the estimates and CI to two digits.
+- Round the `estimate`, `conf.low`, and `conf.high` to 2 digits using the function `round`.
 
 `@hint`
-- `mutate_at` applies a function (second argument) to a list of variables (first argument) with `vars()`.
+- `mutate_at` takes variables (as the first argument) inside `vars()` and applies a function like `round` as the second argument.
 
 `@sample_code`
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    # Round values
-    mutate_at(___, ___, digits = ___)
+    # Round values of variables to 3
+    mutate_at(vars(___, ___, ___), ___, digits = ___)
 
 # View wrangled data
 table_model_results
@@ -780,7 +773,7 @@ table_model_results
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    # Round values
+    # Round values of variables to 3
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2)
 
 # View wrangled data
@@ -801,10 +794,10 @@ xp: 35
 ```
 
 `@instructions`
-- Using the `glue` function, create a new variable that puts the estimate and CI together in the form: `estimate (lower, upper)`.
+- Use `glue()` to create a new variable in the form `estimate (conf.low, conf.high)`, then replace underscores with spaces in `predictor` with `str_replace_all()`.
 
 `@hint`
-- Use `{}` to pass data/variables into the `glue` function.
+- The estimate and CI variables should be placed inside the `{}` in `glue()`.
 
 `@sample_code`
 ```{r}
@@ -812,11 +805,9 @@ xp: 35
 table_model_results <- all_models %>% 
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     # Use glue function to combine variables
-    mutate(estimate_ci = ___("___"),
-           # Tidy up predictor
-           predictor = predictor %>% 
-               str_remove("_scaled") %>% 
-               str_replace_all("_", " "))
+    mutate(estimate_ci = glue("{___} ({___}, {___})"),
+           # Underscores to spaces in predictor
+           predictor = str_replace_all(___, "_", " "))
 
 # View wrangled data
 table_model_results
@@ -829,10 +820,8 @@ table_model_results <- all_models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     # Use glue function to combine variables
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
-           # Tidy up predictor
-           predictor = predictor %>% 
-               str_remove("_scaled") %>% 
-               str_replace_all("_", " "))
+           # Underscores to spaces in predictor
+           predictor = str_replace_all(predictor, "_", " "))
 
 # View wrangled data
 table_model_results
@@ -852,10 +841,11 @@ xp: 30
 ```
 
 `@instructions`
-- Keep the model, predictor, and combined estimate and CI variables, spread the data so the unadjusted and adjusted model results have their own columns, and then create the `kable()` table.
+- Keep `model`, `predictor`, and `estimate_ci`, Use `spread` on `model` and `estimate_ci`, so the unadjusted and adjusted model results have their own columns.
+- Create the formatted table with `kable()`.
 
 `@hint`
-- When spreading, choose 1) the variable that will make up the name of the new columns and 2) the variable that provides the values for the new columns.
+- `spread` takes two arguments: 1) the current discrete column (`model`) that will be the new columns names, and 2) the values (`estimate_ci`) that will be in the new columns.
 
 `@sample_code`
 ```{r}
@@ -871,7 +861,7 @@ table_model_results <- all_models %>%
     ___(___, ___)
 
 # Create a Markdown table
-___(___, caption = "Estimates and 95% CI from all models.")
+kable(___, caption = "Estimates and 95% CI from all models.")
 ```
 
 `@solution`
