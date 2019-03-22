@@ -541,29 +541,31 @@ xp: 25
 ```
 
 `@instructions`
-- Convert `followup_visit_number` and `got_cvd` to factor variables, then set the visit number as the header/columns of the table.
+- Set `followup_visit_number` as the header/columns of the table.
 
 `@hint`
-- Select the variables using `vars()` in `mutate_at`.
+- Use quotes around `followup_visit_number`.
 
 `@sample_code`
 ```{r}
 # Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
-    # Convert variables to factor
-    mutate_at(___, ___) %>% 
-    # Set variable as table column
+	# These discrete variables are numeric, but must be factors
+	mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+	# Set followup visit number as table column
     outline_table(header = ___) 
 
 # Check the table
-___
+characteristics_table
 ```
 
 `@solution`
 ```{r}
 # Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
+	# These discrete variables are numeric, but must be factors
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+	# Set followup visit number as table column
     outline_table(header = "followup_visit_number") 
 
 # Check the table
@@ -584,10 +586,10 @@ xp: 25
 ```
 
 `@instructions`
-- Add a row for the outcome, sex, and education (combined) variables, using `number (percent)` as a summary statistic.
+- Add a row for the `got_cvd`, `sex`, and `education_combined` variables, using `stat_nPct` as the summary statistic.
 
 `@hint`
-- Carpenter summary statistic functions begin with `stat_`; choose the version for number and percent.
+- The variables should be quoted, e.g. `"sex"`.
 
 `@sample_code`
 ```{r}
@@ -595,11 +597,11 @@ xp: 25
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
-    # Show n (%) for factors as rows
+    # Show n (%) for discrete variables as rows
     add_rows(c(___, ___, ___), stat = ___)
 
 # Check the table
-___
+characteristics_table
 ```
 
 `@solution`
@@ -608,7 +610,7 @@ ___
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
-    # Show n (%) for factors as rows
+    # Show n (%) for discrete variables as rows
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct)
 
 # Check the table
@@ -629,10 +631,10 @@ xp: 25
 ```
 
 `@instructions`
-- Add rows for cholesterol, blood pressure, blood glucose, body mass, and age using `median (interquartile range)` as the statistic.
+- Add rows for `total_cholesterol`, `body_mass_index`, and `participant_age` using `stat_medianIQR` for the `stat` argument.
 
 `@hint`
-- The variables are total cholesterol, systolic and diastolic blood pressure, fasting blood glucose, and body mass index.
+- The variables need to be surrounded by quotes, just like the function above.
 
 `@sample_code`
 ```{r}
@@ -642,10 +644,10 @@ characteristics_table <- tidied_framingham %>%
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
     # Show median (range) for continuous variables
-    ___(___, ___)
+    add_rows(c(___, ___, ___), stat = ___)
 
 # Check the table
-___
+characteristics_table
 ```
 
 `@solution`
@@ -656,10 +658,7 @@ characteristics_table <- tidied_framingham %>%
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
     # Show median (range) for continuous variables
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) 
+    add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR)
 
 # Check the table
 characteristics_table
@@ -682,7 +681,7 @@ xp: 25
 - Rename the table headers to "Measures", "Baseline", "Second followup", and "Third followup", then build the table into markdown format.
 
 `@hint`
-- The new column headers should be passed as a character vector.
+- The new column headers should be given as a character vector.
 
 `@sample_code`
 ```{r}
@@ -691,12 +690,9 @@ characteristics_table <- tidied_framingham %>%
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) %>% 
+    add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR) %>% 
     # Rename headers to better titles
-    renaming(___, c(___))
+    renaming("header", c(___))
 
 # Build the table and convert to markdown form
 build_table(___)
@@ -709,10 +705,7 @@ characteristics_table <- tidied_framingham %>%
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) %>% 
+    add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR) %>% 
     # Rename headers to better titles
     renaming("header", c("Measures", "Baseline", "Second followup", "Third followup"))
 
