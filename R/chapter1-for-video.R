@@ -127,7 +127,8 @@ fig1 <- prev_incid %>%
         PersonText = if_else(Visit == 0, PersonText, NA_character_)
     ) %>%
     over_time_plot()
-ggsave("datasets/plot-prevalence-incidence-0.png", dpi = 90)
+ggsave(here::here("datasets/ch1-v3-prevalence-incidence-0.png"),
+       fig1, height = 4.5, width = 6, dpi = 90)
 
 fig2 <- prev_incid %>%
     mutate(
@@ -136,10 +137,12 @@ fig2 <- prev_incid %>%
         PersonText = if_else(Visit == 1, PersonText, NA_character_)
     ) %>%
     over_time_plot()
-ggsave("datasets/plot-prevalence-incidence-1.png", dpi = 90)
+ggsave(here::here("datasets/ch1-v3-prevalence-incidence-1.png"),
+       fig2, height = 4.5, width = 6, dpi = 90)
 
 fig3 <- prev_incid %>%
-    mutate_at(vars(PersonText), funs(ifelse(Visit == 2, ., NA))) %>%
+    mutate_at(vars(PersonText), ~ifelse(Visit == 2, ., NA)) %>%
     over_time_plot()
-ggsave("datasets/plot-prevalence-incidence-2.png", dpi = 90)
+ggsave(here::here("datasets/ch1-v3-prevalence-incidence-2.png"),
+       fig3, height = 4.5, width = 6, dpi = 90)
 
