@@ -1,6 +1,6 @@
 source(here::here("R/setup.R"))
 
-# Chapter 1, prospective cohort outcomes ----------------------------------
+# Video 2, prospective cohort outcomes ------------------------------------
 
 disease_occurrence <- tibble(
     Participant = fct_inorder(as.character(1:20)),
