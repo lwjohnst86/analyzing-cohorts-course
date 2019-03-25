@@ -35,7 +35,9 @@ pro_cohort_visual_plot <- disease_occurrence %>%
         legend.title = element_blank(),
         legend.key = element_blank()
     )
-ggsave("datasets/plot-prospective-outcome.png", dpi = 90)
+
+ggsave(here::here("datasets/ch1-v2-prospective-outcome.png"),
+       pro_cohort_visual_plot, width = 6, height = 4.5, dpi = 90)
 
 # Chapter 1, cohort sample plot -------------------------------------------
 
