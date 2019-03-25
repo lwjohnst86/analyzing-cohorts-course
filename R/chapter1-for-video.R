@@ -1,5 +1,22 @@
 source(here::here("R/setup.R"))
 
+# Video 1, purpose of cohorts plots -------------------------------------
+
+base_background <- ggplot() +
+    theme_void()
+
+heart_plot <- base_background +
+    geom_fontawesome('fa-heartbeat', color = color_theme[3], size = 90)
+ggsave("datasets/plot-purpose-risk-factors.png", dpi = 90)
+
+doctor_plot <- base_background +
+    geom_fontawesome('fa-stethoscope', color = color_theme[3], size = 90)
+ggsave("datasets/plot-purpose-diagnosis.png", dpi = 90)
+
+side_effects_plot <- base_background +
+    geom_fontawesome('fa-hospital-o', color = color_theme[3], size = 80)
+ggsave("datasets/plot-purpose-side-effects.png", dpi = 90)
+
 # Video 2, prospective cohort outcomes ------------------------------------
 
 disease_occurrence <- tibble(
@@ -57,24 +74,6 @@ cohort_sample_plot <- ggplot(fa_data, aes(x, y, color = label, label = label)) +
     scale_color_manual(values = color_theme[c(3, 6)]) +
     theme_void()
 ggsave("datasets/plot-cohort-sample.png", dpi = 90)
-
-# Video 1, purpose of cohorts plots -------------------------------------
-
-base_background <- ggplot() +
-    theme_void()
-
-heart_plot <- base_background +
-    geom_fontawesome('fa-heartbeat', color = color_theme[3], size = 90)
-ggsave("datasets/plot-purpose-risk-factors.png", dpi = 90)
-
-doctor_plot <- base_background +
-    geom_fontawesome('fa-stethoscope', color = color_theme[3], size = 90)
-ggsave("datasets/plot-purpose-diagnosis.png", dpi = 90)
-
-side_effects_plot <- base_background +
-    geom_fontawesome('fa-hospital-o', color = color_theme[3], size = 80)
-ggsave("datasets/plot-purpose-side-effects.png", dpi = 90)
-
 
 # Chapter 1, incidence vs prevalence --------------------------------------
 
