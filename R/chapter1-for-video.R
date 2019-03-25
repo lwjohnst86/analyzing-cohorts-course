@@ -56,7 +56,7 @@ cohort_sample_plot <- ggplot(fa_data, aes(x, y, color = label, label = label)) +
     theme_void()
 ggsave("datasets/plot-cohort-sample.png", dpi = 90)
 
-# Chapter 1, purpose of cohorts plots -------------------------------------
+# Video 1, purpose of cohorts plots -------------------------------------
 
 base_background <- ggplot() +
     theme_void()
