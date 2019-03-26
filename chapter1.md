@@ -29,9 +29,9 @@ xp: 50
 skills: 1
 ```
 
-The Framingham cohort was set up to study what might influence the risk of cardiovascular disease (CVD). People from Framingham, USA were recruited and followed over time. Data was collected on risk factors and CVD outcomes every few years.
+The Framingham cohort was set up to study what might influence the risk of cardiovascular disease (CVD). People from the town of Framingham, USA were recruited and followed over time. Data was collected on risk factors and CVD outcomes every few years.
 
-What makes the Framingham dataset a cohort? The `framingham` dataset is loaded for you to explore. The dataset has yet to be fully tidied, which we will do more of in Chapter 2.
+What makes the Framingham dataset a *cohort*? The `framingham` dataset is loaded for you to explore if you would like. The dataset has yet to be fully tidied, which we will do in Chapter 2.
 
 `@possible_answers`
 - It studies a disease (CVD).
@@ -40,7 +40,7 @@ What makes the Framingham dataset a cohort? The `framingham` dataset is loaded f
 - Participants had risk factors measured.
 
 `@hint`
-Cohorts are people who have *something in common*.
+- Cohorts are people who have *something in common*.
 
 `@pre_exercise_code`
 ```{r}
@@ -50,9 +50,9 @@ framingham$time <- NULL
 
 `@sct`
 ```{r}
-msg1 <- "Incorrect. While cohorts often are used to study a disease, this doesn't make it a cohort."
-msg2 <- "Correct! Cohorts are people who share a common characteristic. In this case, the participants share a town and so have a similar environment."
-msg3 <- "Incorrect. While cohorts always include a time component, this alone doesn't make it a cohort."
+msg1 <- "Almost, but incorrect. While cohorts often are used to study a disease, this doesn't make it a cohort."
+msg2 <- "Correct! Cohorts are people who share a common characteristic. In this case, the participants come from the same town and so have a similar environment."
+msg3 <- "Almost, but incorrect. While cohorts always include a time component, this alone doesn't make it a cohort."
 msg4 <- "Incorrect. While all cohorts have risk factors measured, this alone doesn't make it a cohort."
 ex() %>% check_mc(2, feedback_msgs = c(msg1, msg2, msg3, msg4))
 ```
