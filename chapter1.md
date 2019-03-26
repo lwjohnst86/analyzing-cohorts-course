@@ -573,15 +573,14 @@ key: 25d9449073
 xp: 100
 ```
 
-We know there are prevalent cases of cardiovascular events at the first visit. In order to move on to further analyses and exploration, we must remove these prevalent cases so we don't introduce any bias into the results.
+We know there are prevalent cases of cardiovascular events at the first visit. Prevalent cases of disease in at recruitment can introduction bias, so we should remove these cases before continuing with any further analyses.
 
 `@instructions`
-- Drop all participants that have CHD, meaning CHD is listed as 1, at the first visit.
+- Exclude (with `!`) participants when `followup_visit_number` is equal to 1 *and* when `prevalent_chd` is equal to 1.
 - Count the number of cases by visit to confirm that they have been dropped.
 
 `@hint`
 - Filter first prevalent CHD and then followup visit number.
-- Count by followup visit and by prevalent CHD.
 
 `@pre_exercise_code`
 ```{r}
@@ -605,11 +604,11 @@ explore_framingham <- framingham %>%
 ```{r}
 # Drop prevalent chd cases from first visit
 no_prevalent_cases <- explore_framingham %>% 
-    filter(!(_____ == _____ & _____ == _____)) 
+    filter(!(___ == ___ & ___ == ___)) 
 
 # Confirm the count of chd cases
 no_prevalent_cases %>% 
-    _____(_____, _____) 
+    count(___, ___) 
 ```
 
 `@solution`
