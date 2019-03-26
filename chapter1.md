@@ -69,22 +69,23 @@ xp: 100
 
 Usually you can determine the cohort design from the variables in the dataset. Which variables in the Framingham study give us an indication of the cohort design? What is the cohort design?
 
-We expect you to be (at least a bit) familiar with the tidyverse packages and functions, since you will need to use dplyr and tidyr functions throughout this course.
+We expect you to be (at least a bit) familiar with the tidyverse packages and functions, since you will need to use packages such as `dplyr`, `tidyr`, and `ggplot2` throughout this course. Note that `framingham` has not yet been tidied up, which we will do later in the course.
 
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 framingham$time <- NULL
-
 ```
 
 `@sample_code`
 ```{r}
+# Check out the variable names
+names(framingham)
+
 # Select two columns that indicate design
 framingham %>% 
     select(_____, _____)
-
 ```
 
 ***
@@ -96,32 +97,35 @@ xp: 50
 ```
 
 `@instructions`
-- Take a look through the `framingham` dataset.
+- Familiarize yourself with the variables in the `framingham` dataset.
 - Select the two variables that indicate `framingham`'s cohort design.
 
 `@hint`
-- Recall that Framingham was designed to study the disease `cvd`.
+- The Framingham cohort was designed to study the disease `cvd`.
 
 `@sample_code`
 ```{r}
+# Check out the variable names
+names(framingham)
+
 # Select two columns that indicate design
 framingham %>% 
     select(_____, _____)
-
 ```
 
 `@solution`
 ```{r}
+# Check out the variable names
+names(framingham)
+
 # Select two columns that indicate design
 framingham %>% 
     select(period, cvd)
-
 ```
 
 `@sct`
 ```{r}
-success_msg("Yes! You've identified the two variables that tell us Framingham's design!")
-
+success_msg("Great!")
 ```
 
 ***
