@@ -137,7 +137,7 @@ xp: 50
 ```
 
 `@question`
-What is the cohort design?
+- What is the cohort design?
 
 `@possible_answers`
 - Prospective.
@@ -155,7 +155,7 @@ msg2 = "Incorrect."
 msg3 = "Incorrect."
 msg4 = "Incorrect."
 ex() %>% check_mc(1, feedback_msgs = c(msg1, msg2, msg3, msg4))
-success_msg("Nice job! You've identified that Framingham is a prospective cohort design!")
+success_msg("Nice job! You've identified that period (the time component) and CVD (the disease) tell us that Framingham is a prospective cohort design!")
 ```
 
 ---
