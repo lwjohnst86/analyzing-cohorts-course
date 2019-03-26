@@ -140,6 +140,8 @@ Often during baseline data collection, researchers find out some participants ac
 
 Note that, in our code, filter kept the rows that match the true condition. In this case, only the first visit. But if you want to drop rows, you can do the opposite and drop the rows that do not match the true condition, by using the exclamation mark.
 
+CVD is composed of several related diseases like stroke or coronary heart disease......
+
 
 ---
 ## Let's practice!
