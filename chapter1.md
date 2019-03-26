@@ -270,7 +270,6 @@ explore_framingham <- framingham %>%
         got_cvd = cvd, 
         total_cholesterol = totchol,
         body_mass_index = bmi,
-        participant_age = age,
         currently_smokes = cursmoke,
         followup_visit_number = period
     )
@@ -413,7 +412,6 @@ d8b40a3d5d81b2b050f65eb79581aa42
 
 ```yaml
 type: TabExercise
-key: 2ba20dff0f
 xp: 100
 ```
 
@@ -431,7 +429,6 @@ explore_framingham <- framingham %>%
         got_cvd = cvd, 
         total_cholesterol = totchol,
         body_mass_index = bmi,
-        participant_age = age,
         currently_smokes = cursmoke,
         followup_visit_number = period,
         prevalent_chd = prevchd,
@@ -443,26 +440,27 @@ explore_framingham <- framingham %>%
 ```{r}
 # Count number of participants per visit
 explore_framingham %>%
+    count(___)
 ```
 
 ***
 
 ```yaml
 type: NormalExercise
-key: 69ff80d798
-xp: 25
+xp: 30
 ```
 
 `@instructions`
-- Count the number of participants for each follow-up visit number.
+- Use `count()` to find the number of participants at each `followup_visit_number`.
 
 `@hint`
-- Use the `count` function.
+- The code is `count(followup_visit_number)`.
 
 `@sample_code`
 ```{r}
 # Count number of participants per visit
 explore_framingham %>%
+    count(___)
 ```
 
 `@solution`
@@ -474,24 +472,21 @@ explore_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Great! You now know how to count the number of participants at each time point.")
+success_msg("Great!")
 ```
 
 ***
 
 ```yaml
 type: NormalExercise
-key: a0c6bd239b
-xp: 25
+xp: 35
 ```
 
 `@instructions`
-- Now, we want to count the cases of `prevmi` and `prevchd` for each follow-up visit number. 
-- Use `gather` to create new columns called "disease" and "cases", that are specific to the two diseases.
+- Count the number of participants with `prevalent_mi` at each `followup_visit_number`.
 
 `@hint`
-- Gather the correct disease columns as written in the instructions.
-- Name the new gather key column "disease" and the value column "cases".
+- Include both variables in `count()` separated by a comma.
 
 `@sample_code`
 ```{r}
@@ -499,9 +494,9 @@ xp: 25
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count prevalent cases of MI and CHD per visit
-explore_framingham %>%
-    # Gather to long form
+# Count prevalent cases of MI per visit
+explore_framingham %>% 
+    count(___, ___)
 ```
 
 `@solution`
@@ -510,30 +505,28 @@ explore_framingham %>%
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count prevalent cases of MI and CHD per visit
+# Count prevalent cases of MI per visit
 explore_framingham %>% 
-    # Gather to long form
-    gather(disease, cases, prevalent_mi, prevalent_chd)
+    count(followup_visit_number, prevalent_mi)
 ```
 
 `@sct`
 ```{r}
-success_msg("Excellent, now the next step.")
+success_msg("Amazing!")
 ```
 
 ***
 
 ```yaml
 type: NormalExercise
-key: 9bfa483cb9
-xp: 25
+xp: 35
 ```
 
 `@instructions`
-- Count the number of cases by disease and by visit number.
+- Lastly, do the same thing but for `prevalent_chd`.
 
 `@hint`
-- Use the `count` function with the three variables.
+- Use the same syntax as for the MI code.
 
 `@sample_code`
 ```{r}
@@ -541,10 +534,13 @@ xp: 25
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count prevalent cases of MI and CHD per visit
+# Count prevalent cases of MI per visit
 explore_framingham %>% 
-    gather(disease, cases, prevmi, prevchd) %>%
-    # Count the cases
+    count(followup_visit_number, prevalent_mi)
+
+# Count prevalent cases of CHD per visit
+explore_framingham %>% 
+    count(___, ___)
 ```
 
 `@solution`
@@ -553,57 +549,13 @@ explore_framingham %>%
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count prevalent cases of MI and CHD per visit
+# Count prevalent cases of MI per visit
 explore_framingham %>% 
-    gather(disease, cases, prevalent_mi, prevalent_chd) %>% 
-    # Count the cases
-    count(followup_visit_number, disease, cases)
-```
+    count(followup_visit_number, prevalent_mi)
 
-`@sct`
-```{r}
-success_msg("Nearly there!")
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 19a1c49e37
-xp: 25
-```
-
-`@instructions`
-- Lastly, `spread` the data so the cases are columns, with their corresponding count.
-
-`@hint`
-- The variable `n` should be the values in the spread columns.
-
-`@sample_code`
-```{r}
-# Count number of participants per visit
+# Count prevalent cases of CHD per visit
 explore_framingham %>% 
-    count(followup_visit_number)
-
-# Count prevalent cases of MI and CHD per visit
-explore_framingham %>% 
-    gather(disease, cases, prevalent_mi, prevalent_chd) %>% 
-    count(followup_visit_number, disease, cases) %>%
-    # Spread to wide form
-```
-
-`@solution`
-```{r}
-# Count number of participants per visit
-explore_framingham %>% 
-    count(followup_visit_number)
-
-# Count prevalent cases of MI and CHD per visit
-explore_framingham %>% 
-    gather(disease, cases, prevalent_mi, prevalent_chd) %>% 
-    count(followup_visit_number, disease, cases) %>% 
-    # Spread to wide form
-    spread(cases, n)
+    count(followup_visit_number, prevalent_chd)
 ```
 
 `@sct`
