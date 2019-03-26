@@ -185,19 +185,18 @@ xp: 100
 skills: 1
 ```
 
-You need to know what each variable represents so you can analyze the data. Usually, it's fairly easy to identify the outcome. However, knowing which are potential predictors can be tricky, since modern cohorts often have massive amounts of data on each participant. 
+It's important to know what each variable represents so you can analyze the data properly. Usually it's fairly easy to identify the outcome. However, knowing which are potential predictors can be tricky, since modern cohorts often measure hundreds of variables on each participant. 
 
-Initially, it can be helpful to keep only the variables of interest. For now, let's select a few interesting variables to explore them more. At the same time, let's rename the variables so they are more descriptive.
+Initially, it can be helpful to keep only the variables of interest. For now, select a few interesting variables to explore them more and tidy them up by renaming them so they are more descriptive.
 
 `@instructions`
 - Run `names(framingham)` in the console to find the exact names of the variables. 
 - Choose the correct outcome for cardiovascular disease (CVD). Rename it to `got_cvd`.
-- Rename the four predictors to `total_cholesterol`, `body_mass_index`, `participant_age`, and `currently_smokes`.
-- Rename the visit number column to `followup_visit_number`.
+- Rename the four predictors to `total_cholesterol`, `body_mass_index` and `currently_smokes`.
+- Rename the `period` variable to `followup_visit_number`.
 
 `@hint`
-- Confirm the exact original variable names in the dataset.
-- For renaming the predictors, replace the spaces with `_` for the variables stated in the instructions.
+- Rename `bmi` to `body_mass_index`, `totchol` to `total_cholesterol`, and `cursmoke` to `currently_smokes`.
 
 `@pre_exercise_code`
 ```{r}
@@ -207,32 +206,36 @@ load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd
 
 `@sample_code`
 ```{r}
-# Select and rename the potential exposures and outcome
+# Select and rename the potential predictors and outcome
 explore_framingham <- framingham %>%
     select(
         # Format: new_variable_name = old_variable_name
-        _____ = _____, # Outcome variable
+        # Outcome
+        _____ = cvd,
+        # Predictors
         _____ = totchol,
         _____ = bmi,
-        _____ = age,
         _____ = cursmoke,
-        _____ = period # Visit number
+        # Visit number
+        _____ = period 
     )
 explore_framingham
 ```
 
 `@solution`
 ```{r}
-# Select and rename the potential exposures and outcome
+# Select and rename the potential predictors and outcome
 explore_framingham <- framingham %>%
     select(
         # Format: new_variable_name = old_variable_name
-        got_cvd = cvd, # Outcome variable
+        # Outcome
+        got_cvd = cvd,
+        # Predictors
         total_cholesterol = totchol,
         body_mass_index = bmi,
-        participant_age = age,
         currently_smokes = cursmoke,
-        followup_visit_number = period # Visit number
+        # Visit number
+        followup_visit_number = period 
     )
 explore_framingham
 ```
