@@ -116,7 +116,7 @@ In this case, based on the period variable, there was three visits maximum. The 
 
 
 ---
-## Number of participants recruited into Framingham
+## Number of participants at each visit in Framingham
 
 ```yaml
 type: "FullSlide"
@@ -127,16 +127,18 @@ key: "8155410b68"
 ```{r}
 framingham %>% 
     select(followup_visit_number = period) %>% 
-    filter(followup_visit_number == 1) %>% 
+    group_by(followup_visit_number) %>% 
     summarise(number_participants = n())
 ```
 {{1}}
 
 ```{r}
-# A tibble: 1 x 1
-  number_participants
-                <int>
-1                4434
+# A tibble: 3 x 2
+  followup_visit_number number_participants
+                  <int>               <int>
+1                     1                4434
+2                     2                3930
+3                     3                3263
 ```
 {{2}}
 
