@@ -413,6 +413,7 @@ d8b40a3d5d81b2b050f65eb79581aa42
 ```yaml
 type: TabExercise
 xp: 100
+key: 2ba20dff0f
 ```
 
 Here, you will count the number of cases and non-cases for both prevalent myocardial infarction (MI), or `prevalent_mi`, and coronary heart disease (CHD), or `prevalent_chd`, at each visit. Remember, for longitudinal data you need to count by the time period since each participant may have several rows because of multiple data collection visits.
@@ -448,6 +449,7 @@ explore_framingham %>%
 ```yaml
 type: NormalExercise
 xp: 30
+key: bfd1783eee
 ```
 
 `@instructions`
@@ -480,6 +482,7 @@ success_msg("Great!")
 ```yaml
 type: NormalExercise
 xp: 35
+key: c69b3c3b86
 ```
 
 `@instructions`
@@ -520,6 +523,7 @@ success_msg("Amazing!")
 ```yaml
 type: NormalExercise
 xp: 35
+key: f2ddfd6578
 ```
 
 `@instructions`
