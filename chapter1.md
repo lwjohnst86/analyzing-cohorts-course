@@ -265,7 +265,7 @@ Using what was shown in the video, calculate some means based on groupings.
 - Make sure that `mean()` drops `NA` values by setting the `na.rm` argument to `TRUE`.
 
 `@hint`
-- Use `na.rm = TRUE` with `mean()`.
+- Use `na.rm = TRUE` with `mean()` to exclude `NA` from the mean calculation.
 
 `@pre_exercise_code`
 ```{r}
