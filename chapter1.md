@@ -250,24 +250,29 @@ success_msg("Great job! You've selected and renamed the variables correctly.")
 ## Simple summary of the exposures by outcome
 
 ```yaml
-type: TabExercise
-key: 45b64907b1
-lang: r
+type: NormalExercise
 xp: 100
 ```
 
-Like the majority of data analyses, a large part of the work involves wrangling the data into the appropriate form to then analyze it. For exploration, particularly of cohort datasets with multiple time points, it's useful to see how multiple variables change over time using simple summary statistics.
+Early in any analysis of cohort datasets, its important to get some simple summaries of the exposures by those with and without the disease. Even more so when there is a time component to the study, so you can identify how variables change over time.
 
-In this case, since we not only have a time column, but also multiple variables to summarize, we'll need to convert the data into a very long format.
+Using what was shown in the video, calculate some means based on groupings.
+
+`@instructions`
+- Group the data by `followup_visit_number` and `got_cvd` using the `dplyr` function `group_by()`.
+- Calculate the mean for `body_mass_index`. `total_cholesterol`, and `currently_smokes` using `summarize()` and `mean()`.
+- Make sure that `mean()` drops `NA` values by setting the `na.rm` argument to `TRUE`.
+
+`@hint`
+- Use `na.rm = TRUE` with `mean()`.
 
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
-library(tidyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 explore_framingham <- framingham %>%
     select(
-        got_cvd = cvd, 
+        got_cvd = cvd,
         total_cholesterol = totchol,
         body_mass_index = bmi,
         currently_smokes = cursmoke,
@@ -277,118 +282,33 @@ explore_framingham <- framingham %>%
 
 `@sample_code`
 ```{r}
-# Gather data into long form, but exclude (-) two columns
-explore_framingham  %>%
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 85e4b0de64
-xp: 35
-```
-
-`@instructions`
-- Using the tidyr `gather` function, make two new columns called `variables` and `values`, and exclude the follow-up visit number and CVD status.
-- Make sure to only have four columns at the end.
-
-`@hint`
-- Use `-` in front of each variable to exclude it. 
-- The variables to exclude here are `followup_visit_number` and `got_cvd`.
-
-`@sample_code`
-```{r}
-# Gather data into long form, but exclude two columns
-explore_framingham  %>%
+explore_framingham %>% 
+    # Group by visit and CVD status
+    group_by(___, ___) %>% 
+    # Mean of body mass, smoking, and cholesterol
+    summarize(
+        body_mass_mean = mean(___, ___),
+        smokes_mean = ___,
+        cholesterol_mean = ___
+    )
 ```
 
 `@solution`
 ```{r}
-# Gather data into long form, but exclude two columns
 explore_framingham %>% 
-    gather(variables, values, -followup_visit_number, -got_cvd)
+    # Group by visit and CVD status
+    group_by(followup_visit_number, got_cvd) %>% 
+    # Mean of body mass, smoking, and cholesterol
+    summarize(
+        body_mass_mean = mean(body_mass_index, na.rm = TRUE),
+        smokes_mean = mean(currently_smokes, na.rm = TRUE),
+        cholesterol_mean = mean(total_cholesterol, na.rm = TRUE)
+    )
 ```
 
 `@sct`
 ```{r}
-success_msg("Great job! `gather` is a very powerful function for converting to long form.")
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 9ca4b15cf5
-xp: 35
-```
-
-`@instructions`
-- Use `group_by` on visit number, CVD status, and the variables.
-- Create a new `mean_values` variable that calculates the mean of the values.
-
-`@hint`
-- Use `group_by` with `followup_visit_number`, `got_cvd`, and `variables`.
-- Use `na.rm = TRUE` with `mean`.
-- Name the new summarized variable `mean_values`.
-
-`@sample_code`
-```{r}
-# Group by, then summarize
-explore_framingham %>% 
-    gather(variables, values, -followup_visit_number, -got_cvd) %>%
-```
-
-`@solution`
-```{r}
-# Group by, then summarize
-explore_framingham %>% 
-    gather(variables, values, -followup_visit_number, -got_cvd) %>% 
-    group_by(followup_visit_number, got_cvd, variables) %>% 
-    summarize(mean_values = mean(values, na.rm = TRUE))
-```
-
-`@sct`
-```{r}
-success_msg("Great job! Combining `gather`, `group_by`, and another function such as `summarize` is a powerful approach to 'split-apply-combine' analyses.")
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 61e6dcd04b
-xp: 30
-```
-
-`@instructions`
-- Use the tidyr `spread` function to have CVD status as the new column headers, and the mean values variable as the values in the new columns.
-
-`@hint`
-- Use `got_cvd` as the key argument.
-
-`@sample_code`
-```{r}
-# Spread into wide form
-explore_framingham %>% 
-    gather(variables, values, -followup_visit_number, -got_cvd) %>% 
-    group_by(followup_visit_number, got_cvd, variables) %>% 
-    summarize(mean_values = mean(values, na.rm = TRUE)) %>%
-```
-
-`@solution`
-```{r}
-# Spread into wide form
-explore_framingham %>% 
-    gather(variables, values, -followup_visit_number, -got_cvd) %>% 
-    group_by(followup_visit_number, got_cvd, variables) %>% 
-    summarize(mean_values = mean(values, na.rm = TRUE)) %>% 
-    spread(got_cvd, mean_values)
-```
-
-`@sct`
-```{r}
-success_msg("Awesome! You did it. You compared those who did and did not get CVD.")
+success_msg("Awesome! You learned how to compare the difference in some basic predictors in those who did and did not get CVD over the study duration.")
 ```
 
 ---
