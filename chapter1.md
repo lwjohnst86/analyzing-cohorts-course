@@ -252,6 +252,7 @@ success_msg("Great job! You've selected and renamed the variables correctly.")
 ```yaml
 type: NormalExercise
 xp: 100
+key: 45b64907b1
 ```
 
 Early in any analysis of cohort datasets, its important to get some simple summaries of the exposures by those with and without the disease. Even more so when there is a time component to the study, so you can identify how variables change over time.
