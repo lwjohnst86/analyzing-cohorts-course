@@ -335,14 +335,13 @@ type: TabExercise
 xp: 100
 ```
 
-Here, you will count the number of cases and non-cases for both prevalent myocardial infarction (MI), or `prevalent_mi`, and coronary heart disease (CHD), or `prevalent_chd`, at each visit. Remember, for longitudinal data you need to count by the time period since each participant may have several rows because of multiple data collection visits.
+Here, you will count the number of cases and non-cases for both prevalent myocardial infarction (MI), or `prevalent_mi`, and coronary heart disease (CHD), or `prevalent_chd`, at each visit. Remember, for longitudinal data you need to count by the time period since each participant will have several rows for each of the data collection visits.
 
 Both dplyr and tidyr are loaded and all variables have been added back into `explore_framingham`.
 
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
-library(tidyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 explore_framingham <- framingham %>%
     rename(
