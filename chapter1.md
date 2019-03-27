@@ -542,5 +542,5 @@ no_prevalent_cases %>%
 
 `@sct`
 ```{r}
-success_msg("Excellent! You've dropped baseline prevalent cases of CHD.")
+success_msg("Excellent! You've dropped baseline prevalent cases of CHD and started making sure that you've reduced bias in the final results!")
 ```
