@@ -492,19 +492,18 @@ key: 25d9449073
 xp: 100
 ```
 
-We know there are prevalent cases of cardiovascular events at the first visit. Prevalent cases of disease in at recruitment can introduction bias, so we should remove these cases before continuing with any further analyses.
+From the previous exercise, we know that there are prevalent cases of cardiovascular events at the first visit. Prevalent cases of disease at the recruitment visit can introduce bias, so we need to remove these cases before continuing with any further analyses.
 
 `@instructions`
-- Exclude (with `!`) participants when `followup_visit_number` is equal to 1 *and* when `prevalent_chd` is equal to 1.
+- Exclude (with `!`) observations where `followup_visit_number` is equal to 1 *and* where `prevalent_chd` is equal to 1.
 - Count the number of cases by visit to confirm that they have been dropped.
 
 `@hint`
-- Filter first prevalent CHD and then followup visit number.
+- Filtering logic has the form `variable == condition`, for instance `followup_visit_number == 1`.
 
 `@pre_exercise_code`
 ```{r}
 library(dplyr)
-library(tidyr)
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/8ebd3fc8dc74530ce5a24fe07bca6abf380f9e62/framingham.rda"))
 explore_framingham <- framingham %>%
     rename(
