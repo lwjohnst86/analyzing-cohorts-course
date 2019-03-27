@@ -251,8 +251,8 @@ success_msg("Great job! You've selected and renamed the variables correctly.")
 
 ```yaml
 type: NormalExercise
-xp: 100
 key: 45b64907b1
+xp: 100
 ```
 
 Early in any analysis of cohort datasets, its important to get some simple summaries of the exposures by those with and without the disease. Even more so when there is a time component to the study, so you can identify how variables change over time.
@@ -333,8 +333,8 @@ d8b40a3d5d81b2b050f65eb79581aa42
 
 ```yaml
 type: TabExercise
-xp: 100
 key: 2ba20dff0f
+xp: 100
 ```
 
 Here, you will count the number of cases and non-cases for both prevalent myocardial infarction (MI), or `prevalent_mi`, and coronary heart disease (CHD), or `prevalent_chd`, at each visit. Remember, for longitudinal data you need to count by the time period since each participant will have several rows for each of the data collection visits.
@@ -368,8 +368,8 @@ explore_framingham %>%
 
 ```yaml
 type: NormalExercise
-xp: 30
 key: bfd1783eee
+xp: 30
 ```
 
 `@instructions`
@@ -401,8 +401,8 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-xp: 35
 key: c69b3c3b86
+xp: 35
 ```
 
 `@instructions`
@@ -442,8 +442,8 @@ success_msg("Amazing!")
 
 ```yaml
 type: NormalExercise
-xp: 35
 key: f2ddfd6578
+xp: 35
 ```
 
 `@instructions`
