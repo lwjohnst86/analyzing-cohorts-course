@@ -445,7 +445,7 @@ xp: 35
 - Lastly, do the same thing but for `prevalent_chd`.
 
 `@hint`
-- Use the same syntax as for the MI code.
+- Use the same syntax as for the `prevalent_mi` code.
 
 `@sample_code`
 ```{r}
