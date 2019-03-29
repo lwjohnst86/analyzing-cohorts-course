@@ -31,12 +31,11 @@ key: "09f0b70d13"
 `@part1`
 ```{r}
 library(ggplot2)
-library(Epi)
-data("diet")
-
-ggplot(diet, aes(x = weight)) +
+# Distribution of body mass index
+ggplot(framingham, aes(x = bmi)) +
     geom_histogram()
-``` {{1}}
+```
+{{1}}
 
 
 `@part2`
@@ -58,35 +57,48 @@ key: "21e501347c"
 `@part1`
 ```{r}
 library(dplyr)
-wide_form <- diet %>%
-    head(4) %>%
-    select(id, weight, 
-           energy_intake = energy)
+wide_form <- head(tidier_framingham, 4) %>%
+    select(subject_id, body_mass_index,
+           total_cholesterol)
 wide_form
-#>    id   weight energy_intake
-#> 1 102 88.17984       22.8601
-#> 2  59 58.74120       23.8841
-#> 3 126 49.89600       24.9537
-#> 4  16 89.40456       22.2383
-``` {{1}}
+```
+{{1}}
+
+```
+# A tibble: 4 x 3
+  subject_id body_mass_index total_cholesterol
+       <dbl>           <dbl>             <dbl>
+1       2448            27.0               195
+2       2448            NA                 209
+3       6238            28.7               250
+4       6238            29.4               260
+```
+{{2}}
 
 
 `@part2`
 ```{r}
 library(tidyr)
 long_form <- wide_form %>%
-    gather(variable, value, -id)
+    gather(variable, value, -subject_id)
 long_form
-#>     id      variable    value
-#> 1  102        weight 88.17984
-#> 2   59        weight 58.74120
-#> 3  126        weight 49.89600
-#> 4   16        weight 89.40456
-#> 5  102 energy_intake 22.86010
-#> 6   59 energy_intake 23.88410
-#> 7  126 energy_intake 24.95370
-#> 8   16 energy_intake 22.23830
-``` {{2}}
+```
+{{3}}
+
+```
+# A tibble: 8 x 3
+  subject_id variable          value
+       <dbl> <chr>             <dbl>
+1       2448 body_mass_index    27.0
+2       2448 body_mass_index    NA  
+3       6238 body_mass_index    28.7
+4       6238 body_mass_index    29.4
+5       2448 total_cholesterol 195  
+6       2448 total_cholesterol 209  
+7       6238 total_cholesterol 250  
+8       6238 total_cholesterol 260  
+``` 
+{{4}}
 
 
 `@script`
