@@ -1,38 +1,45 @@
 source(here::here("R/setup.R"))
-load(here::here("datasets/framingham_tidier.rda"))
+load(here::here("datasets/framingham.rda"))
 
-# Video 1 -----------------------------------------------------------------
+# Video 1 histogram -------------------------------------------------------
 
-p <-
-    ggplot(tidier_framingham,
-       aes(x = body_mass_index)) +
+p <- ggplot(framingham,
+       aes(x = bmi)) +
     geom_histogram()
-ggsave(here::here("datasets/ch2-v1-histogram.png"), p, height = 4, width = 4, dpi = 90)
+ggsave(here::here("datasets/ch2-v1-histogram.png"), p,
+       height = 4, width = 4, dpi = 90)
 
-wide_form <- head(tidier_framingham, 4) %>%
-    select(subject_id, body_mass_index,
-           total_cholesterol)
-wide_form
+# Video 1 multiple vars with gather ---------------------------------------
+
+wide_form <- framingham %>%
+    select(subject_id = randid,
+           bmi, totchol)
+head(wide_form, 4)
 
 long_form <- wide_form %>%
+    head(4) %>%
     gather(variable, value, -subject_id)
 long_form
 
-long_form <- diet %>%
-    select(id, weight, energy_intake = energy) %>%
-    gather(variable, value, -id)
-p <- long_form %>%
+# Video 1 long form and histograms ----------------------------------------
+
+p <- wide_form %>%
+    gather(variable, value, -subject_id) %>%
     ggplot(aes(x = value)) +
     geom_histogram() +
     facet_wrap(vars(variable), scale = "free", nrow = 1)
-ggsave(here::here("datasets/ch2-v1-two-histograms.png"), p, dpi = 72, width = 7.5, height = 4)
+ggsave(here::here("datasets/ch2-v1-two-histograms.png"), p, dpi = 90,
+       width = 7.5, height = 2.75)
 
-p <- diet %>%
-    mutate(chd = as.character(chd)) %>%
-    ggplot(aes(x = chd, y = weight,
-               colour = chd)) +
+# Video 1 visualize exposure and outcome ----------------------------------
+
+p <- framingham %>%
+    mutate(cvd = as.character(cvd)) %>%
+    ggplot(aes(x = cvd, y = bmi,
+               colour = cvd)) +
     geom_boxplot()
-ggsave(here::here("datasets/ch2-v1-boxplot.png"), p, dpi = 90, width = 4, height = 4, device = "png")
+ggsave(here::here("datasets/ch2-v1-boxplot.png"), p, dpi = 90,
+       width = 4, height = 4, device = "png")
 
 # Video 2 -----------------------------------------------------------------
 
