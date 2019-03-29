@@ -40,7 +40,7 @@ ggplot(diet, aes(x = weight)) +
 
 
 `@part2`
-![histogram](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/a7a52d4b64aa5f2562fdf34478a8a31912e070fa/ch2-v1-histogram.png) {{2}}
+![histogram](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/299ac2253a84b199ab314633f3c771e50d2c92bb/ch2-v1-histogram.png) {{2}}
 
 
 `@script`
@@ -48,7 +48,7 @@ A useful way of looking at the data is to create a histogram of the distribution
 
 
 ---
-## Using long data for easier visualizing
+## The long data form for easier visualizing
 
 ```yaml
 type: "TwoColumns"
