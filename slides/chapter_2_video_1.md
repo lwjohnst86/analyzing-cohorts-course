@@ -3,7 +3,7 @@ title: Exploring before wrangling
 key: 146b85090bb8ab77efbfe45c5c751f5d
 
 ---
-## Exploring before wrangling
+## Pre-wrangling exploration
 
 ```yaml
 type: "TitleSlide"
@@ -133,7 +133,7 @@ wide_form %>%
 ``` 
 {{1}}
 
-![facetted histograms](http://assets.datacamp.com/production/repositories/2079/datasets/edb95d0a706c2f986b55f4755a01a6df3a17178d/ch2-v1-two-histograms.png) {{1}}
+![facetted histograms](http://assets.datacamp.com/production/repositories/2079/datasets/53c2a249ed4aad7c6152517a3724907195f3b499/ch2-v1-two-histograms.png) {{1}}
 
 
 `@script`
@@ -162,8 +162,7 @@ framingham %>%
 - `coord_flip()` for horizontal boxplots {{2}}
 
 `@part2`
-![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/8501ad0061c59bb5f1757a2ad99652fd11f70952/ch2-v1-boxplot.png)
-{{1}}
+![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/9fe5658e3ae4baa93858bc040b06f075e5dd4490/ch2-v1-boxplot.png) {{1}}
 
 `@script`
 Univariate visualizations are great but since our main interest is in the disease variable, we should plot the exposures by the outcome. For categorical outcome variables like cvd, boxplots are great tools as they show the data's general distribution with the median, the twenty-fifth and seventy-fifth percentile, and a measure of slightly extreme values.
