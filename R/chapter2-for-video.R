@@ -1,19 +1,21 @@
 source(here::here("R/setup.R"))
+load(here::here("datasets/framingham_tidier.rda"))
 
 # Video 1 -----------------------------------------------------------------
 
-p <- ggplot(diet, aes(x = weight)) +
+p <-
+    ggplot(tidier_framingham,
+       aes(x = body_mass_index)) +
     geom_histogram()
-ggsave(here::here("datasets/ch2-v1-histogram.png"), p, height = 2.5, width = 2.5)
+ggsave(here::here("datasets/ch2-v1-histogram.png"), p, height = 4, width = 4, dpi = 90)
 
-wide_form <- diet %>%
-    head(4) %>%
-    select(id, weight,
-           energy_intake = energy)
+wide_form <- head(tidier_framingham, 4) %>%
+    select(subject_id, body_mass_index,
+           total_cholesterol)
 wide_form
 
 long_form <- wide_form %>%
-    gather(variable, value, -id)
+    gather(variable, value, -subject_id)
 long_form
 
 long_form <- diet %>%
