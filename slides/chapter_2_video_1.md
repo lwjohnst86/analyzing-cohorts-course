@@ -17,11 +17,10 @@ title: Diabetes epidemiologist
 
 
 `@script`
-Now that we've gone over some of the basics of what a cohort is and some initial explorations, in this chapter we'll get into common wrangling tasks for cohort datasets as well as for quickly visualizing the data.
-
+We've gone over some of the basics of what a cohort is and some initial explorations. In this chapter we'll get into some common wrangling tasks for cohorts and how to quickly visually explore the data.
 
 ---
-## Visually explore individual variables
+## Univariate ("one variable") visualizations
 
 ```yaml
 type: "TwoColumns"
@@ -31,79 +30,90 @@ key: "09f0b70d13"
 `@part1`
 ```{r}
 library(ggplot2)
-# Distribution of body mass index
-ggplot(framingham, aes(x = bmi)) +
+# Histogram of body mass
+ggplot(framingham,
+       aes(x = bmi)) +
     geom_histogram()
 ```
 {{1}}
-
 
 `@part2`
 ![histogram](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/299ac2253a84b199ab314633f3c771e50d2c92bb/ch2-v1-histogram.png) {{2}}
 
 
 `@script`
-A useful way of looking at the data is to create a histogram of the distribution. With ggplot2, this is easy! We can use the geom underscore histogram function. Here we are using the diet cohort dataset from the Epi package. With this code, we can plot the distribution of one variable, in this case, weight. From the output, we can see that histograms count the number of values at each bin or rectangle. What if we want to look at many variables? This approach will take a while.
+A useful way of looking at data is to create a histogram for the univariate distribution. With ggplot2, this is easy! To set up any ggplot2 plot, we first use the ggplot function with the dataset as the first argument and the variables we want to map to the plot by using the aes function. Since we only want to see one variable, lets put bmi on the x-axis. To add a histogram layer, we plus the ggplot function with the geom-underscore-histogram function and this then shows the plot. Histograms count the number of times a specific value occurs in the data, so it a good way to get a quick overview of how the data looks. 
 
 
 ---
-## The long data form for easier visualizing
+## Visualize many variables with "longer" data
 
 ```yaml
-type: "TwoColumns"
-key: "21e501347c"
+type: "FullSlide"
 ```
 
 `@part1`
 ```{r}
 library(dplyr)
-wide_form <- head(tidier_framingham, 4) %>%
-    select(subject_id, body_mass_index,
-           total_cholesterol)
-wide_form
+wide_form <- framingham %>%
+    select(subject_id = randid,
+           bmi, totchol)
+head(wide_form, 4)
 ```
 {{1}}
 
 ```
 # A tibble: 4 x 3
-  subject_id body_mass_index total_cholesterol
-       <dbl>           <dbl>             <dbl>
-1       2448            27.0               195
-2       2448            NA                 209
-3       6238            28.7               250
-4       6238            29.4               260
+  subject_id   bmi totchol
+       <dbl> <dbl>   <dbl>
+1       2448  27.0     195
+2       2448  NA       209
+3       6238  28.7     250
+4       6238  29.4     260
 ```
 {{2}}
 
+`@script`
+If we want to visualize several variables, plot one by one may take some time. But there is an easier way if we make use of the facetting feature of ggplot2. We'll go over it more shortly, but to make use of facetting, we'll need our data in the long form.
 
-`@part2`
+Our data right now is currently in a wider format. Let's take a look at it by selecting a few variables and renaming the ID variable. This wider data has variables as columns and the values that make up the cells of the columns.
+
+---
+## Convert to "longer" form using gather
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
 ```{r}
 library(tidyr)
 long_form <- wide_form %>%
+    head(4) %>% 
     gather(variable, value, -subject_id)
 long_form
 ```
-{{3}}
+{{1}}
 
 ```
 # A tibble: 8 x 3
-  subject_id variable          value
-       <dbl> <chr>             <dbl>
-1       2448 body_mass_index    27.0
-2       2448 body_mass_index    NA  
-3       6238 body_mass_index    28.7
-4       6238 body_mass_index    29.4
-5       2448 total_cholesterol 195  
-6       2448 total_cholesterol 209  
-7       6238 total_cholesterol 250  
-8       6238 total_cholesterol 260  
+  subject_id variable value
+       <dbl> <chr>    <dbl>
+1       2448 bmi       27.0
+2       2448 bmi       NA  
+3       6238 bmi       28.7
+4       6238 bmi       29.4
+5       2448 totchol  195  
+6       2448 totchol  209  
+7       6238 totchol  250  
+8       6238 totchol  260  
 ``` 
-{{4}}
-
+{{2}}
 
 `@script`
-Instead of creating histograms one at a time, we can make use of using a different form of data and take full advantage of ggplot2's features.  Let's take a few variables from the diet dataset. Remember that the x axis for ggplot2 took the weight values. So what if we could get all the values for weight, including variables like energy intake, in one column and split the plot by the two columns? This is known as the long data format. We can easily create this format with the gather function from the tidyr package. The first two arguments provide the name of the two new columns, while the other arguments tell gather which variables to convert. In this example, we are excluding id from being gathered. With this data format, we can easily plot multiple histograms.
+It's surprisingly easy to convert the data to a longer form by using the gather function from tidyr. To better illustrate, I'll only use the first four rows with head. Using gather takes three arguments, excluding the data argument from the pipe. The next two arguments are the names of the new columns that will contain the original variable names and the values from the original column. To keep things easy, we will call them variable and value. The next argument is the one or more variables we want to include or exclude from the gathering action. In this case, we want to exclude the subject ID.
 
+Looking at the longer data, we see that the original columns are now stacked on top of each other in two new columns. This form of data let's us leverage the ggplot2 facetting.
 
 ---
 ## Visually explore multiple variables
@@ -115,18 +125,21 @@ key: "1355d59abd"
 
 `@part1`
 ```{r}
-long_form %>%
+wide_form %>%
+    gather(variable, value, -subject_id) %>%
     ggplot(aes(x = value)) +
     geom_histogram() +
     facet_wrap(vars(variable), scale = "free", nrow = 1)
-``` {{1}}
+``` 
+{{1}}
 
-![facetted histograms](http://assets.datacamp.com/production/repositories/2079/datasets/edb95d0a706c2f986b55f4755a01a6df3a17178d/ch2-v1-two-histograms.png) {{2}}
+![facetted histograms](http://assets.datacamp.com/production/repositories/2079/datasets/edb95d0a706c2f986b55f4755a01a6df3a17178d/ch2-v1-two-histograms.png) {{1}}
 
 
 `@script`
-Here, we combine the long data form with ggplot2's facet underscore wrap, by facetting on the variable column. To specify the variable, you need to wrap the variable name with the vars function. Setting scale to free allows the axis range to fit the variable's own value range. From the previous use of geom underscore histograms, the only differences are the data source, the x axis column, and the use of facet underscore wrap. We see here that we obtain multiple histograms on a single plot, which lets us explore the data faster and more efficiently! This approach is not only powerful for visualizing, but also for other exploring and analyzing tasks, such as creating summary tables or running simple statistics.
+So, let's try it out. We'll pipe the gathered longer data into ggplot2. This time we set x to the column with the raw data values. Then we add a histogram layer and next use the facet-underscore-wrap function. This function takes several arguments, but the first is the variables you want to facet by. The variable name needs to be wrapped with the vars function. We'll set the scale to free, since the x-axis values are different for each variable facet. To show the facets on one row we use set the nrow argument to one.
 
+This then gives us multiple histograms on a single plot, letting us explore the data faster! This approach of converting to a longer data form can also be used for other analysis tasks, which we will cover in later chapters.
 
 ---
 ## Visually explore exposure by outcome
@@ -138,20 +151,26 @@ key: "b4c84874a5"
 
 `@part1`
 ```{r}
-diet %>%
-    ggplot(aes(x = chd, y = weight,
-               color = chd)) +
+framingham %>%
+    mutate(cvd = as.character(cvd)) %>%
+    ggplot(aes(x = cvd, y = bmi,
+               colour = cvd)) +
     geom_boxplot()
 ```
+{{1}}
 
+- `coord_flip()` for horizontal boxplots {{2}}
 
 `@part2`
 ![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/8501ad0061c59bb5f1757a2ad99652fd11f70952/ch2-v1-boxplot.png)
-
+{{1}}
 
 `@script`
-Univariate visualizations are great but don't forget that we should look at plots of exposures by outcome. For categorical outcome variables, boxplots are great tools. Boxplots show the general distribution of the data, with the median, the 25 percent and 75 percent tiles, and a measure of the extreme values of the data. This gives a great overview of how your data looks. Here, it is fairly straight-forward to put the outcome, which is coronary heart disease in this case, on the x-axis and an exposure like weight on the y-axis. Using colors helps distinguish the two groups more easily. You can also use the coord underscore flip function to make the boxplots horizontal instead of vertical.
+Univariate visualizations are great but since our main interest is in the disease variable, we should plot the exposures by the outcome. For categorical outcome variables like cvd, boxplots are great tools as they show the data's general distribution with the median, the twenty-fifth and seventy-fifth percentile, and a measure of slightly extreme values.
 
+Again, with ggplot2 it's fairly easy. First, since cvd is a number of zero or one, let's force it to be categorical with mutate and as-dot-character. This time we add cvd on the x, a continuous variable like bmi on the y, and add some colour by again setting cvd. Next, add the geom-underscore-boxplot layer and we get a boxplot figure! Colors can help distinguish the two groups more easily. 
+
+You can also use the coord-underscore-flip function to make the boxplots horizontal instead of vertical.
 
 ---
 ## Exploring time!
@@ -162,5 +181,5 @@ key: "6b31cf3945"
 ```
 
 `@script`
-Alright, let's explore the Framingham dataset more!
+Alright, let's explore the Framingham dataset some more!
 
