@@ -121,8 +121,7 @@ library(ggplot2)
 
 ```yaml
 type: NormalExercise
-xp: 50
-key: b14232f7f2
+xp: 35
 ```
 
 `@instructions`
@@ -171,8 +170,7 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-xp: 50
-key: a8942d5b1d
+xp: 35
 ```
 
 `@instructions`
@@ -213,7 +211,34 @@ tidier_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Amazing! Did you notice a few things? The empty data for the lipoprotein variables at visits 1 and 2. The high number of zero cigarettes smoked. How age has a jagged distribution. The high prevalence of hypertension and that it increases over time. These are all important things to keep in mind for later analyses. Anyway, you've now visually checked many of the more interesting variables!")
+success_msg("Amazing!")
+```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+xp: 30
+```
+
+`@question`
+There were several things that you could see from the distributions of the variables and things to consider for later analyses. Did you notice a few of them?
+
+Which of the answers below describes an observation of the data?
+
+`@possible_answers`
+- The lipoprotein data was not available at visits 1 and 2.
+- Most people smoked zero cigarettes per day.
+- The participants' age had a "jagged", uneven distribution.
+- [All of the above.]
+- None of the above.
+
+`@hint`
+- Run the code again and check the histogram plots.
+
+`@sct`
+```{r}
+success_msg("Great job! These types of observations are important to consider and examine, as they can profoundly influence later inferential analyses.")
 ```
 
 ---
