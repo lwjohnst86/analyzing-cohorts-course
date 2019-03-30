@@ -40,7 +40,7 @@ ggplot(tidier_framingham,
 
 
 `@part2`
-![histogram](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/299ac2253a84b199ab314633f3c771e50d2c92bb/ch2-v1-histogram.png) {{2}}
+![histogram](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/adcd763375b8bcba52f68c14e34c7ef2c6c2cd33/ch2-v1-histogram.png) {{2}}
 
 
 `@script`
@@ -142,7 +142,7 @@ wide_form %>%
 ``` 
 {{1}}
 
-![facetted histograms](http://assets.datacamp.com/production/repositories/2079/datasets/53c2a249ed4aad7c6152517a3724907195f3b499/ch2-v1-two-histograms.png) {{1}}
+![facetted histograms](http://assets.datacamp.com/production/repositories/2079/datasets/2acc30ca29c22a921db27611193a3a0363d075fa/ch2-v1-two-histograms.png) {{1}}
 
 
 `@script`
@@ -162,10 +162,12 @@ key: "b4c84874a5"
 `@part1`
 ```{r}
 tidier_framingham %>%
-    mutate(got_cvd = as.character(got_cvd)) %>%
-    ggplot(aes(x = got_cvd,
-               y = body_mass_index,
-               colour = got_cvd)) +
+    mutate(got_cvd = 
+    	as.character(got_cvd)) %>%
+    ggplot(aes(
+    	x = got_cvd,
+		y = body_mass_index,
+        colour = got_cvd)) +
     geom_boxplot()
 ```
 {{1}}
@@ -174,7 +176,7 @@ tidier_framingham %>%
 
 
 `@part2`
-![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/9fe5658e3ae4baa93858bc040b06f075e5dd4490/ch2-v1-boxplot.png) {{1}}
+![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/c308d6402f6f198ed55bbba3579d4446e2ba4fe0/ch2-v1-boxplot.png) {{1}}
 
 
 `@script`
