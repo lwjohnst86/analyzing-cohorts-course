@@ -104,8 +104,8 @@ success_msg("Great job! You've created histograms and examined two variables.")
 
 ```yaml
 type: TabExercise
-xp: 100
 key: c03b3cbc95
+xp: 100
 ```
 
 Now that you've learned how to convert the variables into long form, let's create several plots showing multiple variables at each followup visit. Then we'll get a quick overview of the data and their distribution. Pay attention to how the distribution of each variable looks like.
@@ -122,8 +122,8 @@ library(ggplot2)
 
 ```yaml
 type: NormalExercise
-xp: 35
 key: f47ff957e7
+xp: 35
 ```
 
 `@instructions`
@@ -172,8 +172,8 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-xp: 35
 key: b4ebf26231
+xp: 35
 ```
 
 `@instructions`
@@ -221,8 +221,8 @@ success_msg("Amazing!")
 
 ```yaml
 type: MultipleChoiceExercise
-xp: 30
 key: cb687dd833
+xp: 30
 ```
 
 `@question`
