@@ -46,6 +46,7 @@ Before continuing, I want to talk about a problem common in health research, whi
 ```yaml
 type: "FullSlide"
 key: "e382f259fd"
+disable_transition: true
 ```
 
 `@part1`
