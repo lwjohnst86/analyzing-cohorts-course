@@ -608,8 +608,6 @@ There are several types of transformations you can choose from. Which one you ch
 ```{r}
 tidier2_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/16a8a17e784e845c75eb7fe15899683684e89a22/tidier2_framingham.Rds"))
 library(dplyr)
-library(tidyr)
-library(ggplot2)
 ```
 
 `@sample_code`
