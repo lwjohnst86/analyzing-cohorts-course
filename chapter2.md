@@ -606,30 +606,10 @@ There are several types of transformations you can choose from. Which one you ch
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+tidier2_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/16a8a17e784e845c75eb7fe15899683684e89a22/tidier2_framingham.Rds"))
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_
-            ),
-        sex = case_when(
-            sex == 1 ~ "Man",
-            sex == 2 ~ "Woman",
-            TRUE ~ NA_character_
-            )
-        ) %>% 
-    mutate(education_combined = forcats::fct_recode(
-        education, 
-        "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
-        ))
 ```
 
 `@sample_code`
@@ -679,34 +659,9 @@ We want to plot all transformation types on one plot. As we've done several time
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-library(dplyr)
+transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/db4b0d894d5c2a05c8eab34f0432903694b8f8ad/transformed_framingham.Rds"))
 library(tidyr)
 library(ggplot2)
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_
-            ),
-        sex = case_when(
-            sex == 1 ~ "Man",
-            sex == 2 ~ "Woman",
-            TRUE ~ NA_character_
-            )
-        ) %>% 
-    mutate(education_combined = forcats::fct_recode(
-        education, 
-        "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
-        ))
-invert <- function(x) 1 / x
-transformed_framingham <- tidier2_framingham %>% 
-    mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(invert, log, sqrt))
 ```
 
 ***
