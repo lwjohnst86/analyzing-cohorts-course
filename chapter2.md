@@ -681,21 +681,25 @@ xp: 50
 `@sample_code`
 ```{r}
 # Plot body mass index transforms
-transformed_framingham %>% 
+bmi_transforms_plot <- transformed_framingham %>% 
     ___(variables, values, contains("___")) %>% 
     ___(___(x = values)) +
     ___ +
     facet_wrap( ~ variables, scale = "free")
+
+bmi_transforms_plot
 ```
 
 `@solution`
 ```{r}
 # Plot body mass index transforms
-transformed_framingham %>% 
+bmi_transforms_plot <- transformed_framingham %>% 
     gather(variables, values, contains("body_mass_index")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
     facet_wrap( ~ variables, scale = "free")
+
+bmi_transforms_plot
 ```
 
 `@sct`
@@ -720,21 +724,25 @@ xp: 50
 `@sample_code`
 ```{r}
 # Plot cigarettes per day transforms
-transformed_framingham %>% 
+cpd_transforms_plot <- transformed_framingham %>% 
     gather(variables, values, contains("___")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
     facet_wrap( ~ variables, scale = "free")
+
+cpd_transforms_plot
 ```
 
 `@solution`
 ```{r}
 # Plot cigarettes per day transforms
-transformed_framingham %>% 
+cpd_transforms_plot <- transformed_framingham %>% 
     gather(variables, values, contains("cigarettes_per_day")) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
     facet_wrap( ~ variables, scale = "free")
+
+cpd_transforms_plot
 ```
 
 `@sct`
@@ -754,7 +762,7 @@ xp: 50
 
 Understanding how each transformation influences the units and the distribution of the data is an important step in properly applying these transformations. Try answering these questions about the shape of the data after each transformation.
 
-Looking at the graph, observe how each transformation influences the distribution of body mass index and think about how these new distributions might influence later analyses. Which statement is true?
+Both `bmi_transforms_plot` and `cpd_transforms_plot` are loaded for you to examine. Looking at the graphs, observe how each transformation influences the distribution of body mass index or cigarettes per day and think about how these new distributions might influence later analyses. Which statement is true?
 
 `@possible_answers`
 - Square root and scale don't change the distribution but do change the unit.
@@ -768,14 +776,21 @@ Looking at the graph, observe how each transformation influences the distributio
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-library(dplyr)
+transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/db4b0d894d5c2a05c8eab34f0432903694b8f8ad/transformed_framingham.Rds"))
 library(tidyr)
 library(ggplot2)
-invert <- function(x) 1 / x
-transformed_framingham <- tidier_framingham %>% 
-    mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(invert, log, log10, sqrt))
+
+bmi_transforms_plot <- transformed_framingham %>% 
+    gather(variables, values, contains("cigarettes_per_day")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    facet_wrap( ~ variables, scale = "free")
+
+cpd_transforms_plot <- transformed_framingham %>% 
+    gather(variables, values, contains("body_mass_index")) %>% 
+    ggplot(aes(x = values)) +
+    geom_histogram() +
+    facet_wrap( ~ variables, scale = "free")
 ```
 
 `@sct`
