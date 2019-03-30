@@ -21,6 +21,7 @@ xp: 50
 ```yaml
 type: BulletExercise
 xp: 100
+key: d62000a00f
 ```
 
 Now that you've learned how to convert the variables into long form, let's create several plots showing multiple variables at each followup visit. Then we'll get a quick overview of the data and their distribution.
@@ -38,6 +39,7 @@ library(ggplot2)
 ```yaml
 type: NormalExercise
 xp: 50
+key: b14232f7f2
 ```
 
 `@instructions`
@@ -87,6 +89,7 @@ success_msg("Great!")
 ```yaml
 type: NormalExercise
 xp: 50
+key: a8942d5b1d
 ```
 
 `@instructions`
