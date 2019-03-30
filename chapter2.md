@@ -100,7 +100,7 @@ success_msg("Great job! You've created histograms and examined two variables.")
 
 ---
 
-## Visualize multiple variables at each visit
+## Long data and visualizing multiple variables over time
 
 ```yaml
 type: TabExercise
@@ -108,7 +108,7 @@ key: c03b3cbc95
 xp: 100
 ```
 
-Now that you've learned how to convert the variables into long form, let's create several plots showing multiple variables at each followup visit. Then we'll get a quick overview of the data and their distribution. Pay attention to how the distribution of each variable looks like.
+Now that you've learned how to create histograms, let's convert some of the Framingham dataset into the longer data format using `gather()`. Then, using the long data form, create histograms for multiple variables simultaneously for each followup visit. This will give us quick overview of the data and their distribution. Pay attention to how the distribution of each variable looks like.
 
 `@pre_exercise_code`
 ```{r}
@@ -122,12 +122,52 @@ library(ggplot2)
 
 ```yaml
 type: NormalExercise
+key: 871fc51832
+```
+
+`@instructions`
+- Select the variables `total_cholesterol`, `high_density_lipoprotein`, and `low_density_lipoprotein`.
+- Using `gather()`, set the two new column names as `variable` and `value`, and then exclude `followup_visit_number` from being "gathered" (using the `-`).
+
+`@hint`
+- The `gather()` function should look like `gather(variable, value, -followup_visit_number)`.
+
+`@sample_code`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three cholesterol-based variables
+        ___, ___, ___
+    ) %>%
+    gather(___, ___, -___)
+```
+
+`@solution`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three cholesterol-based variables
+        total_cholesterol, high_density_lipoprotein, low_density_lipoprotein
+    ) %>%
+    gather(variable, value, -followup_visit_number)
+```
+
+`@sct`
+```{r}
+success_msg("Great!")
+```
+
+***
+
+```yaml
+type: NormalExercise
 key: f47ff957e7
 xp: 35
 ```
 
 `@instructions`
-- Select the variables `total_cholesterol`, `high_density_lipoprotein`, and `low_density_lipoprotein`.
 - Use `facet_wrap()` by the variables `followup_visit_number` and `variable`. Don't forget about using the `vars()` function.
 
 `@hint`
@@ -139,13 +179,14 @@ tidier_framingham %>%
     select(
         followup_visit_number,
         # Select the three cholesterol-based variables
-        ___, ___, ___
+        total_cholesterol, high_density_lipoprotein, low_density_lipoprotein
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
     geom_histogram() +
     # Facet by followup and cholesterol variables
-    ___(___(___, ___), scales = "free")
+    ___(___(___, ___), 
+        scales = "free")
 ```
 
 `@solution`
@@ -160,7 +201,8 @@ tidier_framingham %>%
     ggplot(aes(x = value)) +
     geom_histogram() +
     # Facet by followup and cholesterol variables
-    facet_wrap(vars(followup_visit_number, variable), scales = "free")
+    facet_wrap(vars(followup_visit_number, variable), 
+               scales = "free")
 ```
 
 `@sct`
@@ -228,7 +270,7 @@ xp: 30
 `@question`
 There were several things that you could see from the distributions of the variables and things to consider for later analyses. Did you notice a few of them?
 
-Which of the answers below describes an observation of the data?
+Which of the answers below describes some observations about the data?
 
 `@possible_answers`
 - The lipoprotein data was not available at visits 1 and 2.
