@@ -401,11 +401,11 @@ xp: 50
 ```
 
 `@instructions`
-- Convert the education values to a human readable format using `case_when`.
+- Convert the education values to a human readable format using `case_when()`.
 - The original education numbers should correspond to the following strings: 1 = "0-11 years"; 2 = "High School"; 3 = "Vocational"; 4 = "College".
 
 `@hint`
-- The form for the `case_when` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
+- The form for the `case_when()` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
 
 `@sample_code`
 ```{r}
@@ -449,11 +449,10 @@ xp: 50
 ```
 
 `@instructions`
-- Convert the sex values to a human readable format using `case_when`.
-- The original sex numbers should correspond to the following strings: 1 = "Man"; 2 = "Woman".
+- Do the same thing for the sex variable, with the numbers corresponding to the following strings: 1 = "Man"; 2 = "Woman".
 
 `@hint`
-- The form for the `case_when` should look like `sex == 1 ~ "Man"`, for each number-string pairing.
+- The form for the `case_when()` should look like `sex == 1 ~ "Man"`, for each number-string pairing.
 
 `@sample_code`
 ```{r}
@@ -508,13 +507,13 @@ key: 62bcf49a5e
 xp: 100
 ```
 
-Sometimes, categorical variables, like factor or character, have many levels but only a few observations in one or more levels. It might make sense to combine categories together for some analyses or particular questions. This is especially useful if we only want to interpret one level compared to the other levels. 
+Sometimes, categorical variables (as factors or characters) have many levels but only a few observations in one or more levels. It might make sense to combine categories together for some analyses or particular questions. This is especially useful if we only want to interpret one level compared to the other levels. 
 
-The `forcats` package has been preloaded.
+The `forcats` package has been preloaded as well as the previous `tidier2_framingham` dataset you tidied.
 
 `@instructions`
-- Recode the levels of Vocational and College education to be Post-Secondary.
-- Confirm that the education values have been correctly merged by counting the new education variable.
+- Recode the levels of `"Vocational"` and `"College"` education to be `"Post-Secondary"`.
+- Confirm that the education values have been correctly recoded using `count()` on the new education variable.
 
 `@hint`
 - Use the `fct_recode` function to recode the levels. 
@@ -523,24 +522,10 @@ The `forcats` package has been preloaded.
 
 `@pre_exercise_code`
 ```{r}
-load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+tidier2_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/16a8a17e784e845c75eb7fe15899683684e89a22/tidier2_framingham.Rds"))
 library(forcats)
 library(dplyr)
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_
-            ),
-        sex = case_when(
-            sex == 1 ~ "Man",
-            sex == 2 ~ "Woman",
-            TRUE ~ NA_character_
-            )
-        )
+tidier2_framingham$education_combined <- NULL
 ```
 
 `@sample_code`
