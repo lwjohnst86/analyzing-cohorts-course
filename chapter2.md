@@ -140,19 +140,17 @@ key: e50ea375f8
 xp: 100
 ```
 
-Create multiple boxplots of several exposures with the outcome. Use a combination of converting to long data form, grouping to show the outcome, and facetting by year to show temporal changes.
+Boxplots are great for showing a distribution by a grouping variable (e.g. sex or disease status). Create multiple boxplots of several exposure variables with the outcome variable (CVD) by combining what we learned previously about converting to long form and using facetting.
 
 `@instructions`
-- Select participant age, total cholesterol, body mass, and systolic and diastolic blood pressure.
-- Convert to long data form, excluding visit number and the outcome.
-- Create boxplots, colored by the outcome.
-- Facet by visit number.
+- Select the variables `got_cvd`, `total_cholesterol`, `participant_age`, and `body_mass_index`.
+- Also exclude `got_cvd` from the `gather()` function and set `value` for the y-axis in `aes()`.
+- Add a `geom_boxplots()` layer, with `got_cvd` as a color in `aes()`.
+- Lastly, flip the plot using `coord_flip()`.
 
 `@hint`
-- Select `total_cholesterol`, `participant_age`, `body_mass_index`, `systolic_blood_pressure`, and `diastolic_blood_pressure`.
-- Use `gather` and exclude the followup visit number and the `got_cvd` outcome.
-- Create `geom_boxplots`, colored by `got_cvd`.
-- Use the `vars()` function to wrap the variable name in `facet_grid`.
+- The initial `ggplot2` setup should be `ggplot(aes(x = value, y = variable, color = got_cvd))`.
+- Include `-got_cvd` after `-followup_visit_number` in `gather()`.
 
 `@pre_exercise_code`
 ```{r}
@@ -166,40 +164,43 @@ tidier_framingham <- tidier_framingham %>%
 
 `@sample_code`
 ```{r}
-# Convert to long form and make multiple box plots over time
 tidier_framingham %>% 
-    select(followup_visit_number, got_cvd, 
-           # Select the 5 continuous variables
-           ___) %>% 
-    # Convert to long form
-    ___(variable, value, -___, -___) %>% 
-    ggplot(aes(y = value, x = variable, color = ___)) +
+    select(followup_visit_number,
+           # Select the disease and the three continuous variables
+           ___, ___,
+           ___, ___) %>% 
+    # Exclude also the disease
+    gather(variable, value, -followup_visit_number, -___) %>% 
+    # Set y, x, and colour
+    ggplot(aes(y = ___, x = variable, color = ___)) +
     # Plot boxplots
     ___() +
-    facet_grid(rows = ___) +
-    coord_flip()
+    facet_wrap(vars(followup_visit_number), ncol = 1) +
+    # Flip the plot
+    ___()
 ```
 
 `@solution`
 ```{r}
-# Convert to long form and make multiple box plots over time
 tidier_framingham %>% 
-    select(followup_visit_number, got_cvd, 
-           # Select the 5 continuous variables
-           total_cholesterol, participant_age, body_mass_index,
-           systolic_blood_pressure, diastolic_blood_pressure) %>% 
-    # Convert to long form
+    select(followup_visit_number,
+           # Select the disease and the three continuous variables
+           got_cvd, total_cholesterol,
+           participant_age, body_mass_index) %>% 
+    # Exclude also the disease
     gather(variable, value, -followup_visit_number, -got_cvd) %>% 
+    # Set y, x, and colour
     ggplot(aes(y = value, x = variable, color = got_cvd)) +
     # Plot boxplots
     geom_boxplot() +
-    facet_grid(rows = vars(followup_visit_number)) +
+    facet_wrap(vars(followup_visit_number), ncol = 1) +
+    # Flip the plot
     coord_flip()
 ```
 
 `@sct`
 ```{r}
-success_msg("Excellent! You quickly created a figure showing several continuous variables by the outcome, and over time! Notice how some variables are a bit higher in the `got_cvd` group and that over time these differences decreased?")
+success_msg("Excellent! You quickly created a figure showing several continuous variables by the outcome, and over time! Notice how some variables are a bit higher in the `got_cvd` group and that over time these differences decreased? Also notice the problem of showing multiple variables that have vastly different values such as between body mass and cholesterol.")
 ```
 
 ---
