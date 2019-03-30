@@ -388,7 +388,6 @@ As you may have noticed, there are several discrete variables with ambiguous val
 `@pre_exercise_code`
 ```{r}
 load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
-library(forcats)
 library(dplyr)
 ```
 
