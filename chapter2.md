@@ -401,7 +401,7 @@ xp: 50
 ```
 
 `@instructions`
-- Convert the education values to human readable format using `case_when`.
+- Convert the education values to a human readable format using `case_when`.
 - The original education numbers should correspond to the following strings: 1 = "0-11 years"; 2 = "High School"; 3 = "Vocational"; 4 = "College".
 
 `@hint`
@@ -449,7 +449,7 @@ xp: 50
 ```
 
 `@instructions`
-- Convert the sex values to human readable format using `case_when`.
+- Convert the sex values to a human readable format using `case_when`.
 - The original sex numbers should correspond to the following strings: 1 = "Man"; 2 = "Woman".
 
 `@hint`
@@ -460,6 +460,7 @@ xp: 50
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = case_when(
+          	# Use the format: variable == number ~ "string"
             education == 1 ~ "0-11 years",
             education == 2 ~ "High School",
             education == 3 ~ "Vocational",
@@ -478,6 +479,7 @@ tidier2_framingham <- tidier_framingham %>%
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
         education = case_when(
+          	# Use the format: variable == number ~ "string"
             education == 1 ~ "0-11 years",
             education == 2 ~ "High School",
             education == 3 ~ "Vocational",
