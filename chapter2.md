@@ -413,7 +413,10 @@ tidier2_framingham <- tidier_framingham %>%
     mutate(
         education = ___(
             # Use the format: variable == number ~ "string"
-            ___ == ___ ~ ___, 
+            education == ___ ~ ___,
+          	education == ___ ~ ___,
+          	education == ___ ~ ___,
+          	education == ___ ~ ___,
             TRUE ~ NA_character_)
       )
 ```
@@ -463,8 +466,11 @@ tidier2_framingham <- tidier_framingham %>%
             education == 4 ~ "College",
             TRUE ~ NA_character_),
         # Convert the values for sex
-        sex = ___
-        )
+        sex = case_when(
+        	sex == ___ ~ ___,
+            sex == ___ ~ ___,
+            TRUE ~ NA_character_)
+    )
 ```
 
 `@solution`
@@ -487,7 +493,7 @@ tidier2_framingham <- tidier_framingham %>%
 
 `@sct`
 ```{r}
-success_msg("Excellent!")
+success_msg("Awesome! You've tidied up discrete values to be understandable to humans!")
 ```
 
 ---
