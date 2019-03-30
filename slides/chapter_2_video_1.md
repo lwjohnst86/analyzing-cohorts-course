@@ -31,8 +31,8 @@ key: "09f0b70d13"
 ```{r}
 library(ggplot2)
 # Histogram of body mass
-ggplot(framingham,
-       aes(x = bmi)) +
+ggplot(tidier_framingham,
+       aes(x = body_mass_index)) +
     geom_histogram()
 ```
 {{1}}
@@ -55,28 +55,29 @@ type: "FullSlide"
 `@part1`
 ```{r}
 library(dplyr)
-wide_form <- framingham %>%
-    select(subject_id = randid,
-           bmi, totchol)
+wide_form <- tidier_framingham %>%
+    select(subject_id,
+           body_mass_index,
+           participant_age)
 head(wide_form, 4)
 ```
 {{1}}
 
 ```
 # A tibble: 4 x 3
-  subject_id   bmi totchol
-       <dbl> <dbl>   <dbl>
-1       2448  27.0     195
-2       2448  NA       209
-3       6238  28.7     250
-4       6238  29.4     260
+  subject_id body_mass_index participant_age
+       <dbl>           <dbl>           <dbl>
+1       2448            27.0              39
+2       2448            NA                52
+3       6238            28.7              46
+4       6238            29.4              52
 ```
 {{2}}
 
 `@script`
 If we want to visualize several variables, plot one by one may take some time. But there is an easier way if we make use of the facetting feature of ggplot2. We'll go over it more shortly, but to make use of facetting, we'll need our data in the long form.
 
-Our data right now is currently in a wider format. Let's take a look at it by selecting a few variables and renaming the ID variable. This wider data has variables as columns and the values that make up the cells of the columns.
+Our data right now is currently in a wider format. Let's take a look at it by selecting a few variables. This wider data has variables as columns and the values that make up the cells of those columns.
 
 ---
 ## Convert to "longer" form using gather
@@ -89,7 +90,7 @@ type: "FullSlide"
 ```{r}
 library(tidyr)
 long_form <- wide_form %>%
-    head(4) %>% 
+    head(4) %>%
     gather(variable, value, -subject_id)
 long_form
 ```
@@ -97,21 +98,21 @@ long_form
 
 ```
 # A tibble: 8 x 3
-  subject_id variable value
-       <dbl> <chr>    <dbl>
-1       2448 bmi       27.0
-2       2448 bmi       NA  
-3       6238 bmi       28.7
-4       6238 bmi       29.4
-5       2448 totchol  195  
-6       2448 totchol  209  
-7       6238 totchol  250  
-8       6238 totchol  260  
+  subject_id variable        value
+       <dbl> <chr>           <dbl>
+1       2448 body_mass_index  27.0
+2       2448 body_mass_index  NA  
+3       6238 body_mass_index  28.7
+4       6238 body_mass_index  29.4
+5       2448 participant_age  39  
+6       2448 participant_age  52  
+7       6238 participant_age  46  
+8       6238 participant_age  52  
 ``` 
 {{2}}
 
 `@script`
-It's surprisingly easy to convert the data to a longer form by using the gather function from tidyr. To better illustrate, I'll only use the first four rows with head. Using gather takes three arguments, excluding the data argument from the pipe. The next two arguments are the names of the new columns that will contain the original variable names and the values from the original column. To keep things easy, we will call them variable and value. The next argument is the one or more variables we want to include or exclude from the gathering action. In this case, we want to exclude the subject ID.
+Converting to long form is fairly easy with the gather function from tidyr. To better illustrate gather, I'll use head to convert only the first four rows. Gather takes three arguments, excluding the data argument from the pipe. The next two arguments are the names of the new columns that will contain the original variable names and the values from the original column. To keep things easy, we will call them variable and value. The next argument is the one or more variables we want to include or exclude from the gathering action. In this case, we want to exclude the subject ID.
 
 Looking at the longer data, we see that the original columns are now stacked on top of each other in two new columns. This form of data let's us leverage the ggplot2 facetting.
 
@@ -151,10 +152,11 @@ key: "b4c84874a5"
 
 `@part1`
 ```{r}
-framingham %>%
-    mutate(cvd = as.character(cvd)) %>%
-    ggplot(aes(x = cvd, y = bmi,
-               colour = cvd)) +
+tidier_framingham %>%
+    mutate(got_cvd = as.character(got_cvd)) %>%
+    ggplot(aes(x = got_cvd,
+               y = body_mass_index,
+               colour = got_cvd)) +
     geom_boxplot()
 ```
 {{1}}
