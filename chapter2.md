@@ -24,11 +24,12 @@ key: 78574fab0c
 xp: 100
 ```
 
-
+Let's get comfortable creating some univariate histograms to start exploring the data. Create several histograms of a couple variables.
 
 `@pre_exercise_code`
 ```{r}
-
+load(url("http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/dee4084963a4701f406fdf9db21e66302da4a05a/framingham_tidier.rda"))
+library(ggplot2)
 ```
 
 ***
@@ -40,24 +41,28 @@ xp: 50
 ```
 
 `@instructions`
-
+- Set `x` to `participant_age` and add a `geom_histogram()` layer.
 
 `@hint`
-
+- In the `aes()`, the argument should be `x = participant_age`.
 
 `@sample_code`
 ```{r}
-
+# Examine the age histogram
+ggplot(tidier_framingham, aes(x = ___)) +
+    ___()
 ```
 
 `@solution`
 ```{r}
-
+# Examine the age histogram
+ggplot(tidier_framingham, aes(x = participant_age)) +
+    geom_histogram()
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Nice!")
 ```
 
 ***
@@ -69,37 +74,40 @@ xp: 50
 ```
 
 `@instructions`
-
+- Do the same thing, but set `x` to `systolic_blood_pressure`.
 
 `@hint`
-
+- The `aes()` should have `x = systolic_blood_pressure`.
 
 `@sample_code`
 ```{r}
-
+# Examine the systolic blood pressure histogram
+ggplot(tidier_framingham, aes(x = ___)) +
+    ___()
 ```
 
 `@solution`
 ```{r}
-
+# Examine the systolic blood pressure histogram
+ggplot(tidier_framingham, aes(x = systolic_blood_pressure)) +
+    geom_histogram()
 ```
 
 `@sct`
 ```{r}
-
+success_msg("Great job! You've created histograms and examined two variables.")
 ```
 
 ---
 
-## Visualize variables at each visit
+## Visualize multiple variables at each visit
 
 ```yaml
-type: BulletExercise
-key: c6f4be6cde
+type: TabExercise
 xp: 100
 ```
 
-Visually examining the data is an incredibly important early step in any data analysis project. In these series of exercises, you can visualize what the distribution of the data are for each variable. As we did in the previous chapter, you will be making heavy use of the `gather()` function to convert to long form in order to plot the data.
+Now that you've learned how to convert the variables into long form, let's create several plots showing multiple variables at each followup visit. Then we'll get a quick overview of the data and their distribution. Pay attention to how the distribution of each variable looks like.
 
 `@pre_exercise_code`
 ```{r}
