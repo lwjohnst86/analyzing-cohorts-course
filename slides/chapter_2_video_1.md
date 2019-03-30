@@ -19,6 +19,7 @@ title: Diabetes epidemiologist
 `@script`
 We've gone over some of the basics of what a cohort is and some initial explorations. In this chapter we'll get into some common wrangling tasks for cohorts and how to quickly visually explore the data.
 
+
 ---
 ## Univariate ("one variable") visualizations
 
@@ -37,12 +38,13 @@ ggplot(tidier_framingham,
 ```
 {{1}}
 
+
 `@part2`
 ![histogram](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/299ac2253a84b199ab314633f3c771e50d2c92bb/ch2-v1-histogram.png) {{2}}
 
 
 `@script`
-A useful way of looking at data is to create a histogram for the univariate distribution. With ggplot2, this is easy! To set up any ggplot2 plot, we first use the ggplot function with the dataset as the first argument and the variables we want to map to the plot by using the aes function. Since we only want to see one variable, lets put bmi on the x-axis. To add a histogram layer, we plus the ggplot function with the geom-underscore-histogram function and this then shows the plot. Histograms count the number of times a specific value occurs in the data, so it a good way to get a quick overview of how the data looks. 
+A useful way to look at data is through histogram to show the univariate distribution, which counts the number of times a given value occurs. With ggplot2, this is easy! All ggplot2 plots require you to first use the ggplot function with the dataset as the first argument and with the aes function we set the variables we want mapped to the plot. The plot will be univariate, or only one, so we'll set x as bmi. We add the histogram layer using the geom-underscore-histogram function after using a plus sign, which then gives us the plot and giving us a quick overview of how the data looks.
 
 
 ---
@@ -50,6 +52,7 @@ A useful way of looking at data is to create a histogram for the univariate dist
 
 ```yaml
 type: "FullSlide"
+key: "6f3273e660"
 ```
 
 `@part1`
@@ -74,16 +77,19 @@ head(wide_form, 4)
 ```
 {{2}}
 
+
 `@script`
 If we want to visualize several variables, plot one by one may take some time. But there is an easier way if we make use of the facetting feature of ggplot2. We'll go over it more shortly, but to make use of facetting, we'll need our data in the long form.
 
 Our data right now is currently in a wider format. Let's take a look at it by selecting a few variables. This wider data has variables as columns and the values that make up the cells of those columns.
+
 
 ---
 ## Convert to "longer" form using gather
 
 ```yaml
 type: "FullSlide"
+key: "71c8f11816"
 ```
 
 `@part1`
@@ -111,10 +117,12 @@ long_form
 ``` 
 {{2}}
 
+
 `@script`
 Converting to long form is fairly easy with the gather function from tidyr. To better illustrate gather, I'll use head to convert only the first four rows. Gather takes three arguments, excluding the data argument from the pipe. The next two arguments are the names of the new columns that will contain the original variable names and the values from the original column. To keep things easy, we will call them variable and value. The next argument is the one or more variables we want to include or exclude from the gathering action. In this case, we want to exclude the subject ID.
 
 Looking at the longer data, we see that the original columns are now stacked on top of each other in two new columns. This form of data let's us leverage the ggplot2 facetting.
+
 
 ---
 ## Visually explore multiple variables
@@ -142,6 +150,7 @@ So, let's try it out. We'll pipe the gathered longer data into ggplot2. This tim
 
 This then gives us multiple histograms on a single plot, letting us explore the data faster! This approach of converting to a longer data form can also be used for other analysis tasks, which we will cover in later chapters.
 
+
 ---
 ## Visually explore exposure by outcome
 
@@ -163,8 +172,10 @@ tidier_framingham %>%
 
 - `coord_flip()` for horizontal boxplots {{2}}
 
+
 `@part2`
 ![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/9fe5658e3ae4baa93858bc040b06f075e5dd4490/ch2-v1-boxplot.png) {{1}}
+
 
 `@script`
 Univariate visualizations are great but since our main interest is in the disease variable, we should plot the exposures by the outcome. For categorical outcome variables like cvd, boxplots are great tools as they show the data's general distribution with the median, the twenty-fifth and seventy-fifth percentile, and a measure of slightly extreme values.
@@ -172,6 +183,7 @@ Univariate visualizations are great but since our main interest is in the diseas
 Again, with ggplot2 it's fairly easy. First, since cvd is a number of zero or one, let's force it to be categorical with mutate and as-dot-character. This time we add cvd on the x, a continuous variable like bmi on the y, and add some colour by again setting cvd. Next, add the geom-underscore-boxplot layer and we get a boxplot figure! Colors can help distinguish the two groups more easily. 
 
 You can also use the coord-underscore-flip function to make the boxplots horizontal instead of vertical.
+
 
 ---
 ## Exploring time!
