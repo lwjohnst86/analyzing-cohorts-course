@@ -16,15 +16,14 @@ xp: 50
 
 ---
 
-## Visualize variables at each visit
+## Visualize multiple variables at each visit
 
 ```yaml
 type: BulletExercise
-key: c6f4be6cde
 xp: 100
 ```
 
-Visually examining the data is an incredibly important early step in any data analysis project. In these series of exercises, you can visualize what the distribution of the data are for each variable. As we did in the previous chapter, you will be making heavy use of the `gather()` function to convert to long form in order to plot the data.
+Now that you've learned how to convert the variables into long form, let's create several plots showing multiple variables at each followup visit. Then we'll get a quick overview of the data and their distribution.
 
 `@pre_exercise_code`
 ```{r}
@@ -38,16 +37,15 @@ library(ggplot2)
 
 ```yaml
 type: NormalExercise
-key: 2a85bae775
-xp: 35
+xp: 50
 ```
 
 `@instructions`
-Select the cholesterol based variables, including total and lipoproteins, and create histograms.
+- Select the variables `total_cholesterol`, `high_density_lipoprotein`, and `low_density_lipoprotein`.
+- Use `facet_wrap()` by the variables `followup_visit_number` and `variable`. Don't forget about using the `vars()` function.
 
 `@hint`
-- The three variables are total cholesterol and high and low-density lipoprotein.
-- Use `geom_histogram()` to create the histograms.
+- The variables in `facet_wrap()` need to be within the `vars()` function and separated by a comma.
 
 `@sample_code`
 ```{r}
@@ -55,13 +53,13 @@ tidier_framingham %>%
     select(
         followup_visit_number,
         # Select the three cholesterol-based variables
-        ___
+        ___, ___, ___
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
-    # Add histogram layer
-    ___() +
-    facet_grid(followup_visit_number ~ variable, scales = "free")
+    geom_histogram() +
+    # Facet by followup and cholesterol variables
+    ___(___(___, ___), scales = "free")
 ```
 
 `@solution`
@@ -74,9 +72,9 @@ tidier_framingham %>%
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
-    # Add histogram layer
     geom_histogram() +
-    facet_grid(followup_visit_number ~ variable, scales = "free")
+    # Facet by followup and cholesterol variables
+    facet_wrap(vars(followup_visit_number, variable), scales = "free")
 ```
 
 `@sct`
@@ -88,15 +86,14 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-key: 7b93354589
-xp: 35
+xp: 50
 ```
 
 `@instructions`
-Select and plot the following three overall participant characteristics: age, body mass, and cigarettes smoked.
+- Do the same thing, but selecting the variables `participant_age`, `body_mass_index`, and `cigarettes_per_day`.
 
 `@hint`
-- Use participant age, body mass index, and number of cigarettes per day.
+- Put the variables in the `select()` function.
 
 `@sample_code`
 ```{r}
@@ -104,14 +101,13 @@ tidier_framingham %>%
     select(
         followup_visit_number,
         # Select the three charactistics
-        ___
+        ___, ___, ___
     ) %>%
-    # Convert to long form
-    ___(variable, value, -followup_visit_number) %>%
-    # Plot histograms
-    ___(aes(x = value)) +
-    ___() +
-    ___(followup_visit_number ~ variable, scales = "free")
+    gather(variable, value, -followup_visit_number) %>%
+    ggplot(aes(x = value)) +
+    geom_histogram() +
+    facet_wrap(vars(followup_visit_number, variable), 
+               scales = "free")
 ```
 
 `@solution`
@@ -122,63 +118,11 @@ tidier_framingham %>%
         # Select the three charactistics
         body_mass_index, participant_age, cigarettes_per_day
     ) %>%
-    # Convert to long form
     gather(variable, value, -followup_visit_number) %>%
-    # Plot histograms
     ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_grid(followup_visit_number ~ variable, scales = "free")
-```
-
-`@sct`
-```{r}
-success_msg("Nice!")
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: d6a3c7d607
-xp: 30
-```
-
-`@instructions`
-Select and plot prevalent hypertension and CHD events, as well as the main outcome.
-
-`@hint`
-- Select the `got_cvd` variable, as well as prevalent MI and CHD.
-
-`@sample_code`
-```{r}
-tidier_framingham %>%
-    select(
-        followup_visit_number,
-        # Select the three cardiovascular variables
-        ___
-    ) %>% 
-    # Convert to long form
-    ___(variable, value, -followup_visit_number) %>%
-    # Plot histograms
-    ___(aes(x = value)) +
-    ___() +
-    ___(followup_visit_number ~ variable, scales = "free")
-```
-
-`@solution`
-```{r}
-tidier_framingham %>%
-    select(
-        followup_visit_number,
-        # Select the three cardiovascular variables
-        prevalent_hypertension, prevalent_chd, got_cvd
-    ) %>%
-    # Convert to long form
-    gather(variable, value, -followup_visit_number) %>%
-    # Plot histograms
-    ggplot(aes(x = value)) +
-    geom_histogram() +
-    facet_grid(followup_visit_number ~ variable, scales = "free")
+    facet_wrap(vars(followup_visit_number, variable), 
+               scales = "free")
 ```
 
 `@sct`
