@@ -1,19 +1,20 @@
 source(here::here("R/setup.R"))
-load(here::here("datasets/framingham.rda"))
+load(here::here("datasets/framingham_tidier.rda"))
 
 # Video 1 histogram -------------------------------------------------------
 
-p <- ggplot(framingham,
-       aes(x = bmi)) +
+p <- ggplot(tidier_framingham,
+       aes(x = body_mass_index)) +
     geom_histogram()
 ggsave(here::here("datasets/ch2-v1-histogram.png"), p,
        height = 4, width = 4, dpi = 90)
 
 # Video 1 multiple vars with gather ---------------------------------------
 
-wide_form <- framingham %>%
-    select(subject_id = randid,
-           bmi, totchol)
+wide_form <- tidier_framingham %>%
+    select(subject_id,
+           body_mass_index,
+           participant_age)
 head(wide_form, 4)
 
 long_form <- wide_form %>%
@@ -33,10 +34,11 @@ ggsave(here::here("datasets/ch2-v1-two-histograms.png"), p, dpi = 90,
 
 # Video 1 visualize exposure and outcome ----------------------------------
 
-p <- framingham %>%
-    mutate(cvd = as.character(cvd)) %>%
-    ggplot(aes(x = cvd, y = bmi,
-               colour = cvd)) +
+p <- tidier_framingham %>%
+    mutate(got_cvd = as.character(got_cvd)) %>%
+    ggplot(aes(x = got_cvd,
+               y = body_mass_index,
+               colour = got_cvd)) +
     geom_boxplot()
 ggsave(here::here("datasets/ch2-v1-boxplot.png"), p, dpi = 90,
        width = 4, height = 4, device = "png")
