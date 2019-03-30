@@ -16,15 +16,90 @@ xp: 50
 
 ---
 
-## Visualize multiple variables at each visit
+## Plot univariate distributions
 
 ```yaml
 type: BulletExercise
+key: 78574fab0c
 xp: 100
-key: d62000a00f
 ```
 
-Now that you've learned how to convert the variables into long form, let's create several plots showing multiple variables at each followup visit. Then we'll get a quick overview of the data and their distribution.
+
+
+`@pre_exercise_code`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: c1d2dff125
+xp: 50
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: ca8520f319
+xp: 50
+```
+
+`@instructions`
+
+
+`@hint`
+
+
+`@sample_code`
+```{r}
+
+```
+
+`@solution`
+```{r}
+
+```
+
+`@sct`
+```{r}
+
+```
+
+---
+
+## Visualize variables at each visit
+
+```yaml
+type: BulletExercise
+key: c6f4be6cde
+xp: 100
+```
+
+Visually examining the data is an incredibly important early step in any data analysis project. In these series of exercises, you can visualize what the distribution of the data are for each variable. As we did in the previous chapter, you will be making heavy use of the `gather()` function to convert to long form in order to plot the data.
 
 `@pre_exercise_code`
 ```{r}
@@ -38,16 +113,16 @@ library(ggplot2)
 
 ```yaml
 type: NormalExercise
-xp: 50
-key: b14232f7f2
+key: 2a85bae775
+xp: 35
 ```
 
 `@instructions`
-- Select the variables `total_cholesterol`, `high_density_lipoprotein`, and `low_density_lipoprotein`.
-- Use `facet_wrap()` by the variables `followup_visit_number` and `variable`. Don't forget about using the `vars()` function.
+Select the cholesterol based variables, including total and lipoproteins, and create histograms.
 
 `@hint`
-- The variables in `facet_wrap()` need to be within the `vars()` function and separated by a comma.
+- The three variables are total cholesterol and high and low-density lipoprotein.
+- Use `geom_histogram()` to create the histograms.
 
 `@sample_code`
 ```{r}
@@ -55,13 +130,13 @@ tidier_framingham %>%
     select(
         followup_visit_number,
         # Select the three cholesterol-based variables
-        ___, ___, ___
+        ___
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
-    geom_histogram() +
-    # Facet by followup and cholesterol variables
-    ___(___(___, ___), scales = "free")
+    # Add histogram layer
+    ___() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
 ```
 
 `@solution`
@@ -74,9 +149,9 @@ tidier_framingham %>%
     ) %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
+    # Add histogram layer
     geom_histogram() +
-    # Facet by followup and cholesterol variables
-    facet_wrap(vars(followup_visit_number, variable), scales = "free")
+    facet_grid(followup_visit_number ~ variable, scales = "free")
 ```
 
 `@sct`
@@ -88,15 +163,15 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-xp: 50
-key: a8942d5b1d
+key: 7b93354589
+xp: 35
 ```
 
 `@instructions`
-- Do the same thing, but selecting the variables `participant_age`, `body_mass_index`, and `cigarettes_per_day`.
+Select and plot the following three overall participant characteristics: age, body mass, and cigarettes smoked.
 
 `@hint`
-- Put the variables in the `select()` function.
+- Use participant age, body mass index, and number of cigarettes per day.
 
 `@sample_code`
 ```{r}
@@ -104,13 +179,14 @@ tidier_framingham %>%
     select(
         followup_visit_number,
         # Select the three charactistics
-        ___, ___, ___
+        ___
     ) %>%
-    gather(variable, value, -followup_visit_number) %>%
-    ggplot(aes(x = value)) +
-    geom_histogram() +
-    facet_wrap(vars(followup_visit_number, variable), 
-               scales = "free")
+    # Convert to long form
+    ___(variable, value, -followup_visit_number) %>%
+    # Plot histograms
+    ___(aes(x = value)) +
+    ___() +
+    ___(followup_visit_number ~ variable, scales = "free")
 ```
 
 `@solution`
@@ -121,11 +197,63 @@ tidier_framingham %>%
         # Select the three charactistics
         body_mass_index, participant_age, cigarettes_per_day
     ) %>%
+    # Convert to long form
     gather(variable, value, -followup_visit_number) %>%
+    # Plot histograms
     ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_wrap(vars(followup_visit_number, variable), 
-               scales = "free")
+    facet_grid(followup_visit_number ~ variable, scales = "free")
+```
+
+`@sct`
+```{r}
+success_msg("Nice!")
+```
+
+***
+
+```yaml
+type: NormalExercise
+key: d6a3c7d607
+xp: 30
+```
+
+`@instructions`
+Select and plot prevalent hypertension and CHD events, as well as the main outcome.
+
+`@hint`
+- Select the `got_cvd` variable, as well as prevalent MI and CHD.
+
+`@sample_code`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three cardiovascular variables
+        ___
+    ) %>% 
+    # Convert to long form
+    ___(variable, value, -followup_visit_number) %>%
+    # Plot histograms
+    ___(aes(x = value)) +
+    ___() +
+    ___(followup_visit_number ~ variable, scales = "free")
+```
+
+`@solution`
+```{r}
+tidier_framingham %>%
+    select(
+        followup_visit_number,
+        # Select the three cardiovascular variables
+        prevalent_hypertension, prevalent_chd, got_cvd
+    ) %>%
+    # Convert to long form
+    gather(variable, value, -followup_visit_number) %>%
+    # Plot histograms
+    ggplot(aes(x = value)) +
+    geom_histogram() +
+    facet_grid(followup_visit_number ~ variable, scales = "free")
 ```
 
 `@sct`
@@ -143,17 +271,19 @@ key: e50ea375f8
 xp: 100
 ```
 
-Boxplots are great for showing a distribution by a grouping variable (e.g. sex or disease status). Create multiple boxplots of several exposure variables with the outcome variable (CVD) by combining what we learned previously about converting to long form and using facetting.
+Create multiple boxplots of several exposures with the outcome. Use a combination of converting to long data form, grouping to show the outcome, and facetting by year to show temporal changes.
 
 `@instructions`
-- Select the variables `got_cvd`, `total_cholesterol`, `participant_age`, and `body_mass_index`.
-- Also exclude `got_cvd` from the `gather()` function and set `value` for the y-axis in `aes()`.
-- Add a `geom_boxplots()` layer, with `got_cvd` as a color in `aes()`.
-- Lastly, flip the plot using `coord_flip()`.
+- Select participant age, total cholesterol, body mass, and systolic and diastolic blood pressure.
+- Convert to long data form, excluding visit number and the outcome.
+- Create boxplots, colored by the outcome.
+- Facet by visit number.
 
 `@hint`
-- The initial `ggplot2` setup should be `ggplot(aes(x = value, y = variable, color = got_cvd))`.
-- Include `-got_cvd` after `-followup_visit_number` in `gather()`.
+- Select `total_cholesterol`, `participant_age`, `body_mass_index`, `systolic_blood_pressure`, and `diastolic_blood_pressure`.
+- Use `gather` and exclude the followup visit number and the `got_cvd` outcome.
+- Create `geom_boxplots`, colored by `got_cvd`.
+- Use the `vars()` function to wrap the variable name in `facet_grid`.
 
 `@pre_exercise_code`
 ```{r}
@@ -167,43 +297,40 @@ tidier_framingham <- tidier_framingham %>%
 
 `@sample_code`
 ```{r}
+# Convert to long form and make multiple box plots over time
 tidier_framingham %>% 
-    select(followup_visit_number,
-           # Select the disease and the three continuous variables
-           ___, ___,
-           ___, ___) %>% 
-    # Exclude also the disease
-    gather(variable, value, -followup_visit_number, -___) %>% 
-    # Set y, x, and colour
-    ggplot(aes(y = ___, x = variable, color = ___)) +
+    select(followup_visit_number, got_cvd, 
+           # Select the 5 continuous variables
+           ___) %>% 
+    # Convert to long form
+    ___(variable, value, -___, -___) %>% 
+    ggplot(aes(y = value, x = variable, color = ___)) +
     # Plot boxplots
     ___() +
-    facet_wrap(vars(followup_visit_number), ncol = 1) +
-    # Flip the plot
-    ___()
+    facet_grid(rows = ___) +
+    coord_flip()
 ```
 
 `@solution`
 ```{r}
+# Convert to long form and make multiple box plots over time
 tidier_framingham %>% 
-    select(followup_visit_number,
-           # Select the disease and the three continuous variables
-           got_cvd, total_cholesterol,
-           participant_age, body_mass_index) %>% 
-    # Exclude also the disease
+    select(followup_visit_number, got_cvd, 
+           # Select the 5 continuous variables
+           total_cholesterol, participant_age, body_mass_index,
+           systolic_blood_pressure, diastolic_blood_pressure) %>% 
+    # Convert to long form
     gather(variable, value, -followup_visit_number, -got_cvd) %>% 
-    # Set y, x, and colour
     ggplot(aes(y = value, x = variable, color = got_cvd)) +
     # Plot boxplots
     geom_boxplot() +
-    facet_wrap(vars(followup_visit_number), ncol = 1) +
-    # Flip the plot
+    facet_grid(rows = vars(followup_visit_number)) +
     coord_flip()
 ```
 
 `@sct`
 ```{r}
-success_msg("Excellent! You quickly created a figure showing several continuous variables by the outcome, and over time! Notice how some variables are a bit higher in the `got_cvd` group and that over time these differences decreased? Also notice the problem of showing multiple variables that have vastly different values such as between body mass and cholesterol.")
+success_msg("Excellent! You quickly created a figure showing several continuous variables by the outcome, and over time! Notice how some variables are a bit higher in the `got_cvd` group and that over time these differences decreased?")
 ```
 
 ---
