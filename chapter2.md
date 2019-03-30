@@ -397,7 +397,7 @@ library(dplyr)
 ```yaml
 type: NormalExercise
 key: cbc1123965
-xp: 35
+xp: 50
 ```
 
 `@instructions`
@@ -442,7 +442,7 @@ success_msg("Excellent!")
 ```yaml
 type: NormalExercise
 key: 93db7dd67f
-xp: 35
+xp: 50
 ```
 
 `@instructions`
@@ -488,65 +488,6 @@ tidier2_framingham <- tidier_framingham %>%
 `@sct`
 ```{r}
 success_msg("Excellent!")
-```
-
-***
-
-```yaml
-type: NormalExercise
-key: 41077e061c
-xp: 30
-```
-
-`@instructions`
-- Confirm that the education and sex values have properly changed.
-
-`@hint`
-- Use `count` with the `education` and `sex` variables.
-
-`@sample_code`
-```{r}
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_),
-        sex = case_when(
-            sex == 1 ~ "Man",
-            sex == 2 ~ "Woman",
-            TRUE ~ NA_character_))
-
-# Confirm changes to the two variables
-___(tidier2_framingham, ___)
-___
-```
-
-`@solution`
-```{r}
-tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        education = case_when(
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_),
-        sex = case_when(
-            sex == 1 ~ "Man",
-            sex == 2 ~ "Woman",
-            TRUE ~ NA_character_))
-
-# Confirm changes to the two variables
-count(tidier2_framingham, education)
-count(tidier2_framingham, sex)
-```
-
-`@sct`
-```{r}
-success_msg("Awesome! You've tidied up discrete values to be understandable to humans!")
 ```
 
 ---
