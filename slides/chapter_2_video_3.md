@@ -155,10 +155,9 @@ key: "cadb2ff612"
 
 `@part1`
 - Transform for many reasons, with many choices
-    - Be thoughtful and careful about the why
+    - Be thoughtful and careful about why
 - Common ones include `log()` and `scale()`
-- Transforms can strongly influence the distribution
-
+- Transforms can strongly influence distribution
 
 `@script`
 In this lesson, we covered some of the reasons to use transformations and some common types, such as the log or scaling. As always, be careful and thoughtful about using transformations. Your findings may influence human health, so you must be sure to avoid possible miscommunication.
