@@ -394,7 +394,6 @@ library(dplyr)
 
 ```yaml
 type: NormalExercise
-key: cbc1123965
 xp: 50
 ```
 
@@ -409,6 +408,7 @@ xp: 50
 ```{r}
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
+        # Convert the values for education
         education = ___(
             # Use the format: variable == number ~ "string"
             education == ___ ~ ___,
@@ -417,12 +417,16 @@ tidier2_framingham <- tidier_framingham %>%
           	education == ___ ~ ___,
             TRUE ~ NA_character_)
       )
+
+# Check changed education
+count(tidier2_framingham, education)
 ```
 
 `@solution`
 ```{r}
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
+        # Convert the values for education
         education = case_when(
             # Use the format: variable == number ~ "string"
             education == 1 ~ "0-11 years",
@@ -431,6 +435,9 @@ tidier2_framingham <- tidier_framingham %>%
             education == 4 ~ "College",
             TRUE ~ NA_character_)
       )
+
+# Check changed education
+count(tidier2_framingham, education)
 ```
 
 `@sct`
