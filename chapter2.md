@@ -679,34 +679,36 @@ xp: 50
 ```
 
 `@instructions`
-- Convert the dataset into the long form for the body mass index variables and create a ggplot histogram.
+- Pipe `transformed_framingham` into `select()` and then use `contains()` to keep variables with `body_mass_index` in the name.
+- Put the variable `values` as the `x` in `aes()`.
+- Facet by `transformations`.
 
 `@hint`
-- Use `gather` to convert to long form.
-- Name the key argument `variables` and the value argument `values`.
-- Use `geom_histogram` as a ggplot layer.
-- Have `x = values` as the aesthetic.
+- Select the variables with `contains("body_mass_index")`.
+- Use `x = values` inside `aes()`.
 
 `@sample_code`
 ```{r}
-# Plot body mass index transforms
-bmi_transforms_plot <- transformed_framingham %>% 
-    ___(variables, values, contains("___")) %>% 
-    ___(___(x = values)) +
-    ___ +
-    facet_wrap( ~ variables, scale = "free")
+# Plot a histogram of body mass transforms
+bmi_transforms_plot <- ___ %>% 
+    select(contains(___)) %>% 
+    gather(transformations, values) %>% 
+    ggplot(aes(x = ___)) +
+    geom_histogram() +
+    facet_wrap(vars(___), scale = "free")
 
 bmi_transforms_plot
 ```
 
 `@solution`
 ```{r}
-# Plot body mass index transforms
+# Plot a histogram of body mass transforms
 bmi_transforms_plot <- transformed_framingham %>% 
-    gather(variables, values, contains("body_mass_index")) %>% 
+    select(contains("body_mass_index")) %>% 
+    gather(transformations, values) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    facet_wrap( ~ variables, scale = "free")
+    facet_wrap(vars(transformations), scale = "free")
 
 bmi_transforms_plot
 ```
