@@ -87,44 +87,28 @@ tidier_framingham %>%
     )) %>%
     count(cig_packs_per_day)
 
-# Video 3 -----------------------------------------------------------------
+# Video 3 transforming variables ------------------------------------------
 
-# summary(diet)
-
-diet <- as_tibble(diet)
 invert <- function(x) 1 / x
-transformed <- diet %>%
-    select(weight, height) %>%
-    mutate_at(vars(weight, height),
+transformed <- tidier2_framingham %>%
+    mutate_at(vars(body_mass_index, heart_rate),
               funs(scale, log, invert))
 
 ## Variable names
 transformed %>%
-    select(matches("weight|height")) %>%
+    select(contains("body_mass_index"),
+           contains("heart_rate")) %>%
     names()
 
-## Histogram and density
+# Video 3 plotting transformations ----------------------------------------
 
-invert <- function(x) 1 / x
-transformed <- diet %>%
-    mutate_at(vars(weight, height),
-              funs(scale, log, invert))
+p <- transformed %>%
+    select(contains("body_mass_index")) %>%
+    gather(transformations, values) %>%
+    ggplot(aes(x = values, y = stat(density))) +
+    geom_histogram(colour = "black", fill = "grey80", size = 0.25) +
+    geom_density() +
+    facet_wrap(vars(transformations), scales = "free")
 
-ggplot(transformed, aes(x = weight, # And another for each transform
-                        y = stat(density))) +
-    geom_histogram(colour = "black", fill = "lightyellow", size = 0.25) +
-    geom_density()
-
-histo_density <- function(.data, x) {
-    xvar <- enquo(x)
-    ggplot(transformed, aes(x = !!xvar, y = stat(density))) +
-        geom_histogram(colour = "black", fill = color_theme[7], size = 0.25) +
-        geom_density() +
-        theme_gray(base_size = 18)
-}
-
-plot_transform_weight <- histo_density(transformed, weight) +
-    histo_density(transformed, weight_scale) + ylab("") +
-    histo_density(transformed, weight_log) +
-    histo_density(transformed, weight_invert) + ylab("")
-ggsave(here::here("datasets/ch2-v3-transform-weight.png"), width = 7, height = 6)
+ggsave(here::here("datasets/ch2-v3-transform-weight.png"), p,
+       width = 6.5, height = 4, dpi = 90)
