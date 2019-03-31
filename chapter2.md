@@ -108,7 +108,7 @@ key: 6e98f4c451
 xp: 100
 ```
 
-Now that you've learned how to create histograms, let's convert some of the Framingham dataset into the longer data format using `gather()`. Then, using the long data form, create histograms for multiple variables simultaneously for each followup visit. This will give us quick overview of the data and their distribution. Pay attention to how the distribution of each variable looks like.
+Now that you've learned how to create histograms, let's convert some of the Framingham dataset into the longer data format using `gather()`. Then, using the long data form, create histograms for multiple variables simultaneously for each followup visit. This will give us a quick overview of the data and their distribution. Pay attention to how the distribution of each variable looks like.
 
 `@pre_exercise_code`
 ```{r}
@@ -169,7 +169,7 @@ xp: 25
 ```
 
 `@instructions`
-- Use `facet_wrap()` by the variables `followup_visit_number` and `variable`. Don't forget about using the `vars()` function.
+- `facet_wrap()` by the variables `followup_visit_number` and `variable`. Don't forget to use the `vars()` function.
 
 `@hint`
 - The variables in `facet_wrap()` need to be within the `vars()` function and separated by a comma.
@@ -269,9 +269,9 @@ xp: 25
 ```
 
 `@question`
-There were several things that you could see from the distributions of the variables and things to consider for later analyses. Did you notice a few of them?
+There were several things to observe from the distributions of the variables and some things to consider for later analyses. Did you notice a few of them?
 
-Which of the answers below describes some observations about the data?
+Which of the answers below describes some observations about the data.
 
 `@possible_answers`
 - The lipoprotein data was not available at visits 1 and 2.
