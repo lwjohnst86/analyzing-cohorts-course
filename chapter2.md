@@ -172,7 +172,7 @@ xp: 25
 - `facet_wrap()` by the variables `followup_visit_number` and `variable`. Don't forget to use the `vars()` function.
 
 `@hint`
-- The variables in `facet_wrap()` need to be within the `vars()` function and separated by a comma.
+- The `facet_wrap()` variables need to be within the `vars()` function and separated by a comma.
 
 `@sample_code`
 ```{r}
