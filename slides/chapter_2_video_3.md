@@ -116,7 +116,7 @@ key: "222e77d41e"
 ```{r}
 # Long data and facets to show all plots
 transformed %>%
-    select(contains("body_mass_index")) %>%
+    select(contains("heart_rate")) %>%
     gather(transformations, values) %>%
     ggplot(aes(x = values, y = stat(density))) +
     geom_histogram(colour = "black", fill = "grey80") +

@@ -103,12 +103,12 @@ transformed %>%
 # Video 3 plotting transformations ----------------------------------------
 
 p <- transformed %>%
-    select(contains("body_mass_index")) %>%
+    select(contains("heart_rate")) %>%
     gather(transformations, values) %>%
     ggplot(aes(x = values, y = stat(density))) +
     geom_histogram(colour = "black", fill = "grey80", size = 0.25) +
     geom_density() +
     facet_wrap(vars(transformations), scales = "free")
 
-ggsave(here::here("datasets/ch2-v3-transform-weight.png"), p,
+ggsave(here::here("datasets/ch2-v3-transform-hr.png"), p,
        width = 6.5, height = 4, dpi = 90)
