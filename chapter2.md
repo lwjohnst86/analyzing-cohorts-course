@@ -526,9 +526,9 @@ tidier2_framingham$education_combined <- NULL
 
 `@sample_code`
 ```{r}
-# Merge college and vocational levels
 tidier2_framingham <- tidier2_framingham %>% 
     mutate(education_combined = ___(
+        # Merge college and vocational levels
         education, 
         # Form is: "new" = "old"
         ___ = ___,
@@ -536,18 +536,14 @@ tidier2_framingham <- tidier2_framingham %>%
         ))
 
 # Confirm changes to variable
-___(tidier2_framingham, ___)
-
-# Compare counts of original and merged by visit
-___
-___
+count(tidier2_framingham, ___)
 ```
 
 `@solution`
 ```{r}
-# Merge college and vocational levels
 tidier2_framingham <- tidier2_framingham %>% 
     mutate(education_combined = fct_recode(
+        # Merge college and vocational levels
         education, 
         # Form is: "new" = "old"
         "Post-Secondary" = "College",
@@ -556,10 +552,6 @@ tidier2_framingham <- tidier2_framingham %>%
 
 # Confirm changes to variable
 count(tidier2_framingham, education_combined)
-
-# Compare counts of original and merged by visit
-count(tidier2_framingham, followup_visit_number, education)
-count(tidier2_framingham, followup_visit_number, education_combined)
 ```
 
 `@sct`
