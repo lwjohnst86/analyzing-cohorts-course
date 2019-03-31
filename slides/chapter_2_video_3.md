@@ -100,6 +100,7 @@ transformed <- tidier2_framingham %>%
 ```
 {{2}}
 
+
 `@script`
 With the mutate function from dplyr, transforming is easy! The example here shows adding a column. You create the new column with the log of the original values. This can get tedious if you have many variables and many transformations. A faster way is to use the mutate underscore at function. It takes two arguments, the variables specified by the vars function, and the transformation functions specified by the funs function. Mutate underscore at appends the transformation function name to the end of the variable name. This is why you should create a transformation function if one doesn't already exist and use that function as the argument in mutate, which is what we did with invert here. With only one or two lines of code, you have now transformed all these variables!
 
@@ -138,7 +139,7 @@ key: "f1d0ec80d5"
 ```
 
 `@part1`
-![Transformation distributions](https://assets.datacamp.com/production/repositories/2079/datasets/7e106292daaf9e136d85eaa36b289e552449f751/ch2-v3-transform-weight.png)
+![Transformation distributions](https://assets.datacamp.com/production/repositories/2079/datasets/5fe02fbe9ca848b638b67b889fbab70790958fc6/ch2-v3-transform-hr.png)
 
 
 `@script`
@@ -158,6 +159,7 @@ key: "cadb2ff612"
     - Be thoughtful and careful about why
 - Common ones include `log()` and `scale()`
 - Transforms can strongly influence distribution
+
 
 `@script`
 In this lesson, we covered some of the reasons to use transformations and some common types, such as the log or scaling. As always, be careful and thoughtful about using transformations. Your findings may influence human health, so you must be sure to avoid possible miscommunication.
