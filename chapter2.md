@@ -401,8 +401,7 @@ xp: 50
 ```
 
 `@instructions`
-- Convert the education values to a human readable format using `case_when()`.
-- The original education numbers should correspond to the following strings: 1 = "0-11 years"; 2 = "High School"; 3 = "Vocational"; 4 = "College".
+- Tidy education up with `case_when()` to: 1 = "0-11 years"; 2 = "High School"; 3 = "Vocational"; 4 = "College".
 
 `@hint`
 - The form for the `case_when()` should look like `education == 1 ~ "0-11 years"`, for each number-string pairing.
@@ -457,7 +456,7 @@ xp: 50
 ```
 
 `@instructions`
-- Do the same thing for the sex variable, with the numbers corresponding to the following strings: 1 = "Man"; 2 = "Woman".
+- Do the same thing for the sex variable, to: 1 = "Man"; 2 = "Woman".
 
 `@hint`
 - The form for the `case_when()` should look like `sex == 1 ~ "Man"`, for each number-string pairing.
