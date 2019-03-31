@@ -45,7 +45,7 @@ p <- tidier_framingham %>%
 ggsave(here::here("datasets/ch2-v1-boxplot.png"), p, dpi = 90,
        width = 4, height = 4, device = "png")
 
-# Video 2 -----------------------------------------------------------------
+# Video 2 discretizing ----------------------------------------------------
 
 plot_discretising <- tidier_framingham %>%
     ggplot(aes(x = body_mass_index)) +
@@ -61,6 +61,8 @@ tidier_framingham %>%
                    fill = "grey80") +
     geom_vline(xintercept = c(20, 25, 30),
                linetype = "dashed")
+
+# Video 2 tidying discrete variables --------------------------------------
 
 tidier_framingham %>%
     count(cigarettes_per_day)
