@@ -29,12 +29,12 @@ key: "5dcb3a9bee"
 ```
 
 `@part1`
-- Transformation: Applying mathematical function to data, often to change its distribution {{1}}
+- Transformation: Applying math functions to data {{1}}
 - Multiple reasons to transform variables: {{2}}
     - To fit with statistical assumptions
     - To convert to shared variable unit
     - To analyze for linear relationships
-    - *To improve interpretation of model results*
+    - To improve interpretation of model results
 
 
 `@script`
