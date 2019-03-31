@@ -46,7 +46,37 @@ tidier_framingham <- framingham %>%
         followup_visit_number = period
     )
 
-save(tidier_framingham, file = "datasets/framingham_tidier.rda")
+save(tidier_framingham, file = here::here("datasets/framingham_tidier.rda"))
+
+tidier2_framingham <- tidier_framingham %>%
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            ),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_
+            )
+        ) %>%
+    mutate(education_combined = forcats::fct_recode(
+        education,
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+saveRDS(tidier2_framingham, file = here::here("datasets/tidier2_framingham.Rds"))
+
+invert <- function(x) 1 / x
+transformed_framingham <- tidier2_framingham %>%
+    mutate_at(vars(body_mass_index, cigarettes_per_day),
+              list(invert, log, sqrt))
+
+saveRDS(transformed_framingham, file = here::here("datasets/transformed_framingham.Rds"))
 
 # For chapter 3 -----------------------------------------------------------
 
