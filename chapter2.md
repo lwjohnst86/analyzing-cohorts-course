@@ -362,7 +362,7 @@ success_msg("Excellent! You quickly created a figure showing several continuous 
 
 ---
 
-## Tidying discrete data for later analysis
+## Discrete data and tidying it for later analysis
 
 ```yaml
 type: VideoExercise

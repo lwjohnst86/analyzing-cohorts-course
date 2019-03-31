@@ -3,7 +3,7 @@ title: Tidying discrete data for later analysis
 key: 4e1f8ff56b37d8caee655cf2b0b4639d
 
 ---
-## Tidying discrete data for later analysis
+## Discrete data and tidying it for later analysis
 
 ```yaml
 type: "TitleSlide"
@@ -99,10 +99,11 @@ For example, you may be familiar with the different weight classes based on your
 ```yaml
 type: "FullSlide"
 key: "3b16cf3f48"
+disable_transition: true
 ```
 
 `@part1`
-![Discretizing a continuous body mass index](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/6f6a793790e58b28f993ee4986409a5873fb424f/plot-discretising.png) {{2}}
+![Discretizing a continuous body mass index](https://assets.datacamp.com/production/repositories/2079/datasets/bbc561913da156d767e3f93d28184643fe969ce5/ch2-v2-discretising.png)
 
 
 `@script`
