@@ -51,7 +51,7 @@ key: "cb8a52378a"
 
 `@part1`
 - Think carefully about which to use {{1}}
-- Depends on data, analysis, and eventual interpretation {{2}}
+- Depends on data, analysis, and desired interpretation {{2}}
 
 | Type | R code | When to use |
 |:-----|:-------|:------------|
@@ -59,7 +59,8 @@ key: "cb8a52378a"
 | mean-center | `scale(x, scale = FALSE)` | Zero is the mean; use for easier interpretation |
 | scaling | `scale(x)` | Same unit; be careful with longitudinal data |
 | square root | `sqrt(x)` | Great for count data; handles zeros |
-| inverse |`1 / x`| To invert values/unit, but no zeros | {{3}}
+| inverse |`1 / x`| To invert values/unit, but no zeros | 
+{{3}}
 
 
 `@script`
