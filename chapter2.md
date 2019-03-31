@@ -380,6 +380,7 @@ xp: 50
 ```yaml
 type: BulletExercise
 xp: 100
+key: e916c33326
 ```
 
 As you may have noticed, there are several discrete variables with ambiguous values. For instance, sex has the values as either 1 or 2, but what do those numbers mean? Often, you will encounter discrete data as integers rather than human-readable strings when working with cohort datasets. With data like this, you need to have a data dictionary to know what the numbers mean. Let's fix this problem and tidy up the data so it is human-readable.
@@ -395,6 +396,7 @@ library(dplyr)
 ```yaml
 type: NormalExercise
 xp: 50
+key: 556d51535a
 ```
 
 `@instructions`
@@ -450,6 +452,7 @@ success_msg("Excellent!")
 ```yaml
 type: NormalExercise
 xp: 50
+key: 57c4db5e65
 ```
 
 `@instructions`
