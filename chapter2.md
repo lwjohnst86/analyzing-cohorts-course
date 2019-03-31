@@ -104,7 +104,6 @@ success_msg("Great job! You've created histograms and examined two variables.")
 
 ```yaml
 type: TabExercise
-key: c03b3cbc95
 xp: 100
 ```
 
@@ -122,7 +121,7 @@ library(ggplot2)
 
 ```yaml
 type: NormalExercise
-key: 871fc51832
+xp: 25
 ```
 
 `@instructions`
@@ -163,8 +162,7 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-key: f47ff957e7
-xp: 35
+xp: 25
 ```
 
 `@instructions`
@@ -214,8 +212,7 @@ success_msg("Great!")
 
 ```yaml
 type: NormalExercise
-key: b4ebf26231
-xp: 35
+xp: 25
 ```
 
 `@instructions`
@@ -263,8 +260,7 @@ success_msg("Amazing!")
 
 ```yaml
 type: MultipleChoiceExercise
-key: cb687dd833
-xp: 30
+xp: 25
 ```
 
 `@question`
@@ -293,7 +289,6 @@ success_msg("Great job! These types of observations are important to consider an
 
 ```yaml
 type: NormalExercise
-key: e50ea375f8
 xp: 100
 ```
 
