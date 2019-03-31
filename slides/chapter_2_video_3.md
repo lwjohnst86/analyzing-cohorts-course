@@ -129,7 +129,7 @@ key: "f1d0ec80d5"
 ```
 
 `@part1`
-![Transformation distributions](http://assets.datacamp.com/production/repositories/2079/datasets/a2a1cc3b6769cb841ba7905f473f842cbc5f5e24/plot_transform_weight.png)
+![Transformation distributions](https://assets.datacamp.com/production/repositories/2079/datasets/7e106292daaf9e136d85eaa36b289e552449f751/ch2-v3-transform-weight.png)
 
 
 `@script`
