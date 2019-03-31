@@ -449,7 +449,6 @@ success_msg("Excellent!")
 
 ```yaml
 type: NormalExercise
-key: 93db7dd67f
 xp: 50
 ```
 
@@ -463,38 +462,32 @@ xp: 50
 ```{r}
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
-        education = case_when(
-          	# Use the format: variable == number ~ "string"
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_),
         # Convert the values for sex
         sex = case_when(
+          	# Use the format: variable == number ~ "string"
         	sex == ___ ~ ___,
             sex == ___ ~ ___,
             TRUE ~ NA_character_)
     )
+    
+# Check changed education
+count(tidier2_framingham, sex)
 ```
 
 `@solution`
 ```{r}
 tidier2_framingham <- tidier_framingham %>% 
     mutate(
-        education = case_when(
-          	# Use the format: variable == number ~ "string"
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_),
         # Convert the values for sex
         sex = case_when(
-            sex == 1 ~ "Man",
-            sex == 2 ~ "Woman",
+          	# Use the format: variable == number ~ "string"
+        	sex == ___ ~ ___,
+            sex == ___ ~ ___,
             TRUE ~ NA_character_)
     )
+    
+# Check changed education
+count(tidier2_framingham, sex)
 ```
 
 `@sct`
