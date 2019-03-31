@@ -74,7 +74,7 @@ saveRDS(tidier2_framingham, file = here::here("datasets/tidier2_framingham.Rds")
 invert <- function(x) 1 / x
 transformed_framingham <- tidier2_framingham %>%
     mutate_at(vars(body_mass_index, cigarettes_per_day),
-              list(invert, log, sqrt))
+              funs(invert, log, sqrt))
 
 saveRDS(transformed_framingham, file = here::here("datasets/transformed_framingham.Rds"))
 
