@@ -17,7 +17,7 @@ title: Diabetes epidemiologist
 
 
 `@script`
-Cohort datasets often contain many discrete variables. Questionnaires are an example of this. In this lesson, we will discuss when and how to tidy up discrete data.
+Cohort datasets often contain many discrete variables, for instance like data obtained from questionnaires. In this lesson, we will discuss when and how to tidy up discrete data.
 
 
 ---
@@ -29,11 +29,10 @@ key: "f3f4f626e0"
 ```
 
 `@part1`
-> Dichotomania: The obsession to convert continuous data into discrete or binary data, also known as discretizing or dichotomizing. {{1}}
+> Dichotomania: The obsession to convert continuous data into discrete or binary data {{1}}
 
-- Example: {{2}}
-  - obese = body mass index > 30 {{2}}
-  - overweight = body mass index between 25-30 {{2}}
+- Also called discretizing or dichotomizing {{2}}
+- Example: obese = body mass index > 30 {{3}}
 
 
 `@script`
@@ -41,7 +40,7 @@ Before continuing, I want to talk about a problem common in health research, whi
 
 
 ---
-## A comment on "dichotomania"
+## Don't discretize continuous data
 
 ```yaml
 type: "FullSlide"
@@ -50,12 +49,11 @@ disable_transition: true
 ```
 
 `@part1`
-- Should be avoided {{1}}
-- Dichotomizing or discretizing: {{2}}
-    - No statistical utility
-    - Little to no clinical value
-    - High misclassification
-    - Reduces power
+- Discretizing: {{1}}
+    - Reduces statistical power
+    - Little clinical value
+    - Higher misclassification
+    - Should be avoided {{2}}
 
 
 `@script`
@@ -81,15 +79,14 @@ key: "9d1583baf0"
 
 `@part2`
 ```{r}
-diet %>%
-    mutate(BMI = weight / ((height / 100) ^ 2)) %>%
-    ggplot(aes(x = BMI)) +
-    geom_histogram(color = "black", fill = "lightyellow", 
-                   bins = 40) +
+tidier_framingham %>%
+    ggplot(aes(x = body_mass_index)) +
+    geom_histogram(colour = "black", 
+                   fill = "grey80") +
     geom_vline(xintercept = c(20, 25, 30), 
-               size = 1, linetype = "dashed") +
-    xlab("Body mass index")
-``` {{1}}
+               linetype = "dashed")
+```
+{{1}}
 
 
 `@script`
@@ -111,32 +108,58 @@ key: "3b16cf3f48"
 `@script`
 Here we see how continuous BMI smoothly passes through each discrete category. Someone with a BMI of 24 point 9 would be classified as normal weight. If they gain a bit of weight and their BMI becomes 25 point 1, they would be classified as overweight. They are statistically treated as equal to someone with a BMI of 29 point 9. Biologically, this makes no sense. So, when you have continuous data, don't dichotomize it.
 
-
 ---
-## Reducing levels of an already discrete variable
+## Reducing levels of naturally discrete variables
 
 ```yaml
 type: "FullSlide"
-key: "4f8c5d1bc5"
 ```
 
 `@part1`
-- Reasons to reduce: {{1}}
-    - Small numbers in one or more category
-    - Ease of later interpretation and generalization
-    - Original categories were not clear
+- Naturally/generally discrete: Usually no fractions {{1}}
+    - "Pills taken": 1 or 2 pills, but not 1.5
 
+- Reasons to reduce: {{2}}
+    - Large error in measurement, e.g. "Eggs eaten daily?"
+    - Small numbers in some levels
+    - Ease of interpretation
+    - Data entry errors
+
+`@script`
+While converting a continuous variable to a discrete one is almost always discouraged, for variables that are already discrete, it may make sense to reduce their levels. There may already be too many levels in the variable, or doing so could simplify the interpretation. 
+
+
+---
+## Reducing levels of naturally discrete variables
+
+```yaml
+type: "FullSlide"
+```
+
+`@part1`
 ```{r}
-# diet dataset from the Epi package
-count(diet, job)
+tidier_framingham %>%
+    count(cigarettes_per_day)
+```
+{{1}}
 
-#> # A tibble: 3 x 2
-#>   job             n
-#>   <fct>       <int>
-#> 1 Driver        102
-#> 2 Conductor      84
-#> 3 Bank worker   151
-``` {{2}}
+```
+# A tibble: 46 x 2
+   cigarettes_per_day     n
+                <dbl> <int>
+ 1                  0  6598
+ 2                  1   162
+ 3                  2    98
+ 4                  3   183
+ 5                  4    65
+ 6                  5   181
+ 7                  6    77
+ 8                  7    47
+ 9                  8    52
+10                  9   149
+# … with 36 more rows
+```
+{{1}}
 
 
 `@script`
@@ -144,9 +167,11 @@ While converting a continuous variable to a discrete one is almost always discou
 
 Let's look at job titles in the diet dataset. Using the count function on the variable, we can see there are three levels with a similar number of participants within each.
 
+If you recall from when you plotted cigarettes per day, the distribution was quite jagged, with most people reporting for instance 15 or 20 cigarettes rather than a number like 18 or 17.
+
 
 ---
-## Reducing levels of an already discrete variable
+## Reducing levels of a discrete variable
 
 ```yaml
 type: "FullSlide"
@@ -155,22 +180,33 @@ key: "5755a8f678"
 
 `@part1`
 ```{r}
-reduced_job <- diet %>%
-    mutate(bank_worker = case_when(
-        job == "Bank worker" ~ "Yes",
-        job != "Bank worker" ~ "No",
+tidier_framingham <- tidier_framingham %>%
+    mutate(cig_packs_per_day = case_when(
+        cigarettes_per_day == 0 ~ "None",
+        cigarettes_per_day >= 1 &
+            cigarettes_per_day <= 20 ~ "Up to one",
+        cigarettes_per_day >= 21 &
+            cigarettes_per_day <= 40 ~ "One to two",
+        cigarettes_per_day > 40 ~ "More than two",
         TRUE ~ NA_character_
     ))
-``` {{1}}
+tidier_framingham %>%
+    count(cig_packs_per_day)
 
-```{r}
-count(reduced_job, bank_worker)
-#> # A tibble: 2 x 2
-#>   bank_worker     n
-#>   <chr>       <int>
-#> 1 No            186
-#> 2 Yes           151
-``` {{2}}
+```
+{{1}}
+
+```
+# A tibble: 5 x 2
+  cig_packs_per_day     n
+  <chr>             <int>
+1 NA                   79
+2 More than two       145
+3 None               6598
+4 One to two         1133
+5 Up to one          3672
+```
+{{2}}
 
 
 `@script`
@@ -178,7 +214,7 @@ Since there are a large number of bank workers, we could reduce the job categori
 
 
 ---
-## Tidying up a discrete variable
+## Further tidying up
 
 ```yaml
 type: "FullSlide"
@@ -188,20 +224,26 @@ key: "835b4136b8"
 `@part1`
 ```{r}
 library(forcats)
-diet %>%
-    mutate(job = fct_recode(job, 
-        # new name = old name
-        "Banker" = "Bank worker"
+tidier_framingham %>%
+    mutate(cig_packs_per_day = fct_recode(
+        cig_packs_per_day, 
+        # Form: "New level" = "Old level"
+        "More than two" = "One to two"
     )) %>%
-    count(job)
-
-#> # A tibble: 3 x 2
-#>   job           n
-#>   <fct>     <int>
-#> 1 Driver      102
-#> 2 Conductor    84
-#> 3 Banker      151
+    count(cig_packs_per_day)
 ```
+{{1}}
+
+```
+# A tibble: 4 x 2
+  cig_packs_per_day     n
+  <fct>             <int>
+1 More than two      1278
+2 None               6598
+3 Up to one          3672
+4 NA                   79
+```
+{{1}}
 
 
 `@script`
