@@ -77,24 +77,28 @@ key: "80913fa973"
 
 `@part1`
 ```{r}
-transformed <- diet %>%
-    mutate(weight_log = log(weight),
-           height_log = log(height)
-           # Or more transformations
-           )
-``` {{1}}
+# Typical way of transforming:
+transformed <- tidier2_framingham %>%
+    mutate(body_mass_index_log = log(body_mass_index_log),
+           heart_rate_log = log(heart_rate))
+```
+{{1}}
 
 ```{r}
+# More efficient way:
 invert <- function(x) 1 / x
-transformed <- diet %>%
-    select(weight, height) %>%
-    mutate_at(vars(weight, height), funs(scale, log, invert))
+transformed <- tidier2_framingham %>%
+    mutate_at(vars(body_mass_index, heart_rate),
+              funs(scale, log, invert))
+```
+{{1}}
 
-names(transformed)
-#> [1] "weight"        "height"        "weight_scale"  "height_scale" 
-#> [5] "weight_log"    "height_log"    "weight_invert" "height_invert"
-``` {{2}}
-
+```
+[1] "body_mass_index"        "heart_rate"             "body_mass_index_scale" 
+[4] "heart_rate_scale"       "body_mass_index_log"    "heart_rate_log"        
+[7] "body_mass_index_invert" "heart_rate_invert"     
+```
+{{2}}
 
 `@script`
 With the mutate function from dplyr, transforming is easy! The example here shows adding a column. You create the new column with the log of the original values. This can get tedious if you have many variables and many transformations. A faster way is to use the mutate underscore at function. It takes two arguments, the variables specified by the vars function, and the transformation functions specified by the funs function. Mutate underscore at appends the transformation function name to the end of the variable name. This is why you should create a transformation function if one doesn't already exist and use that function as the argument in mutate, which is what we did with invert here. With only one or two lines of code, you have now transformed all these variables!
@@ -110,10 +114,14 @@ key: "222e77d41e"
 
 `@part1`
 ```{r}
-# One plot for each transformation
-ggplot(transformed, aes(x = weight, y = stat(density))) +
-    geom_histogram(color = "black", fill = "lightyellow", size = 0.25) +
-    geom_density()
+# Long data and facets to show all plots
+transformed %>%
+    select(contains("body_mass_index")) %>%
+    gather(transformations, values) %>%
+    ggplot(aes(x = values, y = stat(density))) +
+    geom_histogram(colour = "black", fill = "grey80") +
+    geom_density() +
+    facet_wrap(vars(transformations), scales = "free")
 ```
 
 
