@@ -775,17 +775,19 @@ xp: 50
 
 Understanding how each transformation influences the units and the distribution of the data is an important step in properly applying these transformations. Try answering these questions about the shape of the data after each transformation.
 
-Both `bmi_transforms_plot` and `cpd_transforms_plot` are loaded for you to examine. Looking at the graphs, observe how each transformation influences the distribution of body mass index or cigarettes per day and think about how these new distributions might influence later analyses. Which statement is true?
+Both `bmi_transforms_plot` and `cpd_transforms_plot` are loaded for you to examine. Looking at the graphs, observe how each transformation influences the distribution of body mass index or cigarettes per day and think about how these new distributions might influence later analyses. 
+
+Which statement is true?
 
 `@possible_answers`
 - Square root and scale don't change the distribution but do change the unit.
 - Logarithm changes the distribution and unit.
-- Body mass already has a good distribution and the original unit.
+- Body mass already has a good distribution and has the original unit.
 - Scale can make interpreting easier as 1 unit = 1 standard deviation of the original unit.
 - All of the above.
 
 `@hint`
-- Look at the distribution of each transformation on body mass index, compared to the original distribution.
+- Run `bmi_transforms_plot` and `cpd_transforms_plot` in the console to look at the distributions.
 
 `@pre_exercise_code`
 ```{r}
@@ -795,16 +797,18 @@ library(dplyr)
 library(ggplot2)
 
 bmi_transforms_plot <- transformed_framingham %>% 
-    gather(variables, values, contains("cigarettes_per_day")) %>% 
+    select(contains("body_mass_index")) %>% 
+    gather(transformations, values) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    facet_wrap( ~ variables, scale = "free")
+    facet_wrap(vars(transformations), scale = "free")
 
 cpd_transforms_plot <- transformed_framingham %>% 
-    gather(variables, values, contains("body_mass_index")) %>% 
+    select(contains("cigarettes_per_day")) %>% 
+    gather(transformations, values) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    facet_wrap( ~ variables, scale = "free")
+    facet_wrap(vars(transformations), scale = "free")
 ```
 
 `@sct`
