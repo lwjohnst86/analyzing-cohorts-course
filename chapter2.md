@@ -616,10 +616,13 @@ invert <- function(x) 1 / x
 # Use three transformations on body mass index
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(___, ___), 
-              funs(___, ___, invert))
+              funs(___, ___, ___))
 
-# Confirm created variables
-summary(___)
+# Check the created variable summaries
+transformed_framingham %>% 
+    select(contains(___), 
+           contains(___)) %>% 
+    summary()
 ```
 
 `@solution`
@@ -627,17 +630,20 @@ summary(___)
 invert <- function(x) 1 / x
 
 # Use three transformations on body mass index
-transformed_framingham <- tidier_framingham %>% 
+transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
               funs(log, sqrt, invert))
 
-# Confirm created variables
-summary(transformed_framingham)
+# Check the created variable summaries
+transformed_framingham %>% 
+    select(contains("body_mass_index"), 
+           contains("cigarettes_per_day")) %>% 
+    summary()
 ```
 
 `@sct`
 ```{r}
-success_msg("Excellent! You've used several transformation types on two variables.")
+success_msg("Excellent! You've transformed two variables into several forms.")
 ```
 
 ---
