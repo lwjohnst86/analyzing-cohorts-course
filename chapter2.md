@@ -508,7 +508,7 @@ key: 62bcf49a5e
 xp: 100
 ```
 
-Sometimes, categorical variables (as factors or characters) have many levels but only a few observations in one or more levels. It might make sense to combine categories together for some analyses or particular questions. This is especially useful if we only want to interpret one level compared to the other levels or for levels with few observations. 
+Sometimes, categorical variables (as factors or characters) have many levels but only a few observations in one or more of the levels. It might make sense to combine categories together for some analyses or particular questions.
 
 The `forcats` package has been preloaded as well as the previous `tidier2_framingham` dataset you tidied.
 
@@ -517,7 +517,7 @@ The `forcats` package has been preloaded as well as the previous `tidier2_framin
 - Confirm the education levels have been correctly recoded using `count()`.
 
 `@hint`
-- `fct_recode()` recoding uses the first name as the new one, then the old: `"Post-Secondary" = "College"`.
+- `fct_recode()` recoding should be in the form `"new name" = "old name"`, for example: `"Post-Secondary" = "College"`.
 
 `@pre_exercise_code`
 ```{r}
@@ -536,7 +536,7 @@ tidier2_framingham <- tidier2_framingham %>%
         # Form is: "new" = "old"
         ___ = ___,
         ___ = ___
-        ))
+	))
 
 # Confirm changes to variable
 count(tidier2_framingham, ___)
@@ -551,7 +551,7 @@ tidier2_framingham <- tidier2_framingham %>%
         # Form is: "new" = "old"
         "Post-Secondary" = "College",
         "Post-Secondary" = "Vocational"
-        ))
+    ))
 
 # Confirm changes to variable
 count(tidier2_framingham, education_combined)
