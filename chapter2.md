@@ -658,6 +658,7 @@ We want to plot all transformation types on one plot. As we've done several time
 ```{r}
 transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/db4b0d894d5c2a05c8eab34f0432903694b8f8ad/transformed_framingham.Rds"))
 library(tidyr)
+library(dplyr)
 library(ggplot2)
 ```
 
@@ -778,6 +779,7 @@ Both `bmi_transforms_plot` and `cpd_transforms_plot` are loaded for you to exami
 ```{r}
 transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/db4b0d894d5c2a05c8eab34f0432903694b8f8ad/transformed_framingham.Rds"))
 library(tidyr)
+library(dplyr)
 library(ggplot2)
 
 bmi_transforms_plot <- transformed_framingham %>% 
