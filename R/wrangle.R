@@ -2,7 +2,7 @@
 library(tidyverse, quietly = TRUE)
 
 # Unzip and load in the framingham dataset
-framingham <- read_csv(unz("data-raw/framingham.zip", "FRAMINGHAM_csv/frmgham2.csv"))
+framingham <- read_csv(unz(here::here("data-raw/framingham.zip"), "FRAMINGHAM_csv/frmgham2.csv"))
 
 # For chapter 1 -----------------------------------------------------------
 
@@ -10,7 +10,7 @@ framingham <- read_csv(unz("data-raw/framingham.zip", "FRAMINGHAM_csv/frmgham2.c
 framingham <- framingham %>%
     rename_all(str_to_lower)
 
-save(framingham, file = "datasets/framingham.rda")
+save(framingham, file = here::here("datasets/framingham.rda"))
 
 # For chapter 2 -----------------------------------------------------------
 
