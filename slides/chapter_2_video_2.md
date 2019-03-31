@@ -3,7 +3,7 @@ title: Tidying discrete data for later analysis
 key: 4e1f8ff56b37d8caee655cf2b0b4639d
 
 ---
-## Tidying discrete data for later analysis
+## Discrete data and tidying it for later analysis
 
 ```yaml
 type: "TitleSlide"
