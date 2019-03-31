@@ -176,7 +176,6 @@ If you recall from when you plotted cigarettes per day, the distribution was qui
 
 ```yaml
 type: "FullSlide"
-key: "5755a8f678"
 ```
 
 `@part1`
@@ -219,7 +218,6 @@ Since there are a large number of bank workers, we could reduce the job categori
 
 ```yaml
 type: "FullSlide"
-key: "835b4136b8"
 ```
 
 `@part1`
