@@ -374,6 +374,7 @@ xp: 50
 
 ```yaml
 type: BulletExercise
+key: e916c33326
 xp: 100
 ```
 
@@ -389,6 +390,7 @@ library(dplyr)
 
 ```yaml
 type: NormalExercise
+key: 556d51535a
 xp: 50
 ```
 
@@ -444,6 +446,7 @@ success_msg("Excellent!")
 
 ```yaml
 type: NormalExercise
+key: 57c4db5e65
 xp: 50
 ```
 
