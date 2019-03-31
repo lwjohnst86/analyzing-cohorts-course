@@ -378,12 +378,11 @@ xp: 50
 ## Make discrete variables human-readable
 
 ```yaml
-type: TabExercise
-key: e916c33326
+type: BulletExercise
 xp: 100
 ```
 
-As you may have noticed, there are several discrete variables with ambiguous values. For instance, sex has the values as either 1 or 2, but what do those numbers mean? Often, you will encounter discrete data as integers rather than human-readable strings when working with cohort datasets. With data like this, you need to have a data dictionary to find out the numbers meanings.  Let's fix that problem and tidy up the data a bit more so it is human-readable.
+As you may have noticed, there are several discrete variables with ambiguous values. For instance, sex has the values as either 1 or 2, but what do those numbers mean? Often, you will encounter discrete data as integers rather than human-readable strings when working with cohort datasets. With data like this, you need to have a data dictionary to know what the numbers mean. Let's fix this problem and tidy up the data so it is human-readable.
 
 `@pre_exercise_code`
 ```{r}
