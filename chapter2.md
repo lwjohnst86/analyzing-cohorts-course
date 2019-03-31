@@ -682,9 +682,7 @@ xp: 50
 ```
 
 `@instructions`
-- Pipe `transformed_framingham` into `select()` and then use `contains()` to keep variables with `body_mass_index` in the name.
-- Put the variable `values` as the `x` in `aes()`.
-- Facet by `transformations`.
+- Pipe `transformed_framingham` into `select()` and use `contains()` to keep variables with `body_mass_index` in the name.
 
 `@hint`
 - Select the variables with `contains("body_mass_index")`.
@@ -696,9 +694,9 @@ xp: 50
 bmi_transforms_plot <- ___ %>% 
     select(contains(___)) %>% 
     gather(transformations, values) %>% 
-    ggplot(aes(x = ___)) +
+    ggplot(aes(x = values)) +
     geom_histogram() +
-    facet_wrap(vars(___), scale = "free")
+    facet_wrap(vars(transformations), scale = "free")
 
 bmi_transforms_plot
 ```
