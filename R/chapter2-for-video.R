@@ -1,5 +1,7 @@
 source(here::here("R/setup.R"))
 load(here::here("datasets/framingham_tidier.rda"))
+tidier2_framingham <- readRDS(here::here("datasets/tidier2_framingham.Rds"))
+transformed_framingham <- readRDS(here::here("datasets/transformed_framingham.Rds"))
 
 # Video 1 histogram -------------------------------------------------------
 
@@ -45,30 +47,43 @@ ggsave(here::here("datasets/ch2-v1-boxplot.png"), p, dpi = 90,
 
 # Video 2 -----------------------------------------------------------------
 
-plot_discretising <- diet %>%
-    mutate(BMI = weight / ((height / 100) ^ 2)) %>%
-    ggplot(aes(x = BMI)) +
-    geom_histogram(colour = "black", fill = color_theme[7], bins = 40) +
-    geom_vline(xintercept = c(20, 25, 30), size = 1, linetype = "dashed") +
-    xlab("Body mass index")
-ggsave(here::here("datasets/plot-discretising.png"), dpi = 100)
+plot_discretising <- tidier_framingham %>%
+    ggplot(aes(x = body_mass_index)) +
+    geom_histogram(colour = "black", fill = "grey80", bins = 40) +
+    geom_vline(xintercept = c(20, 25, 30), size = 1, linetype = "dashed")
+ggsave(here::here("datasets/ch2-v2-discretising.png"),
+       width = 6.5, height = 4.5, dpi = 90)
 
-count(diet, job)
+# For video
+tidier_framingham %>%
+    ggplot(aes(x = body_mass_index)) +
+    geom_histogram(colour = "black",
+                   fill = "grey80") +
+    geom_vline(xintercept = c(20, 25, 30),
+               linetype = "dashed")
 
-reduced_job <- diet %>%
-    mutate(bank_worker = case_when(
-        job == "Bank worker" ~ "Yes",
-        job != "Bank worker" ~ "No",
+tidier_framingham %>%
+    count(cigarettes_per_day)
+
+tidier_framingham <- tidier_framingham %>%
+    mutate(cig_packs_per_day = case_when(
+        cigarettes_per_day == 0 ~ "None",
+        cigarettes_per_day >= 1 &
+            cigarettes_per_day <= 20 ~ "Up to one",
+        cigarettes_per_day >= 21 &
+            cigarettes_per_day <= 40 ~ "One to two",
+        cigarettes_per_day > 40 ~ "More than two",
         TRUE ~ NA_character_
     ))
-count(reduced_job, bank_worker)
+tidier_framingham %>%
+    count(cig_packs_per_day)
 
 library(forcats)
-diet %>%
-    mutate(job = fct_recode(
-        job, "Banker" = "Bank worker"
+tidier_framingham %>%
+    mutate(cig_packs_per_day = fct_recode(
+        cig_packs_per_day, "More than two" = "One to two"
     )) %>%
-    count(job)
+    count(cig_packs_per_day)
 
 # Video 3 -----------------------------------------------------------------
 
