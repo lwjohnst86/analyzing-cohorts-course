@@ -656,9 +656,11 @@ key: a4867af13b
 xp: 100
 ```
 
-Visualize how each transformation influences the distribution of the data. Graphing these transformations is useful in helping to guide you to choosing a certain transformation.
+Visualize how each transformation influences the distribution of the data. Graphing these transformations can provide insight into helping you choose a transformation for the variable.
 
-We want to plot all transformation types on one plot. As we've done several times throughout the course, we need to have a long data format to do this.
+Since we have several transformations, we want to plot them all on one plot. As we've done several times throughout the course, we need to use a long data format combined with facets to achieve this.
+
+The `transformed_framingham` dataset you previously wrangled has been loaded.
 
 `@pre_exercise_code`
 ```{r}
