@@ -130,7 +130,7 @@ transformed %>%
 
 
 `@script`
-Let's look at what the transformations do. Here is the code that will create the next figure. We'll plot both a histogram and a density curve. Since both geoms are used, we need to use the stat function with density as the y argument. We convert the data to long form and combine with facet as we've done previously, to plot each transformation.
+Let's look at what the transformations do. Here is the code that will create the next figure. Notice the contains function in select. This function finds all variables with this string. We'll plot both a histogram and a density curve. Since both geoms are used, we need to use the stat function with density as the y argument. We convert the data to long form and combine with facet as we've done previously, to plot each transformation.
 
 
 ---
@@ -146,7 +146,7 @@ key: "f1d0ec80d5"
 
 
 `@script`
-Here are the plotted transforms. Notice how scaling doesn't change the distribution, but now the middle is approximately at zero and the units are interpreted as standard deviations. Compare this to the logarithm, which shrinks the range of the distribution, so more extreme values are closer to the middle. Finally, see how the inverse literally inverts the distribution. Larger heart rates are now small and small are large. Consider how the units change for all transforms and how interpretation will change in later analyses.
+Here are the plotted transforms. Notice how scaling doesn't change the distribution, but now the middle is approximately zero and the units are in standard deviations. Compare this to the logarithm, which shrinks the distribution, so more extreme values are closer to the middle. Finally, see how the inverse literally inverts the distribution. Larger heart rates are now small and small are large. Consider how which transform you use will change the units and, in later analyses, the interpretation.
 
 
 ---
@@ -165,7 +165,7 @@ key: "cadb2ff612"
 
 
 `@script`
-To summarize, we covered some of the reasons to use transformations and some common types, such as the log or scaling. As always, be careful and thoughtful about using transformations. Your findings may influence human health, so you must be sure to avoid possible miscommunication.
+To summarize, we covered when to use transformations and some common types, such as the log or scaling. As always, be careful and thoughtful about using transformations. Your findings may influence human health, so you must be sure to avoid possible miscommunication.
 
 
 ---

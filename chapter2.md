@@ -600,7 +600,7 @@ mutate_at(
 
 `@instructions`
 - In `vars()`, add `body_mass_index` and `cigarettes_per_day`.
-- In `funs()`, add `log`, `sqrt`, and `invert` (this function has been added).
+- In `funs()`, add `log`, `sqrt`, and `invert` (this function is provided).
 - Check how these variables changed by selecting the two original variables names using the `contains()` function and piping to `summary()`.
 
 `@hint`
