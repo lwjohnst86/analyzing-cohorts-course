@@ -574,7 +574,7 @@ xp: 50
 
 ---
 
-## Apply several transformations
+## Apply variable transformations
 
 ```yaml
 type: NormalExercise
@@ -582,15 +582,26 @@ key: c812627e90
 xp: 100
 ```
 
-There are several types of transformations you can choose from. Which one you choose depends on the question, the data values, the statistical method you use, and how you want your results to be interpreted. In later chapters we will cover how each transformation changes how you interpret the results of your analyses.
+There are several types of transformations you can choose from. Which one you choose depends on the question, the type of data and their values (e.g. discrete vs continuous), the statistical method you will use, and how you want your results to be interpreted.
+
+Recall the form for `mutate_at()` is:
+
+```{r}
+mutate_at(
+    # List variables in here:
+    vars(...), 
+    # List functions in here:
+    funs(...)
+)
+```
 
 `@instructions`
-- Log, square root, and invert the values of body mass index and cigarettes per day.
-- Confirm that the transformed variables were created.
+- In `vars()`, add `body_mass_index` and `cigarettes_per_day`.
+- In `funs()`, add `log`, `sqrt`, and `invert` (this function has been added).
+- Check how these variables changed by selecting the two original variables names using the `contains()` function and piping to `summary()`.
 
 `@hint`
-- Use the `body_mass_index` and the `cigarettes_per_day` variables.
-- Use `log` and `sqrt` to transform the values.
+- The `select()` function form should look like `contains("body_mass_index")`.
 
 `@pre_exercise_code`
 ```{r}
