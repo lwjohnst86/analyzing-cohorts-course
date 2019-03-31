@@ -727,38 +727,40 @@ xp: 50
 ```
 
 `@instructions`
-- Now do the same thing for cigarettes per day as you did for body mass index.
+- Now do the same thing for `cigarettes_per_day`.
 
 `@hint`
-- Use the same code as you did for the body mass index, but for `cigarettes_per_day`.
+- Use `contains("cigarettes_per_day")`.
 
 `@sample_code`
 ```{r}
-# Plot cigarettes per day transforms
+# Plot a histogram of cigarettes per day transforms
 cpd_transforms_plot <- transformed_framingham %>% 
-    gather(variables, values, contains("___")) %>% 
+    select(contains("___")) %>% 
+    gather(transformations, values) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    facet_wrap( ~ variables, scale = "free")
+    facet_wrap(vars(transformations), scale = "free")
 
 cpd_transforms_plot
 ```
 
 `@solution`
 ```{r}
-# Plot cigarettes per day transforms
+# Plot a histogram of cigarettes per day transforms
 cpd_transforms_plot <- transformed_framingham %>% 
-    gather(variables, values, contains("cigarettes_per_day")) %>% 
+    select(contains("cigarettes_per_day")) %>% 
+    gather(transformations, values) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
-    facet_wrap( ~ variables, scale = "free")
+    facet_wrap(vars(transformations), scale = "free")
 
 cpd_transforms_plot
 ```
 
 `@sct`
 ```{r}
-success_msg("Great! Check out how each transformation influences the distribution of body mass index and of number of cigarettes. Compare how the transformations affect the two variables differently.")
+success_msg("Great! Check out how each transformation influences the distribution of body mass index and of the number of cigarettes smoked.")
 ```
 
 ---
