@@ -64,11 +64,11 @@ key: 84d96a58a8
 xp: 100
 ```
 
-Let's get you familiar with using and running `glmer` models. There is some tweaking involved when running `glmer` models, such as transforming variables before hand. Often this requires some trial and error to get right. For now, practice running some models.
+Let's get you familiar with using and running `glmer()` models. There is some tweaking involved when running `glmer()` models, such as transforming variables before hand. Often this requires some trial and error to get right. For now, practice running some models.
 
-Since `glmer` is computationally expensive, the Framingham dataset has been reduced in size and is loaded as `sample_tidied_framingham`.
+The `lme4` package has been loaded for you. Since `glmer()` is computationally expensive, the Framingham dataset has been reduced in size and is loaded as `sample_tidied_framingham`.
 
-Recall that the pattern for using `glmer` is:
+Recall that the pattern for using `glmer()` is:
 
 ```{r}
 model <- glmer(
@@ -93,17 +93,18 @@ xp: 50
 ```
 
 `@instructions`
-- Run a model looking at how `total_cholesterol_scaled` relates to CVD (have subject ID as the random term).
+- Run a model looking at how `total_cholesterol_scaled` relates to `got_cvd` (have `subject_id` as the random term).
 
 `@hint`
-- The variables should be `got_cvd`, `total_cholesterol_scaled`, and `subject_id`.
+- The formula should be `got_cvd ~ total_cholesterol_scaled + (1 | subject_id)`.
 
 `@sample_code`
 ```{r}
-# Model cholesterol on CVD
+# Model scaled cholesterol on CVD
 model <- glmer(
-    ___ ~ ___,
+    ___ ~ ___ + ___,
     data = ___,
+  	# Use distribution for binary outcome
     family = ___
     )
 
@@ -113,10 +114,11 @@ summary(model)
 
 `@solution`
 ```{r}
-# Model centered cholesterol on CVD
+# Model scaled cholesterol on CVD
 model <- glmer(
     got_cvd ~ total_cholesterol_scaled + (1 | subject_id),
-    data = sample_tidied_framingham, 
+    data = sample_tidied_framingham,
+  	# Use distribution for binary outcome
     family = binomial
     )
 
@@ -138,17 +140,18 @@ xp: 50
 ```
 
 `@instructions`
-- Try another predictor. Run a model using `fasting_blood_glucose_scaled` as a predictor instead of cholesterol.
+- Try another predictor. Run a model with `fasting_blood_glucose_scaled` as a predictor instead of cholesterol.
 
 `@hint`
 - Using the same formula as the previous step, replace `total_cholesterol_scaled` with `fasting_blood_glucose_scaled`.
 
 `@sample_code`
 ```{r}
-# Model fasting blood glucose on CVD
+# Model scaled fasting blood glucose on CVD
 model <- glmer(
-    ___ ~ ___,
+    ___ ~ ___ + ___,
     data = ___,
+  	# Use distribution for binary outcome
     family = ___
     )
 
@@ -158,12 +161,13 @@ summary(model)
 
 `@solution`
 ```{r}
-# Model fasting blood glucose on CVD
+# Model scaled fasting blood glucose on CVD
 model <- glmer(
     got_cvd ~ fasting_blood_glucose_scaled + (1 | subject_id), 
-    data = sample_tidied_framingham, 
+    data = sample_tidied_framingham,
+  	# Use distribution for binary outcome
     family = binomial
-) 
+	) 
 
 # View the model output
 summary(model)
@@ -184,9 +188,9 @@ key: 7d5ac3e0d5
 xp: 100
 ```
 
-You need to consider many things with `glmer` models, e.g. large variable variances. Often `glmer` will warn you of a problem, which you must fix using your knowledge of transformations. Getting it right often involves trial and error.
+You need to consider many things with `glmer()` models, e.g. large variable variances. Often `glmer()` will warn you of a problem, which you must fix using your knowledge of transformations. Getting it right often involves trial and error.
 
-These exercises will (likely) generate warnings or errors. Compare the different transformations and notice why problems occur. Recall that we are using a smaller dataset, `sample_tidied_framingham`. The general template for `glmer` is:
+These exercises will (likely) generate warnings or errors. Compare the different transformations and notice why problems occur. Recall that we are using a smaller dataset, `sample_tidied_framingham`. The general template for `glmer()` is:
 
 ```{r}
 model <- glmer(
@@ -212,14 +216,14 @@ xp: 35
 ```
 
 `@instructions`
-- Include `total_cholesterol` it in the model; you will get a warning.
+- As before, run a model but use `total_cholesterol` instead (`got_cvd` as the outcome); you will get a warning.
 
 `@hint`
 - Don't forget the random term: `(1 | subject_id)`.
 
 `@sample_code`
 ```{r}
-# Model the total cholesterol
+# Model total cholesterol on CVD
 model <- glmer(
     ___ ~ ___,
     data = sample_tidied_framingham, 
@@ -232,7 +236,7 @@ summary(model)
 
 `@solution`
 ```{r}
-# Model the total cholesterol
+# Model total cholesterol on CVD
 model <- glmer(
     got_cvd ~ total_cholesterol + (1 | subject_id),
     data = sample_tidied_framingham, 
@@ -257,16 +261,16 @@ xp: 35
 ```
 
 `@instructions`
-- Use `total_cholesterol_centered` in the model; you will get a warning.
+- Now use `total_cholesterol_centered` in the model; you will get a warning.
 
 `@hint`
-- Replace the original cholesterol variable with the centered one in the formula.
+- Replace the original cholesterol variable with `total_cholesterol_centered` in the formula.
 
 `@sample_code`
 ```{r}
-# Model with centered cholesterol
+# Model with centered cholesterol on CVD
 model <- glmer(
-    ___,
+    got_cvd ~ ___ + (1 | subject_id), 
     data = sample_tidied_framingham, 
     family = binomial
 ) 
@@ -277,7 +281,7 @@ summary(model)
 
 `@solution`
 ```{r}
-# Model with centered cholesterol
+# Model with centered cholesterol on CVD
 model <- glmer(
     got_cvd ~ total_cholesterol_centered + (1 | subject_id), 
     data = sample_tidied_framingham, 
@@ -311,7 +315,7 @@ xp: 30
 ```{r}
 # Model with scaled cholesterol
 model <- glmer(
-    ___,
+    got_cvd ~ ___ + (1 | subject_id),,
     data = sample_tidied_framingham, 
     family = binomial
 ) 
@@ -350,13 +354,13 @@ xp: 100
 
 Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
 
-Include `followup_visit_number` in the `glmer` formula as well as the random term and the scaled cholesterol predictor.
+Include `followup_visit_number` in the `glmer()` formula as well as the random term and the scaled cholesterol predictor.
 
 `@instructions`
-- Run a model of cholesterol (scaled) and `followup_visit_number` on CVD.
+- Run a model with two predictors: `total_cholesterol_scaled` and `followup_visit_number`.
 
 `@hint`
-- Include `followup_visit_number` after scaled cholesterol, still including the subject ID.
+- Include `+ followup_visit_number` after the scaled cholesterol variable, while still including the subject ID.
 
 `@pre_exercise_code`
 ```{r}
@@ -368,6 +372,7 @@ library(lme4)
 ```{r}
 # Include followup visit number with cholesterol
 model <- glmer(
+  	# Write out the full formula
     ___,
     data = sample_tidied_framingham, 
     family = binomial
@@ -381,6 +386,7 @@ summary(model)
 ```{r}
 # Include followup visit number with cholesterol
 model <- glmer(
+  	# Write out the full formula
     got_cvd ~ total_cholesterol_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, 
     family = binomial
@@ -420,9 +426,9 @@ xp: 100
 
 Building a DAG that approximates the biology is difficult. It requires domain knowledge, so consult experts to confirm the DAG. Remember, you will build an incomplete DAG. This is but one step to finding confounders.
 
-Let's determine which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty`  model to find out adjustment sets.
+Let's determine which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty()`  model to find out adjustment sets.
 
-Recall that for dagitty `x -> y` means "x influences y" and that `x -> {y z}` means "x influences y and z"; dagitty is already loaded.
+Recall that for `dagitty`: `x -> y` means "x influences y" and that `x -> {y z}` means "x influences y and z"; `dagitty` is already loaded.
 
 To learn more about graphs and networks, check out [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r).
 
@@ -499,7 +505,7 @@ xp: 35
 ```
 
 `@instructions`
-- Identify the (minimal) model adjustment set of variables from the `variable_pathways` graph, selecting the appropriate exposure and the outcome variables.
+- Identify the (minimal) model adjustment set of variables from the `variable_pathways` graph, selecting `"SBP"` as exposure and `"CVD"` as outcome.
 
 `@hint`
 - The `adjustmentSets()` requires the DAG object and the outcome (CVD) and the predictor (SBP).
@@ -554,7 +560,7 @@ xp: 30
 ```
 
 `@question`
-According to the output of the `adjustmentSets`, what variables does DAG suggest you adjust for in the model to get less biased results?
+According to the output of the `adjustmentSets()`, what variables does DAG suggest you adjust for in the model to get less biased results?
 
 `@possible_answers`
 - Sex and FastingGlucose
@@ -564,7 +570,7 @@ According to the output of the `adjustmentSets`, what variables does DAG suggest
 - No variables
 
 `@hint`
-- Run the `adjustmentSets` function again.
+- Run the `adjustmentSets()` function again.
 
 `@sct`
 ```{r}
@@ -581,11 +587,11 @@ key: 12f92a5b3e
 xp: 100
 ```
 
-It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools for choosing variables to adjust for. Using the functions from the MuMIn package, determine which model has the best fit for the models being compared by using AIC to rank them. A *smaller* AIC is better.
+It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools for choosing variables to adjust for. Using the functions from the `MuMIn` package, determine which model has the best fit for the models being compared by using AIC to rank them. A *smaller* AIC is better.
 
 As multiple models will be computed and compared, to keep computing time short, for *DataCamp lesson purposes only*, we: greatly restricted the sample size and number of variables in the data, called `model_sel_df`; and, set `nAQG = 0` argument (reduces estimation precision, but increases speed).
 
-Add scaled systolic blood pressure, sex, scaled body mass index, currently smoking, and followup visit number as predictors to the model.
+The predictors are `systolic_blood_pressure_scaled`, `sex`, `body_mass_index_scaled`, `currently_smoking`, and `followup_visit_number`.
 
 `@pre_exercise_code`
 ```{r}
@@ -603,7 +609,7 @@ xp: 35
 ```
 
 `@instructions`
-- Set CVD as the outcome and subject ID as the random term.
+- Set `got_cvd` as the outcome and `subject_id` as the random term.
 - Include the remaining variables (listed above) as predictors in the formula.
 
 `@hint`
@@ -611,24 +617,30 @@ xp: 35
 
 `@sample_code`
 ```{r}
-# Set the outcome, random term, data, and family
+# Set the model formula
 model <- glmer(
     ___,
     data = model_sel_df, 
     family = binomial, 
-    na.action = "na.fail", nAGQ = 0 # to speed up computation
+    # Required for MuMIn
+    na.action = "na.fail",
+ 	# Speeds up computation, reduces precision
+  	nAGQ = 0 
 )
 ```
 
 `@solution`
 ```{r}
-# Set the outcome, data, and family
+# Set the model formula
 model <- glmer(
     got_cvd ~ systolic_blood_pressure_scaled + body_mass_index_scaled +
         currently_smokes + sex + followup_visit_number + (1 | subject_id),
     data = model_sel_df, 
-    family = binomial, 
-    na.action = "na.fail", nAGQ = 0 # to speed up computation
+    family = binomial,
+  	# Required for MuMIn
+    na.action = "na.fail",
+ 	# Speeds up computation, reduces precision
+  	nAGQ = 0 
 )
 ```
 
@@ -646,22 +658,25 @@ xp: 35
 ```
 
 `@instructions`
-- "Dredge" through the combinations of variables that have `systolic_blood_pressure_scaled` in the model using AIC to rank models.
-- Print the top 5 models.
+- "Dredge" through the combinations of variables, subset by `systolic_blood_pressure_scaled` in the model and rank by `"AIC"`.
+- Print the top 5 `selection` models.
 
 `@hint`
-- Provide 5 as the second argument to `head`.
-- Give `model` as the first argument to `dredge`.
+- Provide 5 as the second argument to `head()`.
+- Give `model` as the first argument to `dredge()`.
 
 `@sample_code`
 ```{r}
-# Set the outcome, random term, data, and family
+# Set the model formula
 model <- glmer(
     got_cvd ~ systolic_blood_pressure_scaled + body_mass_index_scaled +
         currently_smokes + sex + followup_visit_number + (1 | subject_id),
     data = model_sel_df, 
     family = binomial, 
-    na.action = "na.fail", nAGQ = 0 # to speed up computation
+  	# Required for MuMIn
+    na.action = "na.fail",
+ 	# Speeds up computation, reduces precision
+  	nAGQ = 0
 )
 
 # Set the ranking method and subset
@@ -673,13 +688,16 @@ head(___, ___)
 
 `@solution`
 ```{r}
-# Set the outcome, data, and family
+# Set the model formula
 model <- glmer(
     got_cvd ~ systolic_blood_pressure_scaled + body_mass_index_scaled +
         currently_smokes + sex + followup_visit_number + (1 | subject_id),
     data = model_sel_df, 
-    family = binomial, 
-    na.action = "na.fail", nAGQ = 0 # to speed up computation
+    family = binomial,
+  	# Required for MuMIn
+    na.action = "na.fail",
+ 	# Speeds up computation, reduces precision
+  	nAGQ = 0
 )
 
 # Set the ranking method and subset
@@ -703,7 +721,7 @@ xp: 30
 ```
 
 `@question`
-Based on the output of `dredge`, what variables are in the top model?
+Based on the output of `dredge()`, what variables are in the top model?
 
 `@possible_answers`
 - BMI and smoking
@@ -762,7 +780,7 @@ xp: 40
 ```
 
 `@instructions`
-- Run `glmer` models with `total_cholesterol_scaled`, `sex`, `followup_visit_number`, and `subject_id` as the random term, but don't include an interaction.
+- Run `glmer()` models with `total_cholesterol_scaled`, `sex`, `followup_visit_number`, and `subject_id` as the random term, but don't include an interaction.
 
 `@hint`
 - The outcome variable is `got_cvd`.
@@ -772,7 +790,8 @@ xp: 40
 # Model without interaction
 model_no_interaction <- glmer(
     ___,
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham, 
+  	family = binomial)
 summary(model_no_interaction)
 ```
 
@@ -781,7 +800,8 @@ summary(model_no_interaction)
 # Model without interaction
 model_no_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham, 
+  	family = binomial)
 summary(model_no_interaction)
 ```
 
@@ -809,13 +829,15 @@ xp: 40
 # Model without interaction
 model_no_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham,
+  	family = binomial)
 summary(model_no_interaction)
 
 # Model with sex interaction
 model_sex_interaction <- glmer(
     ___,
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham, 
+  	family = binomial)
 summary(model_sex_interaction)
 ```
 
@@ -824,13 +846,15 @@ summary(model_sex_interaction)
 # Model without interaction
 model_no_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham, 
+  	family = binomial)
 summary(model_no_interaction)
 
 # Model with sex interaction
 model_sex_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham, 
+  	family = binomial)
 summary(model_sex_interaction)
 ```
 
@@ -848,10 +872,10 @@ xp: 20
 ```
 
 `@instructions`
-- Compare each model using the `model.sel` function based on AIC.
+- Compare each model using `model.sel()` based on `"AIC"` rank.
 
 `@hint`
-- Include both models, with and without interaction, in the `model.sel` function.
+- Include both models, with and without interaction, in the `model.sel()` function, separated by a comma.
 
 `@sample_code`
 ```{r}
@@ -876,13 +900,15 @@ model.sel(___, ___, rank = ___)
 # Model without interaction
 model_no_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham,
+  	family = binomial)
 summary(model_no_interaction)
 
 # Model with sex interaction
 model_sex_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham,
+  	family = binomial)
 summary(model_sex_interaction)
 
 # Test if interaction adds to model

@@ -692,12 +692,14 @@ xp: 50
 ```{r}
 # Plot a histogram of body mass transforms
 bmi_transforms_plot <- ___ %>% 
+	# Keep variables with string in variable name
     select(contains(___)) %>% 
     gather(transformations, values) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
     facet_wrap(vars(transformations), scale = "free")
 
+# Show plot
 bmi_transforms_plot
 ```
 
@@ -705,12 +707,14 @@ bmi_transforms_plot
 ```{r}
 # Plot a histogram of body mass transforms
 bmi_transforms_plot <- transformed_framingham %>% 
+	# Keep variables with string in variable name
     select(contains("body_mass_index")) %>% 
     gather(transformations, values) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
     facet_wrap(vars(transformations), scale = "free")
 
+# Show plot
 bmi_transforms_plot
 ```
 
@@ -737,12 +741,14 @@ xp: 50
 ```{r}
 # Plot a histogram of cigarettes per day transforms
 cpd_transforms_plot <- transformed_framingham %>% 
+	# Keep variables with string in variable name
     select(contains("___")) %>% 
     gather(transformations, values) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
     facet_wrap(vars(transformations), scale = "free")
 
+# Show plot
 cpd_transforms_plot
 ```
 
@@ -750,12 +756,14 @@ cpd_transforms_plot
 ```{r}
 # Plot a histogram of cigarettes per day transforms
 cpd_transforms_plot <- transformed_framingham %>% 
+	# Keep variables with string in variable name
     select(contains("cigarettes_per_day")) %>% 
     gather(transformations, values) %>% 
     ggplot(aes(x = values)) +
     geom_histogram() +
     facet_wrap(vars(transformations), scale = "free")
 
+# Show plot
 cpd_transforms_plot
 ```
 

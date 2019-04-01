@@ -91,7 +91,7 @@ Study participants:
 
 
 `@part2`
-#### Retrospective 
+#### Retrospective
 
 Study participants:
 
