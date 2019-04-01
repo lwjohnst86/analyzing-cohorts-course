@@ -29,7 +29,7 @@ key: "583fae4d2d"
 ```
 
 `@part1`
-![Retrospective vs prospective cohorts. ](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/a183894d11c7317da3f4831b9e6b75cb4929942d/pro-vs-retro.png)
+![Retrospective vs prospective cohorts. ](https://assets.datacamp.com/production/repositories/2079/datasets/a183894d11c7317da3f4831b9e6b75cb4929942d/pro-vs-retro.png)
 
 
 `@citations`

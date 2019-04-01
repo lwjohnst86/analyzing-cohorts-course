@@ -40,7 +40,7 @@ ggplot(tidier_framingham,
 
 
 `@part2`
-![histogram](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/adcd763375b8bcba52f68c14e34c7ef2c6c2cd33/ch2-v1-histogram.png) {{1}}
+![histogram](https://assets.datacamp.com/production/repositories/2079/datasets/adcd763375b8bcba52f68c14e34c7ef2c6c2cd33/ch2-v1-histogram.png) {{1}}
 
 
 `@script`
