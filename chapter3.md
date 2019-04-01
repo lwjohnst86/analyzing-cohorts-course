@@ -974,16 +974,16 @@ xp: 20
 ```
 
 `@instructions`
-- Keep those people with body mass index at or above 18.5 and at or below 40.
+- Keep those people with `body_mass_index` equal to or above 18.5 and equal to or below 40.
 
 `@hint`
-- Include two conditions (`>=` and `<=`) to restrict the range of body mass index.
+- Include two conditions (`>=` and `<=`) to restrict the range of `body_mass_index`, separated by a comma.
 
 `@sample_code`
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(___)
+    filter(___, ___)
 ```
 
 `@solution`
@@ -1007,7 +1007,7 @@ xp: 40
 ```
 
 `@instructions`
-- Include `body_mass_index_scaled`, `followup_visit_number`, and `subject_id` (as a random term) in the formula, then run the model with the original dataset.
+- Include `body_mass_index_scaled`, `followup_visit_number`, and `subject_id` (as a random term) in the formula and run the model with the `sample_tidied_framingham`.
 
 `@hint`
 - Use `sample_tidied_framingham` in the data argument.
@@ -1021,7 +1021,8 @@ bmi_check_data <- sample_tidied_framingham %>%
 # Run and check model with original dataset
 original_model <- glmer(
     ___,
-    data = ___, family = binomial)
+    data = ___, 
+  	family = binomial)
 summary(___)
 ```
 
@@ -1034,7 +1035,8 @@ bmi_check_data <- sample_tidied_framingham %>%
 # Run and check model with original dataset
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham, 
+  	family = binomial)
 summary(original_model)
 ```
 
@@ -1052,7 +1054,7 @@ xp: 40
 ```
 
 `@instructions`
-- Now run the model with the data that excluded some BMI values, paying attention to how or if the results differ.
+- Now run the model with the data that excludes the body mass index values; notice how or if the two models differ.
 
 `@hint`
 - Run the same model but use the newly created `bmi_check_data`.
@@ -1066,13 +1068,15 @@ bmi_check_data <- sample_tidied_framingham %>%
 # Run and check model with original dataset
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham, 
+  	family = binomial)
 summary(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
     ___,
-    data = ___, family = binomial)
+    data = ___, 
+  	family = binomial)
 summary(___)
 ```
 
@@ -1085,13 +1089,15 @@ bmi_check_data <- sample_tidied_framingham %>%
 # Run and check model with original dataset
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
-    data = sample_tidied_framingham, family = binomial)
+    data = sample_tidied_framingham, 
+  	family = binomial)
 summary(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
-    data = bmi_check_data, family = binomial)
+    data = bmi_check_data, 
+  	family = binomial)
 summary(bmi_check_model)
 ```
 
@@ -1123,7 +1129,7 @@ key: 33b5b785cf
 xp: 100
 ```
 
-Now that you've created several models, you need to do some tidying and back-transforming. Tidying mixed effects models requires the broom.mixed package. Back-transforming by exponentiating is required as the model uses a binary outcome. Exponentiating converts the estimates to odds. Next, select the variables that are more important and relevant.
+Now that you've created several models, you need to do some tidying and back-transforming. Tidying mixed effects models requires the `broom.mixed` package. Back-transforming by exponentiating is required as the model uses a binary outcome. Exponentiating converts the estimates to odds. Finally keep only the important and relevant variables.
 
 A model has been created for you already called `main_model`.
 
@@ -1143,17 +1149,17 @@ xp: 50
 ```
 
 `@instructions`
-- Using the function from broom.mixed, tidy the model, create confidence intervals, and exponentiate the estimates.
+- Using the function from `broom.mixed`, tidy the model, add confidence intervals, and exponentiate the estimates.
 
 `@hint`
-- Use the `tidy` function on model object.
+- Use the `tidy()` function on model object.
 
 `@sample_code`
 ```{r}
 library(broom.mixed)
 
 # Tidy up main_model, include conf.int and exponentiate
-tidy_model <- ___
+tidy_model <- ___(___, conf.int = ___, exponentiate = ___)
 
 # View the tidied model
 tidy_model
@@ -1194,17 +1200,17 @@ xp: 50
 library(broom.mixed)
 
 # Tidy up main_model, include conf.int and exponentiate
-tidy_model <- ___
+tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
 
 # View the tidied model
 tidy_model
 
-# Select the four important variables
+# Select the important variables
 relevant_results <- tidy_model %>% 
     ___(___) 
 
 # View the relevent results
-relevant_results
+___
 ```
 
 `@solution`
@@ -1217,7 +1223,7 @@ tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
 # View the tidied model
 tidy_model
 
-# Select the four important variables
+# Select the important variables
 relevant_results <- tidy_model %>% 
     select(effect, term, estimate, conf.low, conf.high) 
 

@@ -31,7 +31,7 @@ Imagine you've ran several models, based on what you learned in chapter 3. You:
 - Have each predictor with unadjusted and adjusted models (time and subject ID were included in all).
 - Tidied models and exponentiated estimates.
 
-You have 8 models in total, stored as a list. There are a couple of things we should add to each model to differentiate each from the other models. Use `map` from the purrr package to wrangle each model item simultaneously.
+You have 8 models in total, stored as a list. There are a couple of things we should add to each model to differentiate each from the other models. Use `map()` from the `purrr` package to wrangle each model item simultaneously.
 
 `@pre_exercise_code`
 ```{r}
@@ -50,20 +50,24 @@ xp: 50
 ```
 
 `@instructions`
-- Create a model column to indicate "adjustment" for each model. `term[2]` selects the second term, which is the predictor.
+- Create a model column to indicate the models are `"Unadjusted"`; `term[2]` selects the second term, which is the predictor.
 
 `@hint`
-- Use `map` to add to each model.
+- Use `map()` to wrangle each model.
 
 `@sample_code`
 ```{r}
 # Add predictor and model type to each list item
 unadjusted_models_list <- ___(
     unadjusted_models_list,
-    ~___(.x, 
-         	# This selects predictor, not confounder
-            predictor = term[2], 
-            model = ___)
+  	# .x is purrr for "model goes here"
+    ~ .x %>%
+  		mutate(
+          	# This selects predictor, not confounder
+            predictor = term[2],
+          	# Indicate model "adjustment"
+            model = ___
+        )
 )
 ```
 
@@ -72,10 +76,14 @@ unadjusted_models_list <- ___(
 # Add predictor and model type to each list item
 unadjusted_models_list <- map(
     unadjusted_models_list,
-    ~mutate(.x,
-            # This selects predictor, not confounder
-            predictor = term[2], 
-            model = "Unadjusted")
+  	# .x is purrr for "model goes here"
+    ~.x %>%
+  		mutate(
+          	# This selects predictor, not confounder
+            predictor = term[2],
+          	# Indicate model "adjustment"
+            model = "Unadjusted"
+        )
 )
 ```
 
@@ -93,7 +101,7 @@ xp: 50
 ```
 
 `@instructions`
-- Do the same thing for the adjusted model list.
+- Do the same thing for the `"Adjusted"` model list.
 
 `@hint`
 - Refer to each list object in `map` with `.x`.
@@ -101,20 +109,33 @@ xp: 50
 
 `@sample_code`
 ```{r}
-# Do the same for adjusted model list
-adjusted_models_list <- 
-
+# Add predictor and model type to each list item
+adjusted_models_list <- ___(
+    adjusted_models_list,
+  	# .x is purrr for "model goes here"
+    ~.x %>%
+  		mutate(
+          	# This selects predictor, not confounder
+            predictor = term[2],
+          	# Indicate model "adjustment"
+            model = ___
+        )
+)
 ```
 
 `@solution`
 ```{r}
-# Do the same for adjusted model list
+# Add predictor and model type to each list item
 adjusted_models_list <- map(
     adjusted_models_list,
-    ~mutate(.x, 
-            # This selects predictor, not confounder
-            predictor = term[2], 
-            model = "Adjusted")
+  	# .x is purrr for "model goes here"
+    ~.x %>%
+  		mutate(
+          	# This selects predictor, not confounder
+            predictor = term[2],
+          	# Indicate model "adjustment"
+            model = "Adjusted"
+        )
 )
 ```
 
@@ -133,12 +154,12 @@ key: f30b964cce
 xp: 100
 ```
 
-The most efficient approach to later plotting and creating tables is to have all models in a single dataframe. You've already prepared them a bit, now its time to combine them together so you can continue wrangling.
+The most efficient approach to later plotting and creating tables is to have all models in a single dataframe. You've already prepared them a bit, now it's time to combine them together so you can continue wrangling.
 
 `@instructions`
-- Using `bind_rows`, put the two model list objects together.
-- Continuing to pipe, add (`mutate`) an outcome column for the `got_cvd` variable.
-- Finally, use `filter()` to keep only conditions where the `predictor` is the `term` and the `effect` is `"fixed"`.
+- Using `bind_rows()`, put the two model list objects together.
+- Continuing to pipe, add (`mutate()`) an outcome column for the `got_cvd` variable.
+- Finally, use `filter()` to keep only conditions where the `predictor` equals `term` and `effect` equals `"fixed"`.
 
 `@hint`
 - Filter when predictor and term are the same (`==`).
@@ -162,8 +183,11 @@ adjusted_models_list <- map(
 `@sample_code`
 ```{r}
 # Combine models, add outcome, keep predictor estimates
-all_models <- ___ %>% 
-    mutate(___) %>% 
+all_models <- bind_rows(
+  		___, 
+  		___
+	) %>% 
+    ___(outcome = ___) %>% 
     filter(___, ___)
 
 # Check the model dataframe
@@ -173,7 +197,10 @@ all_models
 `@solution`
 ```{r}
 # Combine models, add outcome, keep predictor estimates
-all_models <- bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
+all_models <- bind_rows(
+  		unadjusted_models_list, 
+  		adjusted_models_list
+	) %>% 
     mutate(outcome = "got_cvd") %>% 
     filter(predictor == term, effect == "fixed")
 
@@ -229,7 +256,7 @@ xp: 30
 ```
 
 `@instructions`
-- Keep only the unadjusted results for this exercise.
+- Filter so only the `"Unadjusted"` model results are kept for this exercise.
 
 `@hint`
 - Filter takes a logical condition, in this case when model is `"Unadjusted"`.
@@ -268,10 +295,11 @@ xp: 35
 ```
 
 `@instructions`
-- Create a point and error-bar plot of the estimates (`x`) and confidence intervals (`xmin`, `xmax`), with the predictors on the y axis.
+- Set the estimates on `x`, the lower confidence interval on `xmin`, the upper confidence interval on `xmax`, and the `predictor` on the y-axis.
+- Add `geom_point()` and `geom_errorbarh()` layers.
 
 `@hint`
-- Use the geom for points and for `errorbarh` (horizontal), which requires `xmin = conf.low, xmax = conf.high`.
+- The `errorbarh` (horizontal) requires `xmin = conf.low, xmax = conf.high`.
 
 `@sample_code`
 ```{r}
@@ -297,7 +325,8 @@ unadjusted_results <- all_models %>%
 
 # Create a dot and error bar plot
 model_plot <- unadjusted_results %>% 
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, 
+               xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh()
 
@@ -319,10 +348,10 @@ xp: 35
 ```
 
 `@instructions`
-- Add a vertical line at 1 for the "center line".
+- Add a vertical line at an `xintercept` of 1 for the "center line" using `geom_vline()`.
 
 `@hint`
-- The `xintercept` must be set when adding a vertical line.
+- Set `xintercept = 1` for the center line.
 
 `@sample_code`
 ```{r}
@@ -380,10 +409,9 @@ Now that we've created this plot, let's polish it up. We want it to be "publicat
 As with the previous exercise, use the `unadjusted_results` dataframe you created to plot the findings. This time, make the plot more polished and presentable.
 
 `@instructions`
-- Add the `aes()` variables, the point, error bar, and vertical center line.
 - Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to `"dotted"`.
-- Include appropriate axis labels (the "Predictors" on the y and the "Odds Ratio (95% CI)" on the x). Remember, CI is the confidence interval.
-- Change the theme to `theme_classic()` on the last line.
+- Include appropriate axis labels (`"Predictors"` on the y and the `"Odds Ratio (95% CI)"` on the x). Remember, CI is the confidence interval.
+- Set the theme to `theme_classic()` on the last line.
 
 `@hint`
 - The labels should be of the form `x = "Axis Label"` (for the x-axis for instance).
@@ -406,7 +434,7 @@ model_plot <- unadjusted_results %>%
     geom_errorbarh(___) +
     geom_vline(xintercept = 1, ___) +
     labs(___, ___) +
-    ___
+    ___()
 
 # Plot it
 ___
@@ -446,11 +474,11 @@ The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model
 
 `@instructions`
 - As in the previous exercise, create a plot of the estimates and confidence intervals of the predictors.
-- This time, don't filter by model adjustment.
-- Expand on the previous exercise by splitting the plot by model using `facet_grid`.
+- This time, don't filter by model adjustment and instead use the `all_models` data.
+- Split the plot by using `facet_grid()` so that `model` results are as `rows`.
 
 `@hint`
-- Select the facetting variable using `vars()`.
+- Select the faceting variable using `vars()`.
 
 `@pre_exercise_code`
 ```{r}
@@ -462,13 +490,13 @@ library(magrittr)
 `@sample_code`
 ```{r}
 # Show results of both adjusted and unadjusted
-plot_all_models <- all_models %>% 
+plot_all_models <- ___ %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
     geom_point(size = 3) +
     geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dotted") +
     # Facet plot by model
-    ___(___) +
+    ___(rows = ___) +
     labs(y = "Predictors", x = "Odds ratio (95% CI)") +
 	theme_classic()
 
@@ -523,7 +551,7 @@ xp: 100
 
 A classic use for tables is showing the basic characteristics of a cohort dataset, as there are diverse data types and summary statistics that need to be shown. Including a basic participant characteristics table is part of the STROBE requirements. This table can be quite informative for others when they interpret your analysis results.
 
-Using the carpenter package, create a table showing summary statistics for each data collection visit.
+Using the `carpenter` package, create a table showing summary statistics for each data collection visit.
 
 `@pre_exercise_code`
 ```{r}
@@ -586,7 +614,7 @@ xp: 25
 ```
 
 `@instructions`
-- Add a row for the `got_cvd`, `sex`, and `education_combined` variables, using `stat_nPct` as the summary statistic.
+- Add a row for the `got_cvd`, `sex`, and `education_combined` variables, using `stat_nPct` for the `stat` argument.
 
 `@hint`
 - The variables should be quoted, e.g. `"sex"`.
@@ -740,8 +768,6 @@ library(glue)
 library(dplyr)
 library(tidyr)
 library(stringr)
-all_models <- all_models %>% 
-    filter(predictor == term)
 ```
 
 ***
@@ -753,10 +779,10 @@ xp: 35
 ```
 
 `@instructions`
-- Round the `estimate`, `conf.low`, and `conf.high` to 2 digits using the function `round`.
+- Round the `estimate`, `conf.low`, and `conf.high` to 2 digits using the function `round` (don't use with `()`).
 
 `@hint`
-- `mutate_at` takes variables (as the first argument) inside `vars()` and applies a function like `round` as the second argument.
+- `mutate_at()` takes variables (as the first argument) inside `vars()` and applies a function like `round` as the second argument.
 
 `@sample_code`
 ```{r}
