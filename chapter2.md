@@ -298,7 +298,7 @@ key: 1100af6e1e
 xp: 100
 ```
 
-Boxplots are great for showing a distribution by a grouping variable (e.g. sex or disease status). Create multiple boxplots of several exposure variables with the outcome variable (CVD) by combining what we learned previously about converting to long form and using facetting.
+Boxplots are great for showing a distribution by a grouping variable (e.g. sex or disease status). Create multiple boxplots of several exposure variables with the outcome variable (CVD) by combining what we learned previously about converting to long form and using faceting.
 
 `@instructions`
 - Select the variables `got_cvd`, `total_cholesterol`, `participant_age`, and `body_mass_index`.
@@ -467,8 +467,8 @@ tidier2_framingham <- tidier_framingham %>%
     mutate(
         # Convert the values for sex
         sex = case_when(
-          	# Use the format: variable == number ~ "string"
-        	sex == ___ ~ ___,
+            # Use the format: variable == number ~ "string"
+            sex == ___ ~ ___,
             sex == ___ ~ ___,
             TRUE ~ NA_character_)
     )
@@ -483,9 +483,9 @@ tidier2_framingham <- tidier_framingham %>%
     mutate(
         # Convert the values for sex
         sex = case_when(
-          	# Use the format: variable == number ~ "string"
-        	sex == ___ ~ ___,
-            sex == ___ ~ ___,
+            # Use the format: variable == number ~ "string"
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
             TRUE ~ NA_character_)
     )
     
