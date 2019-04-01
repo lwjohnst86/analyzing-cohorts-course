@@ -667,7 +667,7 @@ The `transformed_framingham` dataset you previously wrangled has been loaded.
 
 `@pre_exercise_code`
 ```{r}
-transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/f6e38ca6a70fe7f5e38d234d11d42fd19603a37f/transformed_framingham.Rds"))
+transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/db4b0d894d5c2a05c8eab34f0432903694b8f8ad/transformed_framingham.Rds"))
 library(tidyr)
 library(dplyr)
 library(ggplot2)
@@ -792,7 +792,7 @@ Which statement is true?
 
 `@pre_exercise_code`
 ```{r}
-transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/f6e38ca6a70fe7f5e38d234d11d42fd19603a37f/transformed_framingham.Rds"))
+transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/db4b0d894d5c2a05c8eab34f0432903694b8f8ad/transformed_framingham.Rds"))
 library(tidyr)
 library(dplyr)
 library(ggplot2)
