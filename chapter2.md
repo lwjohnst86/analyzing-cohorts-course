@@ -100,7 +100,7 @@ success_msg("Great job! You've created histograms and examined two variables.")
 
 ---
 
-## Long data and visualizing multiple variables over time
+## Long data and visualizing variables over time
 
 ```yaml
 type: TabExercise
