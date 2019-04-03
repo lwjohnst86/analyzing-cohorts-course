@@ -33,6 +33,7 @@ key: "09f0b70d13"
 library(ggplot2)
 # Histogram of body mass
 ggplot(tidier_framingham,
+	   # Aesthetic mapping
        aes(x = body_mass_index)) +
     geom_histogram()
 ```
@@ -44,7 +45,7 @@ ggplot(tidier_framingham,
 
 
 `@script`
-A useful way to look at data is with univariate distributions using histograms, which count the number of times a given value occurs. We'll create histograms using ggplot2 by first setting up the plot using the ggplot function. This takes usually two arguments, the dataset and the aes function. Aes sets which variables map to which plot aspects, like the x-axis. We want a univariate plot, so we'll put a continuous variable like body mass as x for the x-axis. The histogram layer is added with the plus sign followed by geom-underscore-histogram.
+A useful way to look at data is with univariate distributions using histograms, which count the number of times a given value occurs. We'll create histograms using ggplot2. We first set up the plot using the ggplot function. This takes two arguments, the dataset and the aesthetic mapping or aes function. Aes indicates where to map variables to plot aspects like the x-axis. We want a univariate plot, so we'll set x to a continuous variable like body mass. The histogram layer is added with the plus sign followed by geom-underscore-histogram.
 
 
 ---
@@ -79,9 +80,9 @@ head(wide_form, 4)
 
 
 `@script`
-If we want to visualize several variables, plotting them one by one is less than ideal. There's an easier way though, by using ggplot facets. We'll go over facets soon, but first we need the data in the long form.
+If we want to visualize several variables, plotting them one by one is less than ideal. There's an easier way though, by using ggplot facets. We'll go over facets soon, but to optimally use facets we'll need the data in the long form.
 
-Our data right now is in the wider format. For this example, we'll keep only a couple variables. Wider data has individual variables as columns and those variables' values are the individual rows.
+Our data right now is in wide form. To illustrate, I'm only using a couple variables. Wider data has variables as columns and those variables' values are the individual rows.
 
 
 ---
@@ -119,9 +120,9 @@ long_form
 
 
 `@script`
-We use the gather function from tidyr to convert to long form. Again, for this example, I'll use head to keep the first four rows. Gather takes three arguments, not including the data argument provided by the pipe. The next two arguments are the names of the new columns that will contain the original variable names and the values from those original columns. Let's be simple and call the new columns variable and value. The next arguments are the one or more variables we want to include or exclude from the gathering action. In this case, we want to exclude subject ID by using minus.
+We use the gather function from tidyr to convert to long form. For illustration I'll only show four rows using head. Gather takes four arguments: data, key, value, and the variable selection. Data is already given by the pipe. The key is the name to give the new column that will contain the original variable names. The value is the name to give the new column that will contain the variable values. We'll simply call the new columns variable and value. The last optional argument is the one or more variables we want to include or exclude from gathering. Here we want to exclude subject ID by using minus.
 
-Looking at the longer data, we see that the original columns are now stacked on top of each other in two new columns, one for the variable names and the other for the variable value.
+Longer data is in more of a stacked form, with variable names as data in a column here called variable and their associated value in a new column, again, here called value.
 
 
 ---
@@ -146,7 +147,7 @@ wide_form %>%
 
 
 `@script`
-Let's now use this longer data by piping it into ggplot. We then set x to the value column with the original data. Then we add the histogram geom and to facet use the facet-underscore-wrap function. This function takes several arguments, but the first is the variables you want to facet. The one or more variables to facet need to be wrapped in the vars function. We're setting scale to free as the variables' values have different ranges. Setting nrow to one puts all the facets in one row.
+Let's now use this long data by piping it into ggplot. We then set x to the value column with the original data. Then we add the histogram geom and to facet use the facet-underscore-wrap function. This function takes several arguments, but the first is the variables you want to facet. The one or more variables to facet need to be wrapped in the vars function. We're setting scale to free as the variables' values have different ranges. Setting nrow to one puts all the facets in one row.
 
 Now we have a single plot with multiple histograms! You can very quickly explore more of the data. Longer data can also be leveraged for many other analysis tasks too, which we'll cover in later chapters.
 
@@ -166,8 +167,7 @@ tidier_framingham %>%
     	as.character(got_cvd)) %>%
     ggplot(aes(
     	x = got_cvd,
-		y = body_mass_index,
-        colour = got_cvd)) +
+		y = body_mass_index)) +
     geom_boxplot()
 ```
 {{1}}
@@ -176,13 +176,13 @@ tidier_framingham %>%
 
 
 `@part2`
-![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/c308d6402f6f198ed55bbba3579d4446e2ba4fe0/ch2-v1-boxplot.png) {{1}}
+![boxplot](http://assets.datacamp.com/production/repositories/2079/datasets/1a49396f8978317db2445c06cebd1ebdf75f6223/ch2-v1-boxplot.png) {{1}}
 
 
 `@script`
 Univariate visualizations are great but let's explore how the exposures look in relation to the outcome. For categorical outcomes like CVD, boxplots are great for showing the data's distribution using the median, the twenty-fifth and seventy-fifth percentile, and a measure of slightly more extreme values.
 
-Since CVD's values are either zero or one, we'll need to convert it to categorical with mutate and as-dot-character. Then we set x to be CVD, y needs to be a continuous variable, and to give some color by using CVD. Add the geom-underscore-boxplot layer and we get a boxplot figure!
+Since CVD's values are either zero or one, we'll need to convert it to categorical with mutate and as-dot-character. Then we set x to be CVD and y needs to be a continuous variable. Add the geom-underscore-boxplot layer and we get a boxplot figure!
 
 To make the boxplots horizontal instead of vertical, you'll need to use coord-underscore-flip.
 

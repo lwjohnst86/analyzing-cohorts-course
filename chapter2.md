@@ -24,7 +24,7 @@ key: 78574fab0c
 xp: 100
 ```
 
-Let's get comfortable creating some univariate histograms to start exploring the data. Create several histograms of a couple variables.
+Let's get comfortable creating some univariate histograms to start exploring the data. Create several histograms of a couple variables. The `ggplot2` package has been loaded.
 
 `@pre_exercise_code`
 ```{r}
@@ -108,7 +108,7 @@ key: 6e98f4c451
 xp: 100
 ```
 
-Now that you've learned how to create histograms, let's convert some of the Framingham dataset into the longer data format using `gather()`. Then, using the long data form, create histograms for multiple variables simultaneously for each followup visit. This will give us a quick overview of the data and their distribution. Pay attention to how the distribution of each variable looks like.
+Now that you've learned how to create histograms, let's convert some of the Framingham dataset into the long data format using `gather()`. Then, using the long data form, create histograms for multiple variables simultaneously for each followup visit. This will give us a quick overview of the data and their distribution. Pay attention to how the distribution of each variable looks like.
 
 `@pre_exercise_code`
 ```{r}
@@ -220,7 +220,7 @@ xp: 25
 ```
 
 `@instructions`
-- Do the same thing, but selecting the variables `participant_age`, `body_mass_index`, and `cigarettes_per_day`.
+- Select new variables `participant_age`, `body_mass_index`, and `cigarettes_per_day`, then run the plot again.
 
 `@hint`
 - Put the variables in the `select()` function.
@@ -298,16 +298,16 @@ key: 1100af6e1e
 xp: 100
 ```
 
-Boxplots are great for showing a distribution by a grouping variable (e.g. sex or disease status). Create multiple boxplots of several exposure variables with the outcome variable (CVD) by combining what we learned previously about converting to long form and using faceting.
+Boxplots are great for showing a distribution by a grouping variable (e.g. sex or disease status). Create multiple boxplots of several exposure variables with the outcome variable (CVD) by combining what we learned previously about converting to long form and using faceting. Since we want to plot CVD status on the x-axis, we'll need to exclude it from being "gathered".
 
 `@instructions`
 - Select the variables `got_cvd`, `total_cholesterol`, `participant_age`, and `body_mass_index`.
 - Also exclude `got_cvd` from the `gather()` function and set `value` for the y-axis in `aes()`.
-- Add a `geom_boxplots()` layer, with `got_cvd` as a color in `aes()`.
+- Add a `geom_boxplots()` layer.
 - Lastly, flip the plot using `coord_flip()`.
 
 `@hint`
-- The initial `ggplot2` setup should be `ggplot(aes(x = value, y = variable, color = got_cvd))`.
+- The initial `ggplot2` setup should be `ggplot(aes(x = value, y = variable))`.
 - Include `-got_cvd` after `-followup_visit_number` in `gather()`.
 
 `@pre_exercise_code`
@@ -329,8 +329,8 @@ tidier_framingham %>%
            ___, ___) %>% 
     # Exclude also the disease
     gather(variable, value, -followup_visit_number, -___) %>% 
-    # Set y, x, and colour
-    ggplot(aes(y = ___, x = variable, color = ___)) +
+    # Set y and x
+    ggplot(aes(y = ___, x = variable)) +
     # Plot boxplots
     ___() +
     facet_wrap(vars(followup_visit_number), ncol = 1) +
@@ -347,8 +347,8 @@ tidier_framingham %>%
            participant_age, body_mass_index) %>% 
     # Exclude also the disease
     gather(variable, value, -followup_visit_number, -got_cvd) %>% 
-    # Set y, x, and colour
-    ggplot(aes(y = value, x = variable, color = got_cvd)) +
+    # Set y and x
+    ggplot(aes(y = value, x = variable)) +
     # Plot boxplots
     geom_boxplot() +
     facet_wrap(vars(followup_visit_number), ncol = 1) +
@@ -384,7 +384,7 @@ key: e916c33326
 xp: 100
 ```
 
-As you may have noticed, there are several discrete variables with ambiguous values. For instance, sex has the values as either 1 or 2, but what do those numbers mean? Often, you will encounter discrete data as integers rather than human-readable strings when working with cohort datasets. With data like this, you need to have a data dictionary to know what the numbers mean. Let's fix this problem and tidy up the data so it is human-readable.
+As you may have noticed, there are several discrete variables with ambiguous values. For instance, sex has the values as either 1 or 2, but what do those numbers mean? Often, you will encounter discrete data as integers rather than descriptive strings when working with cohort datasets. With data like this, you need to have a data dictionary to know what the numbers mean. Let's fix this problem and tidy up the data so it is more intuitive and descriptive.
 
 `@pre_exercise_code`
 ```{r}
@@ -456,7 +456,7 @@ xp: 50
 ```
 
 `@instructions`
-- Do the same thing for the sex variable, to: 1 = "Man"; 2 = "Woman".
+- Do the same thing for the `sex` variable, to: 1 = "Man"; 2 = "Woman".
 
 `@hint`
 - The form for the `case_when()` should look like `sex == 1 ~ "Man"`, for each number-string pairing.
@@ -513,8 +513,9 @@ Sometimes, categorical variables (as factors or characters) have many levels but
 The `forcats` package has been preloaded as well as the previous `tidier2_framingham` dataset you tidied.
 
 `@instructions`
-- Recode the levels of `"Vocational"` and `"College"` education to instead both be `"Post-Secondary"`.
+- Recode the levels of `"Vocational"` and `"College"` education so both are named `"Post-Secondary"` using `fct_recode()`.
 - Confirm the education levels have been correctly recoded using `count()`.
+- You'll get a warning message about `NA` values. Ignore it as it doesn't matter.
 
 `@hint`
 - `fct_recode()` recoding should be in the form `"new name" = "old name"`, for example: `"Post-Secondary" = "College"`.

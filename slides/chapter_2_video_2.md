@@ -36,7 +36,7 @@ key: "f3f4f626e0"
 
 
 `@script`
-But first I want to mention a problem common in health research, known as dichotomania. Dichotomania is an obsession to convert continuous data into discrete data. Also called discretizing or dichotomizing. For example, obesity is defined as a BMI greater than thirty.
+But first I want to mention a problem common in health research, known as dichotomania. Dichotomania is an obsession to convert continuous data into discrete data. It is also called discretizing or dichotomizing. For example, obesity is defined as a BMI greater than thirty.
 
 
 ---
@@ -89,7 +89,7 @@ tidier_framingham %>%
 
 
 `@script`
-You may be familiar with the different weight classes used according to your body mass index, or BMI. These classes, shown in the table, are often used in health research. Let's show why this is a problem visually. The code provided creates the image shown next.
+You may be familiar with the different weight classes used according to your body mass index, or BMI. These classes, shown in the table, are often used in health research. Let's visually show why this is a problem. The code provided creates the image shown next.
 
 
 ---
@@ -124,12 +124,12 @@ key: "2849fc21a2"
 - Reasons to reduce: {{2}}
     - Large error in measurement, e.g. "Eggs eaten daily?"
     - Data entry errors
-    - Small numbers in some levels
+    - Small sample sizes in some levels
     - Ease of interpretation
 
 
 `@script`
-While discretizing a continuous variable is often discouraged, some variables tend to be more naturally discrete. For example, you usually take one or two pills, not one point five. Sometimes, reducing the number of levels in these discrete variables makes sense, such as when there is large error in measurement or entry, small numbers in the levels, or easier interpretation.
+While discretizing a continuous variable is often discouraged, some variables tend to be more naturally discrete. For example, you usually take one or two pills, not one point five. Sometimes, reducing the number of levels in these discrete variables makes sense, such as when there is large error in measurement or data entry, small sample sizes in some levels, or easier interpretation.
 
 
 ---
@@ -210,7 +210,7 @@ tidier_framingham %>%
 
 
 `@script`
-We can tidy up and reduce a variables levels by using the case-underscore-when function from dplyr. Since packs of cigarettes usually come with 20 cigarettes, let's create another variable for number of packs smoked. Case-underscore-when takes multiple arguments, each is in the form of a condition on the left of the tilde and the output value on the right. So we set the first condition as when cigarettes is zero and assign the value none. The next is when cigarettes is from one to twenty, assigning the value up to one, and so on. The final condition should be formatted as shown when outputting characters. When counting the new variable, it now has less levels.
+We can tidy up and reduce a variable's levels by using the case-underscore-when function from dplyr. Since packs of cigarettes usually come with 20 cigarettes, let's create another variable for number of packs smoked. Case-underscore-when takes multiple arguments, each is in the form of a condition on the left of the tilde and the output value on the right. So we set the first condition as when cigarettes is zero and assign the value none. The next is when cigarettes is from one to twenty, assigning the value up to one, and so on. The final condition should be formatted as shown when outputting characters. When counting the new variable, it now has less levels.
 
 
 ---
@@ -247,7 +247,7 @@ tidier_framingham %>%
 
 
 `@script`
-Case when is useful for many situations, but the forcats package is specific to tidying up factor variables. Use the fct-underscore-recode function to edit and rename levels directly. The argument has the form of the new level name and then equal old names. In this case, we now merged two levels together.
+Case when is useful for many situations, but the forcats package is specific to tidying up factor variables. Use the fct-underscore-recode function to edit and rename levels directly. The argument has the form of the new level name then equals old names. In this case, we now merged two levels together.
 
 
 ---
