@@ -764,7 +764,7 @@ key: 6ed7e200c3
 xp: 100
 ```
 
-In the past (and still very common today), most research was done mostly or only on males. Clinical trials, experimental animal models, and observational studies tended to explicitly study males, as female hormonal cycles can act as a confounding factor. This often had harmful consequences, since there are massive gender differences in responses to drug treatment and other disease interventions. Most journals and funding agencies now *require* that differences in sex, and ethnicity, are investigated.
+In the past (and still very common today), most research was done with mostly or entirely males. Clinical trials, experimental animal models, and observational studies tended to explicitly study males, as female hormonal cycles can act as a confounding factor. This often had harmful consequences, since there are massive gender differences in responses to drug treatment and other disease interventions. Most journals and funding agencies now *require* that differences in sex, and ethnicity, are investigated.
 
 Since the Framingham study has almost entirely individuals of European-ancestry, we can only test sex interactions. Compare models without and with interactions for sex.
 
@@ -784,16 +784,16 @@ xp: 40
 ```
 
 `@instructions`
-- Run `glmer()` models with `total_cholesterol_scaled`, `sex`, `followup_visit_number`, and `subject_id` as the random term, but don't include an interaction.
+- Run `glmer()` models with `total_cholesterol_scaled`, `sex`, and `followup_visit_number`, without an interaction term.
 
 `@hint`
-- The outcome variable is `got_cvd`.
+- The predictors should be added together like `predictor1 + predictor2`.
 
 `@sample_code`
 ```{r}
 # Model without interaction
 model_no_interaction <- glmer(
-    ___,
+    got_cvd ~ ___ + ___ + ___ + (1 | subject_id), 
     data = sample_tidied_framingham, 
   	family = binomial)
 summary(model_no_interaction)
@@ -823,10 +823,10 @@ xp: 40
 ```
 
 `@instructions`
-- Create the same formula, but this time with an interaction between `sex` and `total_cholesterol_scaled`.
+- Create the same formula, but this time with an interaction, denoted by `*`, between `total_cholesterol_scaled` and `sex`.
 
 `@hint`
-- Use a `*` instead of a `+` for including an interaction between variables in the formula.
+- The interaction should be `total_cholesterol_scaled * sex`.
 
 `@sample_code`
 ```{r}
@@ -839,7 +839,7 @@ summary(model_no_interaction)
 
 # Model with sex interaction
 model_sex_interaction <- glmer(
-    ___,
+    got_cvd ~ total_cholesterol_scaled ___ sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, 
   	family = binomial)
 summary(model_sex_interaction)
@@ -876,10 +876,10 @@ xp: 20
 ```
 
 `@instructions`
-- Compare each model using `model.sel()` based on `"AIC"` rank.
+- Include both model objects in `model.sel()`, with an `"AIC"` rank.
 
 `@hint`
-- Include both models, with and without interaction, in the `model.sel()` function, separated by a comma.
+- Include both models, `model_no_interaction` and `model_sex_interaction`, in the `model.sel()` function, separated by a comma.
 
 `@sample_code`
 ```{r}
@@ -932,7 +932,7 @@ key: b0bf4c6e91
 ```
 
 `@question`
-Does including a sex by predictor interaction provide more information for the model?
+Does including a cholesterol by sex interaction provide more information for the model?
 
 `@possible_answers`
 - Yes, but only by a bit.
@@ -941,7 +941,7 @@ Does including a sex by predictor interaction provide more information for the m
 - None of the above.
 
 `@hint`
-- Check which model has a higher `weight`.
+- Check which model has a higher `weight` or lower `AIC`.
 
 `@sct`
 ```{r}
@@ -958,7 +958,7 @@ key: b3558d44ca
 xp: 100
 ```
 
-Often times we make assumptions about our data and the participants that make up that data. For instance, with body mass index (BMI), we assume that the value represents a person regardless of how sick or healthy they are. However, usually if someone's BMI is really low (below around 18.5, which is considered underweight) or really high (above 40 which is considered morbidly obese), this could indicate a serious health problem that they have. For example, people who are very ill usually lose a lot of weight. So if we include them in the model, we might get a biased estimate for the association of BMI on CVD. Run a sensitivity analysis removing these observations and compare the results.
+Often times we make assumptions about our data and the participants that make up that data. For instance, with body mass index (BMI), we assume that the value represents a person regardless of how sick or healthy they are. However, usually if someone's BMI is really low (below around 18.5, which is considered underweight) or really high (above 40 which is considered morbidly obese), this could indicate a serious health problem that they may have. For example, people who are very ill usually lose a lot of weight. So if we include them in the model, we might get a biased estimate for the association of BMI on CVD. Run a sensitivity analysis removing these observations and compare the results.
 
 Use the `sample_tidied_framingham` dataset.
 
@@ -987,7 +987,7 @@ xp: 20
 ```{r}
 # Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
-    filter(___, ___)
+    filter(___ >= ___, ___ <= ___)
 ```
 
 `@solution`
@@ -1011,7 +1011,7 @@ xp: 40
 ```
 
 `@instructions`
-- Include `body_mass_index_scaled`, `followup_visit_number`, and `subject_id` (as a random term) in the formula and run the model with the `sample_tidied_framingham`.
+- Include `body_mass_index_scaled` and `followup_visit_number` in the formula and run the model with the `sample_tidied_framingham`.
 
 `@hint`
 - Use `sample_tidied_framingham` in the data argument.
@@ -1024,10 +1024,12 @@ bmi_check_data <- sample_tidied_framingham %>%
 
 # Run and check model with original dataset
 original_model <- glmer(
-    ___,
+    got_cvd ~ ___ + ___ + (1 | subject_id),
     data = ___, 
   	family = binomial)
-summary(___)
+
+# Fix effect estimates
+fixef(original_model)
 ```
 
 `@solution`
@@ -1041,7 +1043,9 @@ original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, 
   	family = binomial)
-summary(original_model)
+
+# Fix effect estimates
+fixef(original_model)
 ```
 
 `@sct`
@@ -1058,7 +1062,7 @@ xp: 40
 ```
 
 `@instructions`
-- Now run the model with the data that excludes the body mass index values; notice how or if the two models differ.
+- Now run the model with the data that excludes the body mass index values.
 
 `@hint`
 - Run the same model but use the newly created `bmi_check_data`.
@@ -1074,14 +1078,18 @@ original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, 
   	family = binomial)
-summary(original_model)
+
+# Fix effect estimates
+fixef(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
-    ___,
+    got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = ___, 
   	family = binomial)
-summary(___)
+
+# Fix effect estimates
+fixef(bmi_check_model)
 ```
 
 `@solution`
@@ -1095,19 +1103,48 @@ original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, 
   	family = binomial)
-summary(original_model)
+
+# Fix effect estimates
+fixef(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = bmi_check_data, 
   	family = binomial)
-summary(bmi_check_model)
+
+# Fix effect estimates
+fixef(bmi_check_model)
 ```
 
 `@sct`
 ```{r}
-success_msg("Amazing! Notice how the fixed effect estimates for body mass index decrease and the standard error slightly increases, while for followup number the values barely change. The change for the body mass index is not much but it does tell us that including people below or above a certain body mass may bias the estimates by inflating them.")
+success_msg("Amazing!")
+```
+
+***
+
+```yaml
+type: MultipleChoiceExercise
+key: 1948e0d9ab
+```
+
+`@question`
+Look at the fixed effects estimates between each model, how do they differ?
+
+`@possible_answers`
+- The estimates for followup visit changes a lot.
+- [The estimates for body mass index decreases a bit.]
+- There is no difference between model estimates for any variable.
+- All of the above.
+- None of the above.
+
+`@hint`
+
+
+`@sct`
+```{r}
+success_msg("Great! The fixed effect estimates for body mass index decrease, while for followup number the values barely change. The change for the body mass index is not much but it does tell us that including people below or above a certain body mass may bias the estimates by inflating them.")
 ```
 
 ---

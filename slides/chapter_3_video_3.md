@@ -84,11 +84,11 @@ outcome ~ predictor * sex
 ``` 
 {{2}}
 
-- Can't interpret estimates on their own {{3}}
-
 
 `@script`
-There are several ways to model interactions. One way is similar to mathematically writing it out, with the predictor colon sex specifying the interaction. However, you can also use a shorthand with the asterisk between the two terms. These two formula are equivalent.
+There are several ways to model interactions. One way is similar to mathematically writing it out, with the predictor colon sex specifying the interaction. 
+
+However, you can also use a shorthand with the asterisk between the two terms. These two formula are equivalent.
 
 
 ---
@@ -128,7 +128,7 @@ Here is a mixed model interaction using the Framingham dataset. We are testing t
 
 The model summary gives a lot of information, most of which I've cut to show the main fixed effects. With interactions we can't interpret using just one estimate as we would with no interactions. We must use the estimates from each of the interaction terms, which are the three estimates from this model. 
 
-Interpreting interaction results can be quite difficult. If you encounter interactions in your own modeling or want to learn more, check out Chapter 1 of the Statistical Modeling in R Part Two DataCamp course, which describes model interactions in great detail.
+Interpreting interaction results can be quite challenging. If you encounter interactions in your own modeling or want to learn more, check out Chapter 1 of the Statistical Modeling in R Part Two DataCamp course, which describes model interactions in great detail.
 
 
 ---
@@ -145,6 +145,7 @@ library(MuMIn)
 model_no_interaction <- glmer(
     got_cvd ~ body_mass_index_scaled + sex + (1 | subject_id),
     data = tidied_framingham, family = binomial)
+
 model_with_interaction <- glmer(
     got_cvd ~ body_mass_index_scaled * sex + (1 | subject_id),
     data = tidied_framingham, family = binomial)
@@ -164,7 +165,7 @@ Models ranked by AIC(x)
 
 
 `@script`
-To determine if an interaction does exist, you need to compare models with and without an interaction using the model dot sel function. The function accepts many models as arguments. It also takes the method to rank with, which we'll use AIC. It is a measure tries to balance the model's fit to the data and the number of predictors. A smaller AIC means the model is better compared to a larger AIC.
+To determine if an interaction does exist, you need to compare models with and without an interaction using the model dot sel function. The function accepts many models as arguments. Set the ranking method using the rank argument. We'll use AIC, which you'll recall is a measure that balances a model's fitness to the data and how many predictors are included. A smaller compared to larger AIC value means the model is relatively better.
 
 Running the function outputs several columns. The important ones are AIC, delta, and weight. The interaction model's delta is two more AIC, indicating it is slightly worse, while the no interaction model's weight value tells us that it is seventy percent more likely better. This tells us that including an interaction gives no additional information, so we can remove it.
 
@@ -224,7 +225,7 @@ glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id),
 
 
 `@script`
-Here's an example. Individuals with diabetes have a much higher risk of developing CVD because of toxicity from high blood glucose. Depending on the predictor, including diabetes cases may bias the estimates so removing them may be needed. So we run a model that excludes participants with diabetes and one with diabetes cases, then output the fixed effect estimates for both.
+Here's an example. Individuals with diabetes have a much higher risk of developing CVD because of toxicity from high blood glucose. Depending on the predictors we include, we may need to remove diabetes cases as they may be biasing the estimates. We should compare how including participants with diabetes changes the model by two models, with and without diabetes cases. Then output the estimates for both using the fixef function.
 
 The estimate for BMI in the model without diabetes cases is slightly higher than the estimate that includes diabetes cases. This suggests that diabetes cases may be reducing the estimate. However, the differences are very small, so if there is bias it isn't large.
 
