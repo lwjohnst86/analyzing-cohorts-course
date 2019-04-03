@@ -17,7 +17,7 @@ title: Diabetes epidemiologist
 
 
 `@script`
-Hi! I'm Luke Johnston and I work as a diabetes epidemiology researcher. In this course, we will discuss the general workflow for analyzing cohort datasets. This chapter will cover some of the basics of cohort studies and designs.
+Hi! I'm Luke Johnston and I'm a diabetes epidemiology researcher. In this course, we will discuss the general workflow for analyzing cohort datasets and in this first chapter we will cover some of the basics of cohort studies and designs.
 
 
 ---
@@ -31,7 +31,7 @@ key: "9039aa5cb9"
 `@part1`
 Features:
 - Usually investigate risk factors for diseases
-- Includes a time component 
+- Type of longitudinal study: Repeated measurements throughout time
 - *Participants share common characteristic(s)*
 
 
@@ -40,7 +40,7 @@ Features:
 
 
 `@script`
-So, what is a cohort study? Cohorts are scientific studies that investigate how factors influence the risk for a disease. Cohorts always include some type of time component to the data. Most importantly, participants in a cohort all share a common characteristic, hence the term "cohort". For example, the US Nurses' Health Study only includes participants that are married, female nurses.
+So, what is a cohort study? Cohorts are scientific studies that investigate how factors influence the risk for a disease. Cohorts are always a type of longitudinal study where participants have repeatedly collected measures throughout time. Most importantly, participants in a cohort all share a common characteristic, hence the term "cohort". For example, the US Nurses' Health Study only includes participants that are married, female nurses.
 
 
 ---
@@ -68,7 +68,7 @@ key: "3020a2875a"
 
 
 `@script`
-Cohort studies are fundamental to epidemiology and are a key design for answering questions about human health and behavior. Cohorts are common in health or biomedical studies, as they are used to identify risk factors for disease to target for prevention and disease management. They are also incredibly powerful for helping inform evidence-based clinical decisions.
+Cohort studies are fundamental to epidemiology and are a key study design for answering questions about human health and behavior. Cohort studies are very common in health and biomedical research. They help identify risk factors for disease to better understand how to prevent and manage them. They are also incredibly powerful for helping inform evidence-based clinical decision-making.
 
 
 ---
@@ -85,7 +85,7 @@ key: "5a578ef6a6"
 Study participants:
 
 - *Doesn't have the disease*
-- Looks forward in time:
+- Followed over time:
     - Multiple visits over time
     - Health and other conditions measured at each visit
 
@@ -95,13 +95,13 @@ Study participants:
 
 Study participants:
 
-- *Has the disease* 
-- Looks back in time:
+- *Have the disease* 
+- Take data from the past:
     - Asked about past conditions or past medical health records are examined
 
 
 `@script`
-There are two main types of cohort designs, prospective and retrospective. Prospective cohorts are by far the most common and arguably the most powerful form of cohort design to study disease development. 
+There are two main types of cohort designs, prospective and retrospective. Prospective cohorts are the more common and arguably the most powerful form of cohort design to study disease development. 
 
 Retrospective cohorts, on the other hand, are useful when health records are easy to access or when it is impractical or even impossible to conduct a prospective cohort. 
 
@@ -117,23 +117,21 @@ key: "d2a6af7c52"
 ```
 
 `@part1`
-- Context is vital: Cohorts study health, so has an impact on lives {{1}}
+- Context is vital: Cohorts study health, so impacts on lives {{1}}
 - Analysis and interpretation restricted by: {{2}}
     - Design type
     - What was measured and how
 - Examples: {{3}}
     - Data with noise often in retrospective cohorts - be cautious
-    - Measure is physiological abstraction - should transform
+    - Measure is physiological abstraction - useful to transform
 
 
 `@script`
-Sometimes there is a pressure to "just throw variables into the model, adjust for everything, and let the data tell the story". This can be very dangerous, especially for studies on health. 
-
-Because cohort studies often involve disease, the results can have a real-world impact on people's lives. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. You need to know the context of the data, which is why understanding the basics of study design is so important.
+Cohort studies usually investigate some disease, so the results have the potential to have a real-world impact on people's lives and health. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. You need to know the context of the data, so it's important that you understand the basics of the study designs.
 
 For cohorts, both the study design and the types of the measured variables influence how you analyze your data. 
 
-For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Also, some measures may be abstractions of a physiological process and transforming the variable will create more meaningful and interpretable results. This also means there are many ways of analyzing cohort datasets.
+For instance, retrospective cohorts tend to have imprecise measures because of how and what data is collected, such as from questionnaires or medical forms. So when interpreting your results you'll have to be extra cautious. Or, some measures may be abstractions of a physiological process and applying some mathematical transformation may create more meaningful and interpretable results. This means there are many ways of analyzing cohort datasets. We'll get into these concepts in more detail as we go through the course.
 
 
 ---
@@ -165,7 +163,7 @@ framingham
 
 
 `@script`
-We will be working with the Framingham Heart Study dataset. This study started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first widely recognized because of the results of this study. There are about 4400 participants, with data collected a max of 3 times over 15 years of follow-up, so this is a great dataset to use to practice how to analyze cohorts. You'll notice that it is a "tibble" rather than a dataframe. Please note that we will be making heavy use of the tidyverse throughout the course and we expect you to be fairly familiar with it.
+We will be working with the Framingham Heart Study dataset. This study started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first widely recognized because of the results of this study. There are about 4400 participants, with data collected a max of 3 times on the participants over the course of 15 years. This makes it a great dataset to practice on for analyzing cohorts. You'll notice that the data is a "tibble", which comes from the tidyverse. We make heavy use of the tidyverse throughout the course so we recommend that you familiarize yourself with it a bit.
 
 
 ---

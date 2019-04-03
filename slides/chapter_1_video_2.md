@@ -55,7 +55,7 @@ key: "b7cc4ddc54"
 
 
 `@script`
-Let's show a graphic of how a cohort study may look like. In this graph, each line is a hypothetical participant. At the beginning, no one has a disease. As time passes, some people get the disease while others don't. When the study ends, or when the analysis is conducted, there will be a group of people who have the disease, shown here in orange, and a lot more who don't, shown here in blue. Data is collected at several time points over the study duration. You can then compare how these two groups of people differ. What factors distinguish those with and without the disease? That is what we try to answer when we analyze the data.
+Here's a graphic showing how a cohort study may look like. In this graph, each line is a hypothetical participant. At the beginning, no one has a disease. As time passes, some people get the disease while others don't. When the study ends, or when the analysis is conducted, there will be a group of people who have the disease, shown here in orange, and a lot more who don't, shown here in blue. Data is collected at several time points over the study duration. You can then compare how these two groups of people differ. What factors distinguish those with and without the disease? That is what we try to answer when we analyze the data.
 
 
 ---
@@ -81,7 +81,7 @@ In cohort studies, there are commonly two terms used, outcome and exposure or pr
 
 The term outcome is used to mean the disease and it is the y or dependent variable commonly seen in statistical notation.
 
-The term exposure or predictor represents the variables that relate to or potentially influence the outcome in some way. These are the variables that we think may predict whether someone gets the disease, for example, with cigarette smoke and lung cancer.
+The term exposure or predictor represents the variables that relate to or potentially influence the outcome in some way. These are the variables that we think may predict whether someone gets the disease, for example, with cigarette smoking and lung cancer.
 
 
 ---
@@ -114,7 +114,7 @@ framingham %>%
 `@script`
 Let's look at the Framingham data now and determine some simple descriptions about the duration of the study and number of visits. We'll use the dplyr package to select and rename the two time variables. One is visit number and the other is days since recruitment. Then we pipe the data into summarize to calculate the maximum number of visits and years of followup, converted from days. 
 
-In the Framingham study there were three visits maximum over a maximum of 13 years of follow-up.
+In the Framingham study there were a maximum three visits over up to 13 years of follow-up.
 
 
 ---
@@ -146,9 +146,9 @@ framingham %>%
 
 
 `@script`
-Next, let's see how many participants came to each visit. Again, we'll use select to keep and rename the visit number variable. Then we use the group-underscore-by function to then calculate the number of participants at each visit using summarize and with the n function.
+Next, let's see how many participants came to each visit. Again, we'll use select to keep and rename the visit number variable. Then we use the group-underscore-by function to then calculate the number of participants at each visit using summarize with the n function.
 
-More than forty-four thousand participants were recruited, a large study!
+More than four thousand participants were recruited, quite a large study!
 
 
 ---
@@ -203,7 +203,7 @@ key: "75da8bcc42"
 
 
 `@script`
-In summary, we compared that prospective and retrospective studies differ in when the disease occurs, defined the temrs outcome and exposure or predictor, and took a quick look at the data.
+In summary, we compared that prospective and retrospective studies differ in when the disease occurs, defined the terms outcome and exposure or predictor, and took a quick look at the data.
 
 
 ---
