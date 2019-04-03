@@ -40,7 +40,7 @@ key: "d7c7602043"
 
 
 `@script`
-There are many ways to analyze cohorts, depending on the data, the research questions, and the study design. For prospective cohorts with multiple measures over time, you would generally use mixed effects or generalized estimated equations, while other study designs tend to use simpler techniques such as linear or logistic regression or cox models. Cohorts usually study a disease, which is generally binary, so you'd likely use a logistic regression-type methods, including with mixed effects models.
+There are many ways to analyze cohorts, depending on the data, the research questions, and the study design. For prospective cohorts with multiple measures over time, you would generally use mixed effects or generalized estimated equations, while other study designs tend to use simpler techniques such as linear or logistic regression or cox models. Cohorts usually study a disease, which is generally binary like has or doesn't have, and requires techniques that use a binomial distribution.
 
 For the rest of the chapter, we'll focus on mixed effects modeling.
 
@@ -55,8 +55,8 @@ key: "029e25b56b"
 
 `@part1`
 - **Mixed effects**: 
-    - Has "fixed" and "random" terms
-    - Used with multiple measures on same "unit" (e.g. over time)
+    - Has "fixed" (population-level) and "random" (individual-level) terms
+    - Used with multiple measures on same "statistical unit" (e.g. person over time)
 
 &nbsp;
 
@@ -71,9 +71,9 @@ glmer(outcome ~ predictor1 + predictor2 +
 
 
 `@script`
-Mixed effects models are powerful methods that contain a fixed term and a random term. For example, you use this method when data has been collected on each person multiple times, commonly done in prospective cohort studies. 
+Mixed effects models are powerful methods that contain a fixed term that indicates the overall effect and a random term that indicates the individual effect. You would use this method when data has been collected on each participant multiple times, as is common in prospective cohorts. 
 
-You'll need to use the lme4 package, which contains the glmer function. If you are familiar with the function glm, or generalized linear models, glmer is very similar except that you add a random term. Let's look into the model formula a bit more.
+We'll use the glmer function from lme4. If you are familiar with the glm function, or with generalized linear models, glmer is very similar except that you add a random term.
 
 
 ---
@@ -90,17 +90,19 @@ key: "74f16c7a54"
 outcome ~ predictor + (1 | random_term)
 ```
 
-- `outcome`: $y$ variable. In cohorts, usually disease. {{1}}
-- `predictor`: One or more $x$ variable. Variables thought to influence outcome. {{2}}
+- `outcome`: $y$ variable. In cohorts, usually disease {{1}}
+- `predictor`: One or more $x$ variable {{2}}
+    - Fixed terms
+    - Variables thought to influence outcome
     - Using more variables: `predictor1 + predictor2 + ...`
 
 
 `@script`
 There are three parts to a mixed model formula: the outcome or y, the predictors or x, and the random term. 
 
-The outcome in cohorts is usually the disease variable. 
+The outcome in cohorts is usually the disease. 
 
-The predictor part can be one or more predictor variables. You can add more predictors by separating them with a plus sign. The predictor variable of interest, called the exposure, is the one we hypothesize has a role in the the disease. Other predictors included are the confounders, which we will cover later.
+The predictor is the fixed term and can be one or more predictor variables, separated by a plus sign. The main predictor of interest, called the exposure, is the one we hypothesize has a role in the the disease. Other predictors include potential confounders, which we will cover later.
 
 
 ---
@@ -109,6 +111,7 @@ The predictor part can be one or more predictor variables. You can add more pred
 ```yaml
 type: "FullSlide"
 key: "6258135d76"
+disable_transition: true
 ```
 
 `@part1`
@@ -117,21 +120,21 @@ key: "6258135d76"
 outcome ~ predictor + (1 | random_term)
 ```
 
-- `(1 | random_term)`: Random effects variable.
+- `(1 | random_term)`: Random effects variable
     - Random = dependency between observations (e.g. siblings in family, person over time) {{1}}
-    - Takes form `(left | right)`: left = individual slopes, right = individual intercepts. {{2}}
+    - Takes form `(left | right)`: left = individual slopes, right = individual intercepts {{2}}
     - `1` = same slope for all {{3}}
     - `random_term` = each person has own intercept {{4}}
 
 
 `@script`
-Lastly, there is variable for the random effects. The name random means there is a dependency between observations, such as with siblings in a family or a person measured over time. 
+Lastly, there is the random effects variable. The name random means there is a dependency between observations, such as with siblings in a family or a person measured over time. 
 
-The form has two parts, a left and right side. The left side calculates slopes for each random unit while the right side calculates intercepts for each unit. The one here says to have the same slopes and that each group in the random term on the right has a different intercept. For example, in a prospective cohort, individuals measured over time will generally start at their own level at the start. For example, everyone starts at a their own weight but that it may change over time.
+The form has two parts, a left and right side. The left side calculates slopes for each random unit while the right side calculates intercepts for each unit. The one here says to have the same slopes and that each random unit on the right will have a different intercept. For example, in a prospective cohort, individuals measured over time will all start at their own weight at the start and change over time.
 
 
 ---
-## Recall transforming variables for modelling
+## Recall transforming variables for modeling
 
 ```yaml
 type: "FullSlide"
@@ -140,25 +143,25 @@ key: "a652496216"
 
 `@part1`
 ```{r}
-# Example transforming: Center, division, log
+# Example code for transforming: Center, division, log
 changed_dataset <- dataset %>% 
-    mutate(center_predictor = scale(predictor1, scale = FALSE),
-           predictor_divided_num = predictor2 / num,
-           log_predictor = log(predictor))
+    mutate(predictor_center = scale(predictor, scale = FALSE),
+           predictor_divided_num = predictor / num,
+           predictor_log = log(predictor))
 ``` 
 {{1}}
 
-- For mixed models, large differences in variances between variables is common issue {{2}}
+- For mixed models, large differences in variable variances is common issue {{2}}
     - E.g. Weight of mother in kg and weight of newborn in grams
 - Often involves trial and error for transformations {{3}}
 
 
 `@script`
-In chapter 2 we covered transforming variables. Here we can put that knowledge to use. Some modeling techniques are fussy with the data you give it. Usually the code checks and informs you of any issue. 
+In chapter 2 we covered transforming variables. Here we will put that knowledge to use. Some modeling techniques are fussy with the data you give it. Usually the model function informs you of any issue. 
 
-For instance, with mixed effects models, large differences in the variances of variables in the formula can cause computational problems. A good example would be the weight differences between a mother and newborn.
+For instance, with mixed effects models, large differences in the variances of variables in the formula can cause computational problems. A good example would be the weight differences between a mother in kg and a newborn in grams.
 
-You'll often have to do some trial and error of scaling, logging, or other transformations  before the model computes a correct output.
+You'll often have to do some trial and error of scaling, logging, or other transformations  before the model computes a correct error-free output.
 
 
 ---
@@ -171,6 +174,7 @@ key: "d2067f83af"
 
 `@part1`
 ```{r}
+# Example code usage:
 library(lme4)
 glmer(outcome ~ center_predictor + predictor_divided_100 + 
           log_predictor + (1 | random_id), # e.g. subject_id
@@ -180,7 +184,27 @@ glmer(outcome ~ center_predictor + predictor_divided_100 +
 
 
 `@script`
-We've covered what to include in the formula and how to transform some variables. Now it's time to put it all together in the glmer function. The function takes several arguments, but the three most important ones are the formula, the data, and the family function. The family argument is used to indicate how to handle the outcome variable. In this case, the outcome is binary: You have the disease or not. So, you need to use the binomial distribution family to obtain the correct result.
+We've covered what to include in the formula and how to transform some variables. Now for how we put it together in the glmer function. glmer takes several arguments, but the three most important ones are the formula, the data, and the family function. The family argument is used to indicate how to handle the outcome variable. Since the outcome is binary, you either have the disease or don't, we need to use the binomial distribution family to obtain the correct results.
+
+
+---
+## Lesson summary
+
+```yaml
+type: "FullSlide"
+key: "5a9db8b0fa"
+```
+
+`@part1`
+- Mixed effects models commonly used
+- Fixed for population, random for individual
+- `glmer()` takes three arguments: formula, data, family
+- Formula: `y ~ x + (1 | random)`
+    - Any variable, including transformed can be added
+
+
+`@script`
+To summarize, mixed effects models are common, allow you to consider individual's differences with the random term, that the glmer takes three arguments, and that the formula can include any variable in the dataset.
 
 
 ---

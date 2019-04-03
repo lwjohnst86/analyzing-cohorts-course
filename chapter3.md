@@ -37,7 +37,7 @@ The `tidied_framingham` dataset is loaded. Before answering, look at the variabl
 `@hint`
 - Remember, these are questions to ask *of the Framingham study*. The variables in the question must exist in the dataset.
 - Use `glimpse(tidied_framingham)` to see which variables are available.
-- Use `min` and `max` of `participant_age` to see the age ranges of the participants.
+- Use `summary(tidied_framingham)` to see the minimum and maximum ages of the participants.
 
 `@pre_exercise_code`
 ```{r}
@@ -93,7 +93,7 @@ xp: 50
 ```
 
 `@instructions`
-- Run a model looking at how `total_cholesterol_scaled` relates to `got_cvd` (have `subject_id` as the random term).
+- Run a model looking at how `total_cholesterol_scaled` relates to the outcome `got_cvd` (have `subject_id` as the random term).
 
 `@hint`
 - The formula should be `got_cvd ~ total_cholesterol_scaled + (1 | subject_id)`.
@@ -204,7 +204,6 @@ model <- glmer(
 ```{r}
 load(url("https://assets.datacamp.com/production/repositories/2079/datasets/71ac52af33d8d93192739c0ddfa3367967b42258/sample_tidied_framingham.rda"))
 library(lme4)
-library(ggplot2)
 ```
 
 ***
@@ -225,7 +224,7 @@ xp: 35
 ```{r}
 # Model total cholesterol on CVD
 model <- glmer(
-    ___ ~ ___,
+    ___ ~ ___ + (1 | ___),
     data = sample_tidied_framingham, 
     family = binomial
     )
@@ -315,7 +314,7 @@ xp: 30
 ```{r}
 # Model with scaled cholesterol
 model <- glmer(
-    got_cvd ~ ___ + (1 | subject_id),,
+    got_cvd ~ ___ + (1 | subject_id),
     data = sample_tidied_framingham, 
     family = binomial
 ) 
@@ -352,15 +351,15 @@ key: 0635f94add
 xp: 100
 ```
 
-Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal data. But to use that strength you need to, well, include time in the model!
+Before the development of mixed effects modeling, analyzing longitudinal data was fairly difficult because repeated measures violated the assumption of independent observations. This time component is a key strength of longitudinal studies like with prospective cohorts. But to use that strength you need to, well, include time in the model!
 
-Include `followup_visit_number` in the `glmer()` formula as well as the random term and the scaled cholesterol predictor.
+Include an additional predictor (`followup_visit_number`) in the `glmer()` formula. Recall that `got_cvd` is the outcome and `subject_id` is the random term.
 
 `@instructions`
 - Run a model with two predictors: `total_cholesterol_scaled` and `followup_visit_number`.
 
 `@hint`
-- Include `+ followup_visit_number` after the scaled cholesterol variable, while still including the subject ID.
+- The formula should be `total_cholesterol_scaled + followup_visit_number`.
 
 `@pre_exercise_code`
 ```{r}
@@ -372,8 +371,8 @@ library(lme4)
 ```{r}
 # Include followup visit number with cholesterol
 model <- glmer(
-  	# Write out the full formula
-    ___,
+  	# Add scaled cholesterol and visit
+    got_cvd ~ ___ + ___ + (1 | subject_id),
     data = sample_tidied_framingham, 
     family = binomial
     )
@@ -386,7 +385,7 @@ summary(model)
 ```{r}
 # Include followup visit number with cholesterol
 model <- glmer(
-  	# Write out the full formula
+  	# Add scaled cholesterol and visit
     got_cvd ~ total_cholesterol_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, 
     family = binomial
@@ -426,11 +425,18 @@ xp: 100
 
 Building a DAG that approximates the biology is difficult. It requires domain knowledge, so consult experts to confirm the DAG. Remember, you will build an incomplete DAG. This is but one step to finding confounders.
 
-Let's determine which variables to adjust for when systolic blood pressure (SBP) is the exposure and CVD is the outcome. Assume that: Sex influences SBP and Smoking; Smoking influences SBP and CVD; BMI influences CVD,  SBP, and FastingGlucose; and, FastingGlucose influences CVD. Create a `dagitty()`  model to find out adjustment sets.
+Let's determine which variables to adjust for when systolic blood pressure (`SBP`) is the exposure and `CVD` is the outcome. Assume that: 
+
+- `Sex` influences `SBP` and `Smoking`
+- `Smoking` influences `SBP` and `CVD`
+- `BMI` influences `CVD`,  `SBP`, and `FastingGlucose`
+- `FastingGlucose` influences `CVD`
+
+Create a `dagitty()` object to identify what to adjust for.
 
 Recall that for `dagitty`: `x -> y` means "x influences y" and that `x -> {y z}` means "x influences y and z"; `dagitty` is already loaded.
 
-To learn more about graphs and networks, check out [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r).
+Learn more about graphs and networks in the [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r) course.
 
 `@pre_exercise_code`
 ```{r}
@@ -456,7 +462,7 @@ xp: 35
 
 `@instructions`
 - Using both the links between variables described in the context above and the plot as a guide, create a DAG of the hypothetical pathways.
-- Visually inspect the plot of the `variables_pathway` graph.
+- Visually inspect the plot of the `variable_pathway` graph.
 
 `@hint`
 - The form for a pathway is `start_variable -> {one or more end variables}`.
@@ -473,7 +479,7 @@ variable_pathways <- dagitty("dag {
 }")
 
 # Plot potential confounding pathways
-plot(graphLayout(___))
+plot(graphLayout(variable_pathways))
 ```
 
 `@solution`
@@ -505,7 +511,7 @@ xp: 35
 ```
 
 `@instructions`
-- Identify the (minimal) model adjustment set of variables from the `variable_pathways` graph, selecting `"SBP"` as exposure and `"CVD"` as outcome.
+- Identify the (minimal) model `adjustmentSets()` of variables from the `variable_pathways` graph, selecting `"SBP"` as exposure and `"CVD"` as outcome.
 
 `@hint`
 - The `adjustmentSets()` requires the DAG object and the outcome (CVD) and the predictor (SBP).
@@ -589,9 +595,7 @@ xp: 100
 
 It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools for choosing variables to adjust for. Using the functions from the `MuMIn` package, determine which model has the best fit for the models being compared by using AIC to rank them. A *smaller* AIC is better.
 
-As multiple models will be computed and compared, to keep computing time short, for *DataCamp lesson purposes only*, we: greatly restricted the sample size and number of variables in the data, called `model_sel_df`; and, set `nAQG = 0` argument (reduces estimation precision, but increases speed).
-
-The predictors are `systolic_blood_pressure_scaled`, `sex`, `body_mass_index_scaled`, `currently_smoking`, and `followup_visit_number`.
+As many models will be computed and compared, for *DataCamp lesson purposes only*, we kept computing time short by: greatly reducing the sample size and number of variables in the data, called `model_sel_df`; and, setting `nAQG = 0` (reduces estimation precision, but increases speed).
 
 `@pre_exercise_code`
 ```{r}
@@ -609,8 +613,7 @@ xp: 35
 ```
 
 `@instructions`
-- Set `got_cvd` as the outcome and `subject_id` as the random term.
-- Include the remaining variables (listed above) as predictors in the formula.
+- Add `systolic_blood_pressure_scaled`, `sex`, `body_mass_index_scaled`, `currently_smokes`, and `followup_visit_number` to the formula.
 
 `@hint`
 - Model formulas are in the form: `got_cvd ~ predictor1 + predictor2 + (1 | subject_id)`.
@@ -619,7 +622,8 @@ xp: 35
 ```{r}
 # Set the model formula
 model <- glmer(
-    ___,
+    got_cvd ~ ___ + ___ +
+        ___ + ___ + ___ + (1 | subject_id),
     data = model_sel_df, 
     family = binomial, 
     # Required for MuMIn
@@ -658,12 +662,12 @@ xp: 35
 ```
 
 `@instructions`
-- "Dredge" through the combinations of variables, subset by `systolic_blood_pressure_scaled` in the model and rank by `"AIC"`.
-- Print the top 5 `selection` models.
+- `dredge()` through the combinations of variables, subset by `systolic_blood_pressure_scaled` in the model and rank by `"AIC"`.
+- Print the top 3 `selection` models.
 
 `@hint`
-- Provide 5 as the second argument to `head()`.
 - Give `model` as the first argument to `dredge()`.
+- Both `rank` and `subset` should be a character string.
 
 `@sample_code`
 ```{r}
@@ -682,8 +686,8 @@ model <- glmer(
 # Set the ranking method and subset
 selection <- dredge(___, rank = ___, subset = ___)
 
-# Print the top 5
-head(___, ___)
+# Print the top 3
+head(as.data.frame(selection), 3)
 ```
 
 `@solution`
@@ -703,8 +707,8 @@ model <- glmer(
 # Set the ranking method and subset
 selection <- dredge(model, rank = "AIC", subset = "systolic_blood_pressure_scaled")
 
-# Print the top 5
-head(selection, 5)
+# Print the top 3
+head(as.data.frame(selection), 3)
 ```
 
 `@sct`
@@ -721,7 +725,7 @@ xp: 30
 ```
 
 `@question`
-Based on the output of `dredge()`, what variables are in the top model?
+Based on the output of `dredge()`, what variables are adjusted for in the top model?
 
 `@possible_answers`
 - BMI and smoking
@@ -730,7 +734,7 @@ Based on the output of `dredge()`, what variables are in the top model?
 - All of the variables
 
 `@hint`
-- Check which variables are missing in the columns of `selection`.
+- Check which variables have missingness in the rows `selection`.
 
 `@sct`
 ```{r}

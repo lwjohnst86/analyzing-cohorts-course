@@ -17,7 +17,7 @@ title: Diabetes epidemiologist
 
 
 `@script`
-A difficult part of doing analysis is controlling for potential confounders.
+A difficult part of doing cohort analyses is controlling for potential confounders.
 
 
 ---
@@ -33,7 +33,7 @@ key: "24393effa1"
 
 
 `@script`
-What is a confounder? It is a variable that could influence both the outcome and exposure. While you may have learned about confounding in other courses, understanding it is essential to making valid inferences.
+What is a confounder? It is a variable that could influence both the exposure and outcome. While you may have learned about confounding in other courses, understanding it is essential to making valid inferences.
 
 
 ---
@@ -46,7 +46,7 @@ key: "b9a8c843aa"
 
 `@part1`
 - Completely controlling for confounding is **very difficult**
-- Integral to STROBE statement: **STrengthening the Reporting of OBservational studies in Epidemiology.** (www.strobe-statement.org) {{1}}
+- STROBE statement on best practices: **STrengthening the Reporting of OBservational studies in Epidemiology.** (www.strobe-statement.org) {{1}}
 - Three common approaches: {{2}}
     - Literature, biological rationale, background knowledge
     - Causal pathways: Directed acyclic graphs (DAG)
@@ -54,33 +54,35 @@ key: "b9a8c843aa"
 
 
 `@script`
-You control for confounding by including them in your models, reducing risk of biased estimates. Adequately adjusting for confounding requires considerable thought and effort. Do the best you can, but know that you'll never adjust for everything.
+You control for confounding by including them in your models. Adequately adjusting for confounding requires much consideration. Do the best you can, but know that you'll never adjust for everything.
 
-Confounder adjustment is part of thorough research, and is so important that it's part of the STROBE statement best practices. STROBE, or strengthening the reporting of observational studies in epidemiology, is a standard for cohort research and should be adhered to.
+Confounder adjustment is part of any thorough research and is part of the STROBE statement on best practices. STROBE, or Strengthening the Reporting of Observational Studies in Epidemiology, is a standard in cohort research and should be adhered to.
 
-Use several approaches to identify confounders, as each have strengths and weaknesses. Use biological and domain knowledge and formal methods like directed acyclic graphs, called DAGs, and information criterion techniques.
+We should use several approaches to identify confounders, as each have strengths and weaknesses. Use biological and domain knowledge and formal methods like directed acyclic graphs, called DAGs, and information criterion techniques.
 
 
 ---
 ## Identify confounders with Directed Acyclic Graphs (DAG)
 
 ```yaml
-type: "FullSlide"
-key: "7aadf2f281"
+type: "TwoColumns"
+key: "8d4cda23ef"
 ```
 
 `@part1`
 ![DAG](https://assets.datacamp.com/production/repositories/2079/datasets/2d3a0b3b5a2f6f084658a87f5d942bc77d9fe28f/ch3-v2-classic-confounder.png)
 
+
+`@part2`
 - Directed = A link with an arrow/direction {{1}}
 - Acyclic = No looping (cycling) backward {{2}}
 - Graph = Representation of objects and links {{3}}
 
 
 `@script`
-DAGs provide a powerful approach to finding confounders as it makes hypothetical pathways explicit.
+DAGs make hypothetical causal links explicit and provide a powerful approach to finding confounders.
 
-What does DAG mean? Directed indicates directionality: a cause and effect. Acyclic means that a pathway doesn't loop backward: the effect can't also cause the cause. Lastly, graph is a visual representation of links between objects.
+Let's break the name down. Directed indicates directionality: cause and effect. Acyclic means that a pathway doesn't loop backward: the effect can't also cause the cause. Lastly, graph is a visual representation of links between objects.
 
 
 ---
@@ -113,11 +115,11 @@ plot(graphLayout(confounders))
 
 
 `@script`
-Here's an example of using DAGS. Let's say we want to determine whether height associates with colon cancer. 
+Here's an example of using DAGs. Let's say we want to determine if height associates with colon cancer.
 
-We can use the dagitty package to help out. We give it a character string of a DAG specification. This string begins with the name dag, then curly brackets, followed by the variable names and links. Write links with the minus and greater than sign.
+We can use the dagitty package to help find confounders. We give it a character string of a DAG specification. This string begins with the name dag, then curly brackets, followed by hypothetical variable names and links. Write links with the minus and greater than sign.
 
-We plot it with graph-underscore-layout to get a nice image.
+We plot it using the graph-layout function.
 
 
 ---
@@ -158,7 +160,7 @@ plot(graphLayout(confounders))
 `@script`
 But, we know there are confounders. We know men tend to be taller and men are more likely to get cancer. 
 
-We can add these links into dagitty. Since sex is linked with both height and cancer, we include both by wrapping them in curly brackets.
+We then add these links into dagitty. Since sex is linked with both height and cancer, we include both by wrapping them in curly brackets.
 
 Plotting it shows the links we've added.
 
@@ -205,9 +207,9 @@ adjustmentSets(
 
 
 `@script`
-The point of dagitty isn't for figures, it's to find the variables to adjust for. The adjustment sets function tells us which variables at a minimum to adjust for. For this to work, we need to specify which variables are the exposure and outcome.
+dagitty is used mainly to help with causal reasoning and to decide what to include in our models. The adjustment sets function tells us which variables at a minimum we should adjust for. In the function we need to set the exposure and outcome arguments.
 
-For this simple example, only sex is a possible confounder.
+This is a simple example, but it says we should at least adjust for sex.
 
 
 ---
@@ -220,14 +222,14 @@ key: "fa35c1a27a"
 
 `@part1`
 - Estimates relative model "quality" over others {{1}}
-- Trade-off between goodness of fit and number of predictors {{2}}
-- Common method: Akaike information criterion (AIC) {{3}}
+- Trade-off between goodness of fit and number of predictors {{1}}
+- Common method: Akaike information criterion (AIC) {{2}}
     - For maximum likelihood models
     - Smaller number, the better
 
 
 `@script`
-Another method is information criterion, which identifies adjustment variables by comparing multiple models. A common method is the Akaike criterion or AIC, where a smaller number is better.
+Another method is information criterion, which identifies adjustment variables by comparing multiple models' fitness. Akaike criterion or AIC ranking is commonly used. A smaller AIC is better.
 
 
 ---
@@ -260,11 +262,11 @@ model_selection <- dredge(full_model, rank = "AIC",
 
 
 `@script`
-The MuMIn package has model selection functions like dredge. Dredge needs a model with all variables we think may bias the estimate, and needs the argument na dot action set to na dot fail.
+The MuMIn package has model selection functions like dredge. Dredge needs a model with all variables we think may bias the results. The argument na dot action set to na dot fail must be set.
 
-We then give the model to dredge, which runs models with all possible variable combinations. We need to set the method to rank models, for us it is AIC. We'll also specify that only models with at least cholesterol be compared by using the subset argument.
+We give the model object to dredge to run models with all possible variable combinations. We'll use AIC in the rank argument and specify with the subset argument that we want models with at least cholesterol included.
 
-Be careful though, computation times can become very long.
+A quick warning, computation times can become very long if you're not careful.
 
 
 ---
@@ -277,35 +279,35 @@ key: "4bdd8bc787"
 
 `@part1`
 ```{r}
-# Top 5 models
-head(model_selection, 5)
+# Top 3 models
+as.data.frame(model_selection) %>%
+    head(3)
 ``` 
 {{1}}
 
 ```
-Global model call: glmer(formula = got_cvd ~ body_mass_index_scaled + total_cholesterol_scaled + 
-    participant_age + currently_smokes + education_combined + 
-    sex + (1 | subject_id), data = tidied_framingham, family = binomial, 
-    na.action = "na.fail")
-...
-Model selection table 
-     (Int) bdy_mss_ind_scl crr_smk edc_cmb prt_age sex ttl_chl_scl df   logLik   AIC delta weight
-58 -1.2190          0.7495                  0.5155   +      0.2742  6 -203.065 418.1  0.00  0.411
-60 -1.5220          0.7653       +          0.5859   +      0.2709  7 -202.288 418.6  0.44  0.329
-50 -1.2580          0.7356                           +      0.2749  5 -205.457 420.9  2.78  0.102
-62 -0.9683          0.7212               +  0.4928   +      0.2804  8 -202.588 421.2  3.05  0.090
-64 -1.2870          0.7401       +       +  0.5603   +      0.2742  9 -201.854 421.7  3.58  0.069
-Models ranked by AIC(x) 
-Random terms (all models): 
-‘1 | subject_id’
+   (Intercept) body_mass_index_scaled currently_smokes
+57   -1.218899              0.7494514             <NA>
+59   -1.522049              0.7652833                +
+49   -1.258198              0.7356253             <NA>
+   education_combined participant_age sex total_cholesterol_scaled
+57               <NA>       0.5155339   +                0.2742008
+59               <NA>       0.5858787   +                0.2709116
+49               <NA>              NA   +                0.2748649
+   df    logLik      AIC     delta     weight
+57  6 -203.0653 418.1307 0.0000000 0.36560377
+59  7 -202.2876 418.5751 0.4444555 0.29275100
+49  5 -205.4571 420.9143 2.7836167 0.09089835
 ``` 
 {{2}}
 
 
 `@script`
-Use head to show the top 5 models from dredge.
+To show the top three models, we first convert the dredge object to a dataframe and use head with three.
 
-Dredge outputs a lot. The cells with missing values are the models without those variables. The delta and weight columns on the end tell us which models are the better ones. The delta is the difference in AIC with the model above. Weight is the likelihood we should choose that model of all models. Here, adding body mass, age, and sex, and optionally smoking, would provide a good fit for the model.
+Dredge outputs several columns, with each row as a model. Rows with missing values in the columns for the variable names indicate they were not included in the model. The delta and weight columns indicate which models are the relatively better. The delta is the difference in AIC to the model above. Weight is the likelihood that we should choose that model. 
+
+The top model adjusts for body mass, age, and sex.
 
 
 ---
