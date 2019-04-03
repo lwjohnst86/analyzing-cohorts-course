@@ -28,7 +28,7 @@ Let's get comfortable creating some univariate histograms to start exploring the
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/6c79072c0d30d2a8f98750fb39c63ae03a395d50/framingham_tidier.rda"))
+tidier_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/70cb0511fa2caed6e774bbb26e65ac55660ae8c9/tidier_framingham.rds"))
 library(ggplot2)
 ```
 
@@ -112,7 +112,7 @@ Now that you've learned how to create histograms, let's convert some of the Fram
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/6c79072c0d30d2a8f98750fb39c63ae03a395d50/framingham_tidier.rda"))
+tidier_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/70cb0511fa2caed6e774bbb26e65ac55660ae8c9/tidier_framingham.rds"))
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -312,7 +312,7 @@ Boxplots are great for showing a distribution by a grouping variable (e.g. sex o
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/6c79072c0d30d2a8f98750fb39c63ae03a395d50/framingham_tidier.rda"))
+tidier_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/70cb0511fa2caed6e774bbb26e65ac55660ae8c9/tidier_framingham.rds"))
 library(dplyr)
 library(tidyr)
 library(ggplot2)
@@ -388,7 +388,7 @@ As you may have noticed, there are several discrete variables with ambiguous val
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/6c79072c0d30d2a8f98750fb39c63ae03a395d50/framingham_tidier.rda"))
+tidier_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/70cb0511fa2caed6e774bbb26e65ac55660ae8c9/tidier_framingham.rds"))
 library(dplyr)
 ```
 
@@ -522,7 +522,7 @@ The `forcats` package has been preloaded as well as the previous `tidier2_framin
 
 `@pre_exercise_code`
 ```{r}
-tidier2_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/16a8a17e784e845c75eb7fe15899683684e89a22/tidier2_framingham.Rds"))
+tidier2_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/16a8a17e784e845c75eb7fe15899683684e89a22/tidier2_framingham.rds"))
 library(forcats)
 library(dplyr)
 tidier2_framingham$education_combined <- NULL
@@ -609,7 +609,7 @@ mutate_at(
 
 `@pre_exercise_code`
 ```{r}
-tidier2_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/16a8a17e784e845c75eb7fe15899683684e89a22/tidier2_framingham.Rds"))
+tidier2_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/16a8a17e784e845c75eb7fe15899683684e89a22/tidier2_framingham.rds"))
 library(dplyr)
 ```
 
