@@ -594,14 +594,14 @@ Recall the form for `mutate_at()` is:
 mutate_at(
     # List variables in here:
     vars(...), 
-    # List functions in here:
-    funs(...)
+    # List functions in here, with name-function pair:
+    list(name = function, ...)
 )
 ```
 
 `@instructions`
 - In `vars()`, add `body_mass_index` and `cigarettes_per_day`.
-- In `funs()`, add `log`, `sqrt`, and `invert` (this function is provided).
+- In `list()`, add `log`, `sqrt`, and `invert` (this function is provided).
 - Check how these variables changed by selecting the two original variables names using the `contains()` function and piping to `summary()`.
 
 `@hint`
@@ -620,7 +620,7 @@ invert <- function(x) 1 / x
 # Use three transformations on body mass index
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(___, ___), 
-              funs(___, ___, ___))
+              list(___ = ___, ___ = ___, ___ = ___))
 
 # Check the created variable summaries
 transformed_framingham %>% 
@@ -636,7 +636,7 @@ invert <- function(x) 1 / x
 # Use three transformations on body mass index
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
-              funs(log, sqrt, invert))
+              list(log = log, sqrt = sqrt, invert = invert))
 
 # Check the created variable summaries
 transformed_framingham %>% 
@@ -668,7 +668,7 @@ The `transformed_framingham` dataset you previously wrangled has been loaded.
 
 `@pre_exercise_code`
 ```{r}
-transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/db4b0d894d5c2a05c8eab34f0432903694b8f8ad/transformed_framingham.Rds"))
+transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/f6e38ca6a70fe7f5e38d234d11d42fd19603a37f/transformed_framingham.rds"))
 library(tidyr)
 library(dplyr)
 library(ggplot2)
@@ -687,7 +687,6 @@ xp: 50
 
 `@hint`
 - Select the variables with `contains("body_mass_index")`.
-- Use `x = values` inside `aes()`.
 
 `@sample_code`
 ```{r}
@@ -695,10 +694,10 @@ xp: 50
 bmi_transforms_plot <- ___ %>% 
 	# Keep variables with string in variable name
     select(contains(___)) %>% 
-    gather(transformations, values) %>% 
-    ggplot(aes(x = values)) +
+    gather(variable, value) %>% 
+    ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_wrap(vars(transformations), scale = "free")
+    facet_wrap(vars(variable), scale = "free")
 
 # Show plot
 bmi_transforms_plot
@@ -710,10 +709,10 @@ bmi_transforms_plot
 bmi_transforms_plot <- transformed_framingham %>% 
 	# Keep variables with string in variable name
     select(contains("body_mass_index")) %>% 
-    gather(transformations, values) %>% 
-    ggplot(aes(x = values)) +
+    gather(variable, value) %>% 
+    ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_wrap(vars(transformations), scale = "free")
+    facet_wrap(vars(variable), scale = "free")
 
 # Show plot
 bmi_transforms_plot
@@ -744,10 +743,10 @@ xp: 50
 cpd_transforms_plot <- transformed_framingham %>% 
 	# Keep variables with string in variable name
     select(contains("___")) %>% 
-    gather(transformations, values) %>% 
-    ggplot(aes(x = values)) +
+    gather(variable, value) %>% 
+    ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_wrap(vars(transformations), scale = "free")
+    facet_wrap(vars(variable), scale = "free")
 
 # Show plot
 cpd_transforms_plot
@@ -759,10 +758,10 @@ cpd_transforms_plot
 cpd_transforms_plot <- transformed_framingham %>% 
 	# Keep variables with string in variable name
     select(contains("cigarettes_per_day")) %>% 
-    gather(transformations, values) %>% 
-    ggplot(aes(x = values)) +
+    gather(variable, value) %>% 
+    ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_wrap(vars(transformations), scale = "free")
+    facet_wrap(vars(variable), scale = "free")
 
 # Show plot
 cpd_transforms_plot
@@ -801,24 +800,24 @@ Which statement is true?
 
 `@pre_exercise_code`
 ```{r}
-transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/db4b0d894d5c2a05c8eab34f0432903694b8f8ad/transformed_framingham.Rds"))
+transformed_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/f6e38ca6a70fe7f5e38d234d11d42fd19603a37f/transformed_framingham.rds"))
 library(tidyr)
 library(dplyr)
 library(ggplot2)
 
 bmi_transforms_plot <- transformed_framingham %>% 
     select(contains("body_mass_index")) %>% 
-    gather(transformations, values) %>% 
-    ggplot(aes(x = values)) +
+    gather(variable, value) %>% 
+    ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_wrap(vars(transformations), scale = "free")
+    facet_wrap(vars(variable), scale = "free")
 
 cpd_transforms_plot <- transformed_framingham %>% 
     select(contains("cigarettes_per_day")) %>% 
-    gather(transformations, values) %>% 
-    ggplot(aes(x = values)) +
+    gather(variable, value) %>% 
+    ggplot(aes(x = value)) +
     geom_histogram() +
-    facet_wrap(vars(transformations), scale = "free")
+    facet_wrap(vars(variable), scale = "free")
 ```
 
 `@sct`
