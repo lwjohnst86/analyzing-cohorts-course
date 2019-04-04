@@ -1170,7 +1170,7 @@ key: 33b5b785cf
 xp: 100
 ```
 
-Now that you've created several models, you need to do some tidying and back-transforming. Tidying mixed effects models requires the `broom.mixed` package. Back-transforming by exponentiating is required as the model uses a binary outcome. Exponentiating converts the estimates to odds. Finally keep only the important and relevant variables.
+Now that you've created several models, you need to do some tidying, adding confidence intervals, and transforming. Tidying mixed effects models requires the `broom.mixed` package. You'll also need to transform the estimates by exponentiating, since the model uses a binary outcome. Exponentiating converts the estimates from log-odds to odds ratios.
 
 A model has been created for you already called `main_model`.
 
@@ -1190,10 +1190,10 @@ xp: 50
 ```
 
 `@instructions`
-- Using the function from `broom.mixed`, tidy the model, add confidence intervals, and exponentiate the estimates.
+- Use the `tidy()` function on the `main_model` object and set `conf.int` and `exponentiate` to `TRUE`.
 
 `@hint`
-- Use the `tidy()` function on model object.
+- Place `main_model` as the first argument.
 
 `@sample_code`
 ```{r}
@@ -1231,10 +1231,10 @@ xp: 50
 ```
 
 `@instructions`
-- Select only the most important results: the effect, terms, estimates, and the lower and upper confidence interval.
+- `select()` only the most important results: `effect`, `terms`, `estimates`, `conf.low`, and `conf.high`.
 
 `@hint`
-- Use the `select()` function.
+- Use the `select()` function as you have done in previous exercises.
 
 `@sample_code`
 ```{r}
@@ -1248,10 +1248,10 @@ tidy_model
 
 # Select the important variables
 relevant_results <- tidy_model %>% 
-    ___(___) 
+    select(___, ___, ___, ___, ___) 
 
 # View the relevent results
-___
+relevant_results
 ```
 
 `@solution`
@@ -1289,11 +1289,11 @@ xp: 50
 
 You've now created a tidied model output and kept the most relevant results. Now time to interpret! Which of the responses below is the *most* accurate interpretation of the results? 
 
-The `relevant_results` model has been loaded for you to look over. Note that SD means standard deviation and CI means confidence interval.
+The `relevant_results` model has been loaded for you to look over. Note that SD means standard deviation, CI means confidence interval, and CVD means cardiovascular disease.
 
 `@possible_answers`
-- 1 SD higher cholesterol has 1.1 times more CVD risk, but uncertain (0.3 to 3.7 CI).
-- [1 SD higher cholesterol has 1.1 times more CVD risk (range is 0.3 to 3.7 times), adjusted for time.]
+- 1 SD higher cholesterol has 1.1 times more CVD risk, but uncertain (0.5 to 2.8 CI).
+- [1 SD higher cholesterol has 1.1 times more CVD risk (ranges 0.5 to 2.8 times), adjusted for time.]
 - No significant relationships exist: CI passes 1.
 - Cholesterol's relation to CVD is uncertain. Need more research.
 
