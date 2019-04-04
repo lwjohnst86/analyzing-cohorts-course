@@ -671,15 +671,12 @@ xp: 35
 
 `@sample_code`
 ```{r}
-# Set the model formula
 model <- glmer(
     got_cvd ~ systolic_blood_pressure_scaled + body_mass_index_scaled +
         currently_smokes + sex + followup_visit_number + (1 | subject_id),
     data = model_sel_df, 
     family = binomial, 
-  	# Required for MuMIn
     na.action = "na.fail",
- 	# Speeds up computation, reduces precision
   	nAGQ = 0
 )
 
@@ -692,15 +689,12 @@ head(as.data.frame(selection), 3)
 
 `@solution`
 ```{r}
-# Set the model formula
 model <- glmer(
     got_cvd ~ systolic_blood_pressure_scaled + body_mass_index_scaled +
         currently_smokes + sex + followup_visit_number + (1 | subject_id),
     data = model_sel_df, 
     family = binomial,
-  	# Required for MuMIn
     na.action = "na.fail",
- 	# Speeds up computation, reduces precision
   	nAGQ = 0
 )
 
@@ -835,7 +829,6 @@ model_no_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham,
   	family = binomial)
-summary(model_no_interaction)
 
 # Model with sex interaction
 model_sex_interaction <- glmer(
@@ -852,7 +845,6 @@ model_no_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham, 
   	family = binomial)
-summary(model_no_interaction)
 
 # Model with sex interaction
 model_sex_interaction <- glmer(
@@ -886,14 +878,14 @@ xp: 20
 # Model without interaction
 model_no_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
-    data = sample_tidied_framingham, family = binomial)
-summary(model_no_interaction)
+    data = sample_tidied_framingham, 
+    family = binomial)
 
 # Model with sex interaction
 model_sex_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
-    data = sample_tidied_framingham, family = binomial)
-summary(model_sex_interaction)
+    data = sample_tidied_framingham, 
+    family = binomial)
 
 # Test if interaction adds to model
 model.sel(___, ___, rank = ___)
@@ -906,14 +898,12 @@ model_no_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled + sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham,
   	family = binomial)
-summary(model_no_interaction)
 
 # Model with sex interaction
 model_sex_interaction <- glmer(
     got_cvd ~ total_cholesterol_scaled * sex + followup_visit_number + (1 | subject_id), 
     data = sample_tidied_framingham,
   	family = binomial)
-summary(model_sex_interaction)
 
 # Test if interaction adds to model
 model.sel(model_no_interaction, model_sex_interaction, rank = "AIC")
@@ -1018,7 +1008,6 @@ xp: 40
 
 `@sample_code`
 ```{r}
-# Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
     filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
@@ -1034,7 +1023,6 @@ fixef(original_model)
 
 `@solution`
 ```{r}
-# Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
     filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
@@ -1069,18 +1057,13 @@ xp: 40
 
 `@sample_code`
 ```{r}
-# Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
     filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
-# Run and check model with original dataset
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, 
   	family = binomial)
-
-# Fix effect estimates
-fixef(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
@@ -1089,23 +1072,19 @@ bmi_check_model <- glmer(
   	family = binomial)
 
 # Fix effect estimates
+fixef(original_model)
 fixef(bmi_check_model)
 ```
 
 `@solution`
 ```{r}
-# Remove low and high body masses
 bmi_check_data <- sample_tidied_framingham %>% 
     filter(body_mass_index >= 18.5, body_mass_index <= 40)
 
-# Run and check model with original dataset
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
     data = sample_tidied_framingham, 
   	family = binomial)
-
-# Fix effect estimates
-fixef(original_model)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
@@ -1114,6 +1093,7 @@ bmi_check_model <- glmer(
   	family = binomial)
 
 # Fix effect estimates
+fixef(original_model)
 fixef(bmi_check_model)
 ```
 
@@ -1243,9 +1223,6 @@ library(broom.mixed)
 # Tidy up main_model, include conf.int and exponentiate
 tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
 
-# View the tidied model
-tidy_model
-
 # Select the important variables
 relevant_results <- tidy_model %>% 
     select(___, ___, ___, ___, ___) 
@@ -1260,9 +1237,6 @@ library(broom.mixed)
 
 # Tidy up main_model, include conf.int and exponentiate
 tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
-
-# View the tidied model
-tidy_model
 
 # Select the important variables
 relevant_results <- tidy_model %>% 

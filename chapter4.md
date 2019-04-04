@@ -307,7 +307,6 @@ xp: 35
 
 `@sample_code`
 ```{r}
-# Keep only unadjusted models
 unadjusted_results <- all_models %>% 
     filter(model == "Unadjusted")
 
@@ -324,7 +323,6 @@ model_plot
 
 `@solution`
 ```{r}
-# Keep only unadjusted models
 unadjusted_results <- all_models %>% 
     filter(model == "Unadjusted")
 
@@ -360,13 +358,13 @@ xp: 35
 
 `@sample_code`
 ```{r}
-# Keep only unadjusted models
 unadjusted_results <- all_models %>% 
     filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
 model_plot <- unadjusted_results %>% 
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, 
+               xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh() +
     # Add vertical line
@@ -378,13 +376,13 @@ model_plot
 
 `@solution`
 ```{r}
-# Keep only unadjusted models
 unadjusted_results <- all_models %>% 
     filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
 model_plot <- unadjusted_results %>% 
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, 
+               xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh() +
     # Add vertical line
