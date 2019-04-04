@@ -185,7 +185,7 @@ tidier_framingham %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
     geom_histogram() +
-    # Facet by followup and cholesterol variables
+    # Facet by followup and variables
     ___(___(___, ___), 
         scales = "free")
 ```
@@ -201,7 +201,7 @@ tidier_framingham %>%
     gather(variable, value, -followup_visit_number) %>%
     ggplot(aes(x = value)) +
     geom_histogram() +
-    # Facet by followup and cholesterol variables
+    # Facet by followup and variables
     facet_wrap(vars(followup_visit_number, variable), 
                scales = "free")
 ```
@@ -329,7 +329,6 @@ tidier_framingham %>%
            ___, ___) %>% 
     # Exclude also the disease
     gather(variable, value, -followup_visit_number, -___) %>% 
-    # Set y and x
     ggplot(aes(y = ___, x = variable)) +
     # Plot boxplots
     ___() +
@@ -347,7 +346,6 @@ tidier_framingham %>%
            participant_age, body_mass_index) %>% 
     # Exclude also the disease
     gather(variable, value, -followup_visit_number, -got_cvd) %>% 
-    # Set y and x
     ggplot(aes(y = value, x = variable)) +
     # Plot boxplots
     geom_boxplot() +
@@ -409,16 +407,13 @@ xp: 50
 `@sample_code`
 ```{r}
 tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        # Convert the values for education
-        education = ___(
-            # Use the format: variable == number ~ "string"
-            education == ___ ~ ___,
-          	education == ___ ~ ___,
-          	education == ___ ~ ___,
-          	education == ___ ~ ___,
-            TRUE ~ NA_character_)
-      )
+    mutate(education = case_when(
+      # Use the format: variable == number ~ "string"
+      education == ___ ~ ___,
+      education == ___ ~ ___,
+      education == ___ ~ ___,
+      education == ___ ~ ___,
+      TRUE ~ NA_character_))
 
 # Check changed education
 count(tidier2_framingham, education)
@@ -427,16 +422,13 @@ count(tidier2_framingham, education)
 `@solution`
 ```{r}
 tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        # Convert the values for education
-        education = case_when(
-            # Use the format: variable == number ~ "string"
-            education == 1 ~ "0-11 years",
-            education == 2 ~ "High School",
-            education == 3 ~ "Vocational",
-            education == 4 ~ "College",
-            TRUE ~ NA_character_)
-      )
+    mutate(education = case_when(
+      # Use the format: variable == number ~ "string"
+      education == 1 ~ "0-11 years",
+      education == 2 ~ "High School",
+      education == 3 ~ "Vocational",
+      education == 4 ~ "College",
+      TRUE ~ NA_character_))
 
 # Check changed education
 count(tidier2_framingham, education)
@@ -464,14 +456,11 @@ xp: 50
 `@sample_code`
 ```{r}
 tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        # Convert the values for sex
-        sex = case_when(
-            # Use the format: variable == number ~ "string"
-            sex == ___ ~ ___,
-            sex == ___ ~ ___,
-            TRUE ~ NA_character_)
-    )
+    mutate(sex = case_when(
+      # Use the format: variable == number ~ "string"
+      sex == ___ ~ ___,
+      sex == ___ ~ ___,
+      TRUE ~ NA_character_))
     
 # Check changed education
 count(tidier2_framingham, sex)
@@ -480,14 +469,11 @@ count(tidier2_framingham, sex)
 `@solution`
 ```{r}
 tidier2_framingham <- tidier_framingham %>% 
-    mutate(
-        # Convert the values for sex
-        sex = case_when(
-            # Use the format: variable == number ~ "string"
-            sex == 1 ~ "Man",
-            sex == 2 ~ "Woman",
-            TRUE ~ NA_character_)
-    )
+    mutate(sex = case_when(
+      # Use the format: variable == number ~ "string"
+      sex == 1 ~ "Man",
+      sex == 2 ~ "Woman",
+      TRUE ~ NA_character_))
     
 # Check changed education
 count(tidier2_framingham, sex)
@@ -536,8 +522,7 @@ tidier2_framingham <- tidier2_framingham %>%
         education, 
         # Form is: "new" = "old"
         ___ = ___,
-        ___ = ___
-	))
+        ___ = ___))
 
 # Confirm changes to variable
 count(tidier2_framingham, ___)
@@ -551,8 +536,7 @@ tidier2_framingham <- tidier2_framingham %>%
         education, 
         # Form is: "new" = "old"
         "Post-Secondary" = "College",
-        "Post-Secondary" = "Vocational"
-    ))
+        "Post-Secondary" = "Vocational"))
 
 # Confirm changes to variable
 count(tidier2_framingham, education_combined)
@@ -601,7 +585,7 @@ mutate_at(
 
 `@instructions`
 - In `vars()`, add `body_mass_index` and `cigarettes_per_day`.
-- In `list()`, add `log`, `sqrt`, and `invert` (this function is provided).
+- In `list()`, add `log`, `sqrt`, and `invert` (this function is loaded).
 - Check how these variables changed by selecting the two original variables names using the `contains()` function and piping to `summary()`.
 
 `@hint`
@@ -611,12 +595,11 @@ mutate_at(
 ```{r}
 tidier2_framingham <- readRDS(url("https://assets.datacamp.com/production/repositories/2079/datasets/16a8a17e784e845c75eb7fe15899683684e89a22/tidier2_framingham.rds"))
 library(dplyr)
+invert <- function(x) 1 / x
 ```
 
 `@sample_code`
 ```{r}
-invert <- function(x) 1 / x
-
 # Use three transformations on body mass index
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(___, ___), 
@@ -631,8 +614,6 @@ transformed_framingham %>%
 
 `@solution`
 ```{r}
-invert <- function(x) 1 / x
-
 # Use three transformations on body mass index
 transformed_framingham <- tidier2_framingham %>% 
     mutate_at(vars(body_mass_index, cigarettes_per_day), 
@@ -699,7 +680,6 @@ bmi_transforms_plot <- ___ %>%
     geom_histogram() +
     facet_wrap(vars(variable), scale = "free")
 
-# Show plot
 bmi_transforms_plot
 ```
 
@@ -714,7 +694,6 @@ bmi_transforms_plot <- transformed_framingham %>%
     geom_histogram() +
     facet_wrap(vars(variable), scale = "free")
 
-# Show plot
 bmi_transforms_plot
 ```
 
@@ -748,7 +727,6 @@ cpd_transforms_plot <- transformed_framingham %>%
     geom_histogram() +
     facet_wrap(vars(variable), scale = "free")
 
-# Show plot
 cpd_transforms_plot
 ```
 
@@ -763,7 +741,6 @@ cpd_transforms_plot <- transformed_framingham %>%
     geom_histogram() +
     facet_wrap(vars(variable), scale = "free")
 
-# Show plot
 cpd_transforms_plot
 ```
 

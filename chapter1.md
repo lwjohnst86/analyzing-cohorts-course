@@ -415,7 +415,6 @@ xp: 35
 
 `@sample_code`
 ```{r}
-# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
@@ -426,7 +425,6 @@ explore_framingham %>%
 
 `@solution`
 ```{r}
-# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
@@ -456,11 +454,9 @@ xp: 35
 
 `@sample_code`
 ```{r}
-# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count by visit, then prevalent cases of MI
 explore_framingham %>% 
     count(followup_visit_number, prevalent_mi)
 
@@ -471,11 +467,9 @@ explore_framingham %>%
 
 `@solution`
 ```{r}
-# Count number of participants per visit
 explore_framingham %>% 
     count(followup_visit_number)
 
-# Count by visit, then prevalent cases of MI
 explore_framingham %>% 
     count(followup_visit_number, prevalent_mi)
 

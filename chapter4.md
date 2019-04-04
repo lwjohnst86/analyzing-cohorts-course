@@ -61,14 +61,12 @@ xp: 50
 unadjusted_models_list <- ___(
     unadjusted_models_list,
   	# .x is purrr for "model goes here"
-    ~ .x %>%
-  		mutate(
-          	# This selects predictor, not confounder
+    ~mutate(.x,
+            # This selects predictor, not confounder
             predictor = term[2],
           	# Indicate model "adjustment"
             model = ___
-        )
-)
+           ))
 ```
 
 `@solution`
@@ -77,14 +75,12 @@ unadjusted_models_list <- ___(
 unadjusted_models_list <- map(
     unadjusted_models_list,
   	# .x is purrr for "model goes here"
-    ~.x %>%
-  		mutate(
-          	# This selects predictor, not confounder
+    ~mutate(.x,
+            # This selects predictor, not confounder
             predictor = term[2],
-          	# Indicate model "adjustment"
+            # Indicate model "adjustment"
             model = "Unadjusted"
-        )
-)
+           ))
 ```
 
 `@sct`
@@ -113,14 +109,12 @@ xp: 50
 adjusted_models_list <- map(
     adjusted_models_list,
   	# .x is purrr for "model goes here"
-    ~.x %>%
-  		mutate(
+    ~mutate(.x,
           	# This selects predictor, not confounder
             predictor = term[2],
           	# Indicate model "adjustment"
             model = ___
-        )
-)
+           ))
 ```
 
 `@solution`
@@ -129,14 +123,12 @@ adjusted_models_list <- map(
 adjusted_models_list <- map(
     adjusted_models_list,
   	# .x is purrr for "model goes here"
-    ~.x %>%
-  		mutate(
+    ~mutate(.x,
           	# This selects predictor, not confounder
             predictor = term[2],
           	# Indicate model "adjustment"
             model = "Adjusted"
-        )
-)
+           ))
 ```
 
 `@sct`
@@ -187,12 +179,10 @@ all_models <- bind_rows(
   		___, 
   		___
 	) %>% 
-	# Add outcome name
     mutate(outcome = ___) %>% 
 	# Keep only predictor rows and fixed effects
     filter(___ == , ___ == ___)
 
-# Check the model data frame
 all_models
 ```
 
@@ -203,12 +193,10 @@ all_models <- bind_rows(
   		unadjusted_models_list, 
   		adjusted_models_list
 	) %>% 
-	# Add outcome name
     mutate(outcome = "got_cvd") %>% 
 	# Keep only predictor rows and fixed effects
     filter(predictor == term, effect == "fixed")
 
-# Check the model data frame
 all_models
 ```
 
@@ -439,8 +427,6 @@ model_plot <- unadjusted_results %>%
     labs(y = ___, x = ___) +
 	# Set the theme
     ___()
-
-# Plot it
 model_plot
 ```
 
@@ -455,8 +441,6 @@ model_plot <- unadjusted_results %>%
     labs(y = "Predictors", x = "Odds ratio (95% CI)") +
 	# Set the theme
     theme_classic()
-
-# Plot it
 model_plot
 ```
 
@@ -503,8 +487,6 @@ plot_all_models <- ___ %>%
     ___(rows = vars(___)) +
     labs(y = "Predictors", x = "Odds ratio (95% CI)") +
     theme_classic()
-
-# Plot the results
 plot_all_models
 ```
 
@@ -520,8 +502,6 @@ plot_all_models <- all_models %>%
     facet_grid(rows = vars(model)) +
     labs(y = "Predictors", x = "Odds ratio (95% CI)") +
     theme_classic()
-
-# Plot the results
 plot_all_models
 ```
 
@@ -717,7 +697,6 @@ xp: 25
 
 `@sample_code`
 ```{r}
-# Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
@@ -732,7 +711,6 @@ build_table(___)
 
 `@solution`
 ```{r}
-# Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 

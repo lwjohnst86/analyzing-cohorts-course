@@ -475,8 +475,7 @@ variable_pathways <- dagitty("dag {
     ___ -> {___ ___}
     ___ -> {___ ___}
     ___ -> {___ ___ ___}
-    ___ -> ___
-}")
+    ___ -> ___}")
 
 # Plot potential confounding pathways
 plot(graphLayout(variable_pathways))
@@ -490,8 +489,7 @@ variable_pathways <- dagitty("dag {
     Sex -> {SBP Smoking}
     Smoking -> {SBP CVD}
     BMI -> {SBP CVD FastingGlucose}
-    FastingGlucose -> CVD
-}")
+    FastingGlucose -> CVD}")
 
 # Plot potential confounding pathways
 plot(graphLayout(variable_pathways))
@@ -524,8 +522,7 @@ variable_pathways <- dagitty("dag {
     Sex -> {SBP Smoking}
     Smoking -> {SBP CVD}
     BMI -> {SBP CVD FastingGlucose}
-    FastingGlucose -> CVD
-}")
+    FastingGlucose -> CVD}")
 
 # Plot potential confounding pathways
 plot(graphLayout(variable_pathways))
@@ -542,8 +539,7 @@ variable_pathways <- dagitty("dag {
     Sex -> {SBP Smoking}
     Smoking -> {SBP CVD}
     BMI -> {SBP CVD FastingGlucose}
-    FastingGlucose -> CVD
-}")
+    FastingGlucose -> CVD}")
 
 # Plot potential confounding pathways
 plot(graphLayout(variable_pathways))
@@ -595,7 +591,7 @@ xp: 100
 
 It's best to use multiple methods to decide on which variables to include in a model. The information criterion methods are powerful tools for choosing variables to adjust for. Using the functions from the `MuMIn` package, determine which model has the best fit for the models being compared by using AIC to rank them. A *smaller* AIC is better.
 
-As many models will be computed and compared, for *DataCamp lesson purposes only*, we kept computing time short by: greatly reducing the sample size and number of variables in the data, called `model_sel_df`; and, setting `nAQG = 0` (reduces estimation precision, but increases speed).
+As many models will be computed and compared, for *DataCamp lesson purposes only*, we kept computing time short by: greatly reducing the sample size and number of variables in the data, called `model_sel_df`; and, setting `nAQG = 0` (reduces estimation precision, but increases speed). `MuMIn` also requires `na.action = "na.fail"` to be set in `glmer()`.
 
 `@pre_exercise_code`
 ```{r}
@@ -625,8 +621,7 @@ model <- glmer(
     got_cvd ~ ___ + ___ +
         ___ + ___ + ___ + (1 | subject_id),
     data = model_sel_df, 
-    family = binomial, 
-    # Required for MuMIn
+    family = binomial,
     na.action = "na.fail",
  	# Speeds up computation, reduces precision
   	nAGQ = 0 
@@ -641,7 +636,6 @@ model <- glmer(
         currently_smokes + sex + followup_visit_number + (1 | subject_id),
     data = model_sel_df, 
     family = binomial,
-  	# Required for MuMIn
     na.action = "na.fail",
  	# Speeds up computation, reduces precision
   	nAGQ = 0 
@@ -1014,8 +1008,7 @@ bmi_check_data <- sample_tidied_framingham %>%
 # Run and check model with original dataset
 original_model <- glmer(
     got_cvd ~ ___ + ___ + (1 | subject_id),
-    data = ___, 
-  	family = binomial)
+    data = ___, family = binomial)
 
 # Fix effect estimates
 fixef(original_model)
@@ -1029,8 +1022,7 @@ bmi_check_data <- sample_tidied_framingham %>%
 # Run and check model with original dataset
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
-    data = sample_tidied_framingham, 
-  	family = binomial)
+    data = sample_tidied_framingham, family = binomial)
 
 # Fix effect estimates
 fixef(original_model)
@@ -1062,14 +1054,12 @@ bmi_check_data <- sample_tidied_framingham %>%
 
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
-    data = sample_tidied_framingham, 
-  	family = binomial)
+    data = sample_tidied_framingham, family = binomial)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
-    data = ___, 
-  	family = binomial)
+    data = ___, family = binomial)
 
 # Fix effect estimates
 fixef(original_model)
@@ -1083,14 +1073,12 @@ bmi_check_data <- sample_tidied_framingham %>%
 
 original_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
-    data = sample_tidied_framingham, 
-  	family = binomial)
+    data = sample_tidied_framingham, family = binomial)
 
 # Run and check model with the body mass checking
 bmi_check_model <- glmer(
     got_cvd ~ body_mass_index_scaled + followup_visit_number + (1 | subject_id),
-    data = bmi_check_data, 
-  	family = binomial)
+    data = bmi_check_data, family = binomial)
 
 # Fix effect estimates
 fixef(original_model)
@@ -1220,7 +1208,6 @@ xp: 50
 ```{r}
 library(broom.mixed)
 
-# Tidy up main_model, include conf.int and exponentiate
 tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
 
 # Select the important variables
@@ -1235,7 +1222,6 @@ relevant_results
 ```{r}
 library(broom.mixed)
 
-# Tidy up main_model, include conf.int and exponentiate
 tidy_model <- tidy(main_model, conf.int = TRUE, exponentiate = TRUE)
 
 # Select the important variables
