@@ -24,14 +24,14 @@ key: 921d9175f4
 xp: 100
 ```
 
-Imagine you've ran several models, based on what you learned in chapter 3. You:
+Imagine you've ran several models. You:
 
 - Scaled predictors to compare estimates.
 - Set confounders and other predictors as baseline age, sex, smoking, and education.
 - Have each predictor with unadjusted and adjusted models (time and subject ID were included in all).
 - Tidied models and exponentiated estimates.
 
-You have 8 models in total, stored as a list. There are a couple of things we should add to each model to differentiate each from the other models. Use `map()` from the `purrr` package to wrangle each model item simultaneously.
+You have 8 models in total, stored as a list. We should add more details to each model to differentiate them from each other. Use `map()` from `purrr` to wrangle each model simultaneously. The new code here, `term[2]`, selects the main predictor, which is the second element in the `term` column.
 
 `@pre_exercise_code`
 ```{r}
@@ -50,10 +50,10 @@ xp: 50
 ```
 
 `@instructions`
-- Create a model column to indicate the models are `"Unadjusted"`; `term[2]` selects the second term, which is the predictor.
+- Using `map()`, add a `model` column to indicate the models are `"Unadjusted"`.
 
 `@hint`
-- Use `map()` to wrangle each model.
+- Add the adjustment column using `model = "Unadjusted"`.
 
 `@sample_code`
 ```{r}
@@ -110,7 +110,7 @@ xp: 50
 `@sample_code`
 ```{r}
 # Add predictor and model type to each list item
-adjusted_models_list <- ___(
+adjusted_models_list <- map(
     adjusted_models_list,
   	# .x is purrr for "model goes here"
     ~.x %>%
@@ -154,15 +154,15 @@ key: f30b964cce
 xp: 100
 ```
 
-The most efficient approach to later plotting and creating tables is to have all models in a single dataframe. You've already prepared them a bit, now it's time to combine them together so you can continue wrangling.
+The most efficient approach to later plotting and creating tables is to have all models in a single dataframe. You've already prepared them a bit, now it's time to combine them together so you can continue working with them.
 
 `@instructions`
-- Using `bind_rows()`, put the two model list objects together.
-- Continuing to pipe, add (`mutate()`) an outcome column for the `got_cvd` variable.
+- Use `bind_rows()` to combine `unadjusted_models_list` and `adjusted_models_list`.
+- Continuing the pipe, add an `outcome` column with the value `"got_cvd"`.
 - Finally, use `filter()` to keep only conditions where the `predictor` equals `term` and `effect` equals `"fixed"`.
 
 `@hint`
-- Filter when predictor and term are the same (`==`).
+- Filter when predictor and term are the same (`predictor == term`).
 
 `@pre_exercise_code`
 ```{r}
@@ -182,13 +182,15 @@ adjusted_models_list <- map(
 
 `@sample_code`
 ```{r}
-# Combine models, add outcome, keep predictor estimates
 all_models <- bind_rows(
+  		# Combine the two lists of models 
   		___, 
   		___
 	) %>% 
-    ___(outcome = ___) %>% 
-    filter(___, ___)
+	# Add outcome name
+    mutate(outcome = ___) %>% 
+	# Keep only predictor rows and fixed effects
+    filter(___ == , ___ == ___)
 
 # Check the model dataframe
 all_models
@@ -196,12 +198,14 @@ all_models
 
 `@solution`
 ```{r}
-# Combine models, add outcome, keep predictor estimates
 all_models <- bind_rows(
+  		# Combine the two lists of models 
   		unadjusted_models_list, 
   		adjusted_models_list
 	) %>% 
+	# Add outcome name
     mutate(outcome = "got_cvd") %>% 
+	# Keep only predictor rows and fixed effects
     filter(predictor == term, effect == "fixed")
 
 # Check the model dataframe

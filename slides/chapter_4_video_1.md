@@ -33,12 +33,12 @@ key: "42434a7ac4"
 - Emphasize tangible health impact
 - Be clear and understandable
 - Get feedback from healthcare practitioners
-- "Non-significant" and "significant" are important {{1}}
-- Show magnitude and uncertainy over "statistical significance" {{1}}
+- Both "non-significant" and "significant" results important {{1}}
+- Show magnitude and uncertainty over "statistical significance" {{1}}
 
 
 `@script`
-In observational cohort studies, you need to use a healthy dose of caution when interpreting and presenting results, as is also stated in the STROBE best practices. If you recall, STROBE was developed to make studies such as cohorts more rigorous, standardized, and transparent.
+In observational cohort studies, you need to use a healthy dose of caution when interpreting and presenting results, as indicated in the STROBE best practices. STROBE, if you recall, was designed to make cohort studies more rigorous and standardized.
 
 Emphasize more tangible health impacts when presenting results and try to be as clear and understandable as possible. Your audience or readers will likely be public health professionals or clinicians who aren't trained in interpreting complex models, so be simple and concise. 
 
@@ -61,11 +61,11 @@ key: "452c839802"
 
 
 `@script`
-Oftentimes, observational findings are interpreted causally. While the field of causal reasoning in epidemiology has expanded recently, it is still an area to exercise cautious. 
+Oftentimes, observational findings are interpreted causally. While the field of causal reasoning in epidemiology has expanded recently, it is still new, so use caution with causal language. 
 
-Unfortunately, humans often interpret associations as causal, so as the researcher you need to be extremely cautious when presenting findings from observational research. 
+Unfortunately, humans often interpret associations as causal, so as the researcher you need to be extremely careful when presenting findings from observational research. 
 
-There are times when causal language is justified, for example with the observation of cigarette smoking and lung cancer. But usually it isn't clear whether a causal relationship exists. Keep these in mind when you present cohort study results.
+There are however times when causal language is justified, for example with the observation of cigarette smoking and lung cancer. But usually it isn't completely clear whether a causal relationship exists. Keep these in mind when you present cohort study results.
 
 
 ---
@@ -84,6 +84,7 @@ unadjusted_models_list <- list(
     glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id), 
         family = binomial, data = tidied_framingham)
 )
+# Same done for adjusted_models_list
 ```
 {{1}}
 
@@ -99,9 +100,11 @@ tidied_unadjusted_models_list <- unadjusted_models_list %>%
 `@script`
 Given you'll likely be working with multiple models, my suggestion is put your models into a single list, since working with lists is very easy in R thanks to the purrr package. 
 
-Here, I've ran two models using what we learned from the previous chapter and stored them as a list into the object unadjusted models list. I did the same thing for the adjusted models by storing them as a list.
+Here, I've ran two models using what we learned from the previous chapter and stored them as a list into the object unadjusted models list. I did the same thing for adjusted models by storing them as a list, but haven't shown the code.
 
-Then, to apply the tidy function to each of those models, we use the map function. Map takes two arguments. The list object and the function. We set the function with the tilde symbol and refer to the object by dot x.
+Then, to apply the tidy function to each of those models, we use the map function from the purrr package. Map takes two arguments. The list object and the function we want to use. We use the function with the tilde symbol beforehand and refer to the model object by dot x.
+
+Using map leverages R's powerful functional programming strengths. purrr provides a wonderful and consistent interface for using this functional programming.
 
 
 ---
@@ -115,6 +118,7 @@ key: "a7a664a9c8"
 `@part1`
 ```{r}
 unadjusted_models_list
+# adjusted_models_list
 ```
 {{1}}
 
@@ -139,9 +143,9 @@ unadjusted_models_list
 
 
 `@script`
-You see that the content is a list of model results, where two models are inside the object. These results are for the unadjusted models. The adjusted models list looks the same, except there are additional predictors.
+The contents are a list of two model results. These results are for the unadjusted models. The adjusted models list looks the same, except there are additional predictors.
 
-Plotting or creating tables from the results is more efficient using a single dataframe, but we need to add some model specific details before combining them.
+Plotting or creating tables of these results would be better done using a single dataframe, so we'll need to combine them together. But before we do, we'll need to add some details to distinguish each model.
 
 
 ---
@@ -179,11 +183,9 @@ map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted"))
 
 
 `@script`
-Using the map function from the purrr package leverages R's powerful functional programming strengths. purrr has a wonderful and consistent interface for using this functional programming. 
-
 Let's use map to add more information to the model objects in the list. We'll add a tag to each model item in the list to indicate that the models are unadjusted.
 
-When we look at the list of models, we see that column has been added to all of them.
+The model column is now added to each model in the list.
 
 
 ---
@@ -216,7 +218,7 @@ map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted")) %>%
 
 
 `@script`
-Then, we can convert the list of models into a single dataframe of the results. We do this using dplyr's bind underscore rows function to stack the list dataframes into one.
+Then, we can convert the list of models into a single dataframe of the results. We do this using dplyr's bind-underscore-rows function to stack the list dataframes into one.
 
 
 ---
@@ -230,8 +232,10 @@ disable_transition: true
 
 `@part1`
 ```{r}
-bind_rows(map(unadjusted_models_list, ~ mutate(.x, model = "Unadjusted")),
-          map(adjusted_models_list, ~ mutate(.x, model = "Adjusted"))) %>%
+bind_rows(
+		map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted")),
+    	map(adjusted_models_list, ~mutate(.x, model = "Adjusted"))
+    ) %>%
     mutate(outcome = "got_cvd")
 ```
 
@@ -254,7 +258,7 @@ bind_rows(map(unadjusted_models_list, ~ mutate(.x, model = "Unadjusted")),
 
 
 `@script`
-Let's do the same thing with the list of adjusted models, but instead, we bind rows for both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, let's add information about the outcome. We now have a single model dataframe that we can use to create plots and tables.
+Let's do the same thing with the list of adjusted models, but instead, we'll bind rows of both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, let's add information about the outcome. We now have a single model dataframe that we can use to create plots and tables.
 
 
 ---

@@ -42,7 +42,7 @@ key: "ec5e4806ba"
 
 
 `@script`
-When deciding how to present your results, you should first think of how to plot your data. Figures are incredibly powerful at communicating information because they leverage our reliance on our visual system. They're easier to interpret than tables and allow for greater information transmission. 
+When deciding how to present your results, first think how you could plot your data. Figures are incredibly powerful at communicating information because they leverage our strong visual system. They're easier to interpret than tables and allow for greater information transmission. 
 
 Figures are especially useful when units of measure are the same or similar, when you want to emphasize patterns or comparisons, and when there is a lot of data to show.
 
@@ -67,11 +67,11 @@ center_content: true
 
 
 `@script`
-Let's use an example to illustrate the power of a figure. Here we have the estimates for three predictors from three models. Reading this table takes some time, as you need to conceptualize and compare each item.
+Let's illustrate the power of using a figure. We have the estimates for three predictors from three models. Reading this table takes some time because you read it, not just see it.
 
-Compare with using a plot for the same information. You quickly get a sense of the results, the magnitude, direction of association, and their comparison. You don't work as hard to understand the results. This is why we should prefer plots.
+Compare it with using a plot. You quickly get a sense of the results, the magnitude, direction of association, and their comparison. You don't work as hard to understand the results. This is why we should prefer plots.
 
-I mentioned in chapter 3 that there are many statistical techniques to analyze cohorts. Which one you'll use will dictate the plots you'll use. A common output is some type of regression-based estimate and measure of precision, like confidence intervals, which this plot shows effectively. The standard error is also another measure of precision.
+I mentioned in chapter 3 that there are many statistical techniques to analyze cohorts. Which one you'll use will dictate the plots you'll use. A common output is some type of regression-based estimate and measure of uncertainty, which this plot shows effectively. The standard error is also another measure of uncertainty.
 
 
 ---
@@ -102,7 +102,7 @@ We can make this type of plot using geom-underscore-point, geom-underscore-error
 
 Each item on the y axis is a single model's predictor and associated estimate, as an odds ratio, and confidence interval. For this plot, it needs an x for the estimate, an xmin for the lower confidence limit and xmax for the upper confidence limit.
 
-Since the null line is one for odds ratios, we need to set the x-intercept to one. When you have many model results, this plot can easily show all the models, providing a bigger overview of the findings and making it easier to compare predictors.
+Since the center line is one for odds ratios, we need to set the x-intercept to one. When you have many model results, this plot can easily show all the models, providing a bigger overview of the findings and making it easier to compare predictors.
 
 
 ---
@@ -133,9 +133,9 @@ models %>%
 `@script`
 There are couple things we could do to make the plot instantly prettier. The dot size in geom-underscore-point is a bit small so let's increase it to two using the size argument.
 
-The errorbar ends are also a bit long. We can shorten it with the height argument of geom-underscore-errobarh. Let's shorten it to zero point one. Larger values will lead to overlap.
+The errorbar ends are also a bit long. We'll shorten to zero point one with the height argument. Larger values will lead to overlap.
 
-Let's differentiate the geom-underscore-vline by setting the linetype argument to dashed. There are many other options for linetype such as dotted or solid.
+Let's differentiate the vline by setting the linetype argument to dashed. There are many other options for linetype such as dotted or solid.
 
 We can also change the theme. While there are several themes available, let's use theme-underscore-bw.
 
