@@ -33,7 +33,7 @@ The Framingham cohort was set up to study what factors may influence the risk of
 
 The `framingham` dataset has been loaded for you to *optionally* explore, however, do note that the dataset has not yet been tidied. We'll go through tidying it in Chapter 2.
 
-What specifically distinguishes the Framingham study as a *cohort*? 
+What specifically distinguishes the Framingham study as a *cohort*?
 
 `@possible_answers`
 - It studies a disease (CVD).
