@@ -17,7 +17,7 @@ title: Diabetes epidemiologist
 
 
 `@script`
-Sadly we can't have everything as figures. Tables can be quite useful for communicating certain types of results.
+Sadly we can't have everything as figures. Tables can also be useful for communicating certain types of results.
 
 
 ---
@@ -85,11 +85,11 @@ tidied_framingham %>%
 
 
 `@script`
-Presenting basic participant characteristics, as suggested by STROBE best practices, is a great example for using a table. Here you can show summary statistics of the outcomes, predictors, and other characteristics.
+Presenting basic participant characteristics, as indicated by STROBE best practices, is a great example for using a table. Here you can show summary statistics of the outcomes, predictors, and other characteristics.
 
-The carpenter package provides an easy way of creating these tables. We start by outlining the table based on the data. With multiple time points, you could indicate the time variable so that each time point has a column. This outputs nothing right now as we haven't added rows. 
+The carpenter package provides an easy way of creating these tables. We start by using outline-underscore-table, piping in the data. This function also takes a argument to set the grouping variable, such as visit number, so they are arranged as the table columns. We haven't added rows, so it outputs nothing.. 
 
-Let's add a row for a factor variable like combined education. A common statistic for factors is the count with percent of total, so let's set stat to stat-underscore-n-percent.
+Let's use add-underscore-rows and add a factor variable like combined education. A common statistic for factors is the count with percent of total, so let's set stat to stat-underscore-n-percent.
 
 
 ---
@@ -128,7 +128,7 @@ tidied_framingham %>%
 
 
 `@script`
-Now let's add some rows to the table for BMI, using stat-underscore-mean-sd for the mean and standard deviation, and participant age and heart rate, using stat-underscore-median-iqr for the median and interquartile range.
+Now let's add some more rows to the table for BMI, using stat-underscore-mean-sd for the mean and standard deviation, and participant age and heart rate, using stat-underscore-median-iqr for the median and interquartile range.
 
 
 ---
@@ -168,7 +168,7 @@ basic_char_table
 
 
 `@script`
-Great! But the table headers aren't informative. We set them using the renaming function and the header argument, then providing the names of each column. Here let's name only one column as Characteristics.
+Great! But the table headers aren't informative. We set them using the renaming function and the header argument, then set the new names for the columns. We'll name only one column as Characteristics.
 
 
 ---
@@ -208,7 +208,7 @@ key: "82f46fe854"
 ```
 
 `@part1`
-**Example table showing model estimates and standard errors**: {{1}}
+**Example table showing model estimates and confidence interval**: {{1}}
 
 |Predictors              |Unadjusted          |Adjusted            |
 |:-----------------------|:-------------------|:-------------------|
@@ -219,9 +219,9 @@ How to get this? {{2}}
 
 
 `@script`
-At times you may need to present either your main or supplemental results as a table. Even if you present your main findings as a figure, providing the raw numerical model estimates in a machine-friendly format is helpful for other researchers who might use your findings as part of a meta-analysis of cohort studies. Here, the confidence interval is shown.
+At times you may need to present either your main or supplemental results as a table. Even if you present your main findings as a figure, providing the model estimates as text numbers could be helpful for other researchers who might use your findings as part of a meta-analysis of cohort studies. Here, we're showing the confidence interval.
 
-So, how do we wrangle the results to get a table like this?
+So, how do we get our results into this form?
 
 
 ---
@@ -255,11 +255,9 @@ models %>%
 
 
 `@script`
-Most of these functions should be familiar, except for mutate-at and glue. Mutate-at applies a function to each variable contained within the vars function. Here we are rounding the values of each variable to three. 
+Most of these functions should be familiar, except for glue. As a reminder, mutate-at applies a function to each variable contained within the vars function. Here we are rounding the variable's values to two. 
 
-Next, we again use mutate but with the glue function.
-Glue helps create a character string that changes based on the variable given between the curly braces. We use glue to
-format a string with the estimate and confidence interval in brackets. 
+Next, we again use mutate but with the glue function. Glue helps create a character string that changes based on the variable given between the curly braces. We use glue to format a string with the estimate and confidence interval in brackets. 
 
 Finally, let's keep the most relevant variables and output the dataframe.
 
@@ -294,7 +292,7 @@ table_models
 
 
 `@script`
-Next, using the spread function from the tidyr package, the model adjustments will be represented as individual columns. The first argument to spread takes the model variable name that will represent the new columns and the second argument takes the estimate-underscore-ci variable that has the values that will make up the new columns.
+Next, by using the spread function from tidyr, the models will be represented as individual columns. The first argument to spread takes the model variable name that will represent the new columns while the second argument takes the estimate-underscore-ci variable that has the values that will make up the new columns.
 
 So, with minimal code, we've gotten the results to appear very similar to our desired table.
 
@@ -323,7 +321,7 @@ table_models %>%
 
 
 `@script`
-We could continue to replace underscores with spaces using the str-underscore-replace-underscore-all function from stringr. Like any search and replace, provide arguments for the string, the symbol to search, and the replacement. If you use R Markdown, use the kable function from knitr to create the final, nicely formatted table.
+We could continue to replace underscores with spaces using the str-underscore-replace-underscore-all function from stringr. Like many search and replace functions, give arguments for the character vector, the string to search for, and the replacement string. If you use rmarkdown, the kable function from knitr can create nicely formatted table.
 
 
 ---

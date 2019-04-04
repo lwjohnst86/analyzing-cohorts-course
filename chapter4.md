@@ -260,19 +260,19 @@ xp: 30
 ```
 
 `@instructions`
-- Filter so only the `"Unadjusted"` model results are kept for this exercise.
+- For this exercise, filter to keep `model` that is equal to `"Unadjusted"`.
 
 `@hint`
-- Filter takes a logical condition, in this case when model is `"Unadjusted"`.
+- Filter should be `model == "Unadjusted"`.
 
 `@sample_code`
 ```{r}
 # Keep only unadjusted models
 unadjusted_results <- all_models %>% 
-    ___(___)
+    filter(___ == ___)
 
 # Check filtered data
-___
+unadjusted_results
 ```
 
 `@solution`
@@ -299,7 +299,7 @@ xp: 35
 ```
 
 `@instructions`
-- Set the estimates on `x`, the lower confidence interval on `xmin`, the upper confidence interval on `xmax`, and the `predictor` on the y-axis.
+- Set `y` as `predictor`, `x` as `estimate`, `xmin` as `conf.low`, and `xmax` as `conf.high`.
 - Add `geom_point()` and `geom_errorbarh()` layers.
 
 `@hint`
@@ -312,13 +312,14 @@ unadjusted_results <- all_models %>%
     filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
-model_plot <- ___ %>% 
-    ggplot(aes(___)) +
+model_plot <- unadjusted_results %>% 
+    ggplot(aes(y = ___, x = ___,
+              xmin = ___, xmax = ___)) +
     ___() +
     ___()
 
 # Check the plot
-___
+model_plot
 ```
 
 `@solution`
@@ -352,7 +353,7 @@ xp: 35
 ```
 
 `@instructions`
-- Add a vertical line at an `xintercept` of 1 for the "center line" using `geom_vline()`.
+- Use `geom_vline()` to add a vertical line, setting `xintercept` as 1 for the "center line".
 
 `@hint`
 - Set `xintercept = 1` for the center line.
@@ -369,7 +370,7 @@ model_plot <- unadjusted_results %>%
     geom_point() +
     geom_errorbarh() +
     # Add vertical line
-    ___(___)
+    ___(xintercept = ___)
 
 # Check the plot
 model_plot
@@ -410,15 +411,15 @@ xp: 100
 
 Now that we've created this plot, let's polish it up. We want it to be "publication quality", since we'll eventually present this figure to others.
 
-As with the previous exercise, use the `unadjusted_results` dataframe you created to plot the findings. This time, make the plot more polished and presentable.
+As with the previous exercise, use the `unadjusted_results` data frame you created to plot the findings. This time, make the plot more polished and presentable.
 
 `@instructions`
 - Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to `"dotted"`.
-- Include appropriate axis labels (`"Predictors"` on the y and the `"Odds Ratio (95% CI)"` on the x). Remember, CI is the confidence interval.
-- Set the theme to `theme_classic()` on the last line.
+- Include appropriate axis labels (`"Predictors"` on the y and `"Odds Ratio (95% CI)"` on the x). Recall that CI means confidence interval.
+- Set the theme to `theme_classic()`.
 
 `@hint`
-- The labels should be of the form `x = "Axis Label"` (for the x-axis for instance).
+- The labels should be of the form `x = "Axis Label"` (e.g. for the x-axis).
 
 `@pre_exercise_code`
 ```{r}
@@ -434,14 +435,15 @@ unadjusted_results <- all_models %>%
 # Make the plot more polished
 model_plot <- unadjusted_results %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_point(___) +
-    geom_errorbarh(___) +
-    geom_vline(xintercept = 1, ___) +
-    labs(___, ___) +
+    geom_point(size = ___) +
+    geom_errorbarh(height = ___) +
+    geom_vline(xintercept = 1, linetype = ___) +
+    labs(y = ___, x = ___) +
+	# Set the theme
     ___()
 
 # Plot it
-___
+model_plot
 ```
 
 `@solution`
@@ -453,6 +455,7 @@ model_plot <- unadjusted_results %>%
     geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dotted") +
     labs(y = "Predictors", x = "Odds ratio (95% CI)") +
+	# Set the theme
     theme_classic()
 
 # Plot it
@@ -474,15 +477,14 @@ key: 163d46569b
 xp: 100
 ```
 
-The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model results be shown. Showing both can be informative and insightful into the research question. Create a plot of your results showing both unadjusted and adjusted models. Do the same steps as in the previous exercise for creating the plot.
+The STROBE best practices indicate to show both "crude" (unadjusted) and adjusted model results. Showing both can be informative and insightful into the research question. Create a plot of your results showing both unadjusted and adjusted models. Do the same steps as in the previous exercise for creating the plot.
 
 `@instructions`
-- As in the previous exercise, create a plot of the estimates and confidence intervals of the predictors.
-- This time, don't filter by model adjustment and instead use the `all_models` data.
-- Split the plot by using `facet_grid()` so that `model` results are as `rows`.
+- Use the `all_models` data frame this time.
+- Using `facet_grid()` to split the plot by `rows` with the `model` variable (called inside `vars()`).
 
 `@hint`
-- Select the faceting variable using `vars()`.
+- The faceting variable should be called as `vars(model)`.
 
 `@pre_exercise_code`
 ```{r}
@@ -500,9 +502,9 @@ plot_all_models <- ___ %>%
     geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dotted") +
     # Facet plot by model
-    ___(rows = ___) +
+    ___(rows = vars(___)) +
     labs(y = "Predictors", x = "Odds ratio (95% CI)") +
-	theme_classic()
+    theme_classic()
 
 # Plot the results
 plot_all_models
@@ -519,7 +521,7 @@ plot_all_models <- all_models %>%
     # Split plot by model
     facet_grid(rows = vars(model)) +
     labs(y = "Predictors", x = "Odds ratio (95% CI)") +
-	theme_classic()
+    theme_classic()
 
 # Plot the results
 plot_all_models
@@ -553,7 +555,7 @@ key: cb7b2cfe06
 xp: 100
 ```
 
-A classic use for tables is showing the basic characteristics of a cohort dataset, as there are diverse data types and summary statistics that need to be shown. Including a basic participant characteristics table is part of the STROBE requirements. This table can be quite informative for others when they interpret your analysis results.
+A classic use for tables is showing the basic characteristics of a cohort dataset, as there are diverse data types and summary statistics that need to be shown. Including a basic participant characteristics table is part of the STROBE best practices. This table can be quite informative for others when they interpret your analysis results.
 
 Using the `carpenter` package, create a table showing summary statistics for each data collection visit.
 
@@ -573,7 +575,7 @@ xp: 25
 ```
 
 `@instructions`
-- Set `followup_visit_number` as the header/columns of the table.
+- Set `"followup_visit_number"` for the `header` argument of `outline_table()`.
 
 `@hint`
 - Use quotes around `followup_visit_number`.
@@ -618,7 +620,7 @@ xp: 25
 ```
 
 `@instructions`
-- Add a row for the `got_cvd`, `sex`, and `education_combined` variables, using `stat_nPct` for the `stat` argument.
+- Add a row for the `"got_cvd"`, `"sex"`, and `"education_combined"` variables, using `stat_nPct` for the `stat` argument.
 
 `@hint`
 - The variables should be quoted, e.g. `"sex"`.
@@ -663,7 +665,7 @@ xp: 25
 ```
 
 `@instructions`
-- Add rows for `total_cholesterol`, `body_mass_index`, and `participant_age` using `stat_medianIQR` for the `stat` argument.
+- Add rows for `"total_cholesterol"`, `"body_mass_index"`, and `"participant_age"` using `stat_medianIQR` for the `stat` argument.
 
 `@hint`
 - The variables need to be surrounded by quotes, just like the function above.
@@ -690,7 +692,7 @@ characteristics_table <- tidied_framingham %>%
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
     # Show median (range) for continuous variables
-    add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR)
+    add_rows(c("total_cholesterol", "body_mass_index", "participant_age"), stat = stat_medianIQR)
 
 # Check the table
 characteristics_table
@@ -710,7 +712,7 @@ xp: 25
 ```
 
 `@instructions`
-- Rename the table headers to "Measures", "Baseline", "Second followup", and "Third followup", then build the table into markdown format.
+- Rename the table `"header"` to `"Measures"`, `"Baseline"`, `"Second followup"`, and `"Third followup"`, then `build_table()` to markdown format.
 
 `@hint`
 - The new column headers should be given as a character vector.
@@ -724,7 +726,7 @@ characteristics_table <- tidied_framingham %>%
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
     add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR) %>% 
     # Rename headers to better titles
-    renaming("header", c(___))
+    renaming("header", c(___, ___, ___, ___))
 
 # Build the table and convert to markdown form
 build_table(___)
@@ -762,7 +764,7 @@ xp: 100
 
 While the main messaging and presentation of results should emphasize figures over tables, often it is useful to other researchers (especially those doing meta-analyses or aggregating results) that the raw model results be given as well. Here we can use tables to give this data, as a supplement to the figure.
 
-Provide the estimates and confidence intervals of the unadjusted and adjusted model results in a table format that you could include in a document or report.
+Provide the estimates and confidence intervals of the unadjusted and adjusted model results in a table format that you could include in a document or report. The packages `glue`, `stringr`, and `knitr` have been loaded.
 
 `@pre_exercise_code`
 ```{r}
@@ -871,7 +873,7 @@ xp: 30
 ```
 
 `@instructions`
-- Keep `model`, `predictor`, and `estimate_ci`, Use `spread` on `model` and `estimate_ci`, so the unadjusted and adjusted model results have their own columns.
+- Keeping `model`, `predictor`, and `estimate_ci` variables, use `spread` on `model` and `estimate_ci`.
 - Create the formatted table with `kable()`.
 
 `@hint`
@@ -887,8 +889,8 @@ table_model_results <- all_models %>%
                str_remove("_scaled") %>% 
                str_replace_all("_", " ")) %>%
     # Keep then spread variables for final table
-    select(___) %>% 
-    ___(___, ___)
+    select(___, ___, ___) %>% 
+    spread(___, ___)
 
 # Create a Markdown table
 kable(___, caption = "Estimates and 95% CI from all models.")
