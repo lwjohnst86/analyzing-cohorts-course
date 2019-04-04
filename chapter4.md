@@ -146,7 +146,7 @@ success_msg("Excellent! You made use of map to add more details to each model ob
 
 ---
 
-## Combining the list of models into one dataframe
+## Combining the list of models into one data frame
 
 ```yaml
 type: NormalExercise
@@ -154,7 +154,7 @@ key: f30b964cce
 xp: 100
 ```
 
-The most efficient approach to later plotting and creating tables is to have all models in a single dataframe. You've already prepared them a bit, now it's time to combine them together so you can continue working with them.
+The most efficient approach to later plotting and creating tables is to have all models in a single data frame. You've already prepared them a bit, now it's time to combine them together so you can continue working with them.
 
 `@instructions`
 - Use `bind_rows()` to combine `unadjusted_models_list` and `adjusted_models_list`.
@@ -192,7 +192,7 @@ all_models <- bind_rows(
 	# Keep only predictor rows and fixed effects
     filter(___ == , ___ == ___)
 
-# Check the model dataframe
+# Check the model data frame
 all_models
 ```
 
@@ -208,7 +208,7 @@ all_models <- bind_rows(
 	# Keep only predictor rows and fixed effects
     filter(predictor == term, effect == "fixed")
 
-# Check the model dataframe
+# Check the model data frame
 all_models
 ```
 
