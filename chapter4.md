@@ -24,19 +24,19 @@ key: 921d9175f4
 xp: 100
 ```
 
-Imagine you've ran several models, based on what you learned in chapter 3. You:
+Imagine you've ran several models. You:
 
 - Scaled predictors to compare estimates.
-- Set covariates as baseline age, sex, smoking, and education.
+- Set confounders and other predictors as baseline age, sex, smoking, and education.
 - Have each predictor with unadjusted and adjusted models (time and subject ID were included in all).
 - Tidied models and exponentiated estimates.
 
-You have 8 models in total, stored as a list. There are a couple of things we should add to each model to differentiate it from the other models. Use `map` from the purrr package to wrangle each model item simultaneously.
+You have 8 models in total, stored as a list. We should add more details to each model to differentiate them from each other. Use `map()` from `purrr` to wrangle each model simultaneously. The new code here, `term[2]`, selects the main predictor, which is the second element in the `term` column.
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/2bb231430c5899236ee8b8d0af4b229036657d3a/unadjusted_models_list.rda"))
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/13d5aaceecc89a74b4f323546401d409a605acc2/adjusted_models_list.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/07241773b32bd45d4d1eb59cb3524e5519e117e7/unadjusted_models_list.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/dc0bc2887b3a9f02c65275512b851fd3d0a8ddee/adjusted_models_list.rda"))
 library(dplyr)
 library(purrr)
 ```
@@ -50,18 +50,23 @@ xp: 50
 ```
 
 `@instructions`
-- Create a predictor column using the row number that the predictor is in from the `term` variable, then add a model column to indicate "adjustment".
+- Using `map()`, add a `model` column to indicate the models are `"Unadjusted"`.
 
 `@hint`
-- Add the predictor by selecting the element number from the `term` variable with the predictor information.
+- Add the adjustment column using `model = "Unadjusted"`.
 
 `@sample_code`
 ```{r}
 # Add predictor and model type to each list item
 unadjusted_models_list <- ___(
     unadjusted_models_list,
-    ~ .x %>% ___(predictor = term[___], ___)
-)
+  	# .x is purrr for "model goes here"
+    ~mutate(.x,
+            # This selects predictor, not confounder
+            predictor = term[2],
+          	# Indicate model "adjustment"
+            model = ___
+           ))
 ```
 
 `@solution`
@@ -69,8 +74,13 @@ unadjusted_models_list <- ___(
 # Add predictor and model type to each list item
 unadjusted_models_list <- map(
     unadjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
-)
+  	# .x is purrr for "model goes here"
+    ~mutate(.x,
+            # This selects predictor, not confounder
+            predictor = term[2],
+            # Indicate model "adjustment"
+            model = "Unadjusted"
+           ))
 ```
 
 `@sct`
@@ -87,35 +97,48 @@ xp: 50
 ```
 
 `@instructions`
-- Do the same thing for the adjusted model list.
+- Do the same thing for the `"Adjusted"` model list.
 
 `@hint`
-- Map onto the adjusted model list.
+- Refer to each list object in `map` with `.x`.
+- Include the `~` before `mutate`.
 
 `@sample_code`
 ```{r}
-# Do the same for adjusted model list
-adjusted_models_list <- 
-
+# Add predictor and model type to each list item
+adjusted_models_list <- map(
+    adjusted_models_list,
+  	# .x is purrr for "model goes here"
+    ~mutate(.x,
+          	# This selects predictor, not confounder
+            predictor = term[2],
+          	# Indicate model "adjustment"
+            model = ___
+           ))
 ```
 
 `@solution`
 ```{r}
-# Do the same for adjusted model list
+# Add predictor and model type to each list item
 adjusted_models_list <- map(
     adjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
-)
+  	# .x is purrr for "model goes here"
+    ~mutate(.x,
+          	# This selects predictor, not confounder
+            predictor = term[2],
+          	# Indicate model "adjustment"
+            model = "Adjusted"
+           ))
 ```
 
 `@sct`
 ```{r}
-success_ms("Excellent! You made use of R's strength of functional programming rather than use a for loop.")
+success_msg("Excellent! You made use of map to add more details to each model object.")
 ```
 
 ---
 
-## Combining the list of models into one dataframe
+## Combining the list of models into one data frame
 
 ```yaml
 type: NormalExercise
@@ -123,51 +146,57 @@ key: f30b964cce
 xp: 100
 ```
 
-The most efficient approach to later plotting and creating tables is to have all models in a single dataframe. You've already prepared them a bit, now its time to combine them together so you can continue wrangling.
+The most efficient approach to later plotting and creating tables is to have all models in a single data frame. You've already prepared them a bit, now it's time to combine them together so you can continue working with them.
 
 `@instructions`
-- Using `bind_rows`, put the two model list objects together.
-- Continuing to pipe, add an outcome column.
-- Finally, filter out all but the predictor estimates.
+- Use `bind_rows()` to combine `unadjusted_models_list` and `adjusted_models_list`.
+- Continuing the pipe, add an `outcome` column with the value `"got_cvd"`.
+- Finally, use `filter()` to keep only conditions where the `predictor` equals `term` and `effect` equals `"fixed"`.
 
 `@hint`
-- Filter so only the predictor estimate rows remain (when predictor and term are the same).
+- Filter when predictor and term are the same (`predictor == term`).
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/2bb231430c5899236ee8b8d0af4b229036657d3a/unadjusted_models_list.rda"))
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/13d5aaceecc89a74b4f323546401d409a605acc2/adjusted_models_list.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/07241773b32bd45d4d1eb59cb3524e5519e117e7/unadjusted_models_list.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/dc0bc2887b3a9f02c65275512b851fd3d0a8ddee/adjusted_models_list.rda"))
 library(dplyr)
 library(purrr)
 unadjusted_models_list <- map(
     unadjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Unadjusted")
+    ~mutate(.x, predictor = term[2], model = "Unadjusted")
 )
 adjusted_models_list <- map(
     adjusted_models_list,
-    ~ .x %>% mutate(predictor = term[2], model = "Adjusted")
+    ~mutate(.x, predictor = term[2], model = "Adjusted")
 )
 ```
 
 `@sample_code`
 ```{r}
-# Combine models, add outcome, keep predictor estimates
-all_models <- ___ %>% 
-    ___ %>% 
-    ___
+all_models <- bind_rows(
+  		# Combine the two lists of models 
+  		___, 
+  		___
+	) %>% 
+    mutate(outcome = ___) %>% 
+	# Keep only predictor rows and fixed effects
+    filter(___ == , ___ == ___)
 
-# Check the model dataframe
-
+all_models
 ```
 
 `@solution`
 ```{r}
-# Combine models, add outcome, keep predictor estimates
-all_models <- bind_rows(unadjusted_models_list, adjusted_models_list) %>% 
+all_models <- bind_rows(
+  		# Combine the two lists of models 
+  		unadjusted_models_list, 
+  		adjusted_models_list
+	) %>% 
     mutate(outcome = "got_cvd") %>% 
-    filter(predictor == term)
+	# Keep only predictor rows and fixed effects
+    filter(predictor == term, effect == "fixed")
 
-# Check the model dataframe
 all_models
 ```
 
@@ -199,17 +228,15 @@ key: 69007ab10b
 xp: 100
 ```
 
-Statistical analysis used on cohort data usually output some time of regression estimate along with a measure of uncertainty (e.g. 95% confidence interval). Sometimes it makes sense to present these results in a table, but often the better approach is to create a graph instead. Graphs show magnitude, direction, uncertainty, and comparison of results very effectively.
+Statistical analysis used on cohort data usually output some time of regression estimate along with a measure of uncertainty (e.g. 95% confidence interval). Sometimes it makes sense to present these results in a table, but often the better approach is to create a figure instead. Figures show magnitude, direction, uncertainty, and comparison of results very effectively.
 
 Create a plot of the unadjusted model results that highlights the estimate and uncertainty of the estimate.
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/5a385fa413f9f3cfbe95857e390b53ae9966a62d/all_models.rda"))
 library(dplyr)
 library(ggplot2)
-all_models <- all_models %>% 
-    filter(predictor == term)
 ```
 
 ***
@@ -221,19 +248,19 @@ xp: 30
 ```
 
 `@instructions`
-- Keep only the unadjusted results.
+- For this exercise, filter to keep `model` that is equal to `"Unadjusted"`.
 
 `@hint`
-- Filter takes a logic condition.
+- Filter should be `model == "Unadjusted"`.
 
 `@sample_code`
 ```{r}
 # Keep only unadjusted models
 unadjusted_results <- all_models %>% 
-    ___(___)
+    filter(___ == ___)
 
 # Check filtered data
-___
+unadjusted_results
 ```
 
 `@solution`
@@ -260,36 +287,37 @@ xp: 35
 ```
 
 `@instructions`
-- Create a point and error bar plot of the estimates and confidence intervals, with the predictors on the y axis.
+- Set `y` as `predictor`, `x` as `estimate`, `xmin` as `conf.low`, and `xmax` as `conf.high`.
+- Add `geom_point()` and `geom_errorbarh()` layers.
 
 `@hint`
-- Use the geom for points and for `errorbarh` (horizontal).
+- The `errorbarh` (horizontal) requires `xmin = conf.low, xmax = conf.high`.
 
 `@sample_code`
 ```{r}
-# Keep only unadjusted models
-unadjusted_results <- all_models %>% 
-    filter(model == "Unadjusted")
-
-# Create a dot and error bar plot
-model_plot <- ___ %>% 
-    ggplot(aes(___)) +
-    ___() +
-    ___()
-
-# Check the plot
-___
-```
-
-`@solution`
-```{r}
-# Keep only unadjusted models
 unadjusted_results <- all_models %>% 
     filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
 model_plot <- unadjusted_results %>% 
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = ___, x = ___,
+              xmin = ___, xmax = ___)) +
+    ___() +
+    ___()
+
+# Check the plot
+model_plot
+```
+
+`@solution`
+```{r}
+unadjusted_results <- all_models %>% 
+    filter(model == "Unadjusted")
+
+# Create a dot and error bar plot
+model_plot <- unadjusted_results %>% 
+    ggplot(aes(y = predictor, x = estimate, 
+               xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh()
 
@@ -311,38 +339,38 @@ xp: 35
 ```
 
 `@instructions`
-- Add a vertical line at 1 for the "center line".
+- Use `geom_vline()` to add a vertical line, setting `xintercept` as 1 for the "center line".
 
 `@hint`
-- The `xintercept` must be set when adding a vertical line.
+- Set `xintercept = 1` for the center line.
 
 `@sample_code`
 ```{r}
-# Keep only unadjusted models
 unadjusted_results <- all_models %>% 
     filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
 model_plot <- unadjusted_results %>% 
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, 
+               xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh() +
     # Add vertical line
-    ___(___)
+    ___(xintercept = ___)
 
 # Check the plot
-___
+model_plot
 ```
 
 `@solution`
 ```{r}
-# Keep only unadjusted models
 unadjusted_results <- all_models %>% 
     filter(model == "Unadjusted")
 
 # Create a dot and error bar plot
 model_plot <- unadjusted_results %>% 
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, 
+               xmin = conf.low, xmax = conf.high)) +
     geom_point() +
     geom_errorbarh() +
     # Add vertical line
@@ -369,39 +397,37 @@ xp: 100
 
 Now that we've created this plot, let's polish it up. We want it to be "publication quality", since we'll eventually present this figure to others.
 
-As with the previous exercise, use the `unadjusted_results` dataframe you created to plot the findings. This time, make the plot more polished and presentable.
+As with the previous exercise, use the `unadjusted_results` data frame you created to plot the findings. This time, make the plot more polished and presentable.
 
 `@instructions`
-- Add the `aes()` variables, the point, error bar, and vertical center line.
-- Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to dotted.
-- Include appropriate axis labels (the "Predictors" on the y and the "Odds Ratio (95% CI)" on the x). Remember, CI is the confidence interval.
-- Change the theme to `theme_bw()`.
+- Set the point `size` to 3, the error bar `height` to 0.1, and the `linetype` to `"dotted"`.
+- Include appropriate axis labels (`"Predictors"` on the y and `"Odds Ratio (95% CI)"` on the x). Recall that CI means confidence interval.
+- Set the theme to `theme_classic()`.
 
 `@hint`
-- The labels should be of the form `x = "Axis Label"` (for the x-axis for instance).
+- The labels should be of the form `x = "Axis Label"` (e.g. for the x-axis).
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/5a385fa413f9f3cfbe95857e390b53ae9966a62d/all_models.rda"))
 library(dplyr)
 library(ggplot2)
 unadjusted_results <- all_models %>% 
-    filter(model == "Unadjusted", predictor == term)
+    filter(model == "Unadjusted")
 ```
 
 `@sample_code`
 ```{r}
 # Make the plot more polished
 model_plot <- unadjusted_results %>% 
-    ggplot(___) +
-    ___ +
-    ___ +
-    ___ +
-    labs(___, ___) +
-    ___
-
-# Plot it
-___
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point(size = ___) +
+    geom_errorbarh(height = ___) +
+    geom_vline(xintercept = 1, linetype = ___) +
+    labs(y = ___, x = ___) +
+	# Set the theme
+    ___()
+model_plot
 ```
 
 `@solution`
@@ -413,15 +439,14 @@ model_plot <- unadjusted_results %>%
     geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dotted") +
     labs(y = "Predictors", x = "Odds ratio (95% CI)") +
-    theme_bw()
-
-# Plot it
+	# Set the theme
+    theme_classic()
 model_plot
 ```
 
 `@sct`
 ```{r}
-success_msg("Amazing! You have a very nice figure now that is ready to be presented to others! There are other themes to use if you don't like this one.")
+success_msg("Amazing! You have a very nice figure now that is ready to be presented to others! There are other themes to use if you don't like this one. Check out the package ggthemes for more.")
 ```
 
 ---
@@ -434,38 +459,34 @@ key: 163d46569b
 xp: 100
 ```
 
-The STROBE guidelines indicate that both "crude" (unadjusted) and adjusted model results be shown. Showing both can be informative and insightful into the research question. Create a plot of your results showing both unadjusted and adjusted models. Do the same steps as in the previous exercise for creating the plot.
+The STROBE best practices indicate to show both "crude" (unadjusted) and adjusted model results. Showing both can be informative and insightful into the research question. Create a plot of your results showing both unadjusted and adjusted models. Do the same steps as in the previous exercise for creating the plot.
 
 `@instructions`
-- As in the previous exercise, create a plot of the estimates and confidence intervals of the predictors.
-- This time, don't filter by model adjustment.
-- Make the plot pretty as in the previous exercise (including the `labs`).
-- Expand on the previous exercise by splitting the plot by model using `facet_grid`.
+- Use the `all_models` data frame this time.
+- Using `facet_grid()` to split the plot by `rows` with the `model` variable (called inside `vars()`).
 
 `@hint`
-- The vertical line should have a `linetype` of "dotted".
-- Select the facetting variable using `vars()`.
+- The faceting variable should be called as `vars(model)`.
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
-library(dplyr)
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/5a385fa413f9f3cfbe95857e390b53ae9966a62d/all_models.rda"))
 library(ggplot2)
+library(magrittr)
 ```
 
 `@sample_code`
 ```{r}
 # Show results of both adjusted and unadjusted
-plot_all_models <- all_models %>% 
-    ggplot(aes(___)) +
-    ___() +
-    ___(height = 0.2) +
-    geom_vline(___) +
-    # Split plot by model
-    ___(rows = ___) +
-    labs(___, ___)
-
-# Plot the results
+plot_all_models <- ___ %>% 
+    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    geom_point(size = 3) +
+    geom_errorbarh(height = 0.1) +
+    geom_vline(xintercept = 1, linetype = "dotted") +
+    # Facet plot by model
+    ___(rows = vars(___)) +
+    labs(y = "Predictors", x = "Odds ratio (95% CI)") +
+    theme_classic()
 plot_all_models
 ```
 
@@ -474,14 +495,13 @@ plot_all_models
 # Show results of both adjusted and unadjusted
 plot_all_models <- all_models %>% 
     ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
-    geom_point() +
-    geom_errorbarh(height = 0.2) +
+    geom_point(size = 3) +
+    geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dotted") +
     # Split plot by model
     facet_grid(rows = vars(model)) +
-    labs(y = "Predictors", x = "Odds ratio (95% CI)")
-
-# Plot the results
+    labs(y = "Predictors", x = "Odds ratio (95% CI)") +
+    theme_classic()
 plot_all_models
 ```
 
@@ -513,9 +533,9 @@ key: cb7b2cfe06
 xp: 100
 ```
 
-A classic use for tables is showing the basic characteristics of a cohort dataset, as there are diverse data types and summary statistics that need to be shown. Including a basic participant characteristics table is part of the STROBE requirements. This table can be quite informative for others when they interpret your analysis results.
+A classic use for tables is showing the basic characteristics of a cohort dataset, as there are diverse data types and summary statistics that need to be shown. Including a basic participant characteristics table is part of the STROBE best practices. This table can be quite informative for others when they interpret your analysis results.
 
-Using the carpenter package, create a table showing summary statistics for each data collection visit.
+Using the `carpenter` package, create a table showing summary statistics for each data collection visit.
 
 `@pre_exercise_code`
 ```{r}
@@ -533,29 +553,31 @@ xp: 25
 ```
 
 `@instructions`
-- Convert `followup_visit_number` and `got_cvd` to factor variables, then set the visit number as the header/columns of the table.
+- Set `"followup_visit_number"` for the `header` argument of `outline_table()`.
 
 `@hint`
-- Select the variables using `vars()` in `mutate_at`.
+- Use quotes around `followup_visit_number`.
 
 `@sample_code`
 ```{r}
 # Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
-    # Convert variables to factor
-    mutate_at(___, ___) %>% 
-    # Set variable as table column
+	# These discrete variables are numeric, but must be factors
+	mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+	# Set followup visit number as table column
     outline_table(header = ___) 
 
 # Check the table
-___
+characteristics_table
 ```
 
 `@solution`
 ```{r}
 # Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
+	# These discrete variables are numeric, but must be factors
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
+	# Set followup visit number as table column
     outline_table(header = "followup_visit_number") 
 
 # Check the table
@@ -576,10 +598,10 @@ xp: 25
 ```
 
 `@instructions`
-- Add a row for the outcome, sex, and education (combined) variables, using `number (percent)` as a summary statistic.
+- Add a row for the `"got_cvd"`, `"sex"`, and `"education_combined"` variables, using `stat_nPct` for the `stat` argument.
 
 `@hint`
-- Carpenter summary statistic functions begin with `stat_`; choose the version for number and percent.
+- The variables should be quoted, e.g. `"sex"`.
 
 `@sample_code`
 ```{r}
@@ -587,11 +609,11 @@ xp: 25
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
-    # Show n (%) for factors as rows
+    # Show n (%) for discrete variables as rows
     add_rows(c(___, ___, ___), stat = ___)
 
 # Check the table
-___
+characteristics_table
 ```
 
 `@solution`
@@ -600,7 +622,7 @@ ___
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
-    # Show n (%) for factors as rows
+    # Show n (%) for discrete variables as rows
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct)
 
 # Check the table
@@ -621,10 +643,10 @@ xp: 25
 ```
 
 `@instructions`
-- Add a row for the predictor variables, body mass, and age using `median (interquartile range)` as the statistic.
+- Add rows for `"total_cholesterol"`, `"body_mass_index"`, and `"participant_age"` using `stat_medianIQR` for the `stat` argument.
 
 `@hint`
-- The predictors are total cholesterol, systolic and diastolic blood pressure, and fasting blood glucose.
+- The variables need to be surrounded by quotes, just like the function above.
 
 `@sample_code`
 ```{r}
@@ -634,10 +656,10 @@ characteristics_table <- tidied_framingham %>%
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
     # Show median (range) for continuous variables
-    ___(___, ___)
+    add_rows(c(___, ___, ___), stat = ___)
 
 # Check the table
-___
+characteristics_table
 ```
 
 `@solution`
@@ -648,10 +670,7 @@ characteristics_table <- tidied_framingham %>%
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
     # Show median (range) for continuous variables
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) 
+    add_rows(c("total_cholesterol", "body_mass_index", "participant_age"), stat = stat_medianIQR)
 
 # Check the table
 characteristics_table
@@ -671,24 +690,20 @@ xp: 25
 ```
 
 `@instructions`
-- Rename the table headers to "Measures", "Baseline", "Second followup", and "Third followup", then build the table into markdown format.
+- Rename the table `"header"` to `"Measures"`, `"Baseline"`, `"Second followup"`, and `"Third followup"`, then `build_table()` to markdown format.
 
 `@hint`
-- The new column headers should be passed as a character vector.
+- The new column headers should be given as a character vector.
 
 `@sample_code`
 ```{r}
-# Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) %>% 
+    add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR) %>% 
     # Rename headers to better titles
-    renaming(___, c(___))
+    renaming("header", c(___, ___, ___, ___))
 
 # Build the table and convert to markdown form
 build_table(___)
@@ -696,15 +711,11 @@ build_table(___)
 
 `@solution`
 ```{r}
-# Create a table of summary statistics
 characteristics_table <- tidied_framingham %>% 
     mutate_at(vars(followup_visit_number, got_cvd), as.factor) %>% 
     outline_table(header = "followup_visit_number") %>% 
     add_rows(c("got_cvd", "sex", "education_combined"), stat = stat_nPct) %>% 
-    add_rows(c("participant_age", "body_mass_index",
-               "total_cholesterol", "systolic_blood_pressure",
-               "diastolic_blood_pressure", "fasting_blood_glucose"), 
-             stat = stat_medianIQR) %>% 
+    add_rows(c("participant_age", "body_mass_index", "total_cholesterol"), stat = stat_medianIQR) %>% 
     # Rename headers to better titles
     renaming("header", c("Measures", "Baseline", "Second followup", "Third followup"))
 
@@ -727,20 +738,18 @@ key: e1034d1d86
 xp: 100
 ```
 
-While the main messaging and presentation of results should emphasize figures over tables, often it is useful to other researchers (especially those doing meta-analyses) that the raw model results be given as well. Here we can use tables to give this data, as a supplement to the figure.
+While the main messaging and presentation of results should emphasize figures over tables, often it is useful to other researchers (especially those doing meta-analyses or aggregating results) that the raw model results be given as well. Here we can use tables to give this data, as a supplement to the figure.
 
-Provide the estimates and 95% confidence intervals of the unadjusted and adjusted model results in a format that is nearly suitable for inclusion in a document.
+Provide the estimates and confidence intervals of the unadjusted and adjusted model results in a table format that you could include in a document or report. The packages `glue`, `stringr`, and `knitr` have been loaded.
 
 `@pre_exercise_code`
 ```{r}
-load(url("https://assets.datacamp.com/production/repositories/2079/datasets/56fed8010409f87de562920a827364b3a8a5ffdf/all_models.rda"))
+load(url("https://assets.datacamp.com/production/repositories/2079/datasets/5a385fa413f9f3cfbe95857e390b53ae9966a62d/all_models.rda"))
 library(knitr)
 library(glue)
 library(dplyr)
 library(tidyr)
 library(stringr)
-all_models <- all_models %>% 
-    filter(predictor == term)
 ```
 
 ***
@@ -752,17 +761,17 @@ xp: 35
 ```
 
 `@instructions`
-- Keeping only the predictor estimates, round the estimates and CI to two digits.
+- Round the `estimate`, `conf.low`, and `conf.high` to 2 digits using the function `round` (don't use with `()`).
 
 `@hint`
-- `mutate_at` applies a function (second argument) to a list of variables (first argument) with `vars()`.
+- `mutate_at()` takes variables (as the first argument) inside `vars()` and applies a function like `round` as the second argument.
 
 `@sample_code`
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    # Round values
-    mutate_at(___, ___, digits = ___)
+    # Round values of variables to 3
+    mutate_at(vars(___, ___, ___), ___, digits = ___)
 
 # View wrangled data
 table_model_results
@@ -772,7 +781,7 @@ table_model_results
 ```{r}
 # Prepare the results for the table
 table_model_results <- all_models %>% 
-    # Round values
+    # Round values of variables to 3
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2)
 
 # View wrangled data
@@ -793,10 +802,10 @@ xp: 35
 ```
 
 `@instructions`
-- Using the `glue` function, create a new variable that puts the estimate and CI together in the form: `estimate (lower, upper)`.
+- Use `glue()` to create a new variable in the form `estimate (conf.low, conf.high)`, then replace underscores with spaces in `predictor` with `str_replace_all()`.
 
 `@hint`
-- Use `{}` to pass data/variables into the `glue` function.
+- The estimate and CI variables should be placed inside the `{}` in `glue()`.
 
 `@sample_code`
 ```{r}
@@ -804,11 +813,9 @@ xp: 35
 table_model_results <- all_models %>% 
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     # Use glue function to combine variables
-    mutate(estimate_ci = ___("___"),
-           # Tidy up predictor
-           predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
-               str_replace_all("_", " "))
+    mutate(estimate_ci = glue("{___} ({___}, {___})"),
+           # Underscores to spaces in predictor
+           predictor = str_replace_all(___, "_", " "))
 
 # View wrangled data
 table_model_results
@@ -821,10 +828,8 @@ table_model_results <- all_models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     # Use glue function to combine variables
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
-           # Tidy up predictor
-           predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
-               str_replace_all("_", " "))
+           # Underscores to spaces in predictor
+           predictor = str_replace_all(predictor, "_", " "))
 
 # View wrangled data
 table_model_results
@@ -844,10 +849,11 @@ xp: 30
 ```
 
 `@instructions`
-- Keep the model, predictor, and combined estimate and CI variables, spread the data so the unadjusted and adjusted model results have their own columns, and then create the `kable()` table.
+- Keeping `model`, `predictor`, and `estimate_ci` variables, use `spread` on `model` and `estimate_ci`.
+- Create the formatted table with `kable()`.
 
 `@hint`
-- When spreading, choose 1) the variable that will make up the name of the new columns and 2) the variable that provides the values for the new columns.
+- `spread` takes two arguments: 1) the current discrete column (`model`) that will be the new columns names, and 2) the values (`estimate_ci`) that will be in the new columns.
 
 `@sample_code`
 ```{r}
@@ -856,14 +862,14 @@ table_model_results <- all_models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
+               str_remove("_scaled") %>% 
                str_replace_all("_", " ")) %>%
     # Keep then spread variables for final table
-    select(___) %>% 
-    ___(___, ___)
+    select(___, ___, ___) %>% 
+    spread(___, ___)
 
 # Create a Markdown table
-___(___, caption = "Estimates and 95% CI from all models.")
+kable(___, caption = "Estimates and 95% CI from all models.")
 ```
 
 `@solution`
@@ -873,7 +879,7 @@ table_model_results <- all_models %>%
     mutate_at(vars(estimate, conf.low, conf.high), round, digits = 2) %>% 
     mutate(estimate_ci = glue("{estimate} ({conf.low}, {conf.high})"),
            predictor = predictor %>% 
-               str_replace("scaled_", "") %>% 
+               str_remove("_scaled") %>% 
                str_replace_all("_", " ")) %>%
     # Keep then spread variables for final table
     select(model, predictor, estimate_ci) %>% 

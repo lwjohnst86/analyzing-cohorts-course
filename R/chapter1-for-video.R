@@ -1,6 +1,23 @@
 source(here::here("R/setup.R"))
 
-# Chapter 1, prospective cohort outcomes ----------------------------------
+# Video 1, purpose of cohorts plots -------------------------------------
+
+base_background <- ggplot() +
+    theme_void()
+
+heart_plot <- base_background +
+    geom_fontawesome('fa-heartbeat', color = color_theme[3], size = 90)
+ggsave("datasets/plot-purpose-risk-factors.png", dpi = 90)
+
+doctor_plot <- base_background +
+    geom_fontawesome('fa-stethoscope', color = color_theme[3], size = 90)
+ggsave("datasets/plot-purpose-diagnosis.png", dpi = 90)
+
+side_effects_plot <- base_background +
+    geom_fontawesome('fa-hospital-o', color = color_theme[3], size = 80)
+ggsave("datasets/plot-purpose-side-effects.png", dpi = 90)
+
+# Video 2, prospective cohort outcomes ------------------------------------
 
 disease_occurrence <- tibble(
     Participant = fct_inorder(as.character(1:20)),
@@ -35,7 +52,9 @@ pro_cohort_visual_plot <- disease_occurrence %>%
         legend.title = element_blank(),
         legend.key = element_blank()
     )
-ggsave("datasets/plot-prospective-outcome.png", dpi = 90)
+
+ggsave(here::here("datasets/ch1-v2-prospective-outcome.png"),
+       pro_cohort_visual_plot, width = 6, height = 4.5, dpi = 90)
 
 # Chapter 1, cohort sample plot -------------------------------------------
 
@@ -56,25 +75,7 @@ cohort_sample_plot <- ggplot(fa_data, aes(x, y, color = label, label = label)) +
     theme_void()
 ggsave("datasets/plot-cohort-sample.png", dpi = 90)
 
-# Chapter 1, purpose of cohorts plots -------------------------------------
-
-base_background <- ggplot() +
-    theme_void()
-
-heart_plot <- base_background +
-    geom_fontawesome('fa-heartbeat', color = color_theme[3], size = 90)
-ggsave("datasets/plot-purpose-risk-factors.png", dpi = 90)
-
-doctor_plot <- base_background +
-    geom_fontawesome('fa-stethoscope', color = color_theme[3], size = 90)
-ggsave("datasets/plot-purpose-diagnosis.png", dpi = 90)
-
-side_effects_plot <- base_background +
-    geom_fontawesome('fa-hospital-o', color = color_theme[3], size = 80)
-ggsave("datasets/plot-purpose-side-effects.png", dpi = 90)
-
-
-# Chapter 1, incidence vs prevalence --------------------------------------
+# Video 3, incidence vs prevalence --------------------------------------
 
 prev_incid <- tibble(
     Person_1 = c(1, 1, 1),
@@ -126,7 +127,8 @@ fig1 <- prev_incid %>%
         PersonText = if_else(Visit == 0, PersonText, NA_character_)
     ) %>%
     over_time_plot()
-ggsave("datasets/plot-prevalence-incidence-0.png", dpi = 90)
+ggsave(here::here("datasets/ch1-v3-prevalence-incidence-0.png"),
+       fig1, height = 4.5, width = 6, dpi = 90)
 
 fig2 <- prev_incid %>%
     mutate(
@@ -135,10 +137,12 @@ fig2 <- prev_incid %>%
         PersonText = if_else(Visit == 1, PersonText, NA_character_)
     ) %>%
     over_time_plot()
-ggsave("datasets/plot-prevalence-incidence-1.png", dpi = 90)
+ggsave(here::here("datasets/ch1-v3-prevalence-incidence-1.png"),
+       fig2, height = 4.5, width = 6, dpi = 90)
 
 fig3 <- prev_incid %>%
-    mutate_at(vars(PersonText), funs(ifelse(Visit == 2, ., NA))) %>%
+    mutate_at(vars(PersonText), ~ifelse(Visit == 2, ., NA)) %>%
     over_time_plot()
-ggsave("datasets/plot-prevalence-incidence-2.png", dpi = 90)
+ggsave(here::here("datasets/ch1-v3-prevalence-incidence-2.png"),
+       fig3, height = 4.5, width = 6, dpi = 90)
 

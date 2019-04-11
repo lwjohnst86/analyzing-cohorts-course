@@ -13,7 +13,7 @@ key: "575864dc6e"
 `@lower_third`
 
 name: Luke Johnston
-title: Instructor
+title: Diabetes epidemiologist
 
 
 `@script`
@@ -33,16 +33,16 @@ key: "42434a7ac4"
 - Emphasize tangible health impact
 - Be clear and understandable
 - Get feedback from healthcare practitioners
-- "Non-significant" and "significant" are important {{1}}
-- Show magnitude and uncertainy over "statistical significance" {{1}}
+- Both "non-significant" and "significant" results important {{1}}
+- Show magnitude and uncertainty over "statistical significance" {{1}}
 
 
 `@script`
-In observational cohort studies, you should always have a healthy dose of caution when interpreting and presenting results. This is also stated within the STROBE guidelines. If you recall, STROBE was developed to make studies such as cohorts more rigorous, standardized, and transparent.
+In observational cohort studies, you need to use a healthy dose of caution when interpreting and presenting results, as indicated in the STROBE best practices. STROBE, if you recall, was designed to make cohort studies more rigorous and standardized.
 
-Presenting results should emphasize more tangible health impact and try to be as clear and understandable as possible. The audience for your results will likely be public health professionals or clinicians who aren't trained on interpreting complex model outputs, so be simple and concise. 
+Emphasize more tangible health impacts when presenting results and try to be as clear and understandable as possible. Your audience or readers will likely be public health professionals or clinicians who aren't trained in interpreting complex models, so be simple and concise. 
 
-Keep in mind that both non-significant and significant findings are important from a health standpoint. Show all results, and in those results, emphasize the magnitude of association and the uncertainty of that association.
+Keep in mind that both non-significant and significant findings are important from a health standpoint. Show all results, emphasizing the magnitude of association and the uncertainty of that association.
 
 
 ---
@@ -55,35 +55,57 @@ key: "452c839802"
 
 `@part1`
 - Growing field in epidemiology
-- Use caution with causal language or interpretations
-- When to use stronger causal language
-    - Depends on magnitude and temporal response
-    - e.g. with smoking and lung cancer
+- Use caution with causal language or interpretations {{1}}
+- Using stronger causal language depends on magnitude and temporal response {{2}}
+    - E.g. with smoking and lung cancer
 
 
 `@script`
-Oftentimes, observational findings are interpreted causally. While the field of causal reasoning in epidemiology has greatly expanded in recent years, it is still an area where you should be cautious. Unfortunately, humans often interpret associations as causal, so as the researcher you need to be extremely cautious when presenting findings from observational research. There are instances when causal language is easier to use, for example with the observation on smoking and lung cancer, but most of the time it is not so clear whether a causal relationship exists. Keep these things in mind whenever you present results from cohort studies.
+Oftentimes, observational findings are interpreted causally. While the field of causal reasoning in epidemiology has expanded recently, it is still new, so use caution with causal language. 
+
+Unfortunately, humans often interpret associations as causal, so as the researcher you need to be extremely careful when presenting findings from observational research. 
+
+There are however times when causal language is justified, for example with the observation of cigarette smoking and lung cancer. But usually it isn't completely clear whether a causal relationship exists. Keep these in mind when you present cohort study results.
+
 
 ---
-## Running multiple models and using lists
+## Multiple models as lists, tidying with map
 
 ```yaml
 type: "FullSlide"
+key: "633c32f759"
 ```
 
 `@part1`
 ```{r}
 unadjusted_models_list <- list(
-    glm(chd ~ energy, family = binomial, data = diet) %>%
-        tidy(conf.int = TRUE, exponentiate = TRUE),
-    glm(chd ~ fibre, family = binomial, data = diet) %>%
-        tidy(conf.int = TRUE, exponentiate = TRUE)
+    glmer(got_cvd ~ total_cholesterol_scaled + (1 | subject_id), 
+        family = binomial, data = tidied_framingham),
+    glmer(got_cvd ~ body_mass_index_scaled + (1 | subject_id), 
+        family = binomial, data = tidied_framingham)
 )
+# Same done for adjusted_models_list
 ```
+{{1}}
+
+```{r}
+library(purrr)
+tidied_unadjusted_models_list <- unadjusted_models_list %>%
+    map(~tidy(.x, conf.int = TRUE, exponentiate = TRUE) %>%
+            select(effect, term, estimate, conf.low, conf.high))
+```
+{{2}}
+
 
 `@script`
+Given you'll likely be working with multiple models, my suggestion is put your models into a single list, since working with lists is very easy in R thanks to the purrr package. 
 
-There are several ways to work with multiple models. My suggestion is put your models into a single list, since working with lists is very easy in R thanks to the purrr package, which I will show later. Here, I've ran two models using what we learned from the previous chapter and stored them as a list into the object unadjusted models list. I did the same thing for the adjusted models by storing them as a list.
+Here, I've ran two models using what we learned from the previous chapter and stored them as a list into the object unadjusted models list. I did the same thing for adjusted models by storing them as a list, but haven't shown the code.
+
+Then, to apply the tidy function to each of those models, we use the map function from the purrr package. Map takes two arguments. The list object and the function we want to use. We use the function with the tilde symbol beforehand and refer to the model object by dot x.
+
+Using map leverages R's powerful functional programming strengths. purrr provides a wonderful and consistent interface for using this functional programming.
+
 
 ---
 ## Contents are multiple models stored in sequence
@@ -96,34 +118,38 @@ key: "a7a664a9c8"
 `@part1`
 ```{r}
 unadjusted_models_list
+# adjusted_models_list
 ```
 {{1}}
 
 ```
 [[1]]
-# A tibble: 2 x 7
-  term        estimate std.error statistic p.value conf.low conf.high
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
-1 (Intercept)    4.30     1.09        1.33 0.183      0.516    38.1  
-2 energy         0.887    0.0404     -2.97 0.00297    0.817     0.958
+# A tibble: 3 x 5
+  effect   term                        estimate     conf.low  conf.high
+  <chr>    <chr>                          <dbl>        <dbl>      <dbl>
+1 fixed    (Intercept)               0.00000273  0.000000334  0.0000223
+2 fixed    total_cholesterol_scaled  1.10        0.319        3.78     
+3 ran_pars sd__(Intercept)          56.5        NA           NA        
 
 [[2]]
-# A tibble: 2 x 7
-  term        estimate std.error statistic p.value conf.low conf.high
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
-1 (Intercept)    0.953     0.604   -0.0804 0.936      0.297     3.16 
-2 fibre          0.326     0.382   -2.94   0.00328    0.149     0.664
+# A tibble: 3 x 5
+  effect   term                      estimate     conf.low  conf.high
+  <chr>    <chr>                        <dbl>        <dbl>      <dbl>
+1 fixed    (Intercept)             0.00000248  0.000000289  0.0000213
+2 fixed    body_mass_index_scaled  1.62        0.410        6.38     
+3 ran_pars sd__(Intercept)        56.8        NA           NA        
 ```
 {{2}}
 
 
 `@script`
-We can see the contents of the list by printing it. You can see the two models inside the list object.This is what the model list looks like for the unadjusted models. The adjusted models list looks the same, except for the additional covariates.
+The contents are a list of two model results. These results are for the unadjusted models. The adjusted models list looks the same, except there are additional predictors.
 
-Plotting or creating tables from the model results is more efficiently done with a single dataframe of results, but we need to add some model specific details to each model before trying to combine them.
+Plotting or creating tables of these results would be better done using a single dataframe, so we'll need to combine them together. But before we do, we'll need to add some details to distinguish each model.
+
 
 ---
-## Use map to apply functions to each list item
+## Use map to add more model details
 
 ```yaml
 type: "FullSlide"
@@ -133,36 +159,37 @@ disable_transition: true
 
 `@part1`
 ```{r}
-library(purrr)
-map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted"))
+map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted"))
 ```
 
 ```
 [[1]]
-# A tibble: 2 x 8
-  term        estimate std.error statistic p.value conf.low conf.high model     
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl> <chr>     
-1 (Intercept)    4.30     1.09        1.33 0.183      0.516    38.1   Unadjusted
-2 energy         0.887    0.0404     -2.97 0.00297    0.817     0.958 Unadjusted
+# A tibble: 3 x 6
+  effect   term                       estimate     conf.low conf.high model    
+  <chr>    <chr>                         <dbl>        <dbl>     <dbl> <chr>    
+1 fixed    (Intercept)              0.00000273  0.000000334   2.23e-5 Unadjust…
+2 fixed    total_cholesterol_scal…  1.10        0.319         3.78e+0 Unadjust…
+3 ran_pars sd__(Intercept)         56.5        NA            NA       Unadjust…
 
 [[2]]
-# A tibble: 2 x 8
-  term        estimate std.error statistic p.value conf.low conf.high model     
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl> <chr>     
-1 (Intercept)    0.953     0.604   -0.0804 0.936      0.297     3.16  Unadjusted
-2 fibre          0.326     0.382   -2.94   0.00328    0.149     0.664 Unadjusted
+# A tibble: 3 x 6
+  effect   term                      estimate     conf.low  conf.high model    
+  <chr>    <chr>                        <dbl>        <dbl>      <dbl> <chr>    
+1 fixed    (Intercept)             0.00000248  0.000000289  0.0000213 Unadjust…
+2 fixed    body_mass_index_scaled  1.62        0.410        6.38      Unadjust…
+3 ran_pars sd__(Intercept)        56.8        NA           NA         Unadjust…
 ```
 {{1}}
 
 
 `@script`
-A powerful way of doing that is by leveraging R's functional programming strengths. The purrr package has an amazing and consistent interface for doing functional programming. Using the map function, we can apply a function or chain of functions to a list or vector. The first argument takes the list or vector and the second argument takes the function to apply to each list item.
+Let's use map to add more information to the model objects in the list. We'll add a tag to each model item in the list to indicate that the models are unadjusted.
 
-Here, we can add a tag to each model item in the list to indicate that the model is unadjusted.
+The model column is now added to each model in the list.
 
 
 ---
-## Bind rows to convert list into dataframe
+## Use bind_rows to convert list into data frame
 
 ```yaml
 type: "FullSlide"
@@ -172,24 +199,26 @@ disable_transition: true
 
 `@part1`
 ```{r}
-map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")) %>% 
+map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted")) %>% 
     bind_rows()
 ```
 
 ```
-# A tibble: 4 x 8
-  term        estimate std.error statistic p.value conf.low conf.high model     
-  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl> <chr>     
-1 (Intercept)    4.30     1.09      1.33   0.183      0.516    38.1   Unadjusted
-2 energy         0.887    0.0404   -2.97   0.00297    0.817     0.958 Unadjusted
-3 (Intercept)    0.953    0.604    -0.0804 0.936      0.297     3.16  Unadjusted
-4 fibre          0.326    0.382    -2.94   0.00328    0.149     0.664 Unadjusted
+# A tibble: 6 x 6
+  effect   term                  estimate   conf.low conf.high model   
+  <chr>    <chr>                    <dbl>      <dbl>     <dbl> <chr>   
+1 fixed    (Intercept)         0.00000273    3.34e-7   2.23e-5 Unadjus…
+2 fixed    total_cholesterol…  1.10          3.19e-1   3.78e+0 Unadjus…
+3 ran_pars sd__(Intercept)    56.5          NA        NA       Unadjus…
+4 fixed    (Intercept)         0.00000248    2.89e-7   2.13e-5 Unadjus…
+5 fixed    body_mass_index_s…  1.62          4.10e-1   6.38e+0 Unadjus…
+6 ran_pars sd__(Intercept)    56.8          NA        NA       Unadjus…
 ```
 {{1}}
 
 
 `@script`
-Then, to convert that list into a single dataframe, we use dplyr's bind rows function to stack the list dataframes into one.
+Then, we can convert the list of models into a single dataframe of the results. We do this using dplyr's bind-underscore-rows function to stack the list dataframes into one.
 
 
 ---
@@ -204,32 +233,32 @@ disable_transition: true
 `@part1`
 ```{r}
 bind_rows(
-    map(unadjusted_models_list, ~ .x %>% mutate(model = "Unadjusted")),
-    map(adjusted_models_list, ~ .x %>% mutate(model = "Adjusted"))
+		map(unadjusted_models_list, ~mutate(.x, model = "Unadjusted")),
+    	map(adjusted_models_list, ~mutate(.x, model = "Adjusted"))
     ) %>%
-    mutate(outcome = "chd")
+    mutate(outcome = "got_cvd")
 ```
 
 ```
-# A tibble: 10 x 9
-   term     estimate std.error statistic p.value conf.low conf.high model  outcome
-   <chr>       <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl> <chr>  <chr>  
- 1 (Interc…    4.30     1.09      1.33   0.183      0.516    38.1   Unadj… chd    
- 2 energy      0.887    0.0404   -2.97   0.00297    0.817     0.958 Unadj… chd    
- 3 (Interc…    0.953    0.604    -0.0804 0.936      0.297     3.16  Unadj… chd    
- 4 fibre       0.326    0.382    -2.94   0.00328    0.149     0.664 Unadj… chd    
- 5 (Interc…    6.03     1.36      1.32   0.187      0.420    88.5   Adjus… chd    
- 6 energy      0.892    0.0420   -2.71   0.00666    0.820     0.967 Adjus… chd    
- 7 weight      0.993    0.0152   -0.473  0.636      0.963     1.02  Adjus… chd    
- 8 (Interc…    1.24     1.09      0.199  0.842      0.145    10.5   Adjus… chd    
- 9 fibre       0.346    0.412    -2.58   0.0100     0.149     0.746 Adjus… chd    
-10 weight      0.995    0.0162   -0.319  0.750      0.963     1.03  Adjus… chd  
+# A tibble: 14 x 7
+   effect   term                       estimate     conf.low conf.high model     outcome
+   <chr>    <chr>                         <dbl>        <dbl>     <dbl> <chr>     <chr>  
+ 1 fixed    (Intercept)              0.00000273  0.000000334   2.23e-5 Unadjust… got_cvd
+ 2 fixed    total_cholesterol_scal…  1.10        0.319         3.78e+0 Unadjust… got_cvd
+ 3 ran_pars sd__(Intercept)         56.5        NA            NA       Unadjust… got_cvd
+ 4 fixed    (Intercept)              0.00000248  0.000000289   2.13e-5 Unadjust… got_cvd
+ 5 fixed    body_mass_index_scaled   1.62        0.410         6.38e+0 Unadjust… got_cvd
+ 6 ran_pars sd__(Intercept)         56.8        NA            NA       Unadjust… got_cvd
+ 7 fixed    (Intercept)              0.00000532  0.000000503   5.61e-5 Adjusted  got_cvd
+ 8 fixed    total_cholesterol_scal…  1.21        0.347         4.22e+0 Adjusted  got_cvd
+ 9 fixed    sexWoman                 0.272       0.0143        5.15e+0 Adjusted  got_cvd
+10 ran_pars sd__(Intercept)         55.5        NA            NA       Adjusted  got_cvd
 ```
 {{1}}
 
 
 `@script`
-We can do the same thing for the list of adjusted models, but instead, we bind rows for both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, we add information about the outcome. We now have a single model dataframe we can use to create plots and tables.
+Let's do the same thing with the list of adjusted models, but instead, we'll bind rows of both unadjusted and adjusted models. This puts all model items into a single dataframe. Lastly, let's add information about the outcome. We now have a single model dataframe that we can use to create plots and tables.
 
 
 ---
@@ -241,5 +270,5 @@ key: "07d2f95588"
 ```
 
 `@script`
-Alright, let's get to wrangling the model results!
+Now you know how to wrangling model results. Let's practice!
 

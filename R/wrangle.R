@@ -2,7 +2,7 @@
 library(tidyverse, quietly = TRUE)
 
 # Unzip and load in the framingham dataset
-framingham <- read_csv(unz("data-raw/framingham.zip", "FRAMINGHAM_csv/frmgham2.csv"))
+framingham <- read_csv(unz(here::here("data-raw/framingham.zip"), "FRAMINGHAM_csv/frmgham2.csv"))
 
 # For chapter 1 -----------------------------------------------------------
 
@@ -10,7 +10,7 @@ framingham <- read_csv(unz("data-raw/framingham.zip", "FRAMINGHAM_csv/frmgham2.c
 framingham <- framingham %>%
     rename_all(str_to_lower)
 
-save(framingham, file = "datasets/framingham.rda")
+save(framingham, file = here::here("datasets/framingham.rda"))
 
 # For chapter 2 -----------------------------------------------------------
 
@@ -46,12 +46,46 @@ tidier_framingham <- framingham %>%
         followup_visit_number = period
     )
 
-save(tidier_framingham, file = "datasets/framingham_tidier.rda")
+save(tidier_framingham, file = here::here("datasets/framingham_tidier.rda"))
+
+tidier2_framingham <- tidier_framingham %>%
+    mutate(
+        education = case_when(
+            education == 1 ~ "0-11 years",
+            education == 2 ~ "High School",
+            education == 3 ~ "Vocational",
+            education == 4 ~ "College",
+            TRUE ~ NA_character_
+            ),
+        sex = case_when(
+            sex == 1 ~ "Man",
+            sex == 2 ~ "Woman",
+            TRUE ~ NA_character_
+            )
+        ) %>%
+    mutate(education_combined = forcats::fct_recode(
+        education,
+        "Post-Secondary" = "College",
+        "Post-Secondary" = "Vocational"
+        ))
+
+saveRDS(tidier2_framingham, file = here::here("datasets/tidier2_framingham.Rds"))
+
+invert <- function(x) 1 / x
+transformed_framingham <- tidier2_framingham %>%
+    mutate_at(vars(body_mass_index, cigarettes_per_day),
+              funs(invert, log, sqrt))
+
+saveRDS(transformed_framingham, file = here::here("datasets/transformed_framingham.Rds"))
 
 # For chapter 3 -----------------------------------------------------------
 
-mean_center <- function(x) {
+centered <- function(x) {
     as.numeric(scale(x, scale = FALSE))
+}
+
+scaled <- function(x) {
+    as.numeric(scale(x, scale = TRUE))
 }
 
 tidied_framingham <- tidier_framingham %>%
@@ -73,13 +107,11 @@ tidied_framingham <- tidier_framingham %>%
             # Form is: "new" = "old"
             "Post-Secondary" = "College",
             "Post-Secondary" = "Vocational"
-        ),
-        centered_total_cholesterol = mean_center(total_cholesterol),
-        centered_systolic_blood_pressure = mean_center(systolic_blood_pressure),
-        centered_body_mass_index = mean_center(body_mass_index),
-        centered_fasting_blood_glucose = mean_center(fasting_blood_glucose)
-        )
+        )) %>%
+    mutate_at(vars(total_cholesterol, systolic_blood_pressure, body_mass_index, fasting_blood_glucose),
+              list(scaled = scaled, centered = centered))
 
+set.seed(1456)
 ids <- unique(tidied_framingham$subject_id)
 sampled_ids <- sample(ids, length(ids) / 15, replace = FALSE)
 sample_tidied_framingham <- tidied_framingham %>%
@@ -88,38 +120,42 @@ sample_tidied_framingham <- tidied_framingham %>%
 save(sample_tidied_framingham, file = "datasets/sample_tidied_framingham.rda")
 save(tidied_framingham, file = "datasets/tidied_framingham.rda")
 
+# Even smaller sample size and variable list
+
+ids <- unique(sample_tidied_framingham$subject_id)
+sampled_ids <- sample(ids, length(ids) / 3, replace = FALSE)
+sample_tidied_framingham <- sample_tidied_framingham %>%
+    filter(subject_id %in% sampled_ids)
+model_sel_df <- sample_tidied_framingham %>%
+    # filter(followup_visit_number == 1) %>%
+    select(subject_id, got_cvd, systolic_blood_pressure_scaled, sex,
+           body_mass_index_scaled, currently_smokes, followup_visit_number) %>%
+    mutate(subject_id = as.character(subject_id)) %>%
+    na.omit()
+
+saveRDS(model_sel_df, file = "datasets/model_sel_df.Rds")
+
+# For the tidying exercise
+
+main_model <- lme4::glmer(got_cvd ~ total_cholesterol_scaled + followup_visit_number +
+                        (1 | subject_id),
+                    data = sample_tidied_framingham, family = binomial,
+                    na.action = "na.omit", nAGQ = 0)
+
+saveRDS(main_model, file = "datasets/main_model.Rds")
+
 # For chapter 4 -----------------------------------------------------------
 
 library(lme4)
-library(broom)
+library(broom.mixed)
 library(furrr)
 library(glue)
 plan(multiprocess)
 
 # Prepare the data for the modeling
 tidied_framingham_v02 <- tidied_framingham %>%
-    mutate_at(
-        vars(
-            systolic_blood_pressure,
-            diastolic_blood_pressure,
-            fasting_blood_glucose,
-            total_cholesterol,
-            body_mass_index
-        ),
-        funs(as.numeric(scale(.)))
-    ) %>%
-    rename_at(
-        vars(
-            systolic_blood_pressure,
-            diastolic_blood_pressure,
-            fasting_blood_glucose,
-            total_cholesterol,
-            body_mass_index
-        ),
-        funs(str_c("scaled_", .))
-    ) %>%
     mutate(baseline_age = if_else(followup_visit_number == 1, participant_age, NA_real_) %>%
-               mean_center()) %>%
+               centered()) %>%
     arrange(subject_id, followup_visit_number) %>%
     group_by(subject_id) %>%
     fill(baseline_age) %>%
@@ -127,7 +163,7 @@ tidied_framingham_v02 <- tidied_framingham %>%
 
 # Set predictors and covariates for model formulas.
 predictors <- tidied_framingham_v02 %>%
-    select(matches("^scaled_"), -scaled_body_mass_index) %>%
+    select(matches("_scaled$"), -body_mass_index_scaled) %>%
     names()
 
 covariates <- tidied_framingham_v02 %>%
@@ -139,10 +175,10 @@ base_covariates <- "followup_visit_number + (1 | subject_id)"
 
 # Function to extract model results from glmer
 extract_results_simple_lme <- function(.x) {
-        model <- glmer(.x, family = binomial, data = tidied_framingham_v02)
+        model <- glmer(.x, family = binomial, data = tidied_framingham_v02, nAGQ = 0)
         model %>%
-            tidy(conf.int = TRUE) %>%
-            mutate_at(vars(estimate, std.error, conf.low, conf.high), exp)
+            tidy(conf.int = TRUE, exponentiate = TRUE) %>%
+            select(effect, term, estimate, conf.low, conf.high)
 }
 
 unadjusted_models_list <- predictors %>%
@@ -159,12 +195,12 @@ save(adjusted_models_list, file = "datasets/adjusted_models_list.rda")
 
 # Function to extract model results from glmer
 extract_results_lme <- function(.x) {
-        model <- glmer(.x, family = binomial, data = tidied_framingham_v02)
+        model <- glmer(.x, family = binomial, data = tidied_framingham_v02, nAGQ = 0)
         model %>%
-            tidy(conf.int = TRUE) %>%
+            tidy(conf.int = TRUE, exponentiate = TRUE) %>%
             mutate(outcome = as.character(model@call$formula[[2]]),
                    predictor = term[2]) %>%
-            select(outcome, predictor, everything())
+            select(effect, outcome, predictor, term, estimate, conf.low, conf.high)
 }
 
 # Generate model results from all possible formulas.
@@ -183,11 +219,13 @@ all_models <- bind_rows(
     unadjusted_models %>% mutate(model = "Unadjusted"),
     adjusted_models %>% mutate(model = "Adjusted")
     ) %>%
-    mutate_at(vars(estimate, conf.low, conf.high), exp) %>%
-    select(model, outcome, predictor, term, estimate, conf.low, conf.high)
+    select(model, everything()) %>%
+    filter(predictor == term, effect == "fixed")
 
 # Save the model results:
 save(all_models, file = "datasets/all_models.rda")
+
+stop("Don't run this next section (interactions)")
 
 # Function to extract interaction model results from glmer
 extract_interaction_lme <- function(.x) {

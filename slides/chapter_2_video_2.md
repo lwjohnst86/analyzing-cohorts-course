@@ -3,7 +3,7 @@ title: Tidying discrete data for later analysis
 key: 4e1f8ff56b37d8caee655cf2b0b4639d
 
 ---
-## Tidying discrete data for later analysis
+## Discrete data and tidying it for later analysis
 
 ```yaml
 type: "TitleSlide"
@@ -13,11 +13,11 @@ key: "edbfed5a7c"
 `@lower_third`
 
 name: Luke Johnston
-title: Instructor
+title: Diabetes epidemiologist
 
 
 `@script`
-Cohort datasets often contain many discrete variables. Questionnaires are an example of this. In this lesson, we will discuss when and how to tidy up discrete data.
+Cohort datasets often contain many discrete variables, for example with data obtained from questionnaires. In this lesson, you'll learn when and how to tidy up discrete data.
 
 
 ---
@@ -29,44 +29,43 @@ key: "f3f4f626e0"
 ```
 
 `@part1`
-> Dichotomania: The obsession to convert continuous data into discrete or binary data, also known as discretizing or dichotomizing. {{1}}
+> Dichotomania: The obsession to convert continuous data into discrete or binary data {{1}}
 
-- Example: {{2}}
-  - obese = body mass index > 30 {{2}}
-  - overweight = body mass index between 25-30 {{2}}
+- Also called discretizing or dichotomizing {{2}}
+- Example: obese = body mass index > 30 {{3}}
 
 
 `@script`
-Before continuing, I want to talk about a problem common in health research, which is known as dichotomania. Dichotomania is an obsession researchers have with converting continuous data into discrete or binary data. These processes are known as discretizing or dichotomizing. An example of this is the definition of obesity, which is any BMI greater than 30.
+But first I want to mention a problem common in health research, known as dichotomania. Dichotomania is an obsession to convert continuous data into discrete data. It is also called discretizing or dichotomizing. For example, obesity is defined as a BMI greater than thirty.
 
 
 ---
-## A comment on "dichotomania"
+## Don't discretize continuous data
 
 ```yaml
 type: "FullSlide"
 key: "e382f259fd"
+disable_transition: true
 ```
 
 `@part1`
-- Should be avoided {{1}}
-- Dichotomizing or discretizing: {{2}}
-    - No statistical utility
-    - Little to no clinical value
-    - High misclassification
-    - Reduces power
+- Discretizing: {{1}}
+    - Reduces statistical power
+    - Little clinical value
+    - Higher misclassification
+    - Should be avoided {{2}}
 
 
 `@script`
-Discretizing should be avoided at all costs because of the problems it can cause. It has no statistical utility, doesn't provide much clinical value, and reduces statistical power. Using this method, the misclassification of an individual's health risk is high.
+Discretizing can cause a lot of problems. For instance it reduces statistical power, provides little clinical value, and there is a higher chance of misclassifying an individual's health risk. So, avoid it as much as you can.
 
 
 ---
 ## The problem of discretizing: An visual example
 
 ```yaml
-type: "TwoColumns"
-key: "9d1583baf0"
+type: "FullSlide"
+key: "cbfac7ce3a"
 ```
 
 `@part1`
@@ -75,24 +74,22 @@ key: "9d1583baf0"
 | "Underweight" | < 18.5 |
 | "Normal weight" | 18.5 - 25 |
 | "Overweight" | 25 - 30 |
-| "Obese" | > 30 | {{1}}
+| "Obese" | > 30 | 
+{{1}}
+&nbsp;
 
-
-`@part2`
 ```{r}
-diet %>%
-    mutate(BMI = weight / ((height / 100) ^ 2)) %>%
-    ggplot(aes(x = BMI)) +
-    geom_histogram(color = "black", fill = "lightyellow", 
-                   bins = 40) +
-    geom_vline(xintercept = c(20, 25, 30), 
-               size = 1, linetype = "dashed") +
-    xlab("Body mass index")
-``` {{1}}
+# For next figure:
+tidier_framingham %>%
+    ggplot(aes(x = body_mass_index)) +
+    geom_histogram(colour = "black", fill = "grey80") +
+    geom_vline(xintercept = c(20, 25, 30), linetype = "dashed")
+```
+{{2}}
 
 
 `@script`
-For example, you may be familiar with the different weight classes based on your body mass index, or BMI. These weight classes, shown in the table, are often used in health research and show why discretizing is a problem. Let's plot BMI from the diet cohort. This code will create the image shown next.
+You may be familiar with the different weight classes used according to your body mass index, or BMI. These classes, shown in the table, are often used in health research. Let's visually show why this is a problem. The code provided creates the image shown next.
 
 
 ---
@@ -101,133 +98,156 @@ For example, you may be familiar with the different weight classes based on your
 ```yaml
 type: "FullSlide"
 key: "3b16cf3f48"
+disable_transition: true
 ```
 
 `@part1`
-![Discretizing a continuous body mass index](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/6f6a793790e58b28f993ee4986409a5873fb424f/plot-discretising.png) {{2}}
+![Discretizing a continuous body mass index](https://assets.datacamp.com/production/repositories/2079/datasets/bbc561913da156d767e3f93d28184643fe969ce5/ch2-v2-discretising.png)
 
 
 `@script`
-Here we see how continuous BMI smoothly passes through each discrete category. Someone with a BMI of 24 point 9 would be classified as normal weight. If they gain a bit of weight and their BMI becomes 25 point 1, they would be classified as overweight. They are statistically treated as equal to someone with a BMI of 29 point 9. Biologically, this makes no sense. So, when you have continuous data, don't dichotomize it.
+BMI continuously occurs at every value from 10 to more than 60. The three vertical lines are when discretization is applied to the data. Huge chunks of people are classified with others even if they are very close to one of the lines. For instance, someone with a BMI of twenty would be classified equally as someone with a BMI of twenty-four point nine. Or, if someone gains a BMI of zero point two, they could move from one category to the next. Biologically, this makes no sense. So, as best you can, avoid dichotomizing variables!
 
 
 ---
-## Reducing levels of an already discrete variable
+## Reducing levels of naturally discrete variables
 
 ```yaml
 type: "FullSlide"
-key: "4f8c5d1bc5"
+key: "2849fc21a2"
 ```
 
 `@part1`
-- Reasons to reduce: {{1}}
-    - Small numbers in one or more category
-    - Ease of later interpretation and generalization
-    - Original categories were not clear
+- Naturally/generally discrete: Usually no fractions {{1}}
+    - "Pills taken": 1 or 2 pills, but not 1.5
 
-```{r}
-# diet dataset from the Epi package
-count(diet, job)
-
-#> # A tibble: 3 x 2
-#>   job             n
-#>   <fct>       <int>
-#> 1 Driver        102
-#> 2 Conductor      84
-#> 3 Bank worker   151
-``` {{2}}
+- Reasons to reduce: {{2}}
+    - Large error in measurement, e.g. "Eggs eaten daily?"
+    - Data entry errors
+    - Small sample sizes in some levels
+    - Ease of interpretation
 
 
 `@script`
-While converting a continuous variable to a discrete one is almost always discouraged, for variables that are already discrete, it may make sense to reduce their levels. There may already be too many levels in the variable, or doing so could simplify the interpretation. 
-
-Let's look at job titles in the diet dataset. Using the count function on the variable, we can see there are three levels with a similar number of participants within each.
+While discretizing a continuous variable is often discouraged, some variables tend to be more naturally discrete. For example, you usually take one or two pills, not one point five. Sometimes, reducing the number of levels in these discrete variables makes sense, such as when there is large error in measurement or data entry, small sample sizes in some levels, or easier interpretation.
 
 
 ---
-## Reducing levels of an already discrete variable
+## Reducing levels of naturally discrete variables
 
 ```yaml
 type: "FullSlide"
-key: "5755a8f678"
+key: "257a8a9d31"
 ```
 
 `@part1`
 ```{r}
-reduced_job <- diet %>%
-    mutate(bank_worker = case_when(
-        job == "Bank worker" ~ "Yes",
-        job != "Bank worker" ~ "No",
+tidier_framingham %>%
+    count(cigarettes_per_day)
+```
+{{1}}
+
+```
+# A tibble: 46 x 2
+   cigarettes_per_day     n
+                <dbl> <int>
+ 1                  0  6598
+ 2                  1   162
+ 3                  2    98
+ 4                  3   183
+ 5                  4    65
+ 6                  5   181
+ 7                  6    77
+ 8                  7    47
+ 9                  8    52
+10                  9   149
+# … with 36 more rows
+```
+{{1}}
+
+
+`@script`
+Let's use cigarettes per day as an example and use the count function on the variable. We can see that the values are integers. People usually report smoking one or two, not one and a half. From the previous exercise you'll have seen that more people report a rounded or estimated number, such as about ten or fifteen, but rarely numbers like seventeen. And because there are few people in any given integer, we could simplify the variable.
+
+
+---
+## Reducing levels of a discrete variable
+
+```yaml
+type: "FullSlide"
+key: "c19e59fea5"
+```
+
+`@part1`
+```{r}
+tidier_framingham <- tidier_framingham %>%
+    mutate(cig_packs_per_day = case_when(
+        cigarettes_per_day == 0 ~ "None",
+        cigarettes_per_day >= 1 &
+            cigarettes_per_day <= 20 ~ "Up to one",
+        cigarettes_per_day >= 21 &
+            cigarettes_per_day <= 40 ~ "One to two",
+        cigarettes_per_day > 40 ~ "More than two",
         TRUE ~ NA_character_
     ))
-``` {{1}}
+tidier_framingham %>%
+    count(cig_packs_per_day)
 
-```{r}
-count(reduced_job, bank_worker)
-#> # A tibble: 2 x 2
-#>   bank_worker     n
-#>   <chr>       <int>
-#> 1 No            186
-#> 2 Yes           151
-``` {{2}}
+```
+{{1}}
+
+```
+# A tibble: 5 x 2
+  cig_packs_per_day     n
+  <chr>             <int>
+1 NA                   79
+2 More than two       145
+3 None               6598
+4 One to two         1133
+5 Up to one          3672
+```
+{{2}}
 
 
 `@script`
-Since there are a large number of bank workers, we could reduce the job categories to either bank worker or not. Using the case underscore when function is one way to do this and is useful with more complicated categories. Case underscore when takes a condition on the left side of the tilde and the value on the right side. Here, exclamation mark equals means not equal to. Each condition follows the comma. The final condition for missing values should be formatted as shown here for character data. Now, we use count to check that the new variable was successfully changed.
+We can tidy up and reduce a variable's levels by using the case-underscore-when function from dplyr. Since packs of cigarettes usually come with 20 cigarettes, let's create another variable for number of packs smoked. Case-underscore-when takes multiple arguments, each is in the form of a condition on the left of the tilde and the output value on the right. So we set the first condition as when cigarettes is zero and assign the value none. The next is when cigarettes is from one to twenty, assigning the value up to one, and so on. The final condition should be formatted as shown when outputting characters. When counting the new variable, it now has less levels.
 
 
 ---
-## Tidying up a discrete variable
+## Further tidying up
 
 ```yaml
 type: "FullSlide"
-key: "835b4136b8"
+key: "03afb9f460"
 ```
 
 `@part1`
 ```{r}
 library(forcats)
-diet %>%
-    mutate(job = fct_recode(job, 
-        # new name = old name
-        "Banker" = "Bank worker"
+tidier_framingham %>%
+    mutate(cig_packs_per_day = fct_recode(
+        cig_packs_per_day, 
+        # Form: "New level" = "Old level"
+        "More than two" = "One to two"
     )) %>%
-    count(job)
-
-#> # A tibble: 3 x 2
-#>   job           n
-#>   <fct>     <int>
-#> 1 Driver      102
-#> 2 Conductor    84
-#> 3 Banker      151
+    count(cig_packs_per_day)
 ```
+{{1}}
+
+```
+# A tibble: 4 x 2
+  cig_packs_per_day     n
+  <fct>             <int>
+1 More than two      1278
+2 None               6598
+3 Up to one          3672
+4 NA                   79
+```
+{{1}}
 
 
 `@script`
-While case underscore when is very useful for many situations, the forcats package is best for tidying up discrete variables to work with factors specifically. The fct underscore recode function allows you to directly edit a level and rename it. Here, you list the new and old level names. This is a very quick way to work with factors!
-
-
----
-## A short comment on outliers
-
-```yaml
-type: "FullSlide"
-key: "d5dff5d251"
-```
-
-`@part1`
-> Short answer: Do *not* remove outliers, unless the data is wrong {{1}}
-
-&nbsp;
-
-Longer answer: {{2}}
-
-- Outliers contain valuable scientific information {{2}}
-- Influence on statistical results, needs consideration and analysis {{2}}
-
-
-`@script`
-Let's briefly discuss dealing with outliers. You may read studies that remove outliers from their data. You should not do this unless the data itself is actually wrong, for example, data entry errors. Outliers on their own contain valuable scientific information, and they should be included in any analyses that you do.
+Case when is useful for many situations, but the forcats package is specific to tidying up factor variables. Use the fct-underscore-recode function to edit and rename levels directly. The argument has the form of the new level name then equals old names. In this case, we now merged two levels together.
 
 
 ---
@@ -239,15 +259,13 @@ key: "d972cd44df"
 ```
 
 `@part1`
-- Don't discretize
-- Keep continuous data continuous
-- Use `count` to check categorical data 
-- Use `case_when` or `fct_recode` to reduce levels
-- Don't remove outliers, unless they are wrong
+- Don't discretize, keep continuous data continuous
+- Use `count()` to check categorical data 
+- Use `case_when()` or `fct_recode()` to reduce levels
 
 
 `@script`
-In summary, keep continuous data continuous. Use count, case underscore when, and fct underscore recode functions to check and reduce categorical data. And lastly, keep outliers in your data.
+In summary, keep continuous data continuous. Use count, case-underscore-when, and fct-underscore-recode functions to check and reduce categorical data.
 
 
 ---

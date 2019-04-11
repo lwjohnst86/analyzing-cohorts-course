@@ -201,6 +201,7 @@ have meaningful clinical implications.
 - [Correlation and Regression](https://github.com/datacamp/courses-intro-stats-correlation-regression)
 - [Multiple and Logistic Regression](https://www.datacamp.com/courses/multiple-and-logistic-regression)
 - [Hierarchical and Mixed Effects Models](https://www.datacamp.com/courses/hierarchical-and-mixed-effects-models)
+- [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r)
 
 [course-specs]: https://github.com/datacamp/example-course-specs
 [profile-site]: https://github.com/datacamp/learner-profiles

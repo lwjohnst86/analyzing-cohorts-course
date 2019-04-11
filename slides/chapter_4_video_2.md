@@ -13,11 +13,11 @@ key: "33450ca514"
 `@lower_third`
 
 name: Luke Johnston
-title: Instructor
+title: Diabetes epidemiologist
 
 
 `@script`
-Traditionally, results from cohort studies were presented as tables, but generally, tables are not as effective as figures for communicating findings.
+Traditionally, results from cohort studies are presented as tables, but in general, tables are not as effective as figures for communicating findings.
 
 
 ---
@@ -29,7 +29,7 @@ key: "ec5e4806ba"
 ```
 
 `@part1`
-*Why?* Humans are visual, graphs are visual
+*Why?* Humans are visual, figures are visual
 
 - Easier to interpret {{1}}
 - More information per space {{1}}
@@ -42,9 +42,9 @@ key: "ec5e4806ba"
 
 
 `@script`
-When deciding how to present your results, you should first think of how to graph your data. Graphs are incredibly powerful at communicating information because they leverage our reliance on our visual system. Graphs are easier to interpret than tables and allow for greater information transmission. 
+When deciding how to present your results, first think how you could plot your data. Figures are incredibly powerful at communicating information because they leverage our strong visual system. They're easier to interpret than tables and allow for greater information transmission. 
 
-Graphs are especially useful when units of measure are the same or similar, when you want to emphasize patterns or comparisons, and when there is a lot of data to show.
+Figures are especially useful when units of measure are the same or similar, when you want to emphasize patterns or comparisons, and when there is a lot of data to show.
 
 
 ---
@@ -57,21 +57,21 @@ center_content: true
 ```
 
 `@part1`
-|Predictor |Estimate (95% CI) |
-|:---------|:-----------------|
-|energy    |0.9 (0.8, 1)      |
-|fibre     |0.3 (0.1, 0.7)    |
-|fat       |0.8 (0.7, 0.9)    | {{1}}
+| Predictor               |Estimate (95% CI) |
+|:------------------------|:-----------------|
+| body_mass_index         |2.1 (0.7, 6.4)    |
+| systolic_blood_pressure |1.9 (0.8, 4.3)    |
+| fasting_blood_glucose   |1.5 (0.8, 3.1)    | {{1}}
 
-![Plot of models](https://assets.datacamp.com/production/repositories/2079/datasets/b3b869e4018df3d0b1d3d1fa6d09e9243014a5d7/ch4-v2-models.png) {{2}}
+![Plot of models](https://assets.datacamp.com/production/repositories/2079/datasets/140d160b5870b6468e31abb9a971d337c4c79ceb/ch4-v2-models.png) {{2}}
 
 
 `@script`
-Let's use an example to illustrate the power of graphs. Here we have the estimates for three predictors from three models. Reading this table takes some time, as you need to conceptualize and compare each item.
+Let's illustrate the power of using a figure. We have the estimates for three predictors from three models. Reading this table takes some time because you read it, not just see it.
 
-Compare with using a plot for the information. You quickly get a sense of the results, the magnitude, direction of association, and how they compare. You don't work as hard to understand the results. This is why plots are preferred to tables.
+Compare it with using a plot. You quickly get a sense of the results, the magnitude, direction of association, and their comparison. You don't work as hard to understand the results. This is why we should prefer plots.
 
-I mentioned in chapter 3 that there are dozens of statistical techniques for analyzing cohort data. The technique you use will determine the plots you make. A common output is some type of regression-based estimate and measure of precision, like confidence intervals, which this plot shows effectively. The standard error is also another measure of precision.
+I mentioned in chapter 3 that there are many statistical techniques to analyze cohorts. Which one you'll use will dictate the plots you'll use. A common output is some type of regression-based estimate and measure of uncertainty, which this plot shows effectively. The standard error is also another measure of uncertainty.
 
 
 ---
@@ -94,11 +94,15 @@ models %>%
 ```
 {{1}}
 
-![Plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/b8e940652d8d23203849a7d0c480df2f0637636a/ch4-v2-estimate-ci-basic.png) {{2}}
+![Plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/25486b26544f91dfece966db92fae24f0a3e0f3c/ch4-v2-estimate-ci-basic.png) {{1}}
 
 
 `@script`
-We can make this plot using geom-underscore-point, the geom-underscore-errorbarh, and geom-underscore-vline. Each item on the y axis is a single model's predictor and associated estimate, as an odds ratio, and confidence interval. Since the null line is one for odds ratios, we need to set the x-intercept to one. When you have many model results, this plot can easily show all the models, providing a bigger overview of the findings and making it easier to compare predictors.
+We can make this type of plot using geom-underscore-point, geom-underscore-errorbarh, and geom-underscore-vline. 
+
+Each item on the y axis is a single model's predictor and associated estimate, as an odds ratio, and confidence interval. For this plot, it needs an x for the estimate, an xmin for the lower confidence limit and xmax for the upper confidence limit.
+
+Since the center line is one for odds ratios, we need to set the x-intercept to one. When you have many model results, this plot can easily show all the models, providing a bigger overview of the findings and making it easier to compare predictors.
 
 
 ---
@@ -114,24 +118,26 @@ disable_transition: true
 ```{r}
 models %>%
     filter(model == "unadjusted") %>%
-    ggplot(aes(y = predictor, x = estimate, xmin = conf.low, xmax = conf.high)) +
+    ggplot(aes(y = predictor, x = estimate, 
+    		   xmin = conf.low, xmax = conf.high)) +
     geom_point(size = 2) +
     geom_errorbarh(height = 0.1) +
     geom_vline(xintercept = 1, linetype = "dashed") +
-    theme_classic()
+    theme_bw()
 ```
+{{1}}
 
-![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/42c6b5374e981264459e76fb535589179aa62ff6/ch4-v2-estimate-ci-nicer.png) {{1}}
+![(Slightly nicer) plot of estimate and 95% confidence interval.](https://assets.datacamp.com/production/repositories/2079/datasets/7bae2f71e5e1e6b0349ced75f3b5422af184c289/ch4-v2-estimate-ci-nicer.png) {{2}}
 
 
 `@script`
 There are couple things we could do to make the plot instantly prettier. The dot size in geom-underscore-point is a bit small so let's increase it to two using the size argument.
 
-The errorbar ends are also a bit long. We can shorten it with the height argument of geom-underscore-errobarh. Let's shorten it to zero point one. Large values will likely lead to overlap.
+The errorbar ends are also a bit long. We'll shorten to zero point one with the height argument. Larger values will lead to overlap.
 
-Let's differentiate the geom-underscore-vline by setting the linetype argument to dashed. There are many other options for linetype such as dotted or solid.
+Let's differentiate the vline by setting the linetype argument to dashed. There are many other options for linetype such as dotted or solid.
 
-We can also change the theme. There are several themes available, and the classic theme is I think a good one.
+We can also change the theme. While there are several themes available, let's use theme-underscore-bw.
 
 
 ---
@@ -154,11 +160,11 @@ models %>%
 ```
 {{1}}
 
-![Showing both unadjusted and adjusted results](https://assets.datacamp.com/production/repositories/2079/datasets/24698332a3e01046dafd90cf1dca391c3a10aa92/ch4-v2-unadjusted-adjusted.png) {{2}}
+![Showing both unadjusted and adjusted results](https://assets.datacamp.com/production/repositories/2079/datasets/07618ebbfd68c3d3a9c8e64fbe139b40d34e2ef4/ch4-v2-unadjusted-adjusted.png) {{2}}
 
 
 `@script`
-As stated in the STROBE guidelines, you need to show both unadjusted and adjusted models. Showing both on a single plot is easy if your data is properly setup. With all models in a single dataframe, you can plot the unadjusted and adjusted models by splitting them using facet-underscore-grid. Use the vars function to use the model variable. With the rows argument, the model groups will be vertically stacked instead of side by side.
+As stated in the STROBE best practices, you need to show both unadjusted and adjusted models. Showing both on a single plot is easy if your data is properly setup. With all models in a single dataframe, you can plot the unadjusted and adjusted models by splitting them using facet-underscore-grid. Use the vars function to set the model variable. With the rows argument, the model groups will be vertically stacked instead of side by side.
 
 
 ---
@@ -180,7 +186,11 @@ key: "6231c20cd6"
 
 
 `@script`
-Interactions are an extremely valuable source of scientific information and they need to be visualized to simplify the often difficult interpretation. Although modeling interactions is easy, visualizing them can be incredibly difficult and time-consuming. Visualizing interactions is heavily dependent on the modeling technique. This could be the topic of an entire course, but here we will not go into more detail. If your data has an interaction, get specialized training or support so you correctly visualize it.
+Interactions are an extremely valuable source of scientific information and they need to be visualized to simplify the often difficult interpretation. 
+
+Although modeling interactions is easy, visualizing them can be incredibly difficult and time-consuming. Visualizing interactions is heavily dependent on the modeling technique. This could be the topic of an entire course, but here we will not go into more detail. 
+
+If your data has an interaction, get specialized training or support so you correctly visualize it.
 
 
 ---

@@ -13,11 +13,11 @@ key: "0e5ec8f7ed"
 `@lower_third`
 
 name: Luke Johnston
-title: Instructor
+title: Diabetes epidemiologist
 
 
 `@script`
-Hi! I'm Luke Johnston and I work as a diabetes epidemiology researcher. In this course, we will discuss the general workflow for analyzing cohort datasets. This chapter will cover some of the basics of cohort studies and designs.
+Hi! I'm Luke Johnston and I'm a diabetes epidemiology researcher. In this course, we will discuss the general workflow for analyzing cohort datasets and in this first chapter we will cover some of the basics of cohort studies and designs.
 
 
 ---
@@ -31,16 +31,16 @@ key: "9039aa5cb9"
 `@part1`
 Features:
 - Usually investigate risk factors for diseases
-- Includes a time component 
+- Type of longitudinal study: Repeated measurements throughout time
 - *Participants share common characteristic(s)*
 
 
 `@part2`
-![Example cohort recruitment and sample. Font Awesome Icons, using emojifonts package.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/4f1ae5179ba09672f8f19c1a005b71d883467a2c/plot-cohort-sample.png)
+![Example cohort recruitment and sample. Font Awesome Icons, using emojifonts package.](https://assets.datacamp.com/production/repositories/2079/datasets/4f1ae5179ba09672f8f19c1a005b71d883467a2c/plot-cohort-sample.png)
 
 
 `@script`
-So, what is a cohort study? Cohorts are scientific studies that investigate how factors influence the risk for a disease. Cohorts always include some type of time component to the data. Most importantly, participants in a cohort all share a common characteristic, hence the term "cohort". For example, the US Nurses' Health Study only includes participants that are married, female nurses.
+So, what is a cohort study? Cohorts are scientific studies that investigate how factors influence the risk for a disease. Cohorts are always a type of longitudinal study where participants have repeatedly collected measures throughout time. Most importantly, participants in a cohort all share a common characteristic, hence the term "cohort". For example, the US Nurses' Health Study only includes participants that are married, female nurses.
 
 
 ---
@@ -52,15 +52,15 @@ key: "3020a2875a"
 ```
 
 `@part1`
-![Risk factors and health management. Font Awesome Icons, using emojifonts package.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/c3805372fcdf0f8d07a371a2a3167578bed0a36f/plot-purpose-risk-factors.png)
+![Risk factors and health management. Font Awesome Icons, using emojifonts package.](https://assets.datacamp.com/production/repositories/2079/datasets/c3805372fcdf0f8d07a371a2a3167578bed0a36f/plot-purpose-risk-factors.png)
 
 
 `@part2`
-![Informing diagnosis decisions](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/e820bcda71d9330dfe338754432df5fd316a2b7a/plot-purpose-diagnosis.png)
+![Informing diagnosis decisions](https://assets.datacamp.com/production/repositories/2079/datasets/e820bcda71d9330dfe338754432df5fd316a2b7a/plot-purpose-diagnosis.png)
 
 
 `@part3`
-![Tracking side effects and safety from drugs](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/62af4f9f6bf1799107925f3a937b84ab945ba2f9/plot-purpose-side-effects.png)
+![Tracking side effects and safety from drugs](https://assets.datacamp.com/production/repositories/2079/datasets/62af4f9f6bf1799107925f3a937b84ab945ba2f9/plot-purpose-side-effects.png)
 
 
 `@part4`
@@ -68,7 +68,7 @@ key: "3020a2875a"
 
 
 `@script`
-Cohort studies are fundamental to epidemiology and are a key design for answering questions about human health and behavior. Cohorts are common in health or biomedical studies, as they are used to identify risk factors for disease to target for prevention and disease management. They are also incredibly powerful for helping inform evidence-based clinical decisions.
+Cohort studies are fundamental to epidemiology and are a key study design for answering questions about human health and behavior. Cohort studies are very common in health and biomedical research. They help identify risk factors for disease to better understand how to prevent and manage them. They are also incredibly powerful for helping inform evidence-based clinical decision-making.
 
 
 ---
@@ -85,9 +85,9 @@ key: "5a578ef6a6"
 Study participants:
 
 - *Doesn't have the disease*
-- Looks forward in time:
+- Followed over time:
     - Multiple visits over time
-    - Health and other conditions measured at time visit
+    - Health and other conditions measured at each visit
 
 
 `@part2`
@@ -95,13 +95,15 @@ Study participants:
 
 Study participants:
 
-- *Has the disease* 
-- Looks back in time:
+- *Have the disease* 
+- Take data from the past:
     - Asked about past conditions or past medical health records are examined
 
 
 `@script`
-There are two main types of cohort designs, prospective and retrospective. Prospective cohorts are by far the most common and arguably the most powerful form of cohort design to study disease development. Retrospective cohorts, on the other hand, are useful when health records are easy to access or when it is impractical or even impossible to conduct a prospective cohort. 
+There are two main types of cohort designs, prospective and retrospective. Prospective cohorts are the more common and arguably the most powerful form of cohort design to study disease development. 
+
+Retrospective cohorts, on the other hand, are useful when health records are easy to access or when it is impractical or even impossible to conduct a prospective cohort. 
 
 The main difference between these designs is that for prospective cohorts, participants don't have the disease at the start of the study, while for retrospective cohorts they do. We will cover these designs in more detail later.
 
@@ -115,19 +117,21 @@ key: "d2a6af7c52"
 ```
 
 `@part1`
-- Context is vital: Cohorts study health, so has an impact on lives
-- Analysis and interpretation restricted by:
+- Context is vital: Cohorts study health, so impacts on lives {{1}}
+- Analysis and interpretation restricted by: {{2}}
     - Design type
     - What was measured and how
-- Examples: 
+- Examples: {{3}}
     - Data with noise often in retrospective cohorts - be cautious
-    - Exposure is physiological abstraction - should transform
+    - Measure is physiological abstraction - useful to transform
 
 
 `@script`
-Sometimes there is a pressure to "throw variables into the model, adjust for everything, and let the data tell the story". This can be very dangerous, especially for studies on health. Because cohort studies often involve disease, the results can have a real-world impact on people's lives. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. You need to know the context of the data, which is why understanding the basics of study design is so important.
+Cohort studies usually investigate some disease, so the results have the potential to have a real-world impact on people's lives and health. As the researcher, you need to know what data you are dealing with and how it was collected in order to appropriately analyze and interpret the results. You need to know the context of the data, so it's important that you understand the basics of the study designs.
 
-For cohorts, both the study design and the types of the measured variables influence how you analyze your data. For instance, retrospective cohorts tend to have imprecise measures, so you have to be very cautious about interpretation. Also, some measures may be abstractions of a physiological process, like exposure, and transforming the variable will create more meaningful and interpretable results. This also means there are many ways of analyzing cohort datasets.
+For cohorts, both the study design and the types of the measured variables influence how you analyze your data. 
+
+For instance, retrospective cohorts tend to have imprecise measures because of how and what data is collected, such as from questionnaires or medical forms. So when interpreting your results you'll have to be extra cautious. Or, some measures may be abstractions of a physiological process and applying some mathematical transformation may create more meaningful and interpretable results. This means there are many ways of analyzing cohort datasets. We'll get into these concepts in more detail as we go through the course.
 
 
 ---
@@ -139,7 +143,7 @@ key: "6fa4470529"
 ```
 
 `@part1`
-![Original Framingham Heart Study publication. PubMedID: PMC1525365.](http://s3.amazonaws.com/assets.datacamp.com/production/repositories/2079/datasets/fb4a5797d1d3f1ea761ce274b23248e606775bf0/framingham-study.png)
+![Original Framingham Heart Study publication. PubMedID: PMC1525365.](https://assets.datacamp.com/production/repositories/2079/datasets/fb4a5797d1d3f1ea761ce274b23248e606775bf0/framingham-study.png)
 
 
 `@part2`
@@ -159,7 +163,7 @@ framingham
 
 
 `@script`
-We will be working with the Framingham Heart Study dataset. This study started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first widely recognized because of the results of this study. There are about 4400 participants, with data collected a max of 3 times over 15 years of follow-up, so this is a great dataset to use to practice how to analyze cohorts. You'll notice that it is a "tibble" rather than a dataframe. Please note, we will be making heavy use of the tidyverse throughout the course and expect you to be fairly familiar with it.
+We will be working with the Framingham Heart Study dataset. This study started in the 1950s to investigate and establish the role of lifestyle on cardiovascular disease. Many health tips, such as being physically active, eating healthy foods, and not smoking, were first widely recognized because of the results of this study. There are about 4400 participants, with data collected a max of 3 times on the participants over the course of 15 years. This makes it a great dataset to practice on for analyzing cohorts. You'll notice that the data is a "tibble", which comes from the tidyverse. We make heavy use of the tidyverse throughout the course so we recommend that you familiarize yourself with it a bit.
 
 
 ---
