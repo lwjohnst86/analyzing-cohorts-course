@@ -1,75 +1,9 @@
 # Analyzing Cohort Data in R by Luke Johnston
 
-## Course Development timeline (as of July 20, 2018)
+This repository contains the files used by DataCamp to generate their online and 
+interactive course content.
 
-As agreed with your [Content Developer](https://github.com/datacamp/courses-analyzing-cohort-data-in-r/issues/28), the schedule of intermediate deadlines to be respected is included in this delivery schedule:
-
-- Chapter 1: July 31 - 3 weeks
-- Chapter 2: September 13 - 2 weeks
-- Chapter 3: September 27 - 2 weeks
-- Chapter 4: October 11 - 2 weeks
-- Screencasts + Pre-recording review: October 25 - 2 weeks
-- Recording + soft launch: November 15 - 2 weeks
-
-While the specific dates may differ compared to your Content License Agreement with DataCamp, the expected time from course specs completion to course content completion remains the same, if not more conservative.
-
-With you having agreed to this delivery schedule, your Content Developer - and by extension, the entire DataCamp team - will fully commit to helping you achieve it. If you anticipate any delay in meeting the delivery schedule, you should contact your Content Developer as soon as possible. Failing to make your Content available to us according to the delivery schedule will constitute a material breach in your Content License Agreement with DataCamp, and DataCamp will terminate the Agreement without any further payment obligations.
-
-## Course development resources
-
-* Course admin page: https://www.datacamp.com/teach/repositories/2079
-* Authoring documentation: https://authoring.datacamp.com
-
-*Please read the [example course specs][course-specs] and complete these steps
-in the `README.md` file in your course repository. If you need assistance,
-please speak with your Curriculum Lead.*
-
-## Step 1: Brainstorming
-
-1. What problem(s) will students learn how to solve?
-    - Primary problems:
-        - identifying the type of analysis to use for the specific type of cohort data
-        - how to appropriately and meaningfully interpret and present these results
-    - Secondary problems:
-        - how to check that data fits your assumptions about it (assertr maybe?
-        exploratory data analysis?)
-        - how to plot results from regression models (pointrange)
-2. What techniques or concepts will students learn?
-    - regression to specific data (logistic for disease states, mixed effects?)
-    - how to display results in tabular format (use rmarkdown? other packages to
-    convert to table)
-    - how to transform data and backtransform to calculate meaningful and
-    understandable results
-    - understanding the importanace of visualization to convey meaning to
-    reader/consumer of your results
-    - how to choose the appropriate visual/plot for the analysis
-    - when to use visuals (preferable) and when to use text/tables
-    - emphasize estimation and confidence (uncertainty) interval over
-    significance testing
-    - prospective vs retrospective (and the types of analyses you can do)
-    - cohort study designs
-3. What technologies, packages, or functions will students use?
-    - regression (linear, logistic, cox, mixed effect?)
-    - packages: ggplot, lme4?
-    - statistics: glm, binomial, gaussian, poisson, cox models, survival
-4. What terms or jargon will you define?
-    - prospective/retrospective
-    - panel study, longitudinal study
-    - incidence, prevalence
-    - odds ratio, relative risk, hazard ratio
-5. What analogies or heuristics will you use?
-    - ?
-6. What mistakes or misconceptions do you expect?
-    - misinterpreting results (this is common even by scientists)
-    - not catching data error issues
-    - presenting regression results as tables (a common practice in epidemiology
-    unfortunately)
-    - too much emphasis on p-values rather than estimation and uncertainty
-    - not understanding probability/p-values
-7. What datasets will you use?
-    - Framingham Heart Study
-
-## Step 2: Who is this course for?
+## Learner persona
 
 Link to [student profiles][profile-site]. This course will be useful to two
 learners, and possibly a third (dependent on field of study):
@@ -91,12 +25,7 @@ sections with the code to analyze and interpret the cohort data useful. If he wa
 in any biomedical or health sciences graduate programs, he would find this course
 very useful.
 
-## Step 3: What will learners do along the way?
-
-- See exercises found in chapters [1](chapter1-notes.Rmd), [2](chapter2-notes.Rmd),
-[3](chapter3-notes.Rmd), and [4](chapter4-notes.Rmd).
-
-## Step 4: How are the concepts connected?
+## General course outline
 
 - Chapter 1: Introduction to cohorts and types of research questions
     - Lesson 1: Introduction to cohort designs
@@ -117,11 +46,9 @@ very useful.
     - Lesson 3: Communicating your results through graphs
     - Lesson 4: Using tables to convey your findings
 
-The dataset is:
+The dataset used is:
 
 - `framingham`: Framingham Heart Study.
-
-## Step 5: Course overview
 
 ### Course Description
 
@@ -203,5 +130,4 @@ have meaningful clinical implications.
 - [Hierarchical and Mixed Effects Models](https://www.datacamp.com/courses/hierarchical-and-mixed-effects-models)
 - [Network Analysis in R](https://www.datacamp.com/courses/network-analysis-in-r)
 
-[course-specs]: https://github.com/datacamp/example-course-specs
 [profile-site]: https://github.com/datacamp/learner-profiles
