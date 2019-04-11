@@ -46,7 +46,7 @@ tidier_framingham <- framingham %>%
         followup_visit_number = period
     )
 
-save(tidier_framingham, file = here::here("datasets/framingham_tidier.rda"))
+saveRDS(tidier_framingham, file = here::here("datasets/tidier_framingham.rds"))
 
 tidier2_framingham <- tidier_framingham %>%
     mutate(
@@ -69,14 +69,14 @@ tidier2_framingham <- tidier_framingham %>%
         "Post-Secondary" = "Vocational"
         ))
 
-saveRDS(tidier2_framingham, file = here::here("datasets/tidier2_framingham.Rds"))
+saveRDS(tidier2_framingham, file = here::here("datasets/tidier2_framingham.rds"))
 
 invert <- function(x) 1 / x
 transformed_framingham <- tidier2_framingham %>%
     mutate_at(vars(body_mass_index, cigarettes_per_day),
-              funs(invert, log, sqrt))
+              list(invert = invert, log = log, sqrt = sqrt))
 
-saveRDS(transformed_framingham, file = here::here("datasets/transformed_framingham.Rds"))
+saveRDS(transformed_framingham, file = here::here("datasets/transformed_framingham.rds"))
 
 # For chapter 3 -----------------------------------------------------------
 

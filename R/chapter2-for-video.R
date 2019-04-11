@@ -39,8 +39,7 @@ ggsave(here::here("datasets/ch2-v1-two-histograms.png"), p, dpi = 90,
 p <- tidier_framingham %>%
     mutate(got_cvd = as.character(got_cvd)) %>%
     ggplot(aes(x = got_cvd,
-               y = body_mass_index,
-               colour = got_cvd)) +
+               y = body_mass_index)) +
     geom_boxplot()
 ggsave(here::here("datasets/ch2-v1-boxplot.png"), p, dpi = 90,
        width = 4, height = 4, device = "png")
@@ -92,7 +91,7 @@ tidier_framingham %>%
 invert <- function(x) 1 / x
 transformed <- tidier2_framingham %>%
     mutate_at(vars(body_mass_index, heart_rate),
-              funs(scale, log, invert))
+              list(scale = scale, log = log, invert = invert))
 
 ## Variable names
 transformed %>%

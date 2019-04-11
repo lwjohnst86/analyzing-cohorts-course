@@ -103,7 +103,8 @@ summary(full_model)
 model_selection <- dredge(full_model, rank = "AIC",
                           subset = "total_cholesterol_scaled")
 
-head(model_selection, 5)
+as.data.frame(model_selection) %>%
+    head(3)
 
 # Video 3, interaction form -----------------------------------------------
 
